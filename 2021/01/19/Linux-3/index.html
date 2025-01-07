@@ -1,37 +1,570 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Linux 常用命令1. vim dd 删除一整行，下一行提上来；D删除一整行，光标在行头 S删除一整行并插入，相当于D+i；s 删除当前位置的字符并插入 I 到行首插入；i 在当前光标位置插入 :set nu 行号；:set nonu 取消行号 J 合并当前行和下一行 ctrl+f 向下翻页 ctrl+b 向上翻页 n 向下查找匹配项 N 向上查找匹配项  2. 端口2.1 lsof&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 常用命令">
+<meta property="og:url" content="https://mxxct4git.github.io/2021/01/19/Linux-3/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Linux 常用命令1. vim dd 删除一整行，下一行提上来；D删除一整行，光标在行头 S删除一整行并插入，相当于D+i；s 删除当前位置的字符并插入 I 到行首插入；i 在当前光标位置插入 :set nu 行号；:set nonu 取消行号 J 合并当前行和下一行 ctrl+f 向下翻页 ctrl+b 向上翻页 n 向下查找匹配项 N 向上查找匹配项  2. 端口2.1 lsof&#x3D;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-01-19T12:49:56.000Z">
+<meta property="article:modified_time" content="2021-01-19T12:49:58.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2021/01/19/Linux-3/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Linux 常用命令 | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2021/01/19/Linux-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 常用命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-19 20:49:56 / Modified: 20:49:58" itemprop="dateCreated datePublished" datetime="2021-01-19T20:49:56+08:00">2021-01-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/01/19/Linux-3/" class="post-meta-item leancloud_visitors" data-flag-title="Linux 常用命令" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/01/19/Linux-3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/19/Linux-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Linux-常用命令"><a href="#Linux-常用命令" class="headerlink" title="Linux 常用命令"></a>Linux 常用命令</h2><h3 id="1-vim"><a href="#1-vim" class="headerlink" title="1. vim"></a>1. vim</h3><ol>
+<li>dd 删除一整行，下一行提上来；D删除一整行，光标在行头</li>
+<li>S删除一整行并插入，相当于D+i；s 删除当前位置的字符并插入</li>
+<li>I 到行首插入；i 在当前光标位置插入</li>
+<li>:set nu 行号；:set nonu 取消行号</li>
+<li>J 合并当前行和下一行</li>
+<li>ctrl+f 向下翻页</li>
+<li>ctrl+b 向上翻页</li>
+<li>n 向下查找匹配项</li>
+<li>N 向上查找匹配项</li>
+</ol>
+<h3 id="2-端口"><a href="#2-端口" class="headerlink" title="2. 端口"></a>2. 端口</h3><h4 id="2-1-lsof-list-open-files"><a href="#2-1-lsof-list-open-files" class="headerlink" title="2.1 lsof&#x3D;list open files"></a>2.1 lsof&#x3D;list open files</h4><p>lsof -i:3306</p>
+<h4 id="2-1-netstat"><a href="#2-1-netstat" class="headerlink" title="2.1 netstat"></a>2.1 netstat</h4><p>netstat -anu&#x2F;-ant</p>
+<p>-a 全部<br>-n 显示ip，不是域名<br>-t tcp协议<br>-u udp协议<br>-l或–listening 显示监控中的服务器的Socket<br>-p或–programs 显示正在使用Socket的程序识别码和程序名称</p>
+<p>查看网络连接状况<br>netstat -an</p>
+<p>如何统计系统当前进程连接数<br>netstat -an | grep ESTABLISHED | wc -l</p>
+<p>用 netstat 命令配合其他命令，按照源 IP 统计所有到 80 端口的 ESTABLISHED 状态链接的个数<br>netstat -an|grep ESTABLISHED|grep “:80”|awk ‘BEGIN{FS&#x3D;”[[:space:]:]+”}{print $4}’|sort|uniq -c|sort -nr</p>
+<h3 id="3-jvm相关的命令"><a href="#3-jvm相关的命令" class="headerlink" title="3. jvm相关的命令"></a>3. jvm相关的命令</h3><p><a href="https://blog.csdn.net/samyang1/article/details/80557619?utm_medium=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.wap_blog_relevant_pic&depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.wap_blog_relevant_pic">参考文档</a></p>
+<ol>
+<li>jps：显示系统内所有的jvm进程</li>
+<li>jstat：收集jvm相关的运行数据</li>
+<li>jinfo：显示jmv配置信息</li>
+<li>jmap：用于生成jvm的快照</li>
+<li>jhat：用于分析heapdump文件，可以建立一个http&#x2F;html服务，在浏览器上查看分析结果</li>
+<li>jstack：显示jvm的线程快照</li>
+<li>jconsole： 一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM</li>
+</ol>
+<p>jcmd 替换 jmap<br>jcmd pid help 查看可以支持的一些option选项<br>jcmd pid </p>
+<h3 id="4-find"><a href="#4-find" class="headerlink" title="4. find"></a>4. find</h3><p>查找指定文件名的文件（不区分大小写）<br>find -iname “xxx”</p>
+<p>对找到的文件执行某个命令<br>find -iname “xxx” -exec md5sum {} \</p>
+<p>查找home目录下所有空文件<br>find ~ -empty</p>
+<p>在&#x2F;usr目录下找出大小超过10M的文件<br>find &#x2F;usr -type f -size +10240k</p>
+<p>在&#x2F;var目录下找出90天之内未被访问过的文件<br>find &#x2F;var ! -atime -90</p>
+<p>在&#x2F;home目录下找出120天之前被修改过的文件<br>find &#x2F;home -mtime +120</p>
+<p>在整个目录树下查找文件，如果发现直接删除<br>find &#x2F; -name “xxx” -exec rm {} \</p>
+<h3 id="5-du"><a href="#5-du" class="headerlink" title="5. du"></a>5. du</h3><p>找出磁盘上占空间大的文件或文件夹<br>du -a &#x2F;var | sort -n -r | head -n 10</p>
+<h3 id="6-ls-ll"><a href="#6-ls-ll" class="headerlink" title="6. ls&#x2F;ll"></a>6. ls&#x2F;ll</h3><p>按照最后修改时间升序列出文件<br>ll -tr 或者 ls -ltr</p>
+<h3 id="7-rsync"><a href="#7-rsync" class="headerlink" title="7. rsync"></a>7. rsync</h3><p>每周一下午3点定时将 &#x2F;tmp&#x2F;logs 目录下所有后缀为 <em>.log 的文件同步到备份服务器同样的目录下<br>crontab -e<br>0 15 * * 1 rsync -avzp &#x2F;tmp&#x2F;logs&#x2F;</em>.log root@ip:&#x2F;tmp&#x2F;logs</p>
+<h3 id="8-top"><a href="#8-top" class="headerlink" title="8. top"></a>8. top</h3><p>实时监控系统的cpu和内存，3s刷新一次</p>
+<p>包含了前面好几个命令的检查的内容。比如系统负载情况（uptime）、系统内存使用情况（free）、系统 CPU 使用情况（vmstat）等</p>
+<h3 id="9-free"><a href="#9-free" class="headerlink" title="9. free"></a>9. free</h3><p>查看内存大小，使用多少，剩余多少</p>
+<h3 id="10-less"><a href="#10-less" class="headerlink" title="10. less"></a>10. less</h3><p>打开大文件，vi 会卡，less可以在不加载整个文件的前提下显示文件内容</p>
+<p>ctrl+f 上页<br>ctrl+b 下页<br>命令和vi类似</p>
+<h3 id="11-grep"><a href="#11-grep" class="headerlink" title="11. grep"></a>11. grep</h3><p>统计文件中包含匹配项的行数<br>grep -c “xxx” file</p>
+<p>列出包含匹配项的文件名称<br>grep -l “xxx” file1 file2 file3</p>
+<p>正则匹配<br>grep -E “[1-9]+” file</p>
+<p>匹配多个内容<br>grep -e “xx” -e “xxxx” file</p>
+<h3 id="12-sed"><a href="#12-sed" class="headerlink" title="12. sed"></a>12. sed</h3><p>用 sed 命令将指定的路径 &#x2F;usr&#x2F;local&#x2F;http 替换成为 &#x2F;usr&#x2F;src&#x2F;local&#x2F;http<br>echo “&#x2F;usr&#x2F;local&#x2F;http” | sed ‘s#&#x2F;usr&#x2F;local&#x2F;http#&#x2F;usr&#x2F;src&#x2F;local&#x2F;http#’</p>
+<p>echo ‘&#x2F;a’ | sed -e ‘s&#x2F;/&#x2F;x&#x2F;g’ -e ‘s&#x2F;a&#x2F;y&#x2F;g’<br>等价于<br>echo ‘&#x2F;a’ | sed ‘s&#x2F;/a&#x2F;xy&#x2F;g’</p>
+<blockquote>
+<p># 貌似是把一些特殊字符的转义给省略了。方便直接去做替换</p>
+</blockquote>
+<p>打印 &#x2F;etc&#x2F;ssh&#x2F;sshd_config 的第一百行<br>sed -n ‘100p’ &#x2F;etc&#x2F;ssh&#x2F;sshd_config</p>
+<p>打印第1到3行<br>sed -n ‘1,3p’ &#x2F;etc&#x2F;passwd</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dateTime=$(<span class="built_in">date</span> +%Y%m%d_%H%M%S);</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">curl url &gt; <span class="variable">$dateTime</span>.txt</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">t1=$(sed -n <span class="string">&#x27;196p&#x27;</span> <span class="variable">$dateTime</span>.txt | sed <span class="string">&#x27;s/[[:space:]]//g&#x27;</span>);</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">t2=$(sed -n <span class="string">&#x27;205p&#x27;</span> <span class="variable">$dateTime</span>.txt | sed <span class="string">&#x27;s/[[:space:]]//g&#x27;</span>);</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> <span class="variable">$dateTime</span> Memory Used: <span class="variable">$t1</span> -- VCores Used: <span class="variable">$t2</span> &gt;&gt; monitor4yarn.txt</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">rm</span> -r <span class="variable">$dateTime</span>.txt</span></span><br><span class="line"></span><br><span class="line">t1=1.07TB</span><br><span class="line">unit=$&#123;t1:0-2&#125;;</span><br><span class="line">val=$(echo $&#123;t1&#125; | sed &quot;s/$&#123;unit&#125;//g&quot;);</span><br><span class="line">newVal=$(echo &quot;scale=2;$&#123;val&#125;*1024&quot;|bc)</span><br><span class="line">if [ $unit == &quot;TB&quot; ]</span><br><span class="line">then t1=$&#123;newVal&#125;&quot;GB&quot;</span><br><span class="line">fi </span><br><span class="line">echo $t1</span><br></pre></td></tr></table></figure>
+
+<h3 id="13-awk"><a href="#13-awk" class="headerlink" title="13. awk"></a>13. awk</h3><p>打印第1到3行<br>awk ‘NR&gt;&#x3D;1&amp;&amp;NR&lt;&#x3D;3{print $0}’ &#x2F;etc&#x2F;passwd</p>
+<p>awk 可以把文件行内容通过分隔符来划分成不同的域，用 $1 $2 表示，$0 表示整行内容</p>
+<h3 id="14-xargs"><a href="#14-xargs" class="headerlink" title="14. xargs"></a>14. xargs</h3><p>将所有图片文件拷贝到外部驱动器<br>ls *.jpg | xargs -n1 -i cp {} &#x2F;external-hard-drive&#x2F;directory</p>
+<p>将系统中所有 jpg 文件压缩打包<br>find &#x2F; -name *.jpg -type f -print | xargs tar -cvzf images.tar.gz</p>
+<p>下载文件中列出的所有 url 对应的页面<br>cat url-list.txt | xargs wget –c</p>
+<p>把当前目录下所有后缀名为 .txt 的文件的权限修改为 777<br>find .&#x2F; -type f -name “<em>.txt” |xargs chmod 777<br>find .&#x2F; -type f -name “</em>.txt” -exec chmod 777 {}</p>
+<h3 id="15-man"><a href="#15-man" class="headerlink" title="15. man"></a>15. man</h3><p>显示某个命令的帮助手册<br>man crontab</p>
+<p>一个命令也许有好几个man页面，可以先通过 whatis xx 查看命令 xx 有哪些类型，然后通过 man selectNumber xx 查看对应类型号的命令xx的man页面</p>
+<h3 id="16-curl"><a href="#16-curl" class="headerlink" title="16. curl"></a>16. curl</h3><p>ping 测试某个地址能否连接，curl 测试某个url是否可以访问</p>
+<h3 id="17-shell-脚本"><a href="#17-shell-脚本" class="headerlink" title="17. shell 脚本"></a>17. shell 脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if 条件</span><br><span class="line">then 命令1</span><br><span class="line">else</span><br><span class="line">if 条件</span><br><span class="line">then 命令2</span><br><span class="line">else</span><br><span class="line">命令3</span><br><span class="line">fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>大于 -gt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">case 变量 in </span><br><span class="line">值1)</span><br><span class="line">命令1</span><br><span class="line">;;</span><br><span class="line">值2)</span><br><span class="line">命令2</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for 变量 in item1 itme2 ... itemN</span><br><span class="line">do</span><br><span class="line">命令</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while 条件</span><br><span class="line">do</span><br><span class="line">命令</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="18-如何将标准输出和错误输出同时重定向到同一位置"><a href="#18-如何将标准输出和错误输出同时重定向到同一位置" class="headerlink" title="18. 如何将标准输出和错误输出同时重定向到同一位置"></a>18. 如何将标准输出和错误输出同时重定向到同一位置</h3><p>2&gt;&amp;1<br>ls &#x2F;usr&#x2F;share&#x2F;doc &gt; out.txt 2&gt;&amp;1</p>
+<p>&amp;&gt;<br>ls &#x2F;usr&#x2F;share&#x2F;doc &amp;&gt; out.txt</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/28/Interview-1/" rel="prev" title="Interview-1">
+      <i class="fa fa-chevron-left"></i> Interview-1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/18/ck-1%20%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7/" rel="next" title="ClickHouse笔记-尚硅谷">
+      ClickHouse笔记-尚硅谷 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">Linux 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-vim"><span class="nav-number">1.1.</span> <span class="nav-text">1. vim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">2. 端口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-lsof-list-open-files"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 lsof&#x3D;list open files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-netstat"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.1 netstat</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-jvm%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">3. jvm相关的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-find"><span class="nav-number">1.4.</span> <span class="nav-text">4. find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-du"><span class="nav-number">1.5.</span> <span class="nav-text">5. du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-ls-ll"><span class="nav-number">1.6.</span> <span class="nav-text">6. ls&#x2F;ll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-rsync"><span class="nav-number">1.7.</span> <span class="nav-text">7. rsync</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-top"><span class="nav-number">1.8.</span> <span class="nav-text">8. top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-free"><span class="nav-number">1.9.</span> <span class="nav-text">9. free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-less"><span class="nav-number">1.10.</span> <span class="nav-text">10. less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-grep"><span class="nav-number">1.11.</span> <span class="nav-text">11. grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-sed"><span class="nav-number">1.12.</span> <span class="nav-text">12. sed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-awk"><span class="nav-number">1.13.</span> <span class="nav-text">13. awk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-xargs"><span class="nav-number">1.14.</span> <span class="nav-text">14. xargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-man"><span class="nav-number">1.15.</span> <span class="nav-text">15. man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-curl"><span class="nav-number">1.16.</span> <span class="nav-text">16. curl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-shell-%E8%84%9A%E6%9C%AC"><span class="nav-number">1.17.</span> <span class="nav-text">17. shell 脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-%E5%A6%82%E4%BD%95%E5%B0%86%E6%A0%87%E5%87%86%E8%BE%93%E5%87%BA%E5%92%8C%E9%94%99%E8%AF%AF%E8%BE%93%E5%87%BA%E5%90%8C%E6%97%B6%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0%E5%90%8C%E4%B8%80%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.18.</span> <span class="nav-text">18. 如何将标准输出和错误输出同时重定向到同一位置</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

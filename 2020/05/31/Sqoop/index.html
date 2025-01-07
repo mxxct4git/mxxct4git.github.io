@@ -1,37 +1,548 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Sqoop源码解析org.apache.sqoop 文件夹  参考文档：  https:&#x2F;&#x2F;blog.csdn.net&#x2F;omadesala&#x2F;article&#x2F;details&#x2F;48368163   1. 启动 Sqoop 类下的 main() 方法: 如果没有参数，返回 “sqoop help’ for usage.” 并终止。如果有参数，调用 runTool(args, new Configurat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sqoop源码解析">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/05/31/Sqoop/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Sqoop源码解析org.apache.sqoop 文件夹  参考文档：  https:&#x2F;&#x2F;blog.csdn.net&#x2F;omadesala&#x2F;article&#x2F;details&#x2F;48368163   1. 启动 Sqoop 类下的 main() 方法: 如果没有参数，返回 “sqoop help’ for usage.” 并终止。如果有参数，调用 runTool(args, new Configurat">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-05-31T04:09:00.000Z">
+<meta property="article:modified_time" content="2020-08-21T09:33:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Sqoop">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/05/31/Sqoop/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Sqoop源码解析 | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/05/31/Sqoop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Sqoop源码解析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-31 12:09:00" itemprop="dateCreated datePublished" datetime="2020-05-31T12:09:00+08:00">2020-05-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-21 17:33:00" itemprop="dateModified" datetime="2020-08-21T17:33:00+08:00">2020-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Sqoop/" itemprop="url" rel="index"><span itemprop="name">Sqoop</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/05/31/Sqoop/" class="post-meta-item leancloud_visitors" data-flag-title="Sqoop源码解析" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/05/31/Sqoop/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/31/Sqoop/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Sqoop源码解析"><a href="#Sqoop源码解析" class="headerlink" title="Sqoop源码解析"></a>Sqoop源码解析</h2><p>org.apache.sqoop 文件夹</p>
+<blockquote>
+<p>参考文档：</p>
+<ol>
+<li><a href="https://blog.csdn.net/omadesala/article/details/48368163">https://blog.csdn.net/omadesala/article/details/48368163</a></li>
+</ol>
+</blockquote>
+<h3 id="1-启动"><a href="#1-启动" class="headerlink" title="1. 启动"></a>1. 启动</h3><ul>
+<li>Sqoop 类下的 main() 方法: 如果没有参数，返回 “sqoop help’ for usage.” 并终止。如果有参数，调用 runTool(args, new Configuration())<ul>
+<li>runTool(args, new Configuration()): 主要任务是负责解析参数<ul>
+<li>尝试调用 OptionsFileUtil 类下的 expandArguments(String[] args) 方法<ul>
+<li>expandedArgs &#x3D; OptionsFileUtil.expandArguments(args); 遍历所有参数，如果有 “–options-file” 这个参数，就打开指定的脚本文件（保存要执行语句的参数和值），先过滤掉 # 开头的注释部分，然后判断 \ 结尾、’ 、 “ 开头，依次过滤掉这些情况，将最后的参数加入 options[] 中；否则就将参数直接添加到 options[] 中。最终返回结果为 (String[])options.toArray(new String[options.size()]) 。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>expandArguments() 返回的结果保存在 expandedArgs[] 中，String toolName &#x3D; expandedArgs[0] 第一个位置的参数就是 sqoop 语句要使用的功能（export，import等）</li>
+<li>通过 Configuration pluginConf &#x3D; SqoopTool.loadPlugins(conf); 返回 sqoop 所有 tool 以及对应的配置信息。</li>
+<li>调用 SqoopTool 类下的 getTool(String toolName) 方法，会从 Map&lt;String, Class&lt;? extends SqoopTool&gt;&gt; TOOLS 这个里面来读取具体使用的 tool 的类信息，创建一个实例，返回一个 SqoopTool</li>
+<li>调用 runSqoop(sqoop, (String[])Arrays.copyOfRange(expandedArgs, 1, expandedArgs.length)); sqoop 是传入 tool 和 pluginConf 创建的一个 Sqoop 实例；将 tool 之后的所有参数传递出去。 eg: sqoop export –connect … expandedArgs&#x3D;[“export”,”–connect”,…] export 就是 tool</li>
+<li>调用 ToolRunner.run(sqoop.getConf(), sqoop, toolArgs); 方法执行。由于 Tool 是一个抽象类，run() 方法被 Sqoop 重写，所以最终调用的方法还是 Sqoop 类下的 run() 方法<ul>
+<li>通过 Parser 类下的 parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption) 方法对一些普遍的option进行解析，比如 <code>-fs &lt;local|namenode:port&gt;      specify a namenode</code> <code>-jt &lt;local|resourcemanager:port&gt;    specify a ResourceManager</code> <code>-D &lt;property=value&gt;            use value for given property</code> 等等</li>
+</ul>
+</li>
+<li>调用 SqoopTool 类下的 parseArguments(String[] args, Configuration conf, SqoopOptions in, boolean useGenericOptions) 方法来解析参数。此时的 tool 指向的是具体的功能，import、export 等，调用的方法都在对应的类下: tool 包下有对应的所有的功能文件。在判断完参数是完整的情况下，最后执行的 run() 方法也是在对应功能文件下的 run() 方法。<br>  — 以 ExportTool 为例，在执行 run() 方法时，会回调父类 BaseSqoopTool 类下的 init(SqoopOptions sqoopOpts) 方法，来生成一个 ConnManager 实例，用来管理连接信息。通过 this.codeGenerator.generateORM(options, tableName); 来将表结构对应的 java 类写入 jar 文件，这个 jar 文件和其他 options 会构造出一个 ExportJobContext 对象，根据 –update_mode 参数来决定更新方式<ul>
+<li>通过调用 orm 包下的 ClassWriter 类的 ClassWriter(SqoopOptions opts, ConnManager connMgr, String table, CompilationManager compMgr) 方法，和 generate() 方法来生成一个 .java 文件，路径保存在 orm 包下的 CompilationManager 类的对象中，再经过 compile() 和 jar() 方法来打包生成 表名.jar 文件。</li>
+<li>在 SqoopOptions 类下会保存目标表的所有字段，针对字段会做一个过滤，是否等于 java 保留关键字，如果等于就用在前面加一个 _。</li>
+</ul>
+</li>
+<li>数据库的连接方法基类抽象类在 manager 包下的 ConnManager 文件里，主要包括 1.MainFrameManager——连接主机 2.SqlManager——连接各种支持JDBC连接的数据库<br>  Sqlmanager 类下在获取到参数后，会先尝试连接一下数据库，执行一个 select t.* from XX as t limit 1 的语句</li>
+<li>mysql 和 hadoop 连接的时候使用的是 SqlManager 类，如果是 import 调用的是 importTable 方法，如果是 export 调用的是 exportTable 方法。根据生成的 ExportJobContext 上下文实例，执行 runExport() 方法，调用的是 mapreduce 包下的 ExportJobBase 类的方法。</li>
+<li>配置好 job 相关信息，执行 runJob(job) 方法。<ul>
+<li>在 hive export to mysql 时，如果字段还有特殊字符，可能会出现因为切分数据而导致数据错位导致推数失败的情况。如果要对 hive 表中的数据进行处理的话，需要在 mapreduce 包下找到对应的 mapper 类（根据 hive 表类型划分为 TextExportMapper、ParquetMapper、SequenceFileMapper 等）</li>
+</ul>
+</li>
+<li>具体解析参数是在 SqoopParser 类下的 processArgs(Option opt, ListIterator iter) 方法</li>
+</ul>
+</li>
+</ul>
+<p>sqoopTool：sqoop具体的工具类</p>
+<p>Hive 用增量<br>采集、建模需要固定的时间段，昨天9点到今天9点，限制住时间，或者要先获取到上次执行时间，再算上这次的执行时间。建模无法获取上次的执行时间，如果固定时间间隔，如果报错后续处理，比如垮天了，或者白天执行作业的时候就会很麻烦。<br>Hive不支持删除数据，对于不要的数据只能全量执行，不管是采集还是建模。<br>如果业务那边有一个base_table，每天的一个增量表，可以做成拉链表。燃气设备是做成了拉链表，是在源头做的，不是在hive</p>
+<p>kpi 是增量插入一天一条，但是如果存在回补历史数据或者修正历史数据，比如某一天的数据就很麻烦</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+              <a href="/tags/Sqoop/" rel="tag"># Sqoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/24/Hive-6/" rel="prev" title="Hive 建模">
+      <i class="fa fa-chevron-left"></i> Hive 建模
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/14/IO/" rel="next" title="Java IO相关使用">
+      Java IO相关使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sqoop%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">Sqoop源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%90%AF%E5%8A%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1. 启动</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

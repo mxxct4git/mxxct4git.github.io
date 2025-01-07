@@ -1,23 +1,1196 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta name="description" content="君子不器">
+<meta property="og:type" content="website">
+<meta property="og:title" content="猫熊小才天の书院">
+<meta property="og:url" content="https://mxxct4git.github.io/page/19/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="君子不器">
+<meta property="og:locale">
+<meta property="article:author" content="Mxxct">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/page/19/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/14/Python-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/14/Python-1/" class="post-title-link" itemprop="url">Python爬虫</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-14 08:45:29" itemprop="dateCreated datePublished" datetime="2018-12-14T08:45:29+08:00">2018-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/14/Python-1/" class="post-meta-item leancloud_visitors" data-flag-title="Python爬虫" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/14/Python-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/Python-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Python爬虫"><a href="#Python爬虫" class="headerlink" title="Python爬虫"></a>Python爬虫</h2><blockquote>
+<p> 以爬取豆瓣电影评价为例 </p>
+</blockquote>
+<h3 id="1-准备header"><a href="#1-准备header" class="headerlink" title="1.准备header"></a>1.准备header</h3><pre><code>def get_header(movie_id):
+	UserAgent_List = [
+        &quot;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2226.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2224.3 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 4.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2117.157 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1866.237 Safari/537.36&quot;,
+	]
+	header = &#123;
+        &#39;User-agent&#39;: random.choice(UserAgent_List),
+        &#39;Host&#39;: &#39;movie.douban.com&#39;,
+        &#39;Referer&#39;: &#39;https://movie.douban.com/subject/&#39; + movie_id + &#39;/?from=showing&#39;,
+	&#125;
+    &#39;&#39;&#39;
+    HTTP来源地址（referer，或 HTTP referer）是HTTP表头的一个字段，用来表示从哪儿链接到目前的网页，采用的格式是URL。
+    换句话说，借着HTTP来源地址，目前的网页可以检查访客从哪里而来，这也常被用来对付伪造的跨网站请求。
+    &#39;&#39;&#39;
+    time.sleep(random.randint(5, 15))  # 增加随机等待时间，防止速度太快被封
+    return header
+</code></pre>
+<h3 id="2-初始化url"><a href="#2-初始化url" class="headerlink" title="2.初始化url"></a>2.初始化url</h3><pre><code>def get_url(movie_id):
+    base_url = &#39;https://movie.douban.com/subject/&#39;
+    url = base_url + movie_id + &#39;/comments?status=P&#39;
+    return url
+</code></pre>
+<h3 id="3-开始爬取页面"><a href="#3-开始爬取页面" class="headerlink" title="3.开始爬取页面"></a>3.开始爬取页面</h3><pre><code>def start_spider(movie_id, url, header):
+    print(url)
+    cur_page = requests.get(url, header, timeout=8)
+    if cur_page.status_code == 200:  # 当成功获取到网页连接时
+        soup = BeautifulSoup(cur_page.text, &#39;html5lib&#39;,
+                             from_encoding=&#39;utf-8&#39;)  # 指定使用哪种解析器: 目前支持, lxml, html5lib, 和 html.parser
+        comment_block = soup.find_all(&#39;div&#39;, class_=&#39;comment-item&#39;)  # 找到所有的评论模块 包括头像和文本内容，头像用于获取用户主页，以便于查询用户信息
+        for comment in comment_block:
+            result_list = []
+            nick_name = comment.find(&#39;div&#39;, class_=&#39;avatar&#39;).a[&#39;title&#39;]
+            result_list.append(nick_name)
+            user_url = comment.find(&#39;div&#39;, class_=&#39;avatar&#39;).a[&#39;href&#39;]
+            result_list.append(user_url)
+            # print(nick_name)
+            # print(user_url)
+            user_list = spider_for_user(user_url, header) # 去获取评价对应的用户基本信息
+            result_list.extend(user_list)  # 在 result_list 之后续接 user_list
+            # print(user_list)
+            star_level = comment.find(&#39;span&#39;, class_=&#39;rating&#39;)
+            if star_level:
+                star_level = star_level[&#39;title&#39;]
+                if star_level == &#39;力荐&#39;:
+                    star = &#39;五星&#39;
+                elif star_level == &#39;推荐&#39;:
+                    star = &#39;四星&#39;
+                elif star_level == &#39;还行&#39;:
+                    star = &#39;三星&#39;
+                elif star_level == &#39;较差&#39;:
+                    star = &#39;二星&#39;
+                elif star_level == &#39;很差&#39;:
+                    star = &#39;一星&#39;
+                else:
+                    star = &#39;&#39;
+            else:
+                star = &#39;&#39;
+            result_list.append(star)
+            # print(star)
+            comment_time = comment.find(&#39;span&#39;, class_=&#39;comment-time &#39;).text.strip()
+            result_list.append(comment_time)
+            # print(comment_time)
+            comment_vote = comment.find(&#39;span&#39;, class_=&#39;votes&#39;)
+            if comment_vote:
+                comment_vote = comment_vote.text
+            else:
+                comment_vote = &#39;&#39;
+            result_list.append(comment_vote)
+            # print(comment_vote)
+            comment_content = comment.find(&#39;span&#39;, class_=&#39;short&#39;).text
+            result_list.append(comment_content)
+            # 清除标点符号，方便之后分词和词频统计
+            pattern = re.compile(r&#39;[\u4e00-\u9fa5]+&#39;)
+            filterdata = re.findall(pattern, comment_content)
+            cleaned_comment = &#39;&#39;.join(filterdata)
+            result_list.append(cleaned_comment)
+            # print(cleaned_comment)
+            # print(comment_content)
+            print(result_list)
+            # 创建并打开文件
+            with open(&quot;G:/movie.csv&quot;, mode=&quot;a+&quot;, encoding=&quot;utf-8-sig&quot;, newline=&#39;&#39;) as csvFile:
+				# encoding=&quot;utf-8-sig&quot; python3 中文编码
+                # 获得 writer对象 delimiter是分隔符 默认为 &quot;,&quot;
+                writer = csv.writer(csvFile)
+                # 调用 writer的 writerow方法将 test_writer_data写入 test_writer.csv文件
+                writer.writerow(result_list)
+        next_page = soup.find(&#39;a&#39;, class_=&#39;next&#39;)
+        if next_page:
+            tmp = next_page[&#39;href&#39;].strip().replace(&quot;&amp;amp;&quot;, &quot;&quot;).split(&quot;&amp;&quot;)[0].split(&quot;?&quot;)[
+                1]  # 先移除前后空格，再去除 &amp;amp;，再通过 &amp; 删除多余参数，再通过？只保留下start参数
+            # tmp = start=20
+            next_url = &#39;&#39;.join(tmp)
+        if next_url:
+            header = get_header(movie_id)
+            # print(url + &#39;&amp;&#39; + next_url)
+            start_spider(movie_id, url.split(&quot;&amp;&quot;)[0] + &#39;&amp;&#39; + next_url, header)
+</code></pre>
+<h3 id="4-爬取用户基本信息"><a href="#4-爬取用户基本信息" class="headerlink" title="4.爬取用户基本信息"></a>4.爬取用户基本信息</h3><pre><code>def spider_for_user(url, header):
+    user_list = []
+    user_page = requests.get(url, header, timeout=8)
+    if user_page.status_code == 200:  # 当成功获取到网页连接时
+        soup = BeautifulSoup(user_page.text, &#39;html5lib&#39;,
+                             from_encoding=&#39;utf-8&#39;)  # 指定使用哪种解析器: 目前支持, lxml, html5lib, 和 html.parser
+        user_info = soup.find(&#39;div&#39;, class_=&#39;basic-info&#39;)  # 找到用户基本信息模块
+        if user_info:
+            user_img = user_info.find(&#39;img&#39;, class_=&#39;userface&#39;)[&#39;src&#39;]
+            if user_img:
+                user_list.append(user_img)
+            else:
+                user_list.append(&quot;&quot;)
+            # print(user_img)
+            location = user_info.find(&#39;div&#39;, class_=&#39;user-info&#39;).a
+            if location:
+                location = location.text.strip()
+                user_list.append(location)
+            else:
+                user_list.append(&quot;&quot;)
+            # print(location.strip())
+            tmp_info = user_info.find(&#39;div&#39;, class_=&#39;pl&#39;)
+            if tmp_info:
+                user_name = tmp_info.text.split(&quot; &quot;)[0]
+                create_time = tmp_info.text.split(&quot; &quot;)[2].split(&quot;加入&quot;)[0]
+                if user_name:
+                    user_list.append(user_name)
+                else:
+                    user_list.append(&quot;&quot;)
+                if create_time:
+                    user_list.append(create_time)
+                else:
+                    user_list.append(&quot;&quot;)
+            else:
+                user_list.append(&quot;&quot;)
+                user_list.append(&quot;&quot;)
+                # tmp_info.text : lingrui1995  2012-08-07加入
+                # tmp_info.text.split(&quot; &quot;) : [&#39;lingrui1995&#39;, &#39;&#39;, &#39;2012-08-07加入&#39;]
+
+                # print(user_name)
+                # print(create_time)
+        else:
+            user_list.append(&quot;&quot;)
+            user_list.append(&quot;&quot;)
+            user_list.append(&quot;&quot;)
+            user_list.append(&quot;&quot;)
+    return user_list
+</code></pre>
+<h3 id="5-写入csv文件"><a href="#5-写入csv文件" class="headerlink" title="5.写入csv文件"></a>5.写入csv文件</h3><pre><code>if __name__ == &#39;__main__&#39;:
+
+    &#39;&#39;&#39;
+    movie_id = &#39;3878007&#39;
+    url = get_url(movie_id)
+    header = get_header(movie_id)
+    cookie = get_cookie()
+	# 先写入 csv 文件的第一行，也就是 head_list 信息
+    head_list = [&#39;昵称&#39;, &#39;用户首页&#39;, &#39;用户头像&#39;, &#39;地点&#39;, &#39;用户名称&#39;, &#39;注册时间&#39;, &#39;评分&#39;, &#39;评论时间&#39;, &#39;评论喜欢人数&#39;, &#39;评论内容&#39;, &#39;评论纯文本&#39;]
+    with open(&quot;G:/movie.csv&quot;, mode=&quot;w&quot;, encoding=&#39;utf-8-sig&#39;, newline=&#39;&#39;) as csvFile:
+        # encoding = &#39;utf-8-sig&#39; 是因为对于UTF-8编码，Excel要求BOM(字节顺序标记)写在文件的开始，否则它会假设这是ANSI编码
+        # newline = &#39;&#39; 保证文件在写入一行之后下一行不会有多余的空行
+        # mode
+        # r : 以只读模式打开（缺省模式）（必须保证文件存在）
+        # w : 以只写模式打开。若文件存在，则会自动清空文件，然后重新创建；若文件不存在，则新建文件。使用这个模式必须要保证文件所在目录存在，文件可以不存在。该模式下不能使用read*()方法。
+        # a : 以追加模式打开。若文件存在，则会追加到文件的末尾；若文件不存在，则新建文件。该模式不能使用read*()方法。
+        # 下面四个模式要和上面的模式组合使用
+        # &#39;b&#39;：以二进制模式打开
+        # &#39;t&#39;： 以文本模式打开（缺省模式）
+        # &#39;+&#39;：以读写模式打开
+        # &#39;U&#39;：以通用换行符模式打开
+        # 常见的mode组合
+        # &#39;r&#39; 或 &#39;rt&#39;： 默认模式，文本读模式
+        # &#39;w&#39; 或 &#39;wt&#39;： 以文本写模式打开（打开前文件会被清空）
+        # &#39;rb&#39;：以二进制读模式打开
+        # &#39;ab&#39;：以二进制追加模式打开
+        # &#39;wb&#39;：以二进制写模式打开（打开前文件会被清空）
+        # &#39;r+&#39;：以文本读写模式打开，可以写到文件任何位置；默认写的指针开始指在文件开头, 因此会覆写文件
+        # &#39;w+&#39;：以文本读写模式打开（打开前文件会被清空）。可以使用read * ()
+        # &#39;a+&#39;：以文本读写模式打开（写只能写在文件末尾）。可以使用read * ()
+        # &#39;rb+&#39;：以二进制读写模式打开
+        # &#39;wb+&#39;：以二进制读写模式打开（打开前文件会被清空）
+        # &#39;ab+&#39;：以二进制读写模式打开
+
+        # 获得 writer对象
+        writer = csv.writer(csvFile)
+        # 调用 writer的 writerow方法将 test_writer_data写入 test_writer.csv文件
+        writer.writerow(head_list)
+    start_spider(movie_id, url, header)
+    &#39;&#39;&#39;
+
+    with open(&quot;F:\PythonProjects\movie.csv&quot;, mode=&quot;r&quot;, encoding=&#39;utf-8-sig&#39;, newline=&#39;&#39;) as csvFile:
+        csv_reader = csv.reader(csvFile)
+        for row in csv_reader:
+            print(row)
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/11/DB-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/11/DB-1/" class="post-title-link" itemprop="url">关系型和非关系型数据库对比</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-11 15:40:29" itemprop="dateCreated datePublished" datetime="2018-12-11T15:40:29+08:00">2018-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataBase/" itemprop="url" rel="index"><span itemprop="name">DataBase</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/11/DB-1/" class="post-meta-item leancloud_visitors" data-flag-title="关系型和非关系型数据库对比" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/11/DB-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/11/DB-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="关系型数据库-Structured-Query-Language"><a href="#关系型数据库-Structured-Query-Language" class="headerlink" title="关系型数据库 Structured Query Language"></a>关系型数据库 Structured Query Language</h4><h5 id="1-优点"><a href="#1-优点" class="headerlink" title="1.优点"></a>1.优点</h5><ol>
+<li><p>事务处理时保持数据的一致性</p>
+<blockquote>
+<p>如果读取的过程中其他事务对数据有写入操作，查询出来的结果也依旧是读取开始前的状态，不会呈现修改后的结果。</p>
+</blockquote>
+</li>
+<li><p>以标准化为前提，数据更新的开销很小（相同字段基本上只有一处）</p>
+</li>
+<li><p>可以使用join等复杂查询</p>
+</li>
+</ol>
+<h5 id="2-缺点"><a href="#2-缺点" class="headerlink" title="2.缺点"></a>2.缺点</h5><ol>
+<li><p>扩展困难</p>
+<blockquote>
+<p>由于存在类似join这样多表查询机制，使得数据库在扩展方面很难。</p>
+</blockquote>
+</li>
+<li><p>读写慢</p>
+<blockquote>
+<p>这种情况主要发生在数据量达到一定规模时由于关系型数据库的系统逻辑非常复杂，使得其非常容易发生死锁等并发问题，所以导致其读写速度下滑非常严重</p>
+</blockquote>
+</li>
+<li><p>成本高</p>
+<blockquote>
+<p>企业级数据库的许可证价格高，并随着规模的增加而不断增加</p>
+</blockquote>
+</li>
+<li><p>有限的支撑容量</p>
+<blockquote>
+<p>现有的关系型解决方案还无法支撑海量数据</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="非关系型数据库-Not-Only-Structured-Query-Language"><a href="#非关系型数据库-Not-Only-Structured-Query-Language" class="headerlink" title="非关系型数据库 Not Only Structured Query Language"></a>非关系型数据库 Not Only Structured Query Language</h4><h5 id="1-优点-1"><a href="#1-优点-1" class="headerlink" title="1.优点"></a>1.优点</h5><ol>
+<li><p>扩展方便</p>
+<blockquote>
+<p>典型例子是Cassandra，由于其架构是类似于经典的P2P，所以能通过轻松地添加新的节点来扩展这个集群</p>
+</blockquote>
+</li>
+<li><p>快读读写</p>
+<blockquote>
+<p>主要例子有Redis，由于其逻辑简单，而且纯内存操作，使得其性能非常出色，单节点每秒可以处理超过10万次读写操作</p>
+</blockquote>
+</li>
+<li><p>低廉成本</p>
+<blockquote>
+<p>这是大多数分布式数据库共有的特点，因为主要都是开源软件，没有昂贵的License成本</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="2-缺点-1"><a href="#2-缺点-1" class="headerlink" title="2.缺点"></a>2.缺点</h5><ol>
+<li><p>不提供对SQL的支持，需要学习对应的语言</p>
+</li>
+<li><p>支持的特性不够丰富</p>
+<blockquote>
+<p>现有产品所提供的功能都比较有限，大多数NoSQL数据库都不支持事务，也不像MS SQL Server和Oracle那样能提供各种附加功能，比如BI和报表等</p>
+</blockquote>
+</li>
+<li><p>现有产品的不够成熟</p>
+</li>
+</ol>
+<h5 id="3-适用场景"><a href="#3-适用场景" class="headerlink" title="3.适用场景"></a>3.适用场景</h5><ol>
+<li><p>数据库表schema经常变化</p>
+<blockquote>
+<p>比如在线商城，维护产品的属性经常要增加字段，这就意味着ORMapping层的代码和配置要改，如果该表的数据量过百万，新增字段会带来额外开销（重建索引等）。NoSQL应用在这种场景，可以极大提升DB的可伸缩性，开发人员可以将更多的精力放在业务层。</p>
+</blockquote>
+</li>
+<li><p>数据库表字段是复杂数据类型</p>
+<blockquote>
+<p>对于复杂数据类型，比如SQL Sever提供了可扩展性的支持，像xml类型的字段。很多用过的同学应该知道，该字段不管是查询还是更改，效率非常一般。主要原因是是DB层对xml字段很难建高效索引，应用层又要做从字符流到dom的解析转换。NoSQL以json方式存储，提供了原生态的支持，在效率方便远远高于传统关系型数据库。</p>
+</blockquote>
+</li>
+<li><p>高并发数据库请求</p>
+<blockquote>
+<p>此类应用常见于web2.0的网站，很多应用对于数据一致性要求很低，而关系型数据库的事务以及大表join反而成了”性能杀手”。在高并发情况下，sql与no-sql的性能对比由于环境和角度不同一直是存在争议的，并不是说在任何场景，no-sql总是会比sql快。有篇article和大家分享下，<a href="http://artur.ejsmont.org/blog/content/insert-performance-comparison-of-nosql-vs-sql-servers">http://artur.ejsmont.org/blog/content/insert-performance-comparison-of-nosql-vs-sql-servers</a></p>
+</blockquote>
+</li>
+<li><p>海量数据的分布式存储</p>
+<blockquote>
+<p>海量数据的存储如果选用大型商用数据，如Oracle，那么整个解决方案的成本是非常高的，要花很多钱在软硬件上。NoSQL分布式存储，可以部署在廉价的硬件上，是一个性价比非常高的解决方案。</p>
+</blockquote>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/05/Algorithm-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/05/Algorithm-3/" class="post-title-link" itemprop="url">树和堆（julyedu网课整理）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-05 16:59:15" itemprop="dateCreated datePublished" datetime="2018-12-05T16:59:15+08:00">2018-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/julyedu/" itemprop="url" rel="index"><span itemprop="name">julyedu</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/05/Algorithm-3/" class="post-meta-item leancloud_visitors" data-flag-title="树和堆（julyedu网课整理）" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/05/Algorithm-3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/05/Algorithm-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="树和堆（julyedu网课整理）"><a href="#树和堆（julyedu网课整理）" class="headerlink" title="树和堆（julyedu网课整理）"></a>树和堆（julyedu网课整理）</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1 定义"></a>1 定义</h3><h4 id="1-1-树的定义"><a href="#1-1-树的定义" class="headerlink" title="1.1 树的定义"></a>1.1 树的定义</h4><p>它是由n（n&gt;&#x3D;1）个有限节点组成一个具有层次关系的集合。把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+<ol>
+<li>每个节点有零个或多个子节点</li>
+<li>没有父节点的节点称为根节点</li>
+<li>每一个非根节点有且只有一个父节点</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
+</ol>
+<h4 id="1-2-堆的定义"><a href="#1-2-堆的定义" class="headerlink" title="1.2 堆的定义"></a>1.2 堆的定义</h4><p>堆的实现通过构造二叉堆（binary heap），实为二叉树的一种；由于其应用的普遍性，当不加限定时，均指该数据结构的这种实现。这种数据结构具有以下性质：</p>
+<ol>
+<li>任意节点小于（或大于）它的所有后裔，最小元（或最大元）在堆的根上（堆序性）。</li>
+<li>堆总是一棵完全树。即除了最底层，其他层的节点都被元素填满，且最底层尽可能地从左到右填入。</li>
+<li>将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆。</li>
+</ol>
+<h3 id="2-基本操作"><a href="#2-基本操作" class="headerlink" title="2 基本操作"></a>2 基本操作</h3><h4 id="2-1-树的基本操作"><a href="#2-1-树的基本操作" class="headerlink" title="2.1 树的基本操作"></a>2.1 树的基本操作</h4><ol>
+<li>遍历：前中后序遍历；层次遍历</li>
+<li>序列化与反序列化</li>
+<li>深度：最大深度，最小深度。</li>
+</ol>
+<h4 id="2-2-堆的基本操作"><a href="#2-2-堆的基本操作" class="headerlink" title="2.2 堆的基本操作"></a>2.2 堆的基本操作</h4><ol>
+<li>插入元素，调整新元素使之满足堆条件。</li>
+<li>删除元素，调整新元素使之满足堆条件。</li>
+</ol>
+<h3 id="3-树和堆的应用场景"><a href="#3-树和堆的应用场景" class="headerlink" title="3 树和堆的应用场景"></a>3 树和堆的应用场景</h3><ol>
+<li>C++ STL的set与map（红黑树）</li>
+<li>数据库索引（B+树）</li>
+<li>优先队列（堆）</li>
+<li>语法树</li>
+<li>决策树</li>
+<li>游戏场景管理（八叉树或BSP树）</li>
+</ol>
+<h3 id="4-树和堆相关算法"><a href="#4-树和堆相关算法" class="headerlink" title="4 树和堆相关算法"></a>4 树和堆相关算法</h3><ol>
+<li>递归</li>
+<li>分治</li>
+<li>深度优先搜索</li>
+<li>广度优先搜索</li>
+</ol>
+<h3 id="5-例题"><a href="#5-例题" class="headerlink" title="5 例题"></a>5 例题</h3><p><strong>求公共最近的父节点</strong>：给定一棵二叉树，找到两个节点的最近公共父节点(LCA)。最近公共祖先是两个节点的公共的祖先节点且具有最大深度。</p>
+<p><img src="https://i.imgur.com/3uOqnT5.png"></p>
+<p>对于上面例子：LCA(3, 5) &#x3D; 4; LCA(6, 7) &#x3D; 7</p>
+<h4 id="5-1-思路"><a href="#5-1-思路" class="headerlink" title="5.1 思路"></a>5.1 思路</h4><ol>
+<li>如果以LCA为根节点，那么A、B必定分别位于该节点的左右子树。</li>
+<li>如果不满足条件1，A、B都位于LCA的左子树，那么显然LCA左子树上的节点应该成为LCA。</li>
+</ol>
+<p> &#x3D;&#x3D;&gt; ∴ 从根节点开始，对于根节点的左右子树结点都进行如下循环：找左子树，如果存在A或B返回left（值等于结点值）；找右子树，如果存在A或B返回right（值等于结点值）。如果对于某一个结点，left和right都是有值的，那么就返回这个结点。</p>
+<h4 id="5-2-Demo"><a href="#5-2-Demo" class="headerlink" title="5.2 Demo"></a>5.2 Demo</h4><pre><code>TreeNode lowestCommonAncestor(TreeNode root, TreeNode A, TreeNode B) &#123;
+    // write your code here
+    if(root ==  null || root == A || root == B)&#123;
+		return root;
+	&#125;
+	TreeNode left = lowestCommonAncestor(root.left, A, B);
+	TreeNode right = lowestCommonAncestor(root.right, A, B);
+	if(left &amp;&amp; right)&#123;
+		return root;		
+	&#125;else&#123;
+		left ? return left : return right;
+	&#125;
+&#125;  
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/27/Algorithm-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/27/Algorithm-7/" class="post-title-link" itemprop="url">数据结构实现之单向循环链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-11-27 10:29:37" itemprop="dateCreated datePublished" datetime="2018-11-27T10:29:37+08:00">2018-11-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/CircleLinkedList/" itemprop="url" rel="index"><span itemprop="name">CircleLinkedList</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/11/27/Algorithm-7/" class="post-meta-item leancloud_visitors" data-flag-title="数据结构实现之单向循环链表" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/11/27/Algorithm-7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/27/Algorithm-7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数据结构实现之单向循环链表"><a href="#数据结构实现之单向循环链表" class="headerlink" title="数据结构实现之单向循环链表"></a>数据结构实现之单向循环链表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Copyright (C), 2015-2018, XXX有限公司</span><br><span class="line"> * FileName: CircleLinkedList</span><br><span class="line"> * Author:   猫熊小才天</span><br><span class="line"> * Date:     2018/11/26 17:06</span><br><span class="line"> * Description: 单向循环链表</span><br><span class="line"> * History:</span><br><span class="line"> * &lt;author&gt;          &lt;time&gt;          &lt;version&gt;          &lt;desc&gt;</span><br><span class="line"> * 作者姓名           修改时间           版本号              描述</span><br><span class="line"> */</span><br><span class="line">package main.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 〈一句话功能简述〉&lt;br&gt;</span><br><span class="line"> * 〈单向循环链表〉</span><br><span class="line"> * 在循环的时候不能使用如下方法：</span><br><span class="line"> * Node tmp = head;</span><br><span class="line"> * while(tmp.next != null)&#123;</span><br><span class="line"> *</span><br><span class="line"> * &#125;</span><br><span class="line"> * 会出现死循环，换成</span><br><span class="line"> * for(int i = 1; i &lt;= getSize(); ++i)</span><br><span class="line"> * @author 猫熊小才天</span><br><span class="line"> * @create 2018/11/26</span><br><span class="line"> * @since 1.0.0</span><br><span class="line"> */</span><br><span class="line">public class CircleLinkedList &#123;</span><br><span class="line"></span><br><span class="line">private class Node &#123;</span><br><span class="line">	int data; // 结点中的数据</span><br><span class="line">	Node next = null; // 下一个结点的地址信息</span><br><span class="line"></span><br><span class="line">	public Node(int data) &#123;</span><br><span class="line">		this.data = data;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Node() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private Node head = null; // 保存头结点</span><br><span class="line">private Node tail = null; // 保存尾节点</span><br><span class="line">private int size; // 保存已有的的结点数</span><br><span class="line"></span><br><span class="line">public CircleLinkedList() &#123;</span><br><span class="line">	super();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 头插法</span><br><span class="line"> * </span><br><span class="line"> * @param data</span><br><span class="line"> */</span><br><span class="line">public void headAdd(int data) &#123;</span><br><span class="line">	// 如果链表为空</span><br><span class="line">	if (isEmpty()) &#123;</span><br><span class="line">		head = new Node(data);</span><br><span class="line">		head.next = head;</span><br><span class="line">		tail = head;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		Node newNode = new Node(data);</span><br><span class="line">           // 让新结点指向head</span><br><span class="line">		newNode.next = head;</span><br><span class="line">           // 然后让新结点作为head</span><br><span class="line">		head = newNode;</span><br><span class="line">           // 将尾结点指向头结点</span><br><span class="line">		tail.next = head;</span><br><span class="line">	&#125;</span><br><span class="line">	++size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 尾插法</span><br><span class="line"> * </span><br><span class="line"> * @param data</span><br><span class="line"> */</span><br><span class="line">public void tailAdd(int data) &#123;</span><br><span class="line">	// 如果链表为空</span><br><span class="line">	if (isEmpty()) &#123;</span><br><span class="line">		head = new Node(data);</span><br><span class="line">		head.next = head;</span><br><span class="line">		tail = head;</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">	    Node newNode = new Node(data);</span><br><span class="line">	    // 让尾结点指向新结点</span><br><span class="line">	    tail.next = newNode;</span><br><span class="line">	    // 让新结点指向头结点</span><br><span class="line">	    newNode.next = head;</span><br><span class="line">	    // 将新结点作为尾结点</span><br><span class="line">	    tail = newNode;</span><br><span class="line">       &#125;</span><br><span class="line">       ++size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 删除第index个结点</span><br><span class="line">    * @param index</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   public boolean deleteNodeByIndex(int index) &#123;</span><br><span class="line">       boolean res = false;</span><br><span class="line">       if (isEmpty()) &#123;</span><br><span class="line">           System.out.println(&quot;单向循环链表为空&quot;);</span><br><span class="line">           res = false;</span><br><span class="line">       &#125;</span><br><span class="line">       /**</span><br><span class="line">        * 如果输入的下标超过单向循环链表的范围</span><br><span class="line">        */</span><br><span class="line">       if (index &lt; 1 || index &gt; getSize()) &#123;</span><br><span class="line">           System.out.println(&quot;输入下标不在单向循环链表的范围中&quot;);</span><br><span class="line">           res = false;</span><br><span class="line">       &#125;else if(index == 1)&#123;</span><br><span class="line">           // 删除头结点</span><br><span class="line">           Node tmp = new Node(head.next.data);</span><br><span class="line">           // 让tmp等于head的下一个结点</span><br><span class="line">           tmp.next = head.next.next;</span><br><span class="line">           // 将tmp赋值给head，即相当于删除了原先的head</span><br><span class="line">           head = tmp;</span><br><span class="line">           // 尾结点指向新的头结点</span><br><span class="line">           tail.next = head;</span><br><span class="line">           System.out.println(&quot;删除头结点成功&quot;);</span><br><span class="line">           res = true;</span><br><span class="line">       &#125;else if(index == getSize())&#123;</span><br><span class="line">           // 删除尾结点</span><br><span class="line">           // 获取倒数第二个结点</span><br><span class="line">           Node tmp = getDataByIndex(getSize() - 1);</span><br><span class="line">           // 让倒数第二个结点指向head</span><br><span class="line">           tmp.next = head;</span><br><span class="line">           // tmp赋值到新的尾结点</span><br><span class="line">           tail = tmp;</span><br><span class="line">           System.out.println(&quot;删除尾结点成功&quot;);</span><br><span class="line">           res = true;</span><br><span class="line">       &#125;else if(index &gt; 1 &amp;&amp; index &lt; getSize())&#123;</span><br><span class="line">           // 删除的是中间任一结点</span><br><span class="line">           // 获取第 index - 1 个结点</span><br><span class="line">           Node prev = getDataByIndex(index - 1);</span><br><span class="line">           // 需要删除的结点即第index-1个结点的next</span><br><span class="line">           Node cur = prev.next;</span><br><span class="line">           prev.next = cur.next;</span><br><span class="line">           System.out.println(&quot;删除第&quot; + index + &quot;个结点成功&quot;);</span><br><span class="line">           res = true;</span><br><span class="line">       &#125;</span><br><span class="line">       --size;</span><br><span class="line">       return res;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 删除单向循环链表中数据为data的所有结点</span><br><span class="line">    * @param data</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   public boolean deleteNodeByData(int data) &#123;</span><br><span class="line">       if (isEmpty()) &#123;</span><br><span class="line">           System.out.println(&quot;单向循环链表为空&quot;);</span><br><span class="line">           return false;</span><br><span class="line">       &#125;</span><br><span class="line">       boolean res = false;</span><br><span class="line">       int count = 0;</span><br><span class="line">       // 先循环将头结点删除，直到头结点中的data≠data</span><br><span class="line">       Node tmp = head;</span><br><span class="line">       for(int i = 1; i &lt;= getSize(); ++i)&#123;</span><br><span class="line">           if(tmp.data == data)&#123;</span><br><span class="line">               tmp = tmp.next;</span><br><span class="line">               head = tmp;</span><br><span class="line">               tail = head;</span><br><span class="line">               ++count;</span><br><span class="line">               --size; // 需要将size减少！！！</span><br><span class="line">               res = true;</span><br><span class="line">           &#125;else &#123;</span><br><span class="line">               break;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       // 再循环将尾结点删除，直到尾结点中的data≠data</span><br><span class="line">       Node tmp2 = tail;</span><br><span class="line">       for(int i = 1; i &lt;= getSize(); ++i)&#123;</span><br><span class="line">           if(tmp.data == data)&#123;</span><br><span class="line">               tmp = getDataByIndex(getSize() - 1);</span><br><span class="line">               tmp.next = head;</span><br><span class="line">               tail = tmp;</span><br><span class="line">               ++count;</span><br><span class="line">               --size;</span><br><span class="line">               res = true;</span><br><span class="line">           &#125;else &#123;</span><br><span class="line">               break;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       Node preNode = head;</span><br><span class="line">       Node curNode = head.next;</span><br><span class="line">       for(int i = 1; i &lt;= getSize(); ++i)&#123;</span><br><span class="line">           if(curNode.data == data)&#123;</span><br><span class="line">               preNode.next = curNode.next;</span><br><span class="line">               ++count;</span><br><span class="line">               --size;</span><br><span class="line">               res = true;</span><br><span class="line">           &#125;</span><br><span class="line">           preNode = curNode;</span><br><span class="line">           curNode = curNode.next;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       if(res == true)&#123;</span><br><span class="line">           System.out.println(&quot;共删除了&quot; + count + &quot;个结点&quot;);</span><br><span class="line">       &#125;else &#123;</span><br><span class="line">           System.out.println(&quot;删除失败&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       return res;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 获取index位置下的Node数据</span><br><span class="line">    * @param index</span><br><span class="line">    */</span><br><span class="line">   public Node getDataByIndex(int index)&#123;</span><br><span class="line">       if (isEmpty()) &#123;</span><br><span class="line">           System.out.println(&quot;单向循环链表为空&quot;);</span><br><span class="line">           return null;</span><br><span class="line">       &#125;else if(index &lt; 1 || index &gt; getSize())&#123;</span><br><span class="line">           System.out.println(&quot;输入下标不在单向循环链表的范围中&quot;);</span><br><span class="line">           return null;</span><br><span class="line">       &#125;else &#123;</span><br><span class="line">           Node res = head;</span><br><span class="line">           for(int i = 1; i &lt;= getSize() &amp;&amp; res.next != null; ++i)&#123;</span><br><span class="line">               if(i == index)&#123;</span><br><span class="line">                   System.out.println(&quot;第&quot; + index + &quot;个结点的数据是：&quot; + res.data);</span><br><span class="line">                   return res;</span><br><span class="line">               &#125;</span><br><span class="line">               res = res.next;</span><br><span class="line">           &#125;</span><br><span class="line">           return res;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 判断链表是否为空</span><br><span class="line"> * </span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public boolean isEmpty() &#123;</span><br><span class="line">	return size == 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 返回链表长度</span><br><span class="line"> * </span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public int getSize() &#123;</span><br><span class="line">	return size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 清空线性表</span><br><span class="line"> */</span><br><span class="line">public void clear() &#123;</span><br><span class="line">	// 将头结点和尾结点设为空</span><br><span class="line">	head = null;</span><br><span class="line">	tail = null;</span><br><span class="line">	size = 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 打印单向链表 如果传过来的参数head是list.reHead即为逆向输出</span><br><span class="line"> * </span><br><span class="line"> * @param head</span><br><span class="line"> */</span><br><span class="line">public void printCircleLinkedList(Node head) &#123;</span><br><span class="line">	Node tmp = head;</span><br><span class="line">	for(int i = 1; i &lt;= getSize(); ++i)&#123;</span><br><span class="line">           System.out.print(tmp.data);</span><br><span class="line">           tmp = tmp.next;</span><br><span class="line">           if (i != getSize()) &#123;</span><br><span class="line">               System.out.print(&quot; -&gt; &quot;);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">	System.out.println();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">       CircleLinkedList list = new CircleLinkedList();</span><br><span class="line">       list.tailAdd(5);</span><br><span class="line">       list.tailAdd(2);</span><br><span class="line">       list.tailAdd(4);</span><br><span class="line">       list.tailAdd(1);</span><br><span class="line">       list.tailAdd(5);</span><br><span class="line">       list.tailAdd(3);</span><br><span class="line">       list.tailAdd(5);</span><br><span class="line">       list.printCircleLinkedList(list.head);</span><br><span class="line"></span><br><span class="line">       /*list.deleteNodeByIndex(3);</span><br><span class="line">       list.printCircleLinkedList(list.head);*/</span><br><span class="line"></span><br><span class="line">       //list.getDataByIndex(6);</span><br><span class="line"></span><br><span class="line">       /*list.deleteNodeByData(5);</span><br><span class="line">       list.printCircleLinkedList(list.head);*/</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">5 -&gt; 2 -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 3 -&gt; 5</span><br><span class="line">第2个结点的数据是：2</span><br><span class="line">删除第3个结点成功</span><br><span class="line">5 -&gt; 2 -&gt; 1 -&gt; 5 -&gt; 3 -&gt; 5</span><br><span class="line"></span><br><span class="line">5 -&gt; 2 -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 3 -&gt; 5</span><br><span class="line">删除头结点成功</span><br><span class="line">2 -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 3 -&gt; 5</span><br><span class="line"></span><br><span class="line">5 -&gt; 2 -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 3 -&gt; 5</span><br><span class="line">第5个结点的数据是：5</span><br><span class="line">删除第6个结点成功</span><br><span class="line">5 -&gt; 2 -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 5</span><br><span class="line"></span><br><span class="line">5 -&gt; 2 -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 3 -&gt; 5</span><br><span class="line">第4个结点的数据是：1</span><br><span class="line"></span><br><span class="line">5 -&gt; 2 -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 3 -&gt; 5</span><br><span class="line">共删除了3个结点</span><br><span class="line">2 -&gt; 4 -&gt; 1 -&gt; 3</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/26/Algorithm-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/26/Algorithm-6/" class="post-title-link" itemprop="url">数据结构实现之单向链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-11-26 15:14:54 / Modified: 16:45:05" itemprop="dateCreated datePublished" datetime="2018-11-26T15:14:54+08:00">2018-11-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/LinkedList/" itemprop="url" rel="index"><span itemprop="name">LinkedList</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/11/26/Algorithm-6/" class="post-meta-item leancloud_visitors" data-flag-title="数据结构实现之单向链表" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/11/26/Algorithm-6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/26/Algorithm-6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数据结构实现之单向链表"><a href="#数据结构实现之单向链表" class="headerlink" title="数据结构实现之单向链表"></a>数据结构实现之单向链表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Copyright (C), 2015-2018, XXX有限公司</span><br><span class="line"> * FileName: LinkedList</span><br><span class="line"> * Author:   猫熊小才天</span><br><span class="line"> * Date:     2018/11/26 10:43</span><br><span class="line"> * Description: 单向链表</span><br><span class="line"> * History:</span><br><span class="line"> * &lt;author&gt;          &lt;time&gt;          &lt;version&gt;          &lt;desc&gt;</span><br><span class="line"> * 作者姓名           修改时间           版本号              描述</span><br><span class="line"> */</span><br><span class="line">package main.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 〈一句话功能简述〉&lt;br&gt; </span><br><span class="line"> * 〈单向链表〉</span><br><span class="line"> *</span><br><span class="line"> * @author 猫熊小才天</span><br><span class="line"> * @create 2018/11/26</span><br><span class="line"> * @since 1.0.0</span><br><span class="line"> */</span><br><span class="line">public class LinkedList &#123;</span><br><span class="line"></span><br><span class="line">   private Node head = null;</span><br><span class="line"></span><br><span class="line">   /***</span><br><span class="line">    * data 存放数据</span><br><span class="line">    * next 存放下一个结点</span><br><span class="line">    */</span><br><span class="line">   private class Node &#123;</span><br><span class="line">       int data; // 结点中的数据</span><br><span class="line">       Node next = null; // 下一个结点的地址信息</span><br><span class="line"></span><br><span class="line">       public Node(int data)&#123;</span><br><span class="line">           this.data = data;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       public Node() &#123;</span><br><span class="line">           super();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"> 	/**</span><br><span class="line">    * 插入新的结点（尾插法）</span><br><span class="line">    * 头插法：</span><br><span class="line">    * Node newNode = new Node(d);</span><br><span class="line">    * newNode.next = head;</span><br><span class="line">    * head = newNode;</span><br><span class="line">    * @param data</span><br><span class="line">    */</span><br><span class="line">   public void addNode(int data)&#123;</span><br><span class="line">       Node newNode = new Node(data); // 初始化一个结点</span><br><span class="line">       if(head == null)&#123;</span><br><span class="line">           head = newNode;</span><br><span class="line">           return;</span><br><span class="line">       &#125;else &#123;</span><br><span class="line">           Node tmp = head;</span><br><span class="line">           while(tmp.next != null)&#123;</span><br><span class="line">               tmp = tmp.next;</span><br><span class="line">           &#125;</span><br><span class="line">           tmp.next = newNode;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 删除第index个结点</span><br><span class="line">    * @param index</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   public boolean deleteNodeByIndex(int index)&#123;</span><br><span class="line">       /**</span><br><span class="line">        * 如果输入的下标超过单向链表的范围</span><br><span class="line">        */</span><br><span class="line">       if(index &lt; 1 || index &gt; length())&#123;</span><br><span class="line">           System.out.println(&quot;输入下标不在单向链表的范围中&quot;);</span><br><span class="line">           return false;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       /**</span><br><span class="line">        * index == 1，即删除第一个，将head往后移</span><br><span class="line">        */</span><br><span class="line">       if(index == 1)&#123;</span><br><span class="line">           head = head.next;</span><br><span class="line">           System.out.println(&quot;删除头结点成功&quot;);</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       int i = 2; // 比较下标，head下标为1，所以从2开始判断</span><br><span class="line">       Node preNode = head;</span><br><span class="line">       Node curNode = head.next;</span><br><span class="line">       while(curNode != null)&#123;</span><br><span class="line">           if(index == i)&#123;</span><br><span class="line">               preNode.next = curNode.next;</span><br><span class="line">               System.out.println(&quot;删除第&quot; + index + &quot;个结点成功&quot;);</span><br><span class="line">               return true;</span><br><span class="line">           &#125;</span><br><span class="line">           preNode = curNode;</span><br><span class="line">           curNode = curNode.next;</span><br><span class="line">           ++i;</span><br><span class="line">       &#125;</span><br><span class="line">       System.out.println(&quot;删除失败&quot;);</span><br><span class="line">       return false;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 返回单向链表的长度</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   public int length()&#123;</span><br><span class="line">       int len = 0;</span><br><span class="line">       Node tmp = head;</span><br><span class="line">       while(tmp != null)&#123;</span><br><span class="line">           ++len;</span><br><span class="line">           tmp = tmp.next;</span><br><span class="line">       &#125;</span><br><span class="line">       return len;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 删除单向链表中数据为data的所有结点</span><br><span class="line">    * @param data</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   public boolean deleteNodeByData(int data)&#123;</span><br><span class="line">       if(head == null)&#123;</span><br><span class="line">           System.out.println(&quot;单向链表为空&quot;);</span><br><span class="line">           return false;</span><br><span class="line">       &#125;</span><br><span class="line">       boolean flag = false;</span><br><span class="line">       int count = 0;</span><br><span class="line">       // 先循环将头结点删除，直到头结点中的data≠data</span><br><span class="line">       Node tmp = head;</span><br><span class="line">       while(tmp != null)&#123;</span><br><span class="line">           if(tmp.data == data)&#123;</span><br><span class="line">               tmp = tmp.next;</span><br><span class="line">               head = tmp;</span><br><span class="line">               ++count;</span><br><span class="line">               flag = true;</span><br><span class="line">           &#125;else &#123;</span><br><span class="line">               break;</span><br><span class="line">           &#125;;</span><br><span class="line">       &#125;</span><br><span class="line">       Node preNode = head;</span><br><span class="line">       Node curNode = head.next;</span><br><span class="line">       while(curNode != null)&#123;</span><br><span class="line">           if(curNode.data == data)&#123;</span><br><span class="line">               preNode.next = curNode.next;</span><br><span class="line">               flag = true;</span><br><span class="line">               ++count;</span><br><span class="line">           &#125;</span><br><span class="line">           preNode = curNode;</span><br><span class="line">           curNode = curNode.next;</span><br><span class="line">       &#125;</span><br><span class="line">       if(flag == true)&#123;</span><br><span class="line">           System.out.println(&quot;共删除了&quot; + count + &quot;个结点&quot;);</span><br><span class="line">           return true;</span><br><span class="line">       &#125;else &#123;</span><br><span class="line">           System.out.println(&quot;删除失败&quot;);</span><br><span class="line">           return false;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 获取所有符合data数据的结点的下标</span><br><span class="line">    * @param data</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   public String getDataIndex(int data)&#123;</span><br><span class="line">       String indexStr = &quot;&quot;;</span><br><span class="line">       if(head == null)&#123;</span><br><span class="line">           System.out.println(&quot;单向链表为空&quot;);</span><br><span class="line">           return indexStr + &quot;查无此数据&quot;;</span><br><span class="line">       &#125;</span><br><span class="line">       int idx = 1;</span><br><span class="line">       Node tmp = head;</span><br><span class="line">       while(tmp != null)&#123;</span><br><span class="line">           if(tmp.data == data)&#123;</span><br><span class="line">               indexStr = indexStr + idx + &quot;,&quot;;</span><br><span class="line">           &#125;</span><br><span class="line">           ++idx;</span><br><span class="line">           tmp = tmp.next;</span><br><span class="line">       &#125;</span><br><span class="line">       if(indexStr.equals(&quot;&quot;))&#123;</span><br><span class="line">           indexStr = &quot;查无此数据&quot;;</span><br><span class="line">       &#125;else &#123;</span><br><span class="line">           indexStr = &quot;符合查询数据的结点下标是：&quot; + indexStr.substring(0,indexStr.length() - 1);</span><br><span class="line">       &#125;</span><br><span class="line">       return indexStr;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 打印单向链表</span><br><span class="line">    * 如果传过来的参数head是list.reHead即为逆向输出</span><br><span class="line">    * @param head</span><br><span class="line">    */</span><br><span class="line">   public void printLinkedList(Node head) &#123;</span><br><span class="line">       Node tmp = head;</span><br><span class="line">       while (tmp != null) &#123;</span><br><span class="line">           System.out.print(tmp.data);</span><br><span class="line">           tmp = tmp.next;</span><br><span class="line">           if(tmp != null)&#123;</span><br><span class="line">               System.out.print(&quot; -&gt; &quot;);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       System.out.println();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 非递归方式反转单向链表</span><br><span class="line">    */</span><br><span class="line">   public void reverseList()&#123;</span><br><span class="line">       if (head == null)</span><br><span class="line">           return;</span><br><span class="line">       Node pre = head; // 上一结点</span><br><span class="line">       Node cur = head.next; // 当前结点</span><br><span class="line">       Node tmp = null; // 临时结点，用于保存当前结点的指针域（即下一结点）</span><br><span class="line">       while(cur != null)&#123; // 当前结点为null，说明位于尾结点</span><br><span class="line">           tmp = cur.next;</span><br><span class="line">           cur.next = pre; // 反转指针指向</span><br><span class="line"></span><br><span class="line">           // 指针向下移动</span><br><span class="line">           pre = cur;</span><br><span class="line">           cur = tmp;</span><br><span class="line">       &#125;</span><br><span class="line">       // 最后将原链表的头节点的指针域置为null，还回新链表的头结点，即原链表的尾结点</span><br><span class="line">       head.next = null;</span><br><span class="line">       reHead = pre;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 采用递归方式逆向输出单向链表</span><br><span class="line">    * @param head</span><br><span class="line">    */</span><br><span class="line">   public void printReverse(Node head)&#123;</span><br><span class="line">       if(head != null)&#123;</span><br><span class="line">           printReverse(head.next);</span><br><span class="line">           System.out.println(head.data + &quot; &quot;);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">       LinkedList list = new LinkedList();</span><br><span class="line">       list.addNode(5);</span><br><span class="line">       list.addNode(3);</span><br><span class="line">       list.addNode(1);</span><br><span class="line">       list.addNode(5);</span><br><span class="line">       list.addNode(2);</span><br><span class="line">       list.addNode(55);</span><br><span class="line">       list.addNode(36);</span><br><span class="line">       list.addNode(5);</span><br><span class="line"></span><br><span class="line">       /*System.out.println(&quot;单向链表的长度为：&quot; + list.length());</span><br><span class="line">       System.out.println(&quot;打印单向链表：&quot;);</span><br><span class="line">       list.printLinkedList(list.head);*/</span><br><span class="line"></span><br><span class="line">       /*list.deleteNodeByIndex(2);</span><br><span class="line">       System.out.println(&quot;单向链表的长度为：&quot; + list.length());</span><br><span class="line">       System.out.println(&quot;打印单向链表：&quot;);</span><br><span class="line">       list.printLinkedList(list.head);*/</span><br><span class="line"></span><br><span class="line">       /*list.deleteNodeByData(5);</span><br><span class="line">       System.out.println(&quot;单向链表的长度为：&quot; + list.length());</span><br><span class="line">       System.out.println(&quot;打印单向链表：&quot;);</span><br><span class="line">       list.printLinkedList(list.head);*/</span><br><span class="line"></span><br><span class="line">       /*System.out.println(list.getDataIndex(5));*/</span><br><span class="line"></span><br><span class="line">       list.printLinkedList(list.head);</span><br><span class="line">       list.reverseList();</span><br><span class="line">       list.printLinkedList(list.reHead);</span><br><span class="line"></span><br><span class="line">       // list.printReverse(list.head);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">单向链表的长度为：8</span><br><span class="line">打印单向链表：</span><br><span class="line">5 -&gt; 3 -&gt; 1 -&gt; 5 -&gt; 2 -&gt; 55 -&gt; 36 -&gt; 5</span><br><span class="line"></span><br><span class="line">删除第2个结点成功</span><br><span class="line">单向链表的长度为：7</span><br><span class="line">打印单向链表：</span><br><span class="line">5 -&gt; 1 -&gt; 5 -&gt; 2 -&gt; 55 -&gt; 36 -&gt; 5</span><br><span class="line"></span><br><span class="line">共删除了3个结点</span><br><span class="line">单向链表的长度为：4</span><br><span class="line">打印单向链表：</span><br><span class="line">1 -&gt; 2 -&gt; 55 -&gt; 36</span><br><span class="line"></span><br><span class="line">单向链表的长度为：8</span><br><span class="line">打印单向链表：</span><br><span class="line">5 -&gt; 3 -&gt; 1 -&gt; 5 -&gt; 2 -&gt; 55 -&gt; 36 -&gt; 5</span><br><span class="line">符合查询数据的结点下标是：1,4,8</span><br><span class="line"></span><br><span class="line">5 -&gt; 3 -&gt; 1 -&gt; 5 -&gt; 2 -&gt; 55 -&gt; 36 -&gt; 15</span><br><span class="line">15 -&gt; 36 -&gt; 55 -&gt; 2 -&gt; 5 -&gt; 1 -&gt; 3 -&gt; 5</span><br><span class="line"></span><br><span class="line">15 36 55 2 5 1 3 5 </span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

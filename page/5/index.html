@@ -1,23 +1,1408 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta name="description" content="君子不器">
+<meta property="og:type" content="website">
+<meta property="og:title" content="猫熊小才天の书院">
+<meta property="og:url" content="https://mxxct4git.github.io/page/5/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="君子不器">
+<meta property="og:locale">
+<meta property="article:author" content="Mxxct">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/page/5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/10/20/Flink/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/Flink/" class="post-title-link" itemprop="url">Flink（暂时）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-20 16:20:00" itemprop="dateCreated datePublished" datetime="2020-10-20T16:20:00+08:00">2020-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-12 17:57:00" itemprop="dateModified" datetime="2020-11-12T17:57:00+08:00">2020-11-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flink/" itemprop="url" rel="index"><span itemprop="name">Flink</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/10/20/Flink/" class="post-meta-item leancloud_visitors" data-flag-title="Flink（暂时）" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/10/20/Flink/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/20/Flink/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h2><p>是一个框架和分布式处理引擎，用于对<strong>无界和有界数据流</strong>进行<strong>状态</strong>计算</p>
+<p>lambda架构<br><img src="https://images.weserv.nl/?url=https://easyreadfs.nosdn.127.net/image_ce0fd6e4dc8c41d6b9b832e339d2b3ce" alt="Lambda架构"></p>
+<ul>
+<li>storm<ul>
+<li>低延迟 毫秒级</li>
+<li>消息保障能力弱，消息传输可能重复但不会丢失</li>
+<li>吞吐量低</li>
+</ul>
+</li>
+<li>spark streaming<ul>
+<li>以固定时间间隔（几秒钟）处理一段段的批处理作业（微批）</li>
+<li>高延迟（秒级）</li>
+<li>能够保证消息传输不会丢失也不会重复</li>
+<li>高吞吐</li>
+</ul>
+</li>
+<li>flink<ul>
+<li>支持原生流处理，即数据可以一条一条的进行处理</li>
+<li>低延迟 毫秒级</li>
+<li>能够保证消息传输不会丢失也不会重复</li>
+<li>高吞吐</li>
+</ul>
+</li>
+</ul>
+<p>为什么是flink？1. 低延迟(毫秒级) 2. 高吞吐(每秒千万级) 3. 数据准确性（exactly-once） 4. 易用性（SQL&#x2F;Table API&#x2F;DataStream API）</p>
+<table>
+<thead>
+<tr>
+<th align="center">\</th>
+<th align="center">spark streaming</th>
+<th align="center">flink</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">流处理</td>
+<td align="center">数据需要打包成batch，这就会导致有延迟（秒级别），相当于一个伪实时</td>
+<td align="center">将数据全部当成流处理</td>
+</tr>
+<tr>
+<td align="center">数据模型</td>
+<td align="center">RDD，DStream实际上也是一组组小批数据RDD的集合</td>
+<td align="center">数据流，以及事件序列</td>
+</tr>
+<tr>
+<td align="center">运行时架构</td>
+<td align="center">批计算，将DAG划分为不同的stage，一个完成后才可以计算下一个</td>
+<td align="center">标准的流执行模式，一个事件在一个节点处理完后才可以直接发往下一个节点进行处理</td>
+</tr>
+</tbody></table>
+<p>流处理和批处理的区别？比如同样是max(温度)，spark streaming返回的是当前这一批有界数据的最大温度，而flink会返回从程序开始一直到此刻最大的温度 &#x3D;&gt; 批是一种有界数据的概念，而流数据的话无界，最大最小值的话会考虑从头开始到现在的整个数据。同样，flink可以通过window api开窗，来做批处理</p>
+<p>SQL&#x2F;Table API(dynamic tables)<br>DataStream API(streams, windows)<br>ProcessFunction(events, state, time)</p>
+<p>DataFlow 模型</p>
+<ul>
+<li>数据从上一个 Operation 节点直接 Push 到下一个 Operation 节点。</li>
+<li>各节点可以分布在不同的 Task 线程中运行，数据在 Operation 之间传递。</li>
+<li>同样具有 Shuffle 过程，但是数据不像 MapReduce 模型，Reduce 从 Map 端拉取数据，而是由上游把数据推给下游。</li>
+<li>实现框架有 Apache Storm 和 Apache Flink。</li>
+</ul>
+<p>watermark &amp;&amp; window &amp;&amp; allowedLatest</p>
+<ul>
+<li>watermark：由eventTime - 允许数据乱序的时间M秒得到，只增不减，即只有当当前数据对应的watermark大于之前的，才会更新watermark</li>
+<li>window：每N秒一段时间间隔</li>
+<li>allowedLatest：设置窗口销毁延迟时间，及到时间了，但是还允许一定时间内的数据迟到</li>
+</ul>
+<blockquote>
+<p>形象化理解为 水位线上涨，淹没了一个窗口，就会触发窗口的计算<br>多个并行度的话，算子会取最小的那个水位线来生效</p>
+</blockquote>
+<p>keyby(int… fields) &#x2F;&#x2F; 0 代表第一个元素<br>keyby(String… fields) &#x2F;&#x2F; 声明为public的字段名或类的get方法，主要是方便了datastream嵌套复合类型比如tuple或者pojo类的时候<br>keyby(new KeySelector&lt;T,K&gt;()) &#x2F;&#x2F; 覆写getKey方法，自定义返回key分组</p>
+<p>除了env可以设置并行度，每一个算子也都可以单独设置并行度，包括 <code>print().setParallelism()</code>。默认并行度是cpu核数。一般来说，一个流的并行度，可以认为是其所有算子的并行度里最大的那个并行度。</p>
+<p>一个流所需要的slot数量不一定就是流中所有算子的并行度的加和。事实上，flink 允许先后操作的算子放入到同一个slot里面（子任务共享slot），这样可以减少数据的shuffle；在共享slot的情况下，可能会出现一个slot实现了source、transformation到sink的所有操作，即保留了整个流的pipeline过程，这个在 flink-yarn.xml 里有注释说是允许的。</p>
+<p>flink运行时组件：</p>
+<ul>
+<li>jobmanager<ul>
+<li>拿到客户端提交的jar包，这个jar包包括：作业图（jobGraph）、逻辑数据流图（logical dataflow graph）和打包了所有的类、库等等；把jobgraph转换成一个物理层面的数据流图–执行图（executionGraph），包含了所有可以并发执行的任务；向rm申请slot资源，并分发到taskmanager上运行</li>
+<li>还负责维护类似检查点（checkpoint）这样的操作</li>
+</ul>
+</li>
+<li>taskmanager<ul>
+<li>taskmanager数量 * 每个taskmanager下面对应的slot数量 &#x3D; 整个集群最大的能够运行任务数量</li>
+<li>在内存中划分出一部分，称为slot，用来运行task。宏观来理解的话，可以把taskmanager想成是一个jvm进程，每一个slot是运行在上面的线程，只是对内存进行隔离，每个slot有自己的内存资源</li>
+</ul>
+</li>
+<li>resourcemanager<ul>
+<li>主要是管理slot资源，每个taskmanager下面的slot都会在rm里进行注册</li>
+</ul>
+</li>
+<li>dispatcher<ul>
+<li>提供rest接口，提交app的时候会自动启动，把app交给jobmanager；</li>
+<li>webUI界面。并不是必需的</li>
+</ul>
+</li>
+</ul>
+<p>flink执行图可以分为四层，或者四个过程，或者四层模型</p>
+<ul>
+<li>streamgraph：用户通过stream api编写的代码生成的最初的图，包含source、transformation、sink的一个拓扑结构</li>
+<li>jobgraph：客户端在提交作业到jobmanager之前，会自动根据streamgraph进行合并优化，将符合条件的多个任务合并在一起作为一个任务，减少数据传输</li>
+<li>executiongraph：jobmanager根据jobgraph来生成executiongraph，将任务拆成可并行化的过程，交给taskmanager；<strong>调度层最核心的数据结构</strong></li>
+<li>物理执行图：taskmanager上部署task后形成的图，并不是一个具体的数据结构</li>
+</ul>
+<p>数据分发策略<br><img src="https://images.hnbian.cn/FgMgQCTcV_g-0OWucipswMz4C3tN" alt="分发器继承图"></p>
+<blockquote>
+<p>ChannelSelector 是一个接口，为输入的数据提供一个逻辑的channel<br>StreamPartitioner 是所有分区器的基类</p>
+</blockquote>
+<ul>
+<li>GlobalPartitioner：将所有的数据都发送到下游 0 号分区中</li>
+<li>ShufflePartitioner：将数据随机分发到一个分区</li>
+<li>RebalancePartitioner：将数据循环分发到下游</li>
+<li>RescalePartitioner：基于上下游并行度分发，下游2个上游四个，那么上游的2个会分发到同一个下游分区</li>
+<li>BroadcastPartitioner：广播，将数据分发到下游的所有分区</li>
+<li>ForwardPartitioner：上下游分区是一一对应的</li>
+<li>KeyGroupStreamPartitioner：keyby操作，相同key分发到同一个下游分区</li>
+<li>CustomPartitionerWrapper：自定义分区策略</li>
+</ul>
+<p>数据传输策略</p>
+<ul>
+<li>forward strategy：一个task的输出只发送给一个task作为输入，如果两个task在同一个jvm里，可以避免网络传输</li>
+<li>key based strategy：数据按key分组，相同的key数据传输到同一个task处理</li>
+<li>broadcast strategy：广播</li>
+<li>random strategy：数据从一个task随机传输给下一个算子的task</li>
+</ul>
+<p>数据传输形式</p>
+<ul>
+<li>one-to-one(forwarding)<ul>
+<li>map、filter、flatmap等算子都是one-to-one的关系，即可以直接在同一个slot上执行计算</li>
+<li>类似于spark的窄依赖</li>
+</ul>
+</li>
+<li>redistributing<ul>
+<li>stream的分区发生改变。每一个算子的子任务根据所选择的transformation然后发送数据到不同的分区</li>
+<li>比如keyby是基于hashcode重分区，而broadcast和rebalance会随机重新分区</li>
+<li>类似于spark的宽依赖，shuffle过程</li>
+</ul>
+</li>
+</ul>
+<p>什么样的任务可以被合并在一起？相同并行度的one-to-one操作，满足这两个条件，flink会把相邻的算子合并在一起，放在同一个slot里面进行计算，减少网络传输。通过在算子后面调用 <code>.filter(..).disableChain()</code> 可以断开合并的任务链，<code>.filter(..).startNewChain()</code> 开始合并新的任务链。</p>
+<p>针对某一个算子过程，可能会很复杂或者有特殊需求，需要单独放在一个slot里运行？在算子后面调用 <code>slotSharingGroup(&quot;key&quot;)</code>，表示从当前算子开始，之后的所有操作都会放在一个slot里面，通过 key 来区分多个slot共享组。默认slot共享组的key是”default”。</p>
+<p>DataStream API</p>
+<ul>
+<li>source<ul>
+<li>env.addSource()</li>
+</ul>
+</li>
+<li>transformation<ul>
+<li>map</li>
+<li>flatmap</li>
+<li>filter</li>
+<li>keyby<ul>
+<li>同一个key肯定在同一个分区，<strong>但是同一个分区不一定只有一个key</strong>，2个key的数据经过hash可能被分到同一个分区里</li>
+</ul>
+</li>
+<li>滚动聚合算子（rollingAggregation）<ul>
+<li>针对KeyedStream每一个支流做聚合</li>
+<li>以min和minby为例，如果是min()只会返回指定字段的最小值，如果是minby则会返回指定字段的最小值对应的那一整个对象</li>
+<li>聚合算子（sum、max、min、maxBy、minBy）底层实现是调用 keyedStream.aggregate() 方法，只是创建的ComparableAggregator的AggregationType不一样，分别是SUM, MAX, MIN, MAXBY, MINBY。ComparableAggregator类继承了AggregationFunction，而AggregationFunction则实现了ReduceFunction接口，所以ComparableAggregator类实现了reduce方法，首先是通过Comparator来比较两个对象，然后会判断byAggregate是否为真，即是否是minby或maxby操作，如果是的话，再判断isfirst是否为真，即当出现多个同样值的时候，是返回第一个还是返回最后一个</li>
+</ul>
+</li>
+<li>reduce<ul>
+<li>自定义 reduce() 方法需要继承 ReduceFunction 类</li>
+</ul>
+</li>
+<li>split和select<ul>
+<li>split 将 DataStream 会转换成 SplitStream，select 从一个splitStream里通过tag来获取一个或多个DataStream</li>
+<li>被遗弃，使用 sideoutput 替代</li>
+</ul>
+</li>
+<li>connect和map<ul>
+<li>connect 将两个DataStream合并为一个ConnectedStreams。此时数据只是放在了一个流里，数据本身和形式并不发生任何的变化</li>
+<li>map、flatmap、keyby等算子实现的function，会单独作用于每一个datastream</li>
+</ul>
+</li>
+<li>union</li>
+</ul>
+</li>
+<li>sink<ul>
+<li>kafka<ul>
+<li>初始化FlinkKafkaProducer的时候有三个构造函数，不加kafkaProducersPoolSize、加kafkaProducersPoolSize和一个带着自定义分区的函数。一般用前两个就行，如果说业务数据需要根据某种条件将数据写入到N多个topic中，可以用第三个，实现KeyedSerializationSchema类getTargetTopic()方法，<a href="https://bbs.huaweicloud.com/blogs/148532">参考地址</a></li>
+<li>FlinkKafkaConsumer 消费过程：<br>  父类 FlinkKafkaConsumerBase<br>  1.initializeState()：从最后一个成功的checkpoint中获取各个partition的offset到restoredState中。<br>  2.open()：从restoredState中获取这个subTask所消费的topic的partition的起始offset，保存到subscribedPartitionsToStartOffsets中；如果这是一个第一次向topic消费的job的subTask，那么Flink根据job的并行度以及这个subTask的index均匀的分配partition给这个subTask消费。此时，partition的起始offset就由我们在上文中介绍的配置来决定。<br>  3.run(): 如果subscribedPartitionsToStartOffsets不为空，创建KafkaFetcher，执行其runFetchLoop()。</li>
+</ul>
+</li>
+<li>redis</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/45b03390b258">窗口和水位线的参考网址1</a><br><a href="https://www.cnblogs.com/shengyang17/p/11798549.html">窗口和水位线的参考网址2</a></p>
+<p>Window类型</p>
+<ul>
+<li>时间窗口<ul>
+<li>滚动时间窗口 Tumbling Window<ul>
+<li>参数只有一个 window size，没有重叠；区间范围是左闭右开</li>
+</ul>
+</li>
+<li>滑动时间窗口 Sliding Window<ul>
+<li>参数有两个 window size 和 slide step，可以有重叠</li>
+</ul>
+</li>
+<li>会话窗口<ul>
+<li>设置一个timeout时间，如果一段时间没有接收到新的数据，就会生成一个新的窗口</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>计数窗口<ul>
+<li>滚动计数窗口</li>
+<li>滑动计数窗口</li>
+</ul>
+</li>
+</ul>
+<p>Window API</p>
+<p>在<code>keyby()</code>之后调用<code>.window()</code>方法，或者<code>dataStream.windowAll()</code>。一般是前者。也可以直接调用 <code>.timeWindow()</code>，传一个参数就是滚动事件窗口，传两个参数就是滑动时间窗口。如果要用到offset，那就只能用window()。</p>
+<p><code>.countWindow()</code> 底层调用的是 GlobalWindows 方法，全局窗口是把所有数据都放在一个窗口里，需要设置 trigger 触发器和 evictor 移除器，来保证窗口是什么时候触发什么情况下移除数据</p>
+<p>org.apache.flink.streaming.api.windowing.assigners 包下面有各个窗口分配器的类，比如 TumblingEventTimeWindows、TumblingProcessingTimeWindows 等，在 window() 方法中，需要指定窗口分配器，比如 <code>window(TumblingProcessingTimeWindows.of(windowSize, offset))</code>，windowSize 就是窗口大小，offset是指和整点的偏移量，比如8点05到9点05，那就是偏移5分钟，Time.minutes(5)。offset的主要作用是时区</p>
+<p>窗口的意义：把无限的数据流进行切分，得到有限的数据集进行处理<br>窗口函数 WindowedStream 函数</p>
+<ul>
+<li>增量聚合函数<ul>
+<li>每条数据到来都会进行计算，保持一个简单的状态</li>
+<li>ReduceFunction, AggregateFunction</li>
+</ul>
+</li>
+<li>全量窗口函数<br>  -先把窗口所有数据收集起来，等到计算的时候再遍历所有的数据<ul>
+<li>ProcessWindowFunction</li>
+</ul>
+</li>
+</ul>
+<p>窗口相关的其他可选API</p>
+<ul>
+<li>trigger(): 触发器，定义window什么时候关闭，触发计算并输出结果</li>
+<li>evictor(): 移除器，定义移除某些数据的逻辑</li>
+<li>allowedLateness(): 允许一定时间内迟到的数据也划分在上一个窗口里进行计算，这个时间是以watermark为准，不是eventTime</li>
+<li>sideOutPutLateData(): 将迟到的数据放入侧输出流</li>
+<li>getSideOutPut(): 获取侧输出流，在所有计算完之后，dataStream.getSideOutPut(tag).print() 输出</li>
+</ul>
+<p><img src="https://images.weserv.nl/?url=https://img2018.cnblogs.com/i-beta/1247221/202002/1247221-20200206122152873-34522436.png" alt="Window API总览"></p>
+<p>时间语义</p>
+<ul>
+<li>eventTime: 事件创建的时间</li>
+<li>ingestionTime: 数据进入Flink的时间</li>
+<li>processTime: 执行操作算子的本地系统时间，与机器相关</li>
+</ul>
+<p>使用 eventTime</p>
+<ol>
+<li>env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);</li>
+<li>然后和watermark一起搭配使用，来处理乱序数据</li>
+</ol>
+<p>waterMark 的意义：解决乱序问题<br>waterMark 的传递：上游向下游传递是通过广播传递给它分区的所有下游，而下游会保存所有上游的watermark然后取最小的那个来计算。<br><img src="https://img2018.cnblogs.com/i-beta/1247221/202002/1247221-20200206131937614-983019032.png" alt="watermark的传递"></p>
+<p>watermark 的引用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.assignTimestampsAndWatermarks(AssignerWithPeriodicWatermarks) <span class="comment">// 隔一段时间，周期性生成waterMark，这个周期时间在env.setStreamTimeCharacteristic() 默认值是200毫秒，也可以自定义设置</span></span><br><span class="line"><span class="comment">// eg:</span></span><br><span class="line">.assignTimestampsAndWatermarks(<span class="keyword">new</span> <span class="title class_">BoundedOutOfOrdernessTimestampExtractor</span>(maxOutOfOrderness)) 去重写extractTimestamp()方法，提取eventTime，在BoundedOutOfOrdernessTimestampExtractor类下getCurrentWatermark()方法里，会先通过eventTime-maxOutOfOrderness得到一个时间戳，会和已有的watermark比较，取最大值。maxOutOfOrderness指的是一个窗口延迟时间，maxOutOfOrderness设置的太大，窗口计算的结果就太慢，太小的话计算的结果准确性就下降了</span><br><span class="line"></span><br><span class="line">.assignTimestampsAndWatermarks(AssignerWithPunctuatedWatermarks) <span class="comment">// 每来一条数据都会生成一个watermark</span></span><br></pre></td></tr></table></figure>
+
+<p>窗口起始时间的确定<br>以 TumblingEventTimeWindows 为例，有一个 assignWindows() 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Collection&lt;TimeWindow&gt; <span class="title function_">assignWindows</span><span class="params">(Object element, <span class="type">long</span> timestamp, WindowAssignerContext context)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (timestamp &gt; Long.MIN_VALUE) &#123;</span><br><span class="line">        <span class="comment">// Long.MIN_VALUE is currently assigned when no timestamp is present</span></span><br><span class="line">        <span class="comment">// offset 默认是 0</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> TimeWindow.getWindowStartWithOffset(timestamp, offset, size);</span><br><span class="line">        <span class="keyword">return</span> Collections.singletonList(<span class="keyword">new</span> <span class="title class_">TimeWindow</span>(start, start + size));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Record has Long.MIN_VALUE timestamp (= no timestamp marker). &quot;</span> +</span><br><span class="line">                <span class="string">&quot;Is the time characteristic set to &#x27;ProcessingTime&#x27;, or did you forget to call &quot;</span> +</span><br><span class="line">                <span class="string">&quot;&#x27;DataStream.assignTimestampsAndWatermarks(...)&#x27;?&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">long</span> <span class="title function_">getWindowStartWithOffset</span><span class="params">(<span class="type">long</span> timestamp, <span class="type">long</span> offset, <span class="type">long</span> windowSize)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> timestamp - (timestamp - offset + windowSize) % windowSize;</span><br><span class="line">    <span class="comment">// offset默认是0，+windowSize再取余，相当于没加，所以相当于 timestamp - timestam%windowSize</span></span><br><span class="line">    <span class="comment">// 相当于取了一个windowSize的整数倍</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>flink 有状态的数据流</p>
+<p>状态<br>比如聚合计算的一些结果，需要保存下来，这个就算是任务的状态。可以认为是一个本地变量，flink会进行状态管理，包括状态一致性、故障处理以及高效存储和访问</p>
+<ul>
+<li>算子状态 Operatior State<ul>
+<li>作用范围限定为算子任务，由同一并行任务所处理的所有数据都可以访问到相同的状态，比如最小值，同一个task下的所有数据都可以访问到，但是不同的task访问不到，因为不在同一个内存下</li>
+<li>算子状态的数据结构<ul>
+<li>列表状态 list state: 将状态表示为一组数据的列表</li>
+<li>联合列表状态 union list state</li>
+<li>广播状态 broadcast state</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>键控状态 keyed State<ul>
+<li>同一个分区下，可能有不同的key，针对这些key，会保存每一个key自己的一个状态实例</li>
+<li>键控状态的数据结构<ul>
+<li>值状态</li>
+<li>列表状态</li>
+<li>映射状态</li>
+<li>聚合状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>状态后端 State Backends<ul>
+<li>主要负责本地的状态管理，以及将检查点状态写入远程存储</li>
+<li>主要有3种<ul>
+<li>MemoryStateBackend<ul>
+<li>内存级的状态后端，会将键控状态作为内存中的对象进行管理，将它们存储在taskmanager的jvm堆上，而将checkpoint存储在jobmanager中</li>
+<li>有点：开发测试方便</li>
+<li>缺点：但只能保存数据量小的状态；状态数据有可能丢失</li>
+</ul>
+</li>
+<li>FsStateBackend<ul>
+<li>将checkpoint存到远程的持久化文件系统，而对于本地状态，跟MemoryStateBackend一样，也会存在taskmanager的jvm堆上</li>
+<li>特点：同时拥有内存级的本地访问速度，和更好的容错保证。但是如果系统特别庞大，taskmanager堆上的内存（默认是5M）都不足以存储下，就有第三种状态后端</li>
+</ul>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 状态后端</span><br><span class="line">// env.setStateBackend(new FsStateBackend(String checkpointDataUri, boolean asynchronousSnapshots));</span><br></pre></td></tr></table></figure></li>
+<li>RocksDBStateBackend<ul>
+<li>类似于key-value数据存储，将所有状态序列化后，存入本地的RocksDB中存储。相当于落入磁盘，不会丢数，但是会影响速度</li>
+<li>需要再引入 flink-statebackend-rocksdb 依赖</li>
+<li>优点：可以存储超大量的状态信息；状态信息不会丢失</li>
+<li>缺点：状态访问速度有所下降</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>从运行时上下文拿到状态 &#x3D;&gt; 需要在 richFunction 里面去拿到上下文</p>
+<p>比如温度监控，同一个传感器如果这一次的温度和上一次的温度相差十度，就预警。需要把上一条数据的温度不断更新在状态里，然后进行比较。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">dataStream.keyBy().flatmap(new TempAlert(温度阈值))</span><br><span class="line"></span><br><span class="line">class TempAlert extends RichFlatMapFunction&#123;</span><br><span class="line">    private int threshold = 0;</span><br><span class="line">    private ValueState lastTempValueState = getRuntimeContext().getState(new ValueStateDescriptor(&quot;last-temp&quot;, Double.class));</span><br><span class="line">    public TempAlert(int i) &#123;</span><br><span class="line">        this.threshold = i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void flatMap(Object value, Collector out) throws Exception &#123;</span><br><span class="line">        // 先获取上一条数据的温度值</span><br><span class="line">        double lastTemp = (double) lastTempValueState.value();</span><br><span class="line">        if(Math.abs(value.getTemp() - lastTemp) &gt;= threshold)&#123;</span><br><span class="line">            out.collect(&quot;预警信息&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 更新温度值</span><br><span class="line">        lastTempValueState.update(value.getTemp());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ProcessFunction<br>本身也继承了 AbstractRichFunction， 即实现了 RichFunction，即加强版的富函数，可以拿到各种上下文、变量、状态，还可以实现分流输出的效果</p>
+<p>context.timeService().registerEventTimeTimer(long time) &#x2F;&#x2F; 注册一个定时器，然后重写 <code>onTimer(long timestamp, OnTimerContext ctx, Collector&lt;O&gt; out)</code>方法； 可以注册多个定时器，只要参数time不一样，就是不一样的定时器，但是实现的话都是 onTimer() 方法，通过判断timestamp（onTimer()方法被激活时的时间戳）的不一样，来执行不同的操作。类似于在同一个闹钟app设置定时，根据时间来区分，激活方法都是一样的，只是去判断当前timestamp是哪一个，来执行不同的操作</p>
+<p>比如连续N秒钟，温度一直上升，就发送预警信息。如果用滚动窗口或者滑动窗口的话，有一定问题：第一个窗口前1秒是下降，后面的N-1秒是上升；第二个窗口，前面N-1秒是上升，最后1秒是下降。这样两个窗口都不会报警，但是实际上是应该报警的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">dataStream.keyBy().process(new TempWarning(连续时长))</span><br><span class="line"></span><br><span class="line">class TempAlert2 extends KeyedProcessFunction &#123;</span><br><span class="line">    // 保存上一个温度值进行比较</span><br><span class="line">    private ValueState lastTempValueState = getRuntimeContext().getState(new ValueStateDescriptor(&quot;last-temp&quot;, Double.class));</span><br><span class="line"></span><br><span class="line">    // 保存上一个注册定时器的时间戳，用于删除</span><br><span class="line">    private ValueState timerTsValueState = getRuntimeContext().getState(new ValueStateDescriptor(&quot;timerTs&quot;, Long.class));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private int timeSpan = 0;</span><br><span class="line">    public TempAlert2(int i) &#123;</span><br><span class="line">        this.timeSpan = i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void processElement(Object value, Context ctx, Collector out) throws Exception &#123;</span><br><span class="line">        // 取出状态</span><br><span class="line">        double lastTemp = (double) lastTempValueState.value();</span><br><span class="line">        long timerTs = (long) timerTsValueState.value();</span><br><span class="line"></span><br><span class="line">        // 更新上一次的温度值</span><br><span class="line">        lastTempValueState.update(lastTemp);</span><br><span class="line"></span><br><span class="line">        // 温度上升并且没有注册过定时器，那就注册一个以当前时间戳开始的一个定时器</span><br><span class="line">        // timerTs 默认值是0，所以等于0的时候说明是第一次进行判断</span><br><span class="line">        if(value.getTemp() &gt; lastTemp &amp;&amp; timerTs == 0)&#123;</span><br><span class="line">            // 按照当前处理时间 + timeSpan 作为时间戳来注册定时器，也可以按照eventTime来设置时间戳</span><br><span class="line">            long ts = ctx.timerService().currentProcessingTime() + this.timeSpan*1000;</span><br><span class="line">            ctx.timerService().registerProcessingTimeTimer(ts);</span><br><span class="line">            timerTsValueState.update(ts);</span><br><span class="line"></span><br><span class="line">        &#125;else if(value.getTemp() &lt; lastTemp)&#123;</span><br><span class="line">            // 如果温度下降，那么需要删除定时器</span><br><span class="line">            ctx.timerService().deleteProcessingTimeTimer(timerTs);</span><br><span class="line">            timerTsValueState.getClass();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onTimer(long timestamp, OnTimerContext ctx, Collector out) throws Exception &#123;</span><br><span class="line">        out.collect(&quot;传感器 &quot; + ctx.getCurrentKey() + &quot; 的温度在 &quot; + this.timeSpan/1000 + &quot;秒内连续上升&quot;);</span><br><span class="line">        // 清空这一次的定时器，至于温度状态是否清空，如果清空了，就相当于再重新走一遍流程</span><br><span class="line">        timerTsValueState.clear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现分流输出的时候，通过 <code>ctx.output(OutputTag&lt;X&gt; outputTag, X value);</code> 方法来实现</p>
+<p>容错机制</p>
+<p>一致性检查点 checkpoints: 在某个时间点对<strong>所有任务</strong>的状态进行一次快照(一个任务的状态可能很快就可以被更新，但是所有任务都做完，所有状态合并出来的快照的时间可能就会比较慢)；这个时间点应该是所有任务都恰好处理完一个相同的输入数据的时候，比如针对偏移量5做快照，进行了keyby分区，那么应该保存所有分区在执行完偏移量5的数据之后的那个状态。当恢复的时候是恢复最近一次成功保存的检查点，然后会重新提交偏移量，这个就提供了 <strong>exactly-once</strong> 的一致性保证</p>
+<blockquote>
+<p>类似于 jvm 的 safepoint</p>
+</blockquote>
+<p>检查点的实现算法</p>
+<ul>
+<li>一种简单的想法<ul>
+<li>暂停应用，保存状态到检查点，再重新恢复应用</li>
+</ul>
+</li>
+<li>flink 的改进和实现<ul>
+<li>基于 Chandy-Lamport 算法的分布式快照</li>
+<li>将检查点的保存和数据处理分离开，不暂停整个应用，哪一个分区做完了就先做一个合照，等所有分区都做了合照之后再拼起来就可以了</li>
+</ul>
+</li>
+</ul>
+<p>检查点屏障 checkpoint barrier: 类似于watermark，在处理数据的时候会打上一个barrier，就可以把一条流上的数据按照不同的检查点分开。当前 barrier 前面到来的数据导致的状态更改，都会包含在当前 barrier 所属的检查点中；当前 barrier 后面到来的数据导致的状态更改，都会包含在后面的检查点</p>
+<p>jobmanager 会发送一个命令，告诉source，然后source会在数据里插入一个barrier，当task执行到对应的数据时，就知道这里需要做一次检查点保存。</p>
+<p>barrier 对齐: 类似于watermark会从上游广播到所有的下游，而下游会分区来保存所有的watermark，然后取最小值来计算。barrier也会从上游广播到所有的下游，对于下游来说，如果其中一个流source1的barrier先到，意味着这个流的数据已经计算完了，而其他流的barrier还没到，此时source1的数据如果继续到的话，会先缓存起来，要等其他流的barrier到，计算完了之后保存好状态，再从缓存的数据开始陆续计算。</p>
+<p>如果barrier不对齐，其中快的流的数据不断计算，状态就会不断更新，慢的流快照保存，再次恢复上一次成功检查点快照的时候，快的流那边就会重复消费数据，就变成了 <strong>At Least Once</strong>。</p>
+<blockquote>
+<p>前面说的都是 flink 内部的 <strong>Exactly-Once</strong> 和  <strong>At Least Once</strong>，如果每1分钟快照一次，处理数据之后提交给mysql，在chk-100成功快照一次之后，过了30秒，程序down了，恢复到chk-100时的状态，那么就会有30秒的数据会被重复提交到mysql，也就是说还需要一个<strong>端对端</strong>的<strong>精确一次</strong>实现</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// checkpoint 默认时间间隔是500L</span><br><span class="line">env.enableCheckpointing(1000L, CheckpointingMode.EXACTLY_ONCE);</span><br><span class="line">// checkpoint 超时时间，快的流等慢的流，超过这个时间就作废</span><br><span class="line">env.getCheckpointConfig().setCheckpointTimeout(60000L);</span><br><span class="line">// 最大同时checkpoint个数 默认是1</span><br><span class="line">env.getCheckpointConfig().setMaxConcurrentCheckpoints(5);</span><br><span class="line">// 两个checkpoint执行的最小间隔，如果配了这一个，上面的最大同时执行个数就不会生效</span><br><span class="line">env.getCheckpointConfig().setMinPauseBetweenCheckpoints(500L);</span><br><span class="line">// 能够允许checkpoint失败的次数</span><br><span class="line">env.getCheckpointConfig().setTolerableCheckpointFailureNumber(10);</span><br></pre></td></tr></table></figure>
+
+<p><code>env.setStateBackend(new FsStateBackend(String checkpointDataUri, boolean asynchronousSnapshots));</code> 在设置状态后端这里，FsStateBackend 还有第二个参数，是否异步快照，即如果为true，当快的流计算完了，会把自己的状态先缓存到文件里，然后继续执行下面的计算，当慢的流计算完了之后再去合并快照</p>
+<p>重启策略</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 重启3次，中间要间隔10秒</span><br><span class="line">env.setRestartStrategy(RestartStrategies.fixedDelayRestart(3, 10000L));</span><br></pre></td></tr></table></figure>
+
+<p>保存点 SavePoint<br>类似于checkpoint的实现，savepoint是自定义设置的保存功能，需要写出来触发创建操作，会同时保存一些额外的元数据上下文的信息<br>作用：有计划的手动备份；暂停和重启应用；版本迁移等等<br>注意：要恢复savepoint的话需要保证计算流的拓扑结构是一样的，也就是算子应该是不变的，最好在算子后面添加 <code>.uid(String)</code>，这样在恢复的时候可以更有针对性</p>
+<p>状态一致性<br>每个算子任务都有自己的计算状态，一条数据不应该丢失，也不应该重复计算（重复计算指的是不能叠加计算）</p>
+<p>状态一致性分类</p>
+<ul>
+<li>at-most-once: 任务故障时，什么也不做，丢数就丢数。这样的话会没有快照的开销，速度会变快，准确性会下降。比如直播视频，因为网络问题，丢帧也是可以接受的，udp协议</li>
+<li>at-least-once: 数据不会丢，数据可能被处理多次，即计算结果可能会进行叠加计算</li>
+<li>exactly-onde: 数据不会丢，只会处理一次</li>
+</ul>
+<p>端到端的 exactly-once</p>
+<ul>
+<li>内部保证：checkpoint</li>
+<li>source：可重设数据的读取位置</li>
+<li>sink：从故障恢复时，数据不会重复写入到外部系统<ul>
+<li>幂等写入</li>
+<li>事务写入</li>
+</ul>
+</li>
+</ul>
+<p>幂等写入 Idempotent Writes<br>思路：e的导数还是e。<br>含义：一个操作，可以重复执行很多次，但只导致一次结果更改，也就是说，后面再重复执行的操作就不起作用了。<br>实现：类似于hashmap，数据修改是针对于同一个key的，修改再多次也只相当于是一次。比如redis、mysql提交的时候，按照key来写入数据，那重复写入的话也不会影响到数据的变化，相当于是一次更新<br>缺点：1-&gt;5-&gt;10-&gt;1-&gt;5-&gt;10 在第一个10的位置发生故障，导致数据重复发送，产生数据跳变</p>
+<p>事务写入 Transactional Writes<br>思路：事务对应这checkpoint，等到checkpoint真正完成的时候，才把所有对应的结果放入到sink端中<br>实现：1. 预写日志 2. 两阶段提交</p>
+<p>预写日志 Write-Ahead-Log WAL<br>实现：把结果数据先当成状态保存，然后在收到checkpoint完成的通知后，一次性批量写入sink端。DataStream API提供了一个模板类 GenericWriteAheadSink 来实现<br>缺点：由于checkpoint不能设置的太小（间隔太小的话，整个流就不断在做快照了，都没时间处理数据了），所以这一批数据到sink端会需要一定的时间，延迟性会比较高；另外从日志中批量写入到sink端时，如果写到一半sink端故障了，恢复的时候针对另一半没写入的日志数据如何处理也是一个问题</p>
+<p>两阶段提交 Two-Phase-Commit 2PC<br>实现：对于每一个checkpoint，sink端会启动一个事务，将所有计算得到的数据都放入到事务里，然后写入到外部系统，但是并不提交，只是预提交（此时如果checkpoint挂了可以回滚事务）。当收到checkpoint<strong>完成</strong>的通知后，再提交事务，数据就会真正写入。Flink提供了 TwoPhaseCommitSinkFunction 抽象类，eg: kafkaProducer<br>要求：对外部 sink 端的要求会比较高————需要支持事务；支持预写入；可以回滚；提交事务必须是幂等操作</p>
+<blockquote>
+<p>也许状态很多，需要等所有状态都合并成快照之后才能提交事务。而不是看到下一个barrier的时候就提交。看到新的barrier会继续新的计算，放在新的事务里，当checkpoint完成之后，才会提交上一个事务</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">sink\source</th>
+<th align="center">不可重置</th>
+<th align="center">可重置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">任意</td>
+<td align="center">At-most-once</td>
+<td align="center">At-least-once（故障恢复时会出现暂时的不一致，数据跳变）</td>
+</tr>
+<tr>
+<td align="center">幂等</td>
+<td align="center">At-most-once</td>
+<td align="center">Exactly-once</td>
+</tr>
+<tr>
+<td align="center">预写日志</td>
+<td align="center">At-most-once</td>
+<td align="center">At-least-once</td>
+</tr>
+<tr>
+<td align="center">两阶段提交</td>
+<td align="center">At-most-once</td>
+<td align="center">Exactly-once</td>
+</tr>
+</tbody></table>
+<p>Flink + Kafka 端到端状态一致性的保证</p>
+<ul>
+<li>内部：利用checkpoint机制，把状态存盘，发生故障的时候可以恢复</li>
+<li>source：kafka Consumer 作为source，可以把偏移量保存下来，故障恢复时可以重置偏移量，重新消费数据</li>
+<li>sink：FlinkKafkaProducer 底层继承了 TwoPhaseCommitSinkFunction 类</li>
+</ul>
+<p>综上：</p>
+<ol>
+<li>jobmanager在source数据流插入barrier</li>
+<li>task看到barrier，就开始保存自己的状态，把数据写入到sink的事务里</li>
+<li>sink看到barrier，创建新的事务，当上一个barrier完成的时候，提交上一个事务</li>
+</ol>
+<p>Table API 和 Flink SQL</p>
+<blockquote>
+<p>需要引入 flink-table-planner 依赖，会自动引入 bridge 依赖。可以引入 flink-table-planner-blink 版本，比flink-table-planner要更完善一些。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 创建table环境</span><br><span class="line">StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);</span><br><span class="line">// 从外部链接创建一张表</span><br><span class="line">①tableEnv.connect().createTemporaryTable(&quot;myTable1&quot;);</span><br><span class="line">// 从已有的数据流生成一张表</span><br><span class="line">②Table dataTable = tableEnv.fromDataStream(dataStream);</span><br><span class="line"></span><br><span class="line">// 基于 Table API 查询算子得到一张表 2种形式</span><br><span class="line">①Table resultTable1 = tableEnv.from(&quot;myTable1&quot;).select().filter()</span><br><span class="line">②Table resultTable1 = dataTable.select(&quot;id, temp&quot;).filter(&quot;id = \&quot;sensor_1\&quot;&quot;);</span><br><span class="line"></span><br><span class="line">// 基于SQL来查询得到一张表</span><br><span class="line">②tableEnv.createTemporaryView(&quot;myTable2&quot;, dataTable);</span><br><span class="line">②Table resultTable2 = tableEnv.sqlQuery(&quot;select * from myTable2&quot;); // 表名和创建的那个view的名字需要是一样的</span><br><span class="line"></span><br><span class="line">①Table resultTable2 = tableEnv.sqlQuery(&quot;select * from myTable1&quot;); // 因为前面指定了表名，所以这里直接写就可以了</span><br><span class="line"></span><br><span class="line">// 输出最后的结果</span><br><span class="line">DataStream&lt;Row&gt; rowDataStream = tableEnv.toAppendStream(resultTable, Types.ROW(Types.INT, Types.LONG));</span><br><span class="line">rowDataStream.print();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/10/09/Hive-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/09/Hive-8/" class="post-title-link" itemprop="url">Distcp 跨集群同步</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-09 17:45:00" itemprop="dateCreated datePublished" datetime="2020-10-09T17:45:00+08:00">2020-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-10 11:33:00" itemprop="dateModified" datetime="2020-11-10T11:33:00+08:00">2020-11-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/10/09/Hive-8/" class="post-meta-item leancloud_visitors" data-flag-title="Distcp 跨集群同步" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/10/09/Hive-8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/09/Hive-8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Distcp-跨集群同步"><a href="#Distcp-跨集群同步" class="headerlink" title="Distcp 跨集群同步"></a>Distcp 跨集群同步</h2><h3 id="1-使用方法及原理"><a href="#1-使用方法及原理" class="headerlink" title="1. 使用方法及原理"></a>1. 使用方法及原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop distcp srcPath tarPath</span><br><span class="line">会把srcPath和tarPath下的所有目录、文件信息放入到 _distcp_src_files 和 _distcp_dst_files 两个临时文件中，具体文件内容的拷贝工作交给多个map任务，会导致一个问题，就是文件过多那么map任务数就会很多，每个datanode有一个上限，极少数情况下可能会超过上限，导致数据文件拷贝不全。</span><br></pre></td></tr></table></figure>
+
+<p>org.apache.hadoop.tools.DistCp 类中会解析 srcPath tarPath ，将之前的临时文件先删除，然后一个含有随机数的临时文件夹路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">private Path createMetaFolderPath() throws Exception &#123;</span><br><span class="line">    Configuration configuration = this.getConf();</span><br><span class="line">    Path stagingDir = JobSubmissionFiles.getStagingDir(new Cluster(configuration), configuration);</span><br><span class="line">    Path metaFolderPath = new Path(stagingDir, &quot;_distcp&quot; + String.valueOf(rand.nextInt()));</span><br><span class="line">    return metaFolderPath;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到临时文件的路径，SequenceFile文件，即Key&#x2F;Value结构的序列化文件，这个文件里将存放所有需要拷贝的源目录&#x2F;文件信息列表。其中Key是源文件的Text格式的相对路径，即relPath；而Value则记录源文件的FileStatus格式的org.apache.hadoop.fs.FileStatus信息，这里FileStatus是hadoop已经封装好了的描述HDFS文件信息的类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">protected Path getFileListingPath() throws IOException &#123;</span><br><span class="line">    String fileListPathStr = this.metaFolder + &quot;/fileList.seq&quot;;</span><br><span class="line">    Path path = new Path(fileListPathStr);</span><br><span class="line">    return new Path(path.toUri().normalize().toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在createJob()里主要有两个地方需要注意</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">private Job createJob() throws IOException &#123;</span><br><span class="line">    job.setInputFormatClass(DistCpUtils.getStrategy(this.getConf(), this.context)); </span><br><span class="line">    job.setJarByClass(CopyMapper.class);</span><br><span class="line">    return job;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>setInputFormatClass() 保证了mapper的数据读取格式是从getStrategy(getConf(), inputOptions)得到的，底层是由 UniformSizeInputFormat.class 类定义的，这个类继承自InputFormat.class，MR中所有的输入格式类都继承自InputFormat，这是一个抽象类。<br>InputFormat抽象类仅有两个抽象方法</p>
+<ul>
+<li>List<InputSplit>getSplits()，获取由输入文件计算出输入分片(InputSplit)，解决数据或文件分割成片问题</li>
+<li>RecordReader&lt;K,V&gt;createRecordReader()，创建RecordReader，从InputSplit中读取数据，解决读取分片中数据问题</li>
+</ul>
+<p>CopyMapper.class中则定义了每个map的工作逻辑，也就是拷贝的核心逻辑。这个类里最核心的两个方法是 setup()和map()。setup()中完成map方法的一些初始化工作，在DISTCP中，这个方法里会设定对端的目标路径，并做一些参数设置和判断工作</p>
+<p>而 map(Text relPath, CopyListingFileStatus sourceFileStatus, Context context) 中通过参数可以发现就是对UniformSizeInputFormat类里分片后的数据里的每一行进行处理，每行里存放的就是 fileList.seq文件每行的内容。</p>
+<blockquote>
+<p>CommonCliOptions 解析命令行参数</p>
+</blockquote>
+<h3 id="2-几个问题"><a href="#2-几个问题" class="headerlink" title="2. 几个问题"></a>2. 几个问题</h3><h4 id="2-1-文件数量过多，导致map过多，超过datanode上限，导致数据文件拷贝不全"><a href="#2-1-文件数量过多，导致map过多，超过datanode上限，导致数据文件拷贝不全" class="headerlink" title="2.1 文件数量过多，导致map过多，超过datanode上限，导致数据文件拷贝不全"></a>2.1 文件数量过多，导致map过多，超过datanode上限，导致数据文件拷贝不全</h4><h4 id="2-2-提示信息非常少，如果是-调度器-作业-distcp-mrJob，-此时输出的信息应该是-mrJob的，也就是distcp的信息，而不是作业的信息，可能会导致调度器无法拿到作业执行信息从而导致作业调度失败"><a href="#2-2-提示信息非常少，如果是-调度器-作业-distcp-mrJob，-此时输出的信息应该是-mrJob的，也就是distcp的信息，而不是作业的信息，可能会导致调度器无法拿到作业执行信息从而导致作业调度失败" class="headerlink" title="2.2 提示信息非常少，如果是 调度器 -&gt; 作业 -&gt; distcp -&gt; mrJob， 此时输出的信息应该是 mrJob的，也就是distcp的信息，而不是作业的信息，可能会导致调度器无法拿到作业执行信息从而导致作业调度失败"></a>2.2 提示信息非常少，如果是 调度器 -&gt; 作业 -&gt; distcp -&gt; mrJob， 此时输出的信息应该是 mrJob的，也就是distcp的信息，而不是作业的信息，可能会导致调度器无法拿到作业执行信息从而导致作业调度失败</h4><h4 id="2-3-长尾问题-？"><a href="#2-3-长尾问题-？" class="headerlink" title="2.3 长尾问题 ？"></a>2.3 长尾问题 ？</h4><h3 id="3-分区表的跨集群同步问题"><a href="#3-分区表的跨集群同步问题" class="headerlink" title="3. 分区表的跨集群同步问题"></a>3. 分区表的跨集群同步问题</h3><p>不管是普通的表还是分区表，都需要刷新元数据，<code>invalidate metadata table xxx</code></p>
+<p>分区表还需要手动添加分区，<code>alter table xxx add if not exists partition(key1=&quot;value1&quot;, key2=&quot;value2&quot;) partition(key1=&quot;value3&quot;, key2=&quot;value4&quot;)</code></p>
+<p>hive shell 通过 <code>msck repair table xxx</code> 可以自动去读取hdfs下文件信息，来添加元数据中不存在的分区信息，但是存在jdbc连接时不识别 msck 指令的情况</p>
+<h3 id="4-hive同步phoenix"><a href="#4-hive同步phoenix" class="headerlink" title="4. hive同步phoenix"></a>4. hive同步phoenix</h3><p><a href="http://phoenix.apache.org/hive_storage_handler.html">官网地址</a></p>
+<p>官网提供的一个方案是可以在hive创建表，然后存储上指定phoenix的一个方法，<code>org.apache.phoenix.hive.PhoenixStorageHandler</code>，通过一些配置来完成。但是会存在一些问题，比如hive与phoenix的数据类型转换问题，bigint、int；还有string的长度限制等</p>
+<p>∴ 跨集群表同步（parquet格式） + hive同步phoenix的方案解决如下</p>
+<ol>
+<li>首先将集群1的hive表通过元数据直接复制到集群2来创建</li>
+<li>对于未分区的表，直接复制文件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FSDataInputStream input = batchClusterFS.open(path);</span><br><span class="line">FSDataOutputStream output = queryClusterFS.create(new Path(queryHiveTablePath,fileName), true);</span><br><span class="line">IOUtils.copyBytes(input, output,queryClusterFS.getConf(), true);</span><br></pre></td></tr></table></figure>
+
+<p>如果是分区的表（eg：impala），递归复制文件夹下的所有文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Arrays.stream(files).parallel().forEach(dirPath -&gt; &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        FileUtil.copy(batchClusterFS, dirPath.getPath(), queryClusterFS, new Path(queryHiveTable.getSd().getLocation()), false, queryClusterFS.getConf());</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        logger.error(&quot;&gt;&gt; 分区表拷贝失败 dirPath: &#123;&#125;, error: &#123;&#125; &quot;, dirPath, e);</span><br><span class="line">        table.setDistStatus(CrossClusterHiveTableCopy.FAIL_STATUS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>都需要刷新元数据信息</p>
+<ol start="3">
+<li>遍历集群2hive表对应的hdfs文件，需要将hive中字段的类型和phoenix类型进行转换，<code>org.apache.phoenix.schema.types</code>，比如hive的string转phoenix的varchar；hive的array转phoenix的VARCHAR[]。</li>
+</ol>
+<blockquote>
+<p>如果一个字段长度可能会一直变，考虑到不能随便修改phphonenix的字段长度，也不能把字段长度设置的太大，可以将hive的字段设置为array，对应phoenix的VARCHAR[]，这就是一个变长字符数组。<br>hive中的array类型，从hive元数据中可以查到以下信息：data_type&#x3D;2003,column_size&#x3D;0；对应phoenix的数据类型是VARCHAR[], column_size为null，是变长数组</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这里的dataType是varchar[]；PVarcharArray 是 org.apache.phoenix.schema.types.PVarcharArray，是phoenix的类型</span><br><span class="line">if (dataType instanceof PVarcharArray) &#123;</span><br><span class="line">    // org.apache.hadoop.io.ArrayWritable</span><br><span class="line">    ArrayWritable aw = (ArrayWritable) value;</span><br><span class="line">    ArrayList strArr = new ArrayList();</span><br><span class="line">    for (Writable wr : aw.get()) &#123;</span><br><span class="line">        strArr.add(wr.toString());</span><br><span class="line">&#125;</span><br><span class="line">Array array = phoenixConn.createArrayOf(&quot;VARCHAR&quot;, strArr.toArray());</span><br><span class="line">JobLogger.log(&quot;&gt;&gt; type: varchar[] size &#123;&#125; &quot;, strArr.size());</span><br><span class="line">statement.setArray(i + 1, array);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/10/20/Redis-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/Redis-5/" class="post-title-link" itemprop="url">缓存穿透、缓存击穿、缓存雪崩</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-20 16:16:00" itemprop="dateCreated datePublished" datetime="2020-10-20T16:16:00+08:00">2020-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-08 11:09:00" itemprop="dateModified" datetime="2020-11-08T11:09:00+08:00">2020-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/10/20/Redis-5/" class="post-meta-item leancloud_visitors" data-flag-title="缓存穿透、缓存击穿、缓存雪崩" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/10/20/Redis-5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/20/Redis-5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="缓存穿透、缓存击穿、缓存雪崩"><a href="#缓存穿透、缓存击穿、缓存雪崩" class="headerlink" title="缓存穿透、缓存击穿、缓存雪崩"></a>缓存穿透、缓存击穿、缓存雪崩</h2><p><a href="https://www.cnblogs.com/xichji/p/11286443.html">参考网址1</a><br><a href="https://blog.csdn.net/kongtiao5/article/details/82771694">参考网址2</a><br><a href="https://blog.csdn.net/wsdc0521/article/details/106907436">参考网址3</a></p>
+<h3 id="1-缓存穿透"><a href="#1-缓存穿透" class="headerlink" title="1. 缓存穿透"></a>1. 缓存穿透</h3><p>含义：当查询Redis中没有的数据时，该查询会下沉到数据库层，同时数据库层也没有该数据，当这种情况大量出现或被恶意攻击时，接口的访问全部透过Redis访问数据库，而数据库中也没有这些数据，我们称这种现象为”缓存穿透”。缓存穿透会穿透Redis的保护，提升底层数据库的负载压力，同时这类穿透查询没有数据返回也造成了网络和计算资源的浪费。</p>
+<p>解决：</p>
+<ol>
+<li>在接口访问层对用户做校验，如接口传参、登陆状态、n秒内访问接口的次数</li>
+<li>利用布隆过滤器，将数据库层有的数据key存储在位数组中，以判断访问的key在底层数据库中是否存在<ul>
+<li>假设bloomfilter设置了3个hash，一个key对应3个bit位，假设所有key经过hash后对应的bit位都不一样，那么3个key差不多是1B(8bit)，1MB就可以存储100万个key</li>
+<li>bloomfilter可以判断数据一定不存在或者可能存在，对于可能存在的key再下沉到数据库查询</li>
+</ul>
+</li>
+<li>从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对写为key-null，缓存有效时间可以设置短点，如30秒（设置太长会导致正常情况也没法使用）。这样可以防止攻击用户反复用同一个id暴力攻击</li>
+</ol>
+<h3 id="2-缓存击穿"><a href="#2-缓存击穿" class="headerlink" title="2. 缓存击穿"></a>2. 缓存击穿</h3><p>含义：穿透表示底层数据库没有数据且缓存内也没有数据，击穿表示底层数据库有数据而缓存内没有数据。当热点数据key从缓存内失效时，大量访问同时请求这个数据，就会将查询下沉到数据库层，此时数据库层的负载压力会骤增，我们称这种现象为”缓存击穿”。</p>
+<p>解决：</p>
+<ol>
+<li>延长热点key的过期时间或者设置永不过期，如排行榜，首页等一定会有高并发的接口</li>
+<li>利用互斥锁保证同一时刻只有一个客户端可以查询底层数据库的这个数据，一旦查到数据就缓存至Redis内，避免其他大量请求同时穿过Redis访问底层数据库</li>
+</ol>
+<h3 id="3-缓存雪崩"><a href="#3-缓存雪崩" class="headerlink" title="3. 缓存雪崩"></a>3. 缓存雪崩</h3><p>含义：缓存雪崩是指缓存中数据大批量到过期时间，而查询数据量巨大，引起数据库压力过大甚至down机。和缓存击穿不同的是，缓存击穿指并发查同一条数据，缓存雪崩是不同数据都过期了，很多数据都查不到从而查数据库。</p>
+<p>解决：</p>
+<ol>
+<li>延长热点key的过期时间或者设置永不过期，如排行榜，首页等一定会有高并发的接口</li>
+<li>在可接受的时间范围内随机设置key的过期时间，分散key的过期时间，以防止大量的key在同一时刻过期</li>
+</ol>
+<h3 id="4-缓存预热"><a href="#4-缓存预热" class="headerlink" title="4. 缓存预热"></a>4. 缓存预热</h3><p>含义：当系统上线时，缓存内还没有数据，如果直接提供给用户使用，每个请求都会穿过缓存去访问底层数据库，如果并发大的话，很有可能在上线当天就会宕机，因此我们需要在上线前先将数据库内的热点数据缓存至Redis内再提供出去使用，这种操作就成为”缓存预热”。</p>
+<p>解决：比较通用的方式是写个批任务，在启动项目时或定时去触发将底层数据库内的热点数据加载到缓存内。</p>
+<h3 id="5-缓存更新"><a href="#5-缓存更新" class="headerlink" title="5. 缓存更新"></a>5. 缓存更新</h3><p>含义：缓存服务（Redis）和数据服务（底层数据库）是相互独立且异构的系统，在更新缓存或更新数据的时候无法做到原子性的同时更新两边的数据，因此在并发读写或第二步操作异常时会遇到各种数据不一致的问题。</p>
+<blockquote>
+<p>第二步操作异常：缓存和数据的操作顺序中，第二个动作报错。如数据库被更新，新数据缓存的时候出错，缓存内数据仍是旧版本；</p>
+</blockquote>
+<p>缓存更新的设计模式有四种：</p>
+<ul>
+<li>Cache aside：查询：先查缓存，缓存没有就查数据库，然后加载至缓存内；更新：先更新数据库，然后让缓存失效；或者先失效缓存然后更新数据库</li>
+<li>Read through：在查询操作中更新缓存，即当缓存失效时，Cache Aside 模式是由调用方负责把数据加载入缓存，而 Read Through 则用缓存服务自己来加载</li>
+<li>Write through：在更新数据时发生。当有数据更新的时候，如果没有命中缓存，直接更新数据库，然后返回。如果命中了缓存，则更新缓存，然后由缓存自己更新数据库</li>
+<li>Write behind caching：俗称write back，在更新数据的时候，只更新缓存，不更新数据库，缓存会异步地定时批量更新数据库</li>
+</ul>
+<h3 id="6-缓存降级"><a href="#6-缓存降级" class="headerlink" title="6. 缓存降级"></a>6. 缓存降级</h3><p>缓存降级是指当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，即使是有损部分其他服务，仍然需要保证主服务可用。可以将其他次要服务的数据进行缓存降级，从而提升主服务的稳定性。</p>
+<p>降级的目的是保证核心服务可用，即使是有损的。如去年双十一的时候淘宝购物车无法修改地址只能使用默认地址，这个服务就是被降级了，这里阿里保证了订单可以正常提交和付款，但修改地址的服务可以在服务器压力降低，并发量相对减少的时候再恢复。</p>
+<p>降级可以根据实时的监控数据进行自动降级也可以配置开关人工降级。是否需要降级，哪些服务需要降级，在什么情况下再降级，取决于大家对于系统功能的取舍。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/07/Lombok-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/07/Lombok-1/" class="post-title-link" itemprop="url">Lombok</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-07 16:51:00 / Modified: 16:58:00" itemprop="dateCreated datePublished" datetime="2020-11-07T16:51:00+08:00">2020-11-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/07/Lombok-1/" class="post-meta-item leancloud_visitors" data-flag-title="Lombok" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/07/Lombok-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/07/Lombok-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h2><p><a href="https://mp.weixin.qq.com/s/stgNcFH-NLnrqX6ZhzX33A">参考网址</a></p>
+<p>在类上使用注解 <code>@Data</code>，会在编译时自动添加 Setter-Getter 方法。</p>
+<p>有一个需要避免踩坑的地方：属性名前两个字母都需要小写，前两个字母如果是小写大写会出现问题！<br>解决：</p>
+<ol>
+<li>修改属性名字，让第二个字母小写，或者说是规定所有的属性的前两个字母必须小写</li>
+<li>如果数据库已经设计好，并且前后端接口对接好了，不想修改，那就专门为这种特殊的属性使用idea生成get-set方法复制代码</li>
+</ol>
+<p>现象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class NMetaVerify&#123;</span><br><span class="line">    private NMetaType nMetaType;</span><br><span class="line">    private Long id;</span><br><span class="line">    ....其他属性</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当我们使用Mybatis插入数据的时候，发现，其他属性都能正常的插入，但是就是nMetaType属性在数据库一直是null．</p>
+<p>原因：</p>
+<p>Lombok对于第一个字母小写，第二个字母大写的属性生成的get-set方法和Mybatis以及idea或者说是Java官方认可的get-set方法生成的不一样:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class NMetaVerify &#123;</span><br><span class="line">    private Long id;</span><br><span class="line">    private NMetaType nMetaType;</span><br><span class="line">    private Date createTime;</span><br><span class="line">    </span><br><span class="line">    public void lombokFound()&#123;</span><br><span class="line">        NMetaVerify nMetaVerify = new NMetaVerify();</span><br><span class="line">        nMetaVerify.setNMetaType(NMetaType.TWO); //注意：nMetaType的set方法为setNMetaType，第一个n字母大写了，</span><br><span class="line">        nMetaVerify.getNMetaType();                                  //getxxxx方法也是大写</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>idea，Mybatis，Java官方默认的行为为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class NMetaVerify &#123;</span><br><span class="line">    private Long id;</span><br><span class="line">    private NMetaType nMetaType;</span><br><span class="line">    private Date createTime;</span><br><span class="line"></span><br><span class="line">    public Long getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(Long id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public NMetaType getnMetaType() &#123;//注意：nMetaType属性的第一个字母小写</span><br><span class="line">        return nMetaType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setnMetaType(NMetaType nMetaType) &#123;//注意：nMetaType属性的第一个字母小写</span><br><span class="line">        this.nMetaType = nMetaType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Date getCreateTime() &#123;</span><br><span class="line">        return createTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCreateTime(Date createTime) &#123;</span><br><span class="line">        this.createTime = createTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mybatis(3.4.6版本)解析get-set方法获取属性名字的源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">package org.apache.ibatis.reflection.property;</span><br><span class="line"></span><br><span class="line">import java.util.Locale;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.reflection.ReflectionException;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author Clinton Begin</span><br><span class="line"> */</span><br><span class="line">public final class PropertyNamer &#123;</span><br><span class="line"></span><br><span class="line">     private PropertyNamer() &#123;</span><br><span class="line">         // Prevent Instantiation of Static Class</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">    public static String methodToProperty(String name) &#123;</span><br><span class="line">      if (name.startsWith(&quot;is&quot;)) &#123;//is开头的一般是bool类型，直接从第二个(索引)开始截取(简单粗暴)</span><br><span class="line">          name = name.substring(2);</span><br><span class="line">      &#125; else if (name.startsWith(&quot;get&quot;) || name.startsWith(&quot;set&quot;)) &#123;//set-get的就从第三个(索引)开始截取</span><br><span class="line">          name = name.substring(3);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">          throw new ReflectionException(&quot;Error parsing property name &#x27;&quot; + name + &quot;&#x27;.  Didn&#x27;t start with &#x27;is&#x27;, &#x27;get&#x27; or &#x27;set&#x27;.&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">           //下面这个判断很重要，可以分成两句话开始解释，解释如下</span><br><span class="line">            //第一句话：name.length()==1</span><br><span class="line">            //       对于属性只有一个字母的，例如private int x;</span><br><span class="line">            //          对应的get-set方法是getX();setX(int x);</span><br><span class="line">            //第二句话：name.length() &gt; 1 &amp;&amp; !Character.isUpperCase(name.charAt(1)))</span><br><span class="line">            //      属性名字长度大于1，并且第二个(代码中的charAt(1)，这个1是数组下标)字母是小写的</span><br><span class="line">            //      如果第二个char是大写的，那就直接返回name</span><br><span class="line">      if (name.length() == 1 || (name.length() &gt; 1 &amp;&amp; !Character.isUpperCase(name.charAt(1)))) &#123;</span><br><span class="line">          name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);//让属性名第一个字母小写，然后加上后面的内容</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean isProperty(String name) &#123;</span><br><span class="line">       return name.startsWith(&quot;get&quot;) || name.startsWith(&quot;set&quot;) || name.startsWith(&quot;is&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean isGetter(String name) &#123;</span><br><span class="line">       return name.startsWith(&quot;get&quot;) || name.startsWith(&quot;is&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean isSetter(String name) &#123;</span><br><span class="line">       return name.startsWith(&quot;set&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mybatis解析get-set方法为属性名字测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void foundPropertyNamer() &#123;</span><br><span class="line">    String isName = &quot;isName&quot;;</span><br><span class="line">    String getName = &quot;getName&quot;;</span><br><span class="line">    String getnMetaType = &quot;getnMetaType&quot;;</span><br><span class="line">    String getNMetaType = &quot;getNMetaType&quot;;</span><br><span class="line"></span><br><span class="line">    Stream.of(isName,getName,getnMetaType,getNMetaType)</span><br><span class="line">            .forEach(methodName-&gt;System.out.println(&quot;方法名字是:&quot;+methodName+&quot; 属性名字:&quot;+ PropertyNamer.methodToProperty(methodName)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">方法名字是:isName 属性名字:name </span><br><span class="line">方法名字是:getName 属性名字:name </span><br><span class="line">方法名字是:getnMetaType 属性名字:nMetaType //这个以及下面的属性第二个字母都是大写，所以直接返回name</span><br><span class="line">方法名字是:getNMetaType 属性名字:NMetaType</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/04/BinarySearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/04/BinarySearch/" class="post-title-link" itemprop="url">二分查找</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-04 14:16:00" itemprop="dateCreated datePublished" datetime="2020-11-04T14:16:00+08:00">2020-11-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-06 10:56:00" itemprop="dateModified" datetime="2020-11-06T10:56:00+08:00">2020-11-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/BinarySearch/" itemprop="url" rel="index"><span itemprop="name">BinarySearch</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/04/BinarySearch/" class="post-meta-item leancloud_visitors" data-flag-title="二分查找" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/04/BinarySearch/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/04/BinarySearch/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p><a href="https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484507&idx=1&sn=36b8808fb8fac0e1906493347d3c96e6&chksm=9bd7fa53aca0734531ec9f37127c0f371344e1690918888dfb1cfdf043c40c0b43d1121e5851&scene=21#wechat_redirect">参考网址1</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485044&idx=1&sn=e6b95782141c17abe206bfe2323a4226&chksm=9bd7f87caca0716aa5add0ddddce0bfe06f1f878aafb35113644ebf0cf0bfe51659da1c1b733&scene=21#wechat_redirect">参考网址2</a></p>
+<p>适合场景：</p>
+<ul>
+<li>寻找一个数</li>
+<li>寻找左侧边界</li>
+<li>寻找右侧边界</li>
+</ul>
+<p>最大的一个前提是：需要在单调区间内</p>
+<h3 id="1-框架"><a href="#1-框架" class="headerlink" title="1. 框架"></a>1. 框架</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int binarySearch(int[] nums, int target)&#123;</span><br><span class="line">    int left = 0, right = ...;</span><br><span class="line">    while(...)&#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if(nums[mid] == target)&#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;else if(nums[mid] &gt; target)&#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;else if(nums[mid] &lt; target)&#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return ...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-寻找一个数"><a href="#2-寻找一个数" class="headerlink" title="2. 寻找一个数"></a>2. 寻找一个数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left = 0; </span><br><span class="line">    int right = nums.length - 1; // 注意</span><br><span class="line"></span><br><span class="line">    while(left &lt;= right) &#123; // 注意</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if(nums[mid] == target)</span><br><span class="line">            return mid; </span><br><span class="line">        else if (nums[mid] &lt; target)</span><br><span class="line">            left = mid + 1; // 注意</span><br><span class="line">        else if (nums[mid] &gt; target)</span><br><span class="line">            right = mid - 1; // 注意</span><br><span class="line">        &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left = 0; </span><br><span class="line">    int right = nums.length; // 注意</span><br><span class="line"></span><br><span class="line">    while(left &lt; right) &#123; // 注意</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if(nums[mid] == target)</span><br><span class="line">            return mid; </span><br><span class="line">        else if (nums[mid] &lt; target)</span><br><span class="line">            left = mid + 1; // 注意</span><br><span class="line">        else if (nums[mid] &gt; target)</span><br><span class="line">            right = mid; // 注意</span><br><span class="line">        &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>while(left &lt;&#x3D; right) 这里是 &lt;&#x3D; 是因为要把区间里所有的数据都判断一遍，如果是 while(left &lt; right) 那么 left &#x3D; right 的这个下标对应的数据就没有进行判断，可以修改return来达到最终目标 <code>while(left &lt; right)&#123;...&#125; return nums[left] == target ? left : -1;</code></p>
+</blockquote>
+<ol start="3">
+<li>此算法有什么缺陷？<br>答：至此，你应该已经掌握了该算法的所有细节，以及这样处理的原因。但是，这个算法存在局限性。<br>比如说给你有序数组 nums &#x3D; [1,2,2,2,3]，target &#x3D; 2，此算法返回的索引是 2，没错。但是如果我想得到 target 的左侧边界，即索引 1，或者我想得到 target 的右侧边界，即索引 3，这样的话此算法是无法处理的。<br>这样的需求很常见。你也许会说，找到一个 target 索引，然后向左或向右线性搜索不行吗？可以，但是不好，因为这样难以保证二分查找对数级的复杂度了。</li>
+</ol>
+<h3 id="3-寻找左侧边界"><a href="#3-寻找左侧边界" class="headerlink" title="3. 寻找左侧边界"></a>3. 寻找左侧边界</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">①</span><br><span class="line">int left_bound(int[] nums, int target) &#123;</span><br><span class="line">    if (nums.length == 0) return -1;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = nums.length; // 注意</span><br><span class="line"></span><br><span class="line">    while (left &lt; right) &#123; // 注意</span><br><span class="line">        int mid = (left + right) / 2;</span><br><span class="line">        if (nums[mid] == target) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left = mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right = mid; // 注意</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br><span class="line">②</span><br><span class="line">int left_bound(int[] nums, int target) &#123;</span><br><span class="line">    if (nums.length == 0) return -1;</span><br><span class="line">    int left = 0;</span><br><span class="line">    int right = nums.length - 1; // 注意</span><br><span class="line"></span><br><span class="line">    while (left &lt;= right) &#123; // 注意</span><br><span class="line">        int mid = (left + right) / 2;</span><br><span class="line">        if (nums[mid] == target) &#123;</span><br><span class="line">            right = mid - 1;</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left = mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right = mid - 1; // 注意</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 最后要检查 left 越界的情况</span><br><span class="line">    if (left &gt;= nums.length || nums[left] != target)</span><br><span class="line">        return -1;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>int right = nums.length</code> 表示 [left, right) 范围内的数据都要考虑，而 right 对应的数据不做考虑，所以当 <code>nums[mid] &gt; target</code> 时， <code>right = mid</code> 即可。而当 <code>nums[mid] == target</code> 时，因为目标是拿到做边界，所以需要让 <code>right = mid</code> 来压缩区间范围，向左靠拢</p>
+<p>更推荐第一种，从左侧边界这个点考虑，需要求出来的是一个index，小于这个index的所有数据都是小于target的，而不去关心右侧边界具体是什么，那么搜索区间保证是 [left, right) 即可</p>
+<h3 id="4-寻找右侧边界"><a href="#4-寻找右侧边界" class="headerlink" title="4. 寻找右侧边界"></a>4. 寻找右侧边界</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">①</span><br><span class="line">int left_bound(int[] nums, int target) &#123;</span><br><span class="line">    if (nums.length == 0) return -1;</span><br><span class="line">    int left = 0, right = nums.length;</span><br><span class="line"></span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = (left + right) / 2;</span><br><span class="line">        if (nums[mid] == target) &#123;</span><br><span class="line">            left = mid + 1; // 注意</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left = mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right = mid; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return left - 1; // 注意</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">②</span><br><span class="line">int right_bound(int[] nums, int target) &#123;</span><br><span class="line">    int left = 0, right = nums.length - 1;</span><br><span class="line">    while (left &lt;= right) &#123;</span><br><span class="line">        int mid = left + (right - left) / 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left = mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right = mid - 1;</span><br><span class="line">        &#125; else if (nums[mid] == target) &#123;</span><br><span class="line">            // 别返回，锁定右侧边界</span><br><span class="line">            left = mid + 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 最后要检查 right 越界的情况</span><br><span class="line">    if (right &lt; 0 || nums[right] != target)</span><br><span class="line">        return -1;</span><br><span class="line">    return right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>nums[mid] == target</code> 时压缩右侧区间，所以让 <code>left = mid + 1</code>。最后返回 <code>left - 1</code> 和 <code>right - 1</code>是一样的，因为 while 退出的时候，left 和 right 相等，-1 可以这样想，如果 <code>nums[mid] == target</code> 时，<code>left = mid + 1</code> 也就是 <code>mid = left - 1</code>，最后返回的时候，left 对应的值不是等于 target 的下标，而 -1 后的 mid 有可能符合结果。</p>
+<h3 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h3><p>在寻找左侧或右侧边界的时候，设想 <code>nums=[1, 2, 2, 2, 3]</code>，需要target&#x3D;2的左侧和右侧，保证 [left, right) 左闭右开的搜索区间</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

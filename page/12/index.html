@@ -1,23 +1,1307 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta name="description" content="君子不器">
+<meta property="og:type" content="website">
+<meta property="og:title" content="猫熊小才天の书院">
+<meta property="og:url" content="https://mxxct4git.github.io/page/12/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="君子不器">
+<meta property="og:locale">
+<meta property="article:author" content="Mxxct">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/page/12/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/03/31/HBase-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/31/HBase-1/" class="post-title-link" itemprop="url">HBase</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-31 14:09:00" itemprop="dateCreated datePublished" datetime="2020-03-31T14:09:00+08:00">2020-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-29 17:14:00" itemprop="dateModified" datetime="2020-06-29T17:14:00+08:00">2020-06-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/03/31/HBase-1/" class="post-meta-item leancloud_visitors" data-flag-title="HBase" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/03/31/HBase-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/31/HBase-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><h3 id="1-特性"><a href="#1-特性" class="headerlink" title="1. 特性"></a>1. 特性</h3><p>rowkey 行键（自定义，但是必须有，而且唯一）；列族，列族里储存的是 k,v 的形式，并且 v 可以储存多个不同的值，根据时间戳来判断版本，默认返回最近更新的版本；根据 rowkey 的范围来划分不同的 region 区域，然后由不同的 hbase 服务器（region server）来管理不同的 region，这样可以缓解服务器的压力；表在 hdfs 存储时，会按照 region 来创建不同的文件夹，然后再根据列族划分更细的文件夹，最后才是最终文件数据（如果数据量很小的话，会直接保存在 region server 下的一个 memstore 里，另外热数据也会保存在 memstore 里，保证快速查找，缓存空间满了后会写入文件）</p>
+<p>region server 会持续向 zookeeper 汇报，如果有其中一个 region server 挂了，会有一个 master 来重启 region server，但是如果master挂了，region server没挂，不影响用户获取数据。一般会设置两个master，一个是active，一个是standby，组成一个解决单点故障的机制 HA：高可用</p>
+<p>在 hbase 的系统表里，有一个 hbase:meta，里面保存了所有的用户表的region信息。用户去查询数据的时候，会先去zookeeper（有一个 meta-region-server）找到 meta 表所在的 region server，然后去 region 对应的 server 里查找数据 </p>
+<p>存储的数据没有数据类型，都是二进制数组 byte[]，所以代码进行操作时要做数据转换</p>
+<h3 id="2-命令"><a href="#2-命令" class="headerlink" title="2. 命令"></a>2. 命令</h3><p>create tablename, 列族1, 列族2</p>
+<p>put tablename, rowkey, 列族1:key, value</p>
+<p>get tablename, rowkey</p>
+<p>delete 只能删一个cell，也就是列族下的某一个k,v，deleteall 可以删除一行</p>
+<h3 id="3-列族的布隆过滤器"><a href="#3-列族的布隆过滤器" class="headerlink" title="3. 列族的布隆过滤器"></a>3. 列族的布隆过滤器</h3><p>在构造一个列族定义时，可以设置列族的布隆过滤器类型。<br>HColumnDescriptor hColumnDescriptor &#x3D; new HColumnDescriptor(“xxx”);<br>hColumnDescriptor.setBloomFilterType(BloomType.ROW);<br>在对表的列族的某个key进行更新的时候，可能会导致hdfs中&#x2F;hbase&#x2F;data&#x2F;default&#x2F;tablename&#x2F;region0&#x2F;列族&#x2F; 目录下有很多文件，通过设置 BloomType 可以在查询时，过滤出不存在查询的key的文件，只从剩余文件里返回最新版本的那个value，从而提高效率</p>
+<h3 id="4-查询某一行到某一行"><a href="#4-查询某一行到某一行" class="headerlink" title="4. 查询某一行到某一行"></a>4. 查询某一行到某一行</h3><p>方法默认范围是左闭右开，如果要右闭的话可以在后面添加一个字节0<br>Scan scan &#x3D; new Scan(“10”.toBytes(), “10000\000”.toBytes());</p>
+<p>前面的0是阿拉伯符号0，后面\000，添加的是真正的数字0</p>
+<p>String a &#x3D; “000”;<br>String b &#x3D; “000\0”;<br>byte[] bt1 &#x3D; a.getBytes[]; &#x2F;&#x2F; [48, 48, 48] ACSII<br>byte[] bt2 &#x3D; b.getBytes[]; &#x2F;&#x2F; [48, 48, 48, 0]</p>
+<h3 id="5-大批量导入数据-bulk-load"><a href="#5-大批量导入数据-bulk-load" class="headerlink" title="5. 大批量导入数据 bulk-load"></a>5. 大批量导入数据 bulk-load</h3><h3 id="6-mapreduce-分析-hbase"><a href="#6-mapreduce-分析-hbase" class="headerlink" title="6. mapreduce 分析 hbase"></a>6. mapreduce 分析 hbase</h3><h3 id="7-创建二级索引-solr"><a href="#7-创建二级索引-solr" class="headerlink" title="7. 创建二级索引 solr"></a>7. 创建二级索引 solr</h3><h3 id="8-HBase提供了多个客户端参数设置超时"><a href="#8-HBase提供了多个客户端参数设置超时" class="headerlink" title="8. HBase提供了多个客户端参数设置超时"></a>8. HBase提供了多个客户端参数设置超时</h3><p>hbase.rpc.timeout<br>一次RPC请求的超时时间，如果某次RPC时间超过该值，客户端就会主动关闭socket。这个配置超时异常经常发生在大量高并发读写业务或者服务器端发生了比较严重的Full GC等场景下，导致某些请求无法得到及时处理，超过了时间间隔。该值默认大小为60000ms，即1min</p>
+<p>hbase.client.operation.timeout<br>该参数表示HBase客户端发起一次数据操作直至得到响应之间总的超时时间，数据操作类型包括get、append、increment、delete、put等。很显然，hbase.rpc.timeout表示一次RPC的超时时间，而hbase.client.operation.timeout则表示一次操作的超时时间，有可能包含多个RPC请求。举个例子说明，比如一次Put请求，客户端首先会将请求封装为一个caller对象，该对象发送RPC请求到服务器，假如此时因为服务器端正好发生了严重的Full GC，导致这次RPC时间超时引起SocketTimeoutException，对应的就是hbase.rpc.timeout。那假如caller对象发送RPC请求之后刚好发生网络抖动，进而抛出网络异常，HBase客户端就会进行重试，重试多次之后如果总操作时间超时引起SocketTimeoutException，对应的就是hbase.client.operation.timeout。</p>
+<p>hbase.client.scanner.timeout.period<br>默认为60000ms<br>在scan过程中RegionServer端偶尔抛出leaseException，是怎么回事？<br>看到leaseException就会想到租约机制，的确，HBase内部在一次完整的scan操作中引入了租约机制。为什么需要租约机制？这和整个scan操作流程有莫大的关系，上文讲到，一次完整的scan通常会被拆分为多个RPC请求，实际实现中，RegionServer接收到第一次RPC请求之后，会为该scan操作生成一个全局唯一的id，称为scanId。除此之外，RegionServer还会进行大量的准备工作，构建整个scan体系，构造需要用到的所有对象，后续的RPC请求只需要携带相同的scanId作为标示就可以直接利用这些已经构建好的资源进行检索。也就是说，在整个scan过程中，客户端其实都占用着服务器端的资源，此时如果此客户端意外宕机，是否就意味着这些资源永远都不能得到释放呢？租约机制就是为了解决这个问题。RegionServer接收到第一次RPC之后，除了生成全局唯一的scanId之外还会生成一个携带有超时时间的lease，超时时间可以通过参数hbase.regionserver.lease.period配置，一旦在超时时间内后续RPC请求没有到来（比如客户端处理太慢），RegionServer就认为客户端出现异常，此时会将该lease销毁并将整个scan所持有的资源全部释放，客户端在处理完成之后再发后续的RPC过来，检查到对应的lease已经不存在</p>
+<p>To make sure the timeout period is not too short, you can configure hbase.cells.scanned.per.heartbeat.check to a minimum number of cells that must be scanned before a timeout check occurs. The default value is 10000. A smaller value causes timeout checks to occur more often. 为确保超时时间(hbase.client.scanner.timeout.period)不会太短，可以将hbase.cells.scanned.per.heartbeat.check配置为发生超时检查前必须扫描的最小数量的单元。 默认值为10000.较小的值会导致更频繁地进行超时检查。</p>
+<p>Confiuration conf &#x3D; HBaseConfiguration.create();<br>conf.setInt(“hbase.rpc.timeout”,20000);<br>conf.setInt(“hbase.client.operation.timeout”,30000);<br>conf.setInt(“hbase.client.scanner.timeout.period”,20000);<br>HTable table &#x3D; new HTable(conf,”tableName”);</p>
+<p>重试机制<br>客户端参数优化实践</p>
+<ol>
+<li>hbase.client.pause:默认为100，可以减少为50</li>
+<li>hbase.client.retries.number:默认为31，可以减少为21</li>
+</ol>
+<p>［100，200，300，500，1000，2000，4000，10000，10000，10000，10000，20000，20000，…,20000］<br>默认情况下，客户端将在448s内重试30次，然后放弃连接到集群</p>
+<p>［50，100，150，250，500，1000，2000，5000，5000，5000，5000，10000，10000，…，10000］<br>客户端将会在2min内重试20次，然后放弃连接到集群</p>
+<p>在构造线程时，有一个默认关闭的特性：当hbase.client.backpressure.enabled(默认值为false，ServerStatisticTracker:63，AsyncProcess:629)为ture时，客户端会根据服务端压力和客户端配置的策略，生成带延时的Runnable对象，用以动态缓解服务端压力</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/05/24/Hive-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/24/Hive-6/" class="post-title-link" itemprop="url">Hive 建模</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-24 17:55:00" itemprop="dateCreated datePublished" datetime="2020-05-24T17:55:00+08:00">2020-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-15 11:19:00" itemprop="dateModified" datetime="2020-06-15T11:19:00+08:00">2020-06-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/05/24/Hive-6/" class="post-meta-item leancloud_visitors" data-flag-title="Hive 建模" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/05/24/Hive-6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/24/Hive-6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Hive-建模"><a href="#Hive-建模" class="headerlink" title="Hive 建模"></a>Hive 建模</h2><h3 id="1-存储格式"><a href="#1-存储格式" class="headerlink" title="1. 存储格式"></a>1. 存储格式</h3><ul>
+<li>textFile</li>
+<li>sequenceFile：一种Hadoop API提供的二进制文件，使用方便、可分割、可压缩。将数据以&lt;key,value&gt;的形式序列化到文件中。序列化和反序列化使用Hadoop 的标准的Writable 接口实现。key为空，用value 存放实际的值， 这样可以避免map 阶段的排序过程。</li>
+<li>rcFile：一种行列存储相结合的存储方式。首先，其将数据按行分块，保证同一个record在一个块上，避免读一个记录需要读取多个block。其次，块数据列式存储，有利于数据压缩和快速的列存取。但是不好用。</li>
+<li>orc：ecFile升级版。常用于Hive、Presto。</li>
+<li>parquet：Parquet和ORC都以列的形式存储数据。面向列的数据存储针对读取繁重的分析工作负载进行了优化。常用于Impala、Drill、Spark、Arrow。</li>
+<li>avro：基于行的格式存储数据。基于行的数据库最适合于大量写入的事务性工作负载。常用于Kafka、Druid。</li>
+</ul>
+<p>数据压缩比例上ORC最优，相比textfile节省了50倍磁盘空间，parquet压缩性能也较好<br>SQL查询速度而言，ORC与parquet性能较好，远超其余存储格式</p>
+<h3 id="2-表的类型"><a href="#2-表的类型" class="headerlink" title="2. 表的类型"></a>2. 表的类型</h3><ul>
+<li>全量表：保存用户所有的数据（包括新增与历史数据）</li>
+<li>增量表：只保留当前新增的数据</li>
+<li>快照表：按日分区，记录截止数据日期的全量数据</li>
+<li>切片表：切片表根据基础表，往往只反映某一个维度的相应数据。其表结构与基础表结构相同，但数据往往只有某一维度，或者某一个事实条件的数据</li>
+<li>拉链表：记录一个事物从开始，一直到当前状态的所有变化的信息</li>
+</ul>
+<h3 id="3-数据仓库、数据建模"><a href="#3-数据仓库、数据建模" class="headerlink" title="3. 数据仓库、数据建模"></a>3. 数据仓库、数据建模</h3><h4 id="3-1-数据仓库目标"><a href="#3-1-数据仓库目标" class="headerlink" title="3.1 数据仓库目标"></a>3.1 数据仓库目标</h4><ol>
+<li>访问性能：能够快速查询所需的数据，减少数据I&#x2F;O。</li>
+<li>数据成本：减少不必要的数据冗余，实现计算结果数据复用，降低大数据系统中的存储成本和计算成本。</li>
+<li>使用效率：改善用户应用体验，提高使用数据的效率。</li>
+<li>数据质量：改善数据统计口径的不一致性，减少数据计算错误的可能性，提供高质量的、一致的数据访问平台。</li>
+</ol>
+<p>比如hive的优点：</p>
+<ul>
+<li>容量大 hdfs</li>
+<li>运算能力强 mapreduce</li>
+</ul>
+<h4 id="3-2-建模方式"><a href="#3-2-建模方式" class="headerlink" title="3.2 建模方式"></a>3.2 建模方式</h4><h5 id="3-2-1-ER实体模型"><a href="#3-2-1-ER实体模型" class="headerlink" title="3.2.1 ER实体模型"></a>3.2.1 ER实体模型</h5><p>实体Entity（矩形）、属性Property（椭圆形）、关系Relationship（菱形）</p>
+<h5 id="3-2-2-维度建模"><a href="#3-2-2-维度建模" class="headerlink" title="3.2.2 维度建模"></a>3.2.2 维度建模</h5><p><a href="https://www.cnblogs.com/muchen/p/5310732.html">参考地址</a></p>
+<p>维度建模源自数据集市，主要面向分析场景。Ralph Kimball推崇数据集市的集合为数据仓库，同时也提出了对数据集市的维度建模，将数据仓库中的表划分为事实表、维度表两种类型</p>
+<ol>
+<li>事实表</li>
+</ol>
+<p>在ER模型中抽象出了有实体、关系、属性三种类别，在现实世界中，每一个操作型事件，基本都是发生在实体之间的，伴随着这种操作事件的发生，会产生可度量的值，而这个过程就产生了一个事实表，存储了每一个可度量的事件。通常是数值类型，且记录数会不断增加，表规模迅速增长。</p>
+<blockquote>
+<p>业务里每一个提交的表单都可以作为一个事实表（一次业务处理流程），表单相关的一些信息作为维度表</p>
+</blockquote>
+<ol start="2">
+<li>维度表</li>
+</ol>
+<p>维度表一般为单一主键，在ER模型中，实体为客观存在的事务，会带有自己的描述性属性，属性一般为文本性、描述性的，这些描述被称为维度。</p>
+<p>比如商品，单一主键：商品ID，属性包括产地、颜色、材质、尺寸、单价等，但并非属性一定是文本，比如单价、尺寸，均为数值型描述性的，日常主要的维度抽象包括：时间维度表、地理区域维度表等。</p>
+<p>维度建模通常又分为星型模型和雪花模型。</p>
+<p>星型模型：<br><img src="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324180338683-1916113766.jpg" alt="星型模型"></p>
+<p>可以看出，星形模式的维度建模由一个事实表和一组维表成，且具有以下特点：</p>
+<p>a. 维表只和事实表关联，维表之间没有关联；<br>b. 每个维表的主码为单列，且该主码放置在事实表中，作为两边连接的外码；<br>c. 以事实表为核心，维表围绕核心呈星形分布；</p>
+<p>雪花模型：<br><img src="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324180236104-1134926519.jpg" alt="雪花模型"></p>
+<p>星型模型和雪花模型的主要区别在于对维度表的拆分，对于雪花模型，维度表的设计更加规范，一般符合3NF；而星型模型，一般采用降维的操作，利用冗余来避免模型过于复杂，提高易用性和分析效率。</p>
+<blockquote>
+<p>然而这种模式在实际应用中很少见，因为这样做会导致开发难度增大</p>
+</blockquote>
+<p>雪花、星型模型对比：</p>
+<p>1、冗余：雪花模型符合业务逻辑设计，采用3NF设计，有效降低数据冗余；星型模型的维度表设计不符合3NF，反规范化，维度表之间不会直接相关，牺牲部分存储空间。</p>
+<p>2、性能：雪花模型由于存在维度间的关联，采用3NF降低冗余，通常在使用过程中，需要连接更多的维度表，导致性能偏低；星型模型反三范式，采用降维的操作将维度整合，以存储空间为代价有效降低维度表连接数，性能较雪花模型高。</p>
+<p>3、ETL：雪花模型符合业务ER模型设计原则，在ETL过程中相对简单，但是由于附属模型的限制，ETL任务并行化较低；星型模型在设计维度表时反范式设计，所以在ETL过程中整合业务数据到维度表有一定难度，但由于避免附属维度，可并行化处理。</p>
+<p>大数据和传统关系型数据库的计算框架不一样，例如对比mapreduce和oracle，在mapreduce里面，每多一个表的关联，就多一个job。mapreduce的每个任务进来，要申请资源，分配容器，各节点通信等。有可能YARN调度时长大于任务运行时间，例如调度需要5秒才能申请到资源，而表之间的join只需要2秒。hive优化里面，要尽可能减少job任务数，也就是减少表之间的关联，可以用适当的冗余来避免低效的查询方式，这是和oracle等其他关系型数据库不同的地方。</p>
+<p>星座模型（星行模型的拓展）：</p>
+<p><img src="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324175828948-2089267269.jpg"></p>
+<p>前面介绍的两种维度建模方法都是多维表对应单事实表，但在很多时候维度空间内的事实表不止一个，而一个维表也可能被多个事实表用到。在业务发展后期，绝大部分维度建模都采用的是星座模式。</p>
+<h5 id="3-2-3-Data-Vault模型"><a href="#3-2-3-Data-Vault模型" class="headerlink" title="3.2.3 Data Vault模型"></a>3.2.3 Data Vault模型</h5><h5 id="3-2-4-Anchor"><a href="#3-2-4-Anchor" class="headerlink" title="3.2.4 Anchor"></a>3.2.4 Anchor</h5>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/03/31/Flume/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/31/Flume/" class="post-title-link" itemprop="url">Flume</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-31 14:09:00" itemprop="dateCreated datePublished" datetime="2020-03-31T14:09:00+08:00">2020-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-15 11:16:00" itemprop="dateModified" datetime="2020-06-15T11:16:00+08:00">2020-06-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Flume/" itemprop="url" rel="index"><span itemprop="name">Flume</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/03/31/Flume/" class="post-meta-item leancloud_visitors" data-flag-title="Flume" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/03/31/Flume/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/31/Flume/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Flume"><a href="#Flume" class="headerlink" title="Flume"></a>Flume</h2><h3 id="1-Flume"><a href="#1-Flume" class="headerlink" title="1. Flume"></a>1. Flume</h3><p>日志采集</p>
+<ol>
+<li>读数据 组件是 resource</li>
+<li>缓存数据 channel 原因是读写速度的不一致，可以缓存在内存或本地文件，临时储存。看做一个数据的缓冲区（数据队列），它可以将事件暂存到内存中也可以持久化到本地磁盘上， 直到Sink处理完该事件</li>
+<li>写数据 组件是 sink</li>
+</ol>
+<ul>
+<li>source<ul>
+<li>Exec Source：实时搜集一个文件中新增的数据，不支持断点续传</li>
+<li>Spooling Directory Source：监控目录，新的文件，不支持断点续传</li>
+<li>TailDir Source：flume1.7 新加入的组件，支持断点续传</li>
+</ul>
+</li>
+<li>channel<ul>
+<li>memory channel：保存在内存，速度快，可能丢数据</li>
+<li>file channel：保存在磁盘的文件中，不会丢数据，速度慢</li>
+<li>kafka channel：省去sink，下一级必须是kafka，即直接传给kafka</li>
+</ul>
+</li>
+<li>sink</li>
+</ul>
+<p>拦截器</p>
+<ul>
+<li>ETL拦截器：清洗</li>
+<li>类型拦截器：分类</li>
+</ul>
+<p>flume 把内部的格式统一封装为 event，保存一些描述信息和具体数据</p>
+<p>拦截器的位置在Source和Channel之间，当我们为Source指定拦截器后，我们在拦截器中会得到event，根据需求我们可以对event进行保留还是抛弃，抛弃的数据不会进入Channel中。</p>
+<p><img src="https://images.weserv.nl/?url=https://images2017.cnblogs.com/blog/999804/201711/999804-20171108132026106-567951153.png"></p>
+<p>Flume可靠性在于Sink 必须在Event 被存入 Channel 后，或者，已经被传达到下一站agent里，又或者已经被存入外部数据目的地之后，才能把 Event 从 Channel 中 remove 掉。而Flume支持在本地保存一份文件 channel 作为备份，而memory channel 将event存在内存 queue 里，速度快，但丢失的话无法恢复。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">配置写到HDFS</span><br><span class="line">hdfs.rollCount = 10 // 相当于event采集到10条数据就写一次</span><br><span class="line">hdfs.batchSize = 100 // 相当于event在写数据的时候一批的数量</span><br><span class="line">hdfs.fileType = SequenceFile // 默认是SequenceFile，还有 DataStream（原始数据是什么，写完也是什么）</span><br><span class="line"></span><br><span class="line">tier1.sinks.hdfsSink_26.hdfs.path = hdfs://nameservice/user/flume/kafka/hehe/%&#123;topic&#125;/%Y%m%d</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/04/23/Spark/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/23/Spark/" class="post-title-link" itemprop="url">Spark</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-23 19:31:00" itemprop="dateCreated datePublished" datetime="2020-04-23T19:31:00+08:00">2020-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-24 16:22:00" itemprop="dateModified" datetime="2020-04-24T16:22:00+08:00">2020-04-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/23/Spark/" class="post-meta-item leancloud_visitors" data-flag-title="Spark" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/04/23/Spark/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/23/Spark/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><p>VM options: -Dspark.master&#x3D;local 还可以是 cluster，local[*], Standalone(只支持简单的固定资源分配策略)</p>
+<p>Spark Streaming 用来获取不同的源数据流DStream，为了初始化Spark Streaming就需要先创建一个StreamingContext对象，一个StreamingContext对象可以用SparkConf对象创建。</p>
+<p>流程：</p>
+<p>createStreamingContext() 通过sparkConf来<br>    createKafkaStream() 先先从zk拿到topic的分区情况，再从zk拿到每个分区的offset，从kafka创建一个DStream返回一个rdds<br>        process() 操作rdds</p>
+<p>两种方式创建StreamingContext</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val conf = new SparkConf().setAppName(appName).setMaster(master);</span><br><span class="line">val ssc = new StreamingContext(conf, Seconds(1)); // 第二个参数是spark从kafka每隔多少秒一个批次</span><br><span class="line"></span><br><span class="line">StreamingContext，还可以使用已有的SparkContext来创建</span><br><span class="line">val sc = new SparkContext(conf)</span><br><span class="line">val ssc = new StreamingContext(sc, Seconds(1));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">dstream.foreachRDD(rdd =&gt; &#123;</span><br><span class="line">    rdd.foreach(record =&gt; &#123;</span><br><span class="line">        val connection = createNewConnection()</span><br><span class="line">        connection.send(record)</span><br><span class="line">        connection.close()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">上面的方法也可以实现读取数据，但是为每个记录创建和销毁连接对象会导致非常高的开支。</span><br><span class="line"></span><br><span class="line">下面的方法将连接对象的创建开销分摊到了partition的所有记录上，并且池中的连接对象应该根据需要延迟创建，并且在空闲一段时间后自动超时</span><br><span class="line">dstream.foreachRDD(rdd =&gt; &#123;</span><br><span class="line">    rdd.foreachPartition(partitionOfRecords =&gt; &#123;</span><br><span class="line">        // ConnectionPool is a static, lazily initialized pool of connections</span><br><span class="line">        val connection = ConnectionPool.getConnection()</span><br><span class="line">        partitionOfRecords.foreach(record =&gt; connection.send(record))</span><br><span class="line">        ConnectionPool.returnConnection(connection)  // return to the pool for future reuse</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>内存调优：减少Spark Streaming应用程序垃圾回收的相关暂停，获得更稳定的批处理时间。</p>
+<ul>
+<li>默认的持久化级别是序列化数据到内存中，默认的持久化级别是序列化数据到内存中</li>
+<li>spark.streaming.unpersist &#x3D; true 使系统找出那些不需要经常保有的RDD，然后去持久化它们。这可以减少Spark RDD的内存使用，也可能改善垃圾回收的行为。</li>
+<li>Concurrent garbage collector：使用并发的标记-清除垃圾回收可以进一步减少垃圾回收的暂停时间。尽管并发的垃圾回收会减少系统的整体吞吐量，但是仍然推荐使用它以获得更稳定的批处理时间。</li>
+</ul>
+<ol>
+<li>RDD 弹性分布式数据集 (Resilient Distributed DataSet)</li>
+</ol>
+<p>特性：分区，不可变，并行操作</p>
+<p>RDD 只是抽象意义的数据集合，分区内部并不会存储具体的数据，只会存储它在该 RDD 中的 index，通过该 RDD 的 ID 和分区的 index 可以唯一确定对应数据块的编号，然后通过底层存储层的接口提取到数据进行处理。</p>
+<p>不可变性是指每个 RDD 都是只读的，它所包含的分区信息是不可变的。由于已有的 RDD 是不可变的，所以我们只有对现有的 RDD 进行转化 (Transformation) 操作，才能得到新的 RDD ，一步一步的计算出我们想要的结果。不需要立刻去存储计算出的数据本身，我们只要记录每个 RDD 是经过哪些转化操作得来的</p>
+<p>因为有分区，所以不同节点上的数据可以分别被处理，然后生成一个新的 RDD</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1503160-75ddac9bb2922589.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="RDD结构"></p>
+<p>a，Partitions<br>Partitions 就是上面所说的，代表着 RDD 中数据的逻辑结构，每个 Partion 会映射到某个节点内存或者硬盘的一个数据块。</p>
+<p>b，SparkContext<br>SparkContext 是所有 Spark 功能的入口，代表了与 Spark 节点的连接，可以用来创建 RDD 对象以及在节点中的广播变量等等。一个线程只有一个 SparkContext。</p>
+<p>c，SparkConf<br>SparkConf 是一些配置信息。</p>
+<p>d，Partitioner<br>Partitioner 决定了 RDD 的分区方式，目前两种主流的分区方式：Hash partioner 和 Range partitioner。Hash 就是对数据的 Key 进行散列分布，Range 是按照 Key 的排序进行的分区。也可以自定义 Partitioner。</p>
+<p>e，Dependencies<br>Dependencies 也就是依赖关系，记录了该 RDD 的计算过程，也就是说这个 RDD 是通过哪个 RDD 经过怎么样的转化操作得到的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">@DeveloperApi</span><br><span class="line">abstract class Dependency[T] extends Serializable&#123;</span><br><span class="line">    def rdd: RDD[T]</span><br><span class="line">&#125;</span><br><span class="line">这是RDD指的是父RDD，所以依赖是对父RDD的包装，并且通过Dependency的类型说明当前这个transformation对应的数据处理方式。子类实现主要有两种：</span><br><span class="line"></span><br><span class="line">@DeveloperApi</span><br><span class="line">abstract class NarrowDependency[T](_rdd: RDD[T]) extends Dependency[T] &#123;</span><br><span class="line">  /**</span><br><span class="line">   * Get the parent partitions for a child partition.</span><br><span class="line">   * @param partitionId a partition of the child RDD</span><br><span class="line">   * @return the partitions of the parent RDD that the child partition depends upon</span><br><span class="line">   */</span><br><span class="line">  def getParents(partitionId: Int): Seq[Int]</span><br><span class="line"></span><br><span class="line">  override def rdd: RDD[T] = _rdd</span><br><span class="line">&#125;</span><br><span class="line">窄依赖是抽象类，具体的实现类有2种</span><br><span class="line"></span><br><span class="line">子RDD和父RDD的Partition之间的关系是一对一</span><br><span class="line">@DeveloperApi</span><br><span class="line">class OneToOneDependency[T](rdd: RDD[T]) extends NarrowDependency[T](rdd) &#123;</span><br><span class="line">  override def getParents(partitionId: Int): List[Int] = List(partitionId)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">子RDD和父RDD的Partition之间的关系是一个区间内的1对1对应关系</span><br><span class="line">子的partitionID 3 4 5 6</span><br><span class="line">父的partitionID 8 9 10 11</span><br><span class="line">求子partitionID=5的父partitionID，5-3+8=10</span><br><span class="line">@DeveloperApi</span><br><span class="line">class RangeDependency[T](rdd: RDD[T], inStart: Int, outStart: Int, length: Int)</span><br><span class="line">  extends NarrowDependency[T](rdd) &#123;</span><br><span class="line"></span><br><span class="line">  override def getParents(partitionId: Int): List[Int] = &#123;</span><br><span class="line">    if (partitionId &gt;= outStart &amp;&amp; partitionId &lt; outStart + length) &#123;</span><br><span class="line">      List(partitionId - outStart + inStart)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      Nil</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">宽依赖</span><br><span class="line">@DeveloperApi</span><br><span class="line">class ShuffleDependency[K: ClassTag, V: ClassTag, C: ClassTag](</span><br><span class="line">    @transient private val _rdd: RDD[_ &lt;: Product2[K, V]],</span><br><span class="line">    val partitioner: Partitioner,</span><br><span class="line">    val serializer: Serializer = SparkEnv.get.serializer,</span><br><span class="line">    val keyOrdering: Option[Ordering[K]] = None,</span><br><span class="line">    val aggregator: Option[Aggregator[K, V, C]] = None,</span><br><span class="line">    val mapSideCombine: Boolean = false)</span><br><span class="line">  extends Dependency[Product2[K, V]] &#123;</span><br><span class="line"></span><br><span class="line">  if (mapSideCombine) &#123;</span><br><span class="line">    require(aggregator.isDefined, &quot;Map-side combine without Aggregator specified!&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">  override def rdd: RDD[Product2[K, V]] = _rdd.asInstanceOf[RDD[Product2[K, V]]]</span><br><span class="line"></span><br><span class="line">  private[spark] val keyClassName: String = reflect.classTag[K].runtimeClass.getName</span><br><span class="line">  private[spark] val valueClassName: String = reflect.classTag[V].runtimeClass.getName</span><br><span class="line">  // Note: It&#x27;s possible that the combiner class tag is null, if the combineByKey</span><br><span class="line">  // methods in PairRDDFunctions are used instead of combineByKeyWithClassTag.</span><br><span class="line">  private[spark] val combinerClassName: Option[String] =</span><br><span class="line">    Option(reflect.classTag[C]).map(_.runtimeClass.getName)</span><br><span class="line"></span><br><span class="line">  val shuffleId: Int = _rdd.context.newShuffleId()</span><br><span class="line"></span><br><span class="line">  val shuffleHandle: ShuffleHandle = _rdd.context.env.shuffleManager.registerShuffle(</span><br><span class="line">    shuffleId, _rdd.partitions.length, this)</span><br><span class="line"></span><br><span class="line">  _rdd.sparkContext.cleaner.foreach(_.registerShuffleForCleanup(this))</span><br><span class="line">&#125;</span><br><span class="line">因为shuffle设计到网络传输，所以要有序列化serializer，为了减少网络传输，可以加map端聚合，通过mapSideCombine和aggregator控制，还有key排序相关的keyOrdering，以及重输出的数据如何分区的partitioner。宽依赖(即shuffle操作)是stage划分的依据</span><br></pre></td></tr></table></figure>
+
+<p>这里有个概念，根据每个 RDD 的分区计算后生成的新的 RDD 的分区的对应关系，可以分成窄依赖和宽依赖。</p>
+<p>窄依赖就是父 RDD 的分区可以一一对应到子 RDD 的分区，宽依赖是说父 RDD 的每个分区可以被多个子 RDD 分区使用。如图：<br><img src="https://upload-images.jianshu.io/upload_images/1503160-0356b95069a88b37.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
+<p>由于窄依赖的特性，窄依赖允许子 RDD 的每个分区可以被并行处理产生，而且支持在同一个节点上链式执行多条指令，无需等待其它父 RDD 的分区操作。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1503160-c8554d7f7f93885f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"><br>Spark 区分宽窄依赖的原因主要有两点：</p>
+<p>窄依赖支持在同一节点上进行链式操作，比如在执行了 map 后，紧接着执行 filter 操作。相反，宽依赖需要所有父分区都是可用的，可能还需要调用类似 MapReduce 之类的操作进行跨节点传递。<br>从失败恢复的角度考虑，窄依赖失败恢复更有效，因为只要重新计算丢失的父分区即可，而宽依赖涉及到 RDD 的各级多个父分区。</p>
+<p>f，Checkpoint<br>检查点机制，在计算过程中有一些比较耗时的 RDD，我们可以将它缓存到硬盘或者 HDFS 中，标记这个 RDD 有被检查点处理过，并且清空它的所有依赖关系。同时，给它新建一个依赖于 CheckpointRDD 的依赖关系，CheckpintRDD 可以用来从 硬盘中读取 RDD 和生成新的分区信息。</p>
+<p>这么做之后，当某个 RDD 需要错误恢复时，回溯到该 RDD，发现它被检查点记录过，就可以直接去硬盘读取该 RDD，无需重新计算。</p>
+<p>g，Preferred Location<br>针对每一个分片，都会选择一个最优的位置来计算，数据不动，代码动。</p>
+<p>h，Storage Level<br>用来记录 RDD 持久化时存储的级别，常用的有：</p>
+<p>MEMORY_ONLY：只存在缓存中，如果内存不够，则不缓存剩余的部分。这是 RDD 默认的存储级别。<br>MEMORY_AND_DISK：缓存在内存中，不够则缓存至内存。<br>DISK_ONLY：只存硬盘。<br>MEMORY_ONLY_2 和 MEMORY_AND_DISK_2等：与上面的级别和功能相同，只不过每个分区在集群两个节点上建立副本。<br>i，Iterator<br>迭代函数和计算函数是用来表示 RDD 怎样通过父 RDD 计算得到的。</p>
+<p>迭代函数首先会判断缓存中是否有想要计算的 RDD，如果有就直接读取，如果没有就查找想要计算的 RDD 是否被检查点处理过。如果有，就直接读取，如果没有，就调用计算函数向上递归，查找父 RDD 进行计算。</p>
+<ol start="2">
+<li>map 和 flatMap</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">都是对 rdd 中的每一个元素进行操作，原先也有几个元素，map就返回含有几个元素的rdd，flatMap = map + flattern 操作，先做map操作，如果元素中含有迭代器，那就把迭代器里的元素循环取出来</span><br><span class="line">val arr2 = sc.parallelize(Array(&quot;hello world&quot;, &quot;java&quot;))</span><br><span class="line">val t1 = arr2.flatMap(x=&gt;x.split(&quot; &quot;))</span><br><span class="line">t1.foreach(println)</span><br><span class="line">val t2 = arr2.map(x=&gt;x.split(&quot; &quot;))</span><br><span class="line">t2.foreach(x=&gt;&#123;</span><br><span class="line">    x.foreach(println)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>collect 和 filter</li>
+</ol>
+<p>var a &#x3D; List(1, 2, 3, 4, 5)<br>a.collect({case i if i % 2 &#x3D;&#x3D; 0 &#x3D;&gt; i + 10})<br>a.filter(x&#x3D;&gt;x%2&#x3D;&#x3D;0) &#x2F;&#x2F; filter 只是过滤元素，并不做元素上的改变</p>
+<ol start="4">
+<li>offset</li>
+</ol>
+<p>一般都会 <code>enable.auto.commit = false</code> 禁止自动提交，自己来管理offset</p>
+<ul>
+<li>交给 zk 管理</li>
+</ul>
+<p>zkClientUrl 下 zkOffsetPath &#x3D; “&#x2F;kafka&#x2F;consumers&#x2F;“+ consumer_group_id + “&#x2F;offsets&#x2F;“ + topic + “&#x2F;“ + partitionId 保存 offsetNum</p>
+<ul>
+<li>存储到hbase<br>行键 topic:customer_group_id:batch_milliSeconds 通过batch的时间戳可以更好的展示历史的每批次的offsets<br>列族 offsets<br>列 分区id<br>value 偏移量的值</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def saveOffsets(TOPIC_NAME:String,GROUP_ID:String,offsetRanges:Array[OffsetRange],</span><br><span class="line">                hbaseTableName:String,batchTime: org.apache.spark.streaming.Time) =&#123;</span><br><span class="line">  val hbaseConf = HBaseConfiguration.create()</span><br><span class="line">  hbaseConf.addResource(&quot;src/main/resources/hbase-site.xml&quot;)</span><br><span class="line">  val conn = ConnectionFactory.createConnection(hbaseConf)</span><br><span class="line">  val table = conn.getTable(TableName.valueOf(hbaseTableName))</span><br><span class="line">  val rowKey = TOPIC_NAME + &quot;:&quot; + GROUP_ID + &quot;:&quot; +String.valueOf(batchTime.milliseconds)</span><br><span class="line">  val put = new Put(rowKey.getBytes)</span><br><span class="line">  for(offset &lt;- offsetRanges)&#123;</span><br><span class="line">    put.addColumn(Bytes.toBytes(&quot;offsets&quot;),Bytes.toBytes(offset.partition.toString),</span><br><span class="line">          Bytes.toBytes(offset.untilOffset.toString))</span><br><span class="line">  &#125;</span><br><span class="line">  table.put(put)</span><br><span class="line">  conn.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>foreachRDD作用于DStream中每一个时间间隔的RDD<br>foreachPartition作用于每一个时间间隔的RDD中的每一个partition<br>foreach作用于每一个时间间隔的RDD中的每一个元素。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">从 foreachRDD 的源码上来看，并没有任何的Iterator，而 foreach 和 foreachPartition 都用到了迭代器，说明这两个是会遍历RDD的。</span><br><span class="line">private def foreachRDD(</span><br><span class="line">    foreachFunc: (RDD[T], Time) =&gt; Unit,</span><br><span class="line">    displayInnerRDDOps: Boolean): Unit = &#123;</span><br><span class="line">    new ForEachDStream(this,</span><br><span class="line">    context.sparkContext.clean(foreachFunc, false), displayInnerRDDOps).register()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def foreach(f: T =&gt; Unit): Unit = withScope &#123;</span><br><span class="line">  val cleanF = sc.clean(f)</span><br><span class="line">  sc.runJob(this, (iter: Iterator[T]) =&gt; iter.foreach(cleanF))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def foreachPartition(f: Iterator[T] =&gt; Unit): Unit = withScope &#123;</span><br><span class="line">  val cleanF = sc.clean(f)</span><br><span class="line">  sc.runJob(this, (iter: Iterator[T]) =&gt; cleanF(iter))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>DAG 有向无环图</li>
+</ol>
+<p>通过DAG来对RDD的关系进行建模，描述RDD之间的依赖关系，这个关系叫 lineage</p>
+<table>
+<thead>
+<tr>
+<th align="center">名词</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Job</td>
+<td align="center">调用RDD的一个action，如count，即触发一个Job，spark中对应实现为ActiveJob，DAGScheduler中使用集合activeJobs和jobIdToActiveJob维护Job</td>
+</tr>
+<tr>
+<td align="center">Stage</td>
+<td align="center">代表一个Job的DAG，会在发生shuffle处被切分，切分后每一个部分即为一个Stage，Stage实现分为ShuffleMapStage和ResultStage，一个Job切分的结果是0个或多个ShuffleMapStage加一个ResultStage</td>
+</tr>
+<tr>
+<td align="center">Task</td>
+<td align="center">最终被发送到Executor执行的任务，和stage的ShuffleMapStage和ResultStage对应，其实现分为ShuffleMapTask和ResultTask</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>mr 只有一个job，分为map和reduce两个阶段；spark每执行一次action算子就会产生一个job</p>
+</blockquote>
+<p><img src="https://img-blog.csdn.net/20170418145256538?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTU2NDE3Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
+<blockquote>
+<p>spark划分stage的整体思路是：从后往前推，遇到宽依赖就断开，划分为一个stage；遇到窄依赖就将这个RDD加入该stage中</p>
+</blockquote>
+<p>RDD RDD 是 Spark 的灵魂，也称为弹性分布式数据集。一个 RDD 代表一个可以被分区的只读数据集。RDD 内部可以有许多分区(partitions)，每个分区又拥有大量的记录(records)。</p>
+<p>DAG Spark 中使用 DAG 对 RDD 的关系进行建模，描述了 RDD 的依赖关系，这种关系也被称之为 lineage（血缘），RDD 的依赖关系使用 Dependency 维护。</p>
+<p>Stage 在 DAG 中又进行 Stage 的划分，划分的依据是依赖是否是 shuffle 的，每个 Stage 又可以划分成若干 Task。接下来的事情就是 Driver 发送 Task 到 Executor，Executor 线程池去执行这些 task，完成之后将结果返回给 Driver。</p>
+<p>Job 每一次action动作都会产生一个job。</p>
+<p>Task 一个 Stage 内，最终的 RDD 有多少个 partition，就会产生多少个 task。repartition 会减少小文件，减少 task 的个数，但是会增加 task 处理的数据量，可能会延长处理时间。</p>
+<ol start="7">
+<li>算子</li>
+</ol>
+<ul>
+<li><p>Value数据类型的Transformation算子，这种变换并不触发提交作业，针对处理的数据项是Value型的数据</p>
+<ul>
+<li>输入分区与输出分区一对一型<ul>
+<li>map</li>
+<li>flatMap<ul>
+<li>map 操作后再把所有元素拍扁</li>
+</ul>
+</li>
+<li>mapPartitions<ul>
+<li>对每个分区里的所有数据进行批处理</li>
+<li>如果有2个分区，每个分区2条数，通过map做批处理的话需要修改4次，使用mapPartitions其实只运算了2次</li>
+<li><code>listRDD.mapPartitions(datas =&gt;&#123; datas.map(x =&gt; x * 2) &#125;)</code> datas 这里指的是 Scala 的 迭代器，对于里面的 *2 计算是scala的计算，不是spark的计算（spark的计算需要发送到Executor），所以相当于是向 N个 Executor（个数等于分区个数）直接发送了结果，不牵扯计算，提高了效率。但是因为是一次性发送最终的结果，有可能存在处理完后数据的容量大于 Executor 的最大容量，产生内存溢出OOM</li>
+</ul>
+</li>
+<li>glom<ul>
+<li>将同一个分区里的元素合并到一个array里</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输入分区与输出分区多对一型<ul>
+<li>union</li>
+<li>cartesian<ul>
+<li>笛卡尔</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输入分区与输出分区多对多型<ul>
+<li><h2 id="groupBy-生成相应的key，相同的放在一起"><a href="#groupBy-生成相应的key，相同的放在一起" class="headerlink" title="groupBy  - 生成相应的key，相同的放在一起"></a>groupBy<br>  - 生成相应的key，相同的放在一起</h2>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val a = sc.parallelize(1 to 9, 3)</span><br><span class="line">a.groupBy(x =&gt; &#123; if (x % 2 == 0) &quot;even&quot; else &quot;odd&quot; &#125;).collect</span><br><span class="line">res42: Array[(String, Seq[Int])] = Array((even,ArrayBuffer(2, 4, 6, 8)), (odd,ArrayBuffer(1, 3, 5, 7, 9)))</span><br></pre></td></tr></table></figure>
+  返回值是 [String, Seq] String 相当于一个序列的昵称</li>
+</ul>
+</li>
+<li>输出分区为输入分区子集型<ul>
+<li>filter</li>
+<li>distinct</li>
+<li><h2 id="subtract-去掉含有重复的项"><a href="#subtract-去掉含有重复的项" class="headerlink" title="subtract  - 去掉含有重复的项"></a>subtract<br>  - 去掉含有重复的项</h2>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val a = sc.parallelize(1 to 9, 3)</span><br><span class="line">val b = sc.parallelize(1 to 3, 3)</span><br><span class="line">val c = a.subtract(b)</span><br><span class="line">c.collect</span><br><span class="line">res3: Array[Int] = Array(6, 9, 4, 7, 5, 8)</span><br></pre></td></tr></table></figure></li>
+<li><h2 id="sample-随机抽样"><a href="#sample-随机抽样" class="headerlink" title="sample  - 随机抽样"></a>sample<br>  - 随机抽样</h2>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val a = sc.parallelize(1 to 10000, 3)</span><br><span class="line">a.sample(false, 0.1, 0).count</span><br><span class="line">res24: Long = 960</span><br></pre></td></tr></table></figure></li>
+<li>takeSample</li>
+</ul>
+</li>
+<li>Cache型<ul>
+<li>cache<ul>
+<li>cache调用了persist()方法，无参，cache只有一个默认的缓存级别MEMORY_ONLY</li>
+</ul>
+</li>
+<li>persist<ul>
+<li>persist(StorageLevel)可以根据情况设置其它的缓存级别，比如缓存到硬盘disk_only，内存和硬盘都缓存memory_and_disk。每个StorageLevel都包含了五个参数  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">object StorageLevel &#123;</span><br><span class="line">val NONE = new StorageLevel(false, false, false, false)</span><br><span class="line">val DISK_ONLY = new StorageLevel(true, false, false, false)</span><br><span class="line">val DISK_ONLY_2 = new StorageLevel(true, false, false, false, 2)</span><br><span class="line">val MEMORY_ONLY = new StorageLevel(false, true, false, true)</span><br><span class="line">val MEMORY_ONLY_2 = new StorageLevel(false, true, false, true, 2)</span><br><span class="line">val MEMORY_ONLY_SER = new StorageLevel(false, true, false, false)</span><br><span class="line">val MEMORY_ONLY_SER_2 = new StorageLevel(false, true, false, false, 2)</span><br><span class="line">val MEMORY_AND_DISK = new StorageLevel(true, true, false, true)</span><br><span class="line">val MEMORY_AND_DISK_2 = new StorageLevel(true, true, false, true, 2)</span><br><span class="line">val MEMORY_AND_DISK_SER = new StorageLevel(true, true, false, false)</span><br><span class="line">val MEMORY_AND_DISK_SER_2 = new StorageLevel(true, true, false, false, 2)</span><br><span class="line">val OFF_HEAP = new StorageLevel(false, false, true, false)</span><br><span class="line">......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class StorageLevel private(</span><br><span class="line">    private var _useDisk: Boolean,</span><br><span class="line">    private var _useMemory: Boolean,</span><br><span class="line">    private var _useOffHeap: Boolean,</span><br><span class="line">    private var _deserialized: Boolean,</span><br><span class="line">    private var _replication: Int = 1)</span><br><span class="line">extends Externalizable &#123;</span><br><span class="line">......</span><br><span class="line">def useDisk: Boolean = _useDisk // 使用硬盘</span><br><span class="line">def useMemory: Boolean = _useMemory // 使用内存</span><br><span class="line">def useOffHeap: Boolean = _useOffHeap // 使用堆外内存，这是Java虚拟机里面的概念，堆外内存意味着把内存对象分配在Java虚拟机的堆以外的内存，这些内存直接受操作系统管理（而不是虚拟机）。这样做的结果就是能保持一个较小的堆，以减少垃圾收集对应用的影响。</span><br><span class="line">def deserialized: Boolean = _deserialized // 反序列化，其逆过程序列化（Serialization）是java提供的一种机制，将对象表示成一连串的字节；而反序列化就表示将字节恢复为对象的过程。序列化是对象永久化的一种机制，可以将对象及其属性保存起来，并能在反序列化后直接恢复这个对象</span><br><span class="line">def replication: Int = _replication // 备份数（在多个节点上备份）</span><br><span class="line">......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Key-Value数据类型的Transfromation算子，这种变换并不触发提交作业，针对处理的数据项是Key-Value型的数据对</p>
+<ul>
+<li>输入分区与输出分区一对一<ul>
+<li>mapValues<ul>
+<li>针对(key,value)型数据中的Value进行操作，而不对Key进行处理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对单个RDD或两个RDD聚集<ul>
+<li>单个RDD聚集<ul>
+<li>combineByKey</li>
+<li>reduceByKey<ul>
+<li>会先在局部聚合再shuffle，比起groupbykey（先shuffle再聚合）在大量数据时可以减轻网络压力</li>
+</ul>
+</li>
+<li>partitionBy</li>
+</ul>
+</li>
+<li>两个RDD聚集<ul>
+<li>cogroup</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>连接<ul>
+<li>join</li>
+<li>leftOutJoin和 rightOutJoin</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Action算子，这类算子会调用 <code>sc.runjob()</code> 方法触发SparkContext提交Job作业</p>
+<ul>
+<li>无输出<ul>
+<li>foreach</li>
+<li>foreachPartition</li>
+</ul>
+</li>
+<li>HDFS<ul>
+<li>saveAsTextFile</li>
+<li>saveAsObjectFile</li>
+</ul>
+</li>
+<li>Scala集合和数据类型<ul>
+<li>collect<ul>
+<li>将rdd中的所有数据都从网络端下载到本地，返回结果为一个array。数据量大的时候容易引起溢出</li>
+</ul>
+</li>
+<li>collectAsMap</li>
+<li>reduceByKeyLocally</li>
+<li>lookup</li>
+<li>count</li>
+<li>top</li>
+<li>reduce<ul>
+<li>底层实现是 reduceLeft</li>
+</ul>
+</li>
+<li>fold<ul>
+<li>和reduce类似，不同的是fold()操作需要从一个初始值开始，并以该值作为上下文，处理集合中的每个元素</li>
+</ul>
+</li>
+<li>aggregate</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="8">
+<li>spark 和 mapreduce</li>
+</ol>
+<ul>
+<li>消除了冗余的 HDFS 读写: Hadoop 每次 shuffle 操作后，必须写到磁盘，而 Spark 在 shuffle 后不一定落盘，可以 persist 到内存中，以便迭代时使用。如果操作复杂，很多的 shufle 操作，那么 Hadoop 的读写 IO 时间会大大增加，也是 Hive 更慢的主要原因了。</li>
+<li>消除了冗余的 MapReduce 阶段: Hadoop 的 shuffle 操作一定连着完整的 MapReduce 操作，冗余繁琐。而 Spark 基于 RDD 提供了丰富的算子操作，且 reduce 操作产生 shuffle 数据，可以缓存在内存中。</li>
+<li>JVM 的优化: Hadoop 每次 MapReduce 操作，启动一个 Task 便会启动一次 JVM，基于进程的操作。而 Spark 每次 MapReduce 操作是基于线程的，只在启动 Executor 是启动一次 JVM，内存的 Task 操作是在线程复用的。每次启动 JVM 的时间可能就需要几秒甚至十几秒，那么当 Task 多了，这个时间 Hadoop 不知道比 Spark 慢了多少。</li>
+</ul>
+<p>xx. Driver 创建spark上下文对象的应用程序就是 Driver，拆分任务，发送任务到 Executor。发送涉及到网络传输，类对象需要 extends java.io.Serializable<br>Executor 执行器用于接收任务并执行任务，并可以返回执行情况给 Driver。所有算子都交给 Executor</p>
+<ol start="9">
+<li>spark 提交流程<br>spark-submit（Driver) 向Master提交任务，申请运行资源。在参数中备注上master、executor地址，运行内存等等。</li>
+</ol>
+<p>spark-submit –class cn.enn.realtime.business.ContractDetailStream <br>–master yarn <br>–deploy-mode cluster <br>–driver-memory 1g <br>–executor-memory 1g <br>–executor-cores 1 <br>–num-executors 1 \</p>
+<p>Master负责资源调度，分配资源，记录Executor在哪些Worker里启动。Master和Worker进行RPC通信，让worker启动executor，将分区的参数传递过去。<br>Driver里有具体的业务逻辑编写，生成执行任务，发送给executor执行，也就是executor启动会主动和driver进行通信，获取Task</p>
+<ol start="10">
+<li>spark数据倾斜</li>
+</ol>
+<p>SET spark.sql.autoBroadcastJoinThreshold&#x3D;104857600;<br>适用于：参与Join的一边数据集足够小，可被加载进Driver并通过Broadcast方法广播到各个Executor中。<br>解决方案：在Java&#x2F;Scala代码中将小数据集数据拉取到Driver，然后通过Broadcast方案将小数据集的数据广播到各Executor。或者在使用SQL前，将Broadcast的阈值调整得足够大，从而使用Broadcast生效。进而将Reduce侧Join替换为Map侧Join。<br>优势：避免了Shuffle，彻底消除了数据倾斜产生的条件，可极大提升性能。<br>劣势：要求参与Join的一侧数据集足够小，并且主要适用于Join的场景，不适合聚合的场景，适用条件有限。</p>
+<ol start="11">
+<li><p>spark-streaming连接kafka两种方式 &#x2F; kafkastream 的两种形式<br>Receiver模式：KafkaUtils.createDStream() kafka支持发布订阅，所以kafka把消息全部封装好，提供给spark去调用，本来kafka的消息分布在不同的partition上面，相当于做了一步数据合并，在发送给spark，故spark可以设置executor个数去消费这部分数据，效率相对慢一些<br>Direct模式：KafkaUtils.createDirectStream() 每次到topic的每个partition依据偏移量进行获取数据，拉取数据以后进行处理，可以实现高可用</p>
+</li>
+<li><p>RDD、DataFrame、Dataset<br>共性：<br>1、RDD、DataFrame、Dataset全都是spark平台下的分布式弹性数据集，为处理超大型数据提供便利<br>2、三者都有惰性机制，在进行创建、转换，如map方法时，不会立即执行，只有在遇到Action如foreach时，三者才会开始遍历运算，极端情况下，如果代码里面有创建、转换，但是后面没有在Action中使用对应的结果，在执行时会被直接跳过<br>3、三者都会根据spark的内存情况自动缓存运算，这样即使数据量很大，也不用担心会内存溢出<br>4、三者都有partition的概念<br>5、三者有许多共同的函数，如filter，排序等<br>6、在对DataFrame和Dataset进行操作许多操作都需要这个包进行支持 import spark.implicits._</p>
+</li>
+</ol>
+<p>区别：<br>RDD不支持sparksql操作<br>与RDD和Dataset不同，DataFrame每一行的类型固定为Row，只有通过解析才能获取各个字段的值，每一列的值没法直接访问<br>DataFrame与Dataset均支持sparksql的操作，比如select，groupby之类<br>DataFrame与Dataset支持一些特别方便的保存方式，比如保存成csv，可以带上表头，这样每一列的字段名一目了然</p>
+<p>** Dataset和DataFrame拥有完全相同的成员函数，区别只是每一行的数据类型不同 **<br>DataFrame也可以叫Dataset[Row],每一行的类型是Row，不解析，每一行究竟有哪些字段，各个字段又是什么类型都无从得知，只能用上面提到的getAS方法或者模式匹配拿出特定字段<br>Dataset中，每一行是什么类型是不一定的，在自定义了case class之后可以很自由的获得每一行的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">case class Coltest(col1:String,col2:Int)extends Serializable //定义字段名和类型</span><br><span class="line">/**</span><br><span class="line">    rdd</span><br><span class="line">    (&quot;a&quot;, 1)</span><br><span class="line">    (&quot;b&quot;, 1)</span><br><span class="line">    (&quot;a&quot;, 1)</span><br><span class="line">    * */</span><br><span class="line">val test: Dataset[Coltest]=rdd.map&#123;line=&gt;</span><br><span class="line">    Coltest(line._1,line._2)</span><br><span class="line">&#125;.toDS</span><br><span class="line">test.map&#123;</span><br><span class="line">    line=&gt;</span><br><span class="line">    println(line.col1)</span><br><span class="line">    println(line.col2)</span><br><span class="line">&#125;</span><br><span class="line">可以看出，Dataset在需要访问列中的某个字段时是非常方便的，然而，如果要写一些适配性很强的函数时，如果使用Dataset，行的类型又不确定，可能是各种case class，无法实现适配，这时候用DataFrame即Dataset[Row]就能比较好的解决问题  </span><br></pre></td></tr></table></figure>
+
+<ol start="13">
+<li>共享变量：累加器和广播变量</li>
+</ol>
+<p>Spark中分布式执行的代码需要传递到各个Executor的Task上运行。对于一些只读、固定的数据(比如从DB中读出的数据),每次都需要Driver广播到各个Task上，这样效率低下。广播变量允许将变量只广播（提前广播）给各个Executor。该Executor上的各个Task再从所在节点的BlockManager获取变量，而不是从Driver获取变量，从而提升了效率。</p>
+<p>一个Executor只需要在第一个Task启动时，获得一份Broadcast数据，之后的Task都从本节点的BlockManager中获取相关数据。</p>
+<p>val values &#x3D; List<a href="1,2,3">Int</a><br>val broadcastValues &#x3D; sparkContext.broadcast(values)<br>rdd.mapPartitions(iter &#x3D;&gt; {<br>  broadcastValues.getValue.foreach(println)<br>})</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/04/21/DataSkew/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/21/DataSkew/" class="post-title-link" itemprop="url">DataSkew 数据倾斜</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-21 19:38:00" itemprop="dateCreated datePublished" datetime="2020-04-21T19:38:00+08:00">2020-04-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-24 10:26:00" itemprop="dateModified" datetime="2020-04-24T10:26:00+08:00">2020-04-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/21/DataSkew/" class="post-meta-item leancloud_visitors" data-flag-title="DataSkew 数据倾斜" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/04/21/DataSkew/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/21/DataSkew/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="DataSkew-数据倾斜"><a href="#DataSkew-数据倾斜" class="headerlink" title="DataSkew 数据倾斜"></a>DataSkew 数据倾斜</h2><h3 id="1-Hive-里的数据倾斜"><a href="#1-Hive-里的数据倾斜" class="headerlink" title="1. Hive 里的数据倾斜"></a>1. Hive 里的数据倾斜</h3><h4 id="1-1-null值-空值"><a href="#1-1-null值-空值" class="headerlink" title="1.1 null值 空值"></a>1.1 null值 空值</h4><p>尽量提前过滤，或者把无效值替换成随机字符串，比如 <code>if(a is null or trim(a) = &quot;&quot; or trim(a) = &quot;NULL&quot;, rand(1)+&quot;&quot;)</code>，由于是无效值所以不影响最终的取数，但是因为把关联字段打散了，所以就不会把所有的key发送到同一个reduce上，但是需要控制rand(1)的数据范围，小数点位数过多会导致分配的reduce太多，也会影响最终效率。</p>
+<blockquote>
+<p>打散key的方式同样适用于MapReduce和Spark。</p>
+</blockquote>
+<h4 id="1-2-小文件倾斜"><a href="#1-2-小文件倾斜" class="headerlink" title="1.2 小文件倾斜"></a>1.2 小文件倾斜</h4><p>这一点在 Hive 里主要表现在模型汇总程度越高，数据量越小，如果再带有分区，那么在HDFS里就会有很多小文件。HDFS的文件元信息，包括位置、大小、分块信息都保存在NameNode的内存中，文件越多占的内存越大，所以读取小文件就会消耗时间。还有一种产生的可能是MapReduce的reduce数量增加，也会增加输出结果文件的数量，从而导致小文件过多。</p>
+<blockquote>
+<p>最后这种情况主要针对的是 MapReduce。当然Hive也可以通过配置项来尽可能减少reduce输出的小文件。</p>
+</blockquote>
+<p>解决方法有两种：</p>
+<ol>
+<li>map输入端的小文件合并</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 每个Map最大输入大小，决定合并后的文件数</span><br><span class="line">set mapred.max.split.size=256000000; **常见**</span><br><span class="line">-- 一个节点上split的至少的大小 ，决定了多个data node上的文件是否需要合并</span><br><span class="line">set mapred.min.split.size.per.node=100000000;</span><br><span class="line">-- 一个交换机下split的至少的大小，决定了多个交换机上的文件是否需要合并</span><br><span class="line">set mapred.min.split.size.per.rack=100000000;</span><br><span class="line">-- 执行Map前进行小文件合并</span><br><span class="line">set hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat; **常见**</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>reduce输出端的小文件合并</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">hive.merge.mapfiles=True True时在map输出后合并文件，默认true</span><br><span class="line">hive.merge.mapredfiles=True True时在reduce输出后合并文件，默认false</span><br><span class="line">hive.merge.size.per.task 合并后每个文件的大小，默认256000000</span><br><span class="line">hive.merge.smallfiles.avgsize 当输出文件平均大小小于设定值时，并且前两个参数得有一个为true，才会启动合并操作，默认16000000</span><br><span class="line"></span><br><span class="line">Hive在对结果文件进行合并时会执行一个额外的map-only脚本，mapper的数量是文件总大小除以size.per.task参数所得的值，触发合并的条件是：</span><br><span class="line">根据查询类型不同，相应的mapfiles/mapredfiles参数需要打开；</span><br><span class="line">结果文件的平均大小需要大于avgsize参数的值。</span><br><span class="line"></span><br><span class="line">hive.map.aggr=true; Map 端部分聚合，相当于Combiner</span><br><span class="line">hive.groupby.mapaggr.checkinterval =100000 在 Map 端进行聚合操作的条目数目</span><br><span class="line">hive.groupby.skewindata=true; 这个是给groupby优化的。会生成2个mr job，其中第一个相当于是combiner的作用，会先做一部分聚合再给reduce传过去</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-mapjoin-和-streamtable"><a href="#1-3-mapjoin-和-streamtable" class="headerlink" title="1.3 mapjoin 和 streamtable"></a>1.3 mapjoin 和 streamtable</h4><p>这两个类似于注解一样，放在 select 的后面即可</p>
+<h5 id="1-3-1-mapjoin"><a href="#1-3-1-mapjoin" class="headerlink" title="1.3.1 mapjoin"></a>1.3.1 mapjoin</h5><p>适合于：N个较大的表，一个较小的表</p>
+<p>mapjoin 会把指定的小表在客户端打成一个哈希表序列化文件的压缩包，通过分布式缓存均匀分发到作业执行的每一个结点上。然后在结点上进行解压，在内存中完成关联，有一个超级小表的情况下，目前hive能做到自动判断并转为map join。Map Join全过程不会使用Reduce，非常均匀，不会存在数据倾斜问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">set hive.auto.convert.join = true; # 默认为false</span><br><span class="line">该参数为true时，Hive自动对左边的表统计量，如果是小表就加入内存，即对 小表使用Map join</span><br><span class="line"></span><br><span class="line">set hive.mapjoin.smalltable.filesize;</span><br><span class="line">hive.mapjoin.smalltable.filesize=25000000</span><br><span class="line">大表小表的阈值默认值是25mb</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-3-2-streamtable"><a href="#1-3-2-streamtable" class="headerlink" title="1.3.2 streamtable"></a>1.3.2 streamtable</h5><p>适合于：N个较小的表，一个超大的表</p>
+<p>join一般都是在reduce阶段完成的，因为在map阶段无法使同样key值的分在一个map上。<br>而在reduce阶段的join，hive默认把左表数据（小表）放在缓存中，右表数据（大表）放入到磁盘中，然后把内存中的表的数据逐条与硬盘上user表的数据做Join。<br>通过<code>/*+ streamtable(大表表名) */</code>来指定大表。<br>最好每次写join时，小表放左边，大表放右边。</p>
+<h4 id="1-4-单纯的多对多"><a href="#1-4-单纯的多对多" class="headerlink" title="1.4 单纯的多对多"></a>1.4 单纯的多对多</h4><p>主键拼接一个rand(1)，放入不同的reduce，group by 的时候把真正的主键做一个截取即可</p>
+<h3 id="2-MapReduce-中的数据倾斜"><a href="#2-MapReduce-中的数据倾斜" class="headerlink" title="2. MapReduce 中的数据倾斜"></a>2. MapReduce 中的数据倾斜</h3><h4 id="2-1-小文件倾斜"><a href="#2-1-小文件倾斜" class="headerlink" title="2.1 小文件倾斜"></a>2.1 小文件倾斜</h4><p>原理和Hive是一样的，太多的小文件，导致在ApplicationMaster在向ResourceManager去申请资源时，要频繁访问HDFS的NameNode，再去DataNode拿数据，准备数据时间太长。</p>
+<p>所以可以在 map 端开始之前先把小文件进行合并，再传递给MapReduce。比如客户端产生数据文件时进行合并，或者文件数据进入map之前通过继承CombineFileInputFormat类实现小文件的合并。job.setInputFormatClass(CombineTextInputFormat.class)，然后在代码里的Configuration中设置切分的块的最小值最大值等等，在同一节点上的数据块会合并，超过最大值就生产新的分片。<br>hadoopConf.set(“mapreduce.input.fileinputformat.split.maxsize”, “512000000”)<br>hadoopConf.set(“mapreduce.input.fileinputformat.split.minsize”, “268435456”)</p>
+<h4 id="2-2-key-值倾斜"><a href="#2-2-key-值倾斜" class="headerlink" title="2.2 key 值倾斜"></a>2.2 key 值倾斜</h4><p>同一个key的数据太多，导致全部传递到一个reduce上，导致其中一个reduce运行时间过长。</p>
+<p>可以先创建一个类，通过 extends Partitioner 来重写 <code>int getPartition()</code> 方法，将key先都拼接一个rand()随机数，但是这个随机数应该和最多能启动起来的reduceNum个数是一样的（感觉是这样，随机数不能太多不一样的值，不然会传递到太多的reduce上，虽然每个reduceTask上的数据相对少了，但是启动过多的reduceTask也会增加时间），然后再创建一个类，通过 extends WritableComparator 来重写 <code>public int compare(WritableComparable a, WritableComparable b)</code> 方法，reduce 会自动调用 WritableComparator 类中的 <code>int compare</code> 方法，来判断循环的key是否和前一个是同一个来做累加，所以如果修改了partition分区方法，一般都是需要再覆写 WritableComparator 类的。</p>
+<h3 id="3-Spark-中的数据倾斜"><a href="#3-Spark-中的数据倾斜" class="headerlink" title="3. Spark 中的数据倾斜"></a>3. Spark 中的数据倾斜</h3><ol>
+<li><p>数据源数据文件不均匀</p>
+<p> SparkContext.textFile(“”) 读取文件数据的时候底层实现是通过Hadoop读取文件的方式</p>
+<p> 在 Hadoop 读取文件时，会通过 <code>getPartitions()</code> 方法来获取分区，在这个方法里会调用 InputFormat 这个抽象类的 <code>getSplits()</code> 方法，这个方法的具体实现是在 FileInputFormat 类中对 <code>getSplits()</code> 方法进行覆写。如何去切分文件数据的思路是：</p>
+<ol>
+<li>inputPath 如果是一个文件夹的话，遍历里面的所有文件，累加所有文件的size作为totalSize</li>
+<li>求一个平均文件大小 <code>goalSize = totalSize / numSplits;  // numSplits 指的是 min(想要的分区个数，默认分区个数2个) 在spark里面是这样的，mr可能是读的配置</code></li>
+<li><code>while(fileSize / goalSize &gt; 1.1L)&#123;fileSize -= goalSize&#125;</code> 如果当前文件的大小超过平均大小的1.1倍，那么就从平均大小对应的offset那里进行切分文件</li>
+<li>综上，如果文件不可切分，那么一个分区就是那一整个不可切分文件；如果文件可切分，计算出一个理想文件大小，然后依次判断文件大小和这个理想文件大小的关系，幅度在1.1倍之内的都可以接受，否则就需要切割。</li>
+</ol>
+<p> 每一个partition都会是一个task，所以如果文件不可分割，那么就会input一个特别大的文件，造成倾斜<br> 适用场景：对于数据源单个spark input read数据量过大，或者单个task 相对于其他task spark input read较大的情况，读取数据源明显不均匀<br> 解决方式：尽量使用可切割的文本存储，生成尽量多的task进行并行计算<br> 优点：从数据源避免倾斜，并且从源头增大并行度，避免倾斜<br> 缺点：需要改造数据源，支持可切割</p>
+</li>
+<li><p>计算过程中key的分布不均（Shuffle导致的数据不均，在进行shuffle的时候，必须将各个节点上相同的key拉取到某个节点上的一个task来进行处理，此时如果某个key对应的数据量特别大的话，就会发生数据倾斜）</p>
+<ul>
+<li>单个rdd中进行groupby的时候key分布不均<br>  groupby(customerPart)<br>  map(key+rand()).reducebykey().reducebykey() 执行两次</li>
+<li>多个rdd进行join过程中key的不均匀<ul>
+<li>一个大表和一个小表的时候，将较小的RDD中的数据存到一个Broadcast变量（即广播变量）中，先广播到各个节点中，即在每个节点的内存中缓存一份，然后对大表RDD进行map算子，从Broadcast变量中获取较小RDD的全量数据，与当前RDD的每一条数据按照连接key进行比对，如果连接key相同的话，那么就将两个RDD的数据用你需要的方式连接起来。需要调整一下广播的阈值。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

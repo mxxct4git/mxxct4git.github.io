@@ -1,37 +1,560 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="常见的Python运行时错误摘自 菜鸟学Python 公众号 1. SyntaxError：invalid syntax 忘记在 if，for，def，elif，else，class 等声明末尾加冒号 : 使用&#x3D; 而不是 &#x3D;&#x3D;  &#x3D; 是赋值操作符而 &#x3D;&#x3D; 是等于比较操作   尝试使用Python关键字作为变量名 不存在 ++ 或者 – 自">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见的Python运行时错误">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/04/01/Python-4/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="常见的Python运行时错误摘自 菜鸟学Python 公众号 1. SyntaxError：invalid syntax 忘记在 if，for，def，elif，else，class 等声明末尾加冒号 : 使用&#x3D; 而不是 &#x3D;&#x3D;  &#x3D; 是赋值操作符而 &#x3D;&#x3D; 是等于比较操作   尝试使用Python关键字作为变量名 不存在 ++ 或者 – 自">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-04-01T06:25:00.000Z">
+<meta property="article:modified_time" content="2020-04-01T06:25:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/04/01/Python-4/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>常见的Python运行时错误 | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/04/01/Python-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常见的Python运行时错误
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-01 14:25:00" itemprop="dateCreated datePublished" datetime="2020-04-01T14:25:00+08:00">2020-04-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/01/Python-4/" class="post-meta-item leancloud_visitors" data-flag-title="常见的Python运行时错误" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/04/01/Python-4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/01/Python-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="常见的Python运行时错误"><a href="#常见的Python运行时错误" class="headerlink" title="常见的Python运行时错误"></a>常见的Python运行时错误</h2><p>摘自 <a href="https://mp.weixin.qq.com/s/dx6bneAcR-PDWkQRY6JMBA">菜鸟学Python 公众号</a></p>
+<h3 id="1-SyntaxError：invalid-syntax"><a href="#1-SyntaxError：invalid-syntax" class="headerlink" title="1. SyntaxError：invalid syntax"></a>1. SyntaxError：invalid syntax</h3><ol>
+<li>忘记在 if，for，def，elif，else，class 等声明末尾加冒号 <code>:</code></li>
+<li>使用&#x3D; 而不是 &#x3D;&#x3D; <blockquote>
+<p>&#x3D; 是赋值操作符而 &#x3D;&#x3D; 是等于比较操作</p>
+</blockquote>
+</li>
+<li>尝试使用Python关键字作为变量名</li>
+<li>不存在 ++ 或者 – 自增自减操作符</li>
+</ol>
+<h3 id="2-IndentationError：unexpected-indent-或-IndentationError：unindent-does-not-match-any-outer-indetation-level-或-IndentationError：expected-an-indented-block"><a href="#2-IndentationError：unexpected-indent-或-IndentationError：unindent-does-not-match-any-outer-indetation-level-或-IndentationError：expected-an-indented-block" class="headerlink" title="2. IndentationError：unexpected indent 或 IndentationError：unindent does not match any outer indetation level 或 IndentationError：expected an indented block"></a>2. IndentationError：unexpected indent 或 IndentationError：unindent does not match any outer indetation level 或 IndentationError：expected an indented block</h3><ol>
+<li>错误的使用缩进量<blockquote>
+<p>记住缩进增加只用在以<code>：</code>结束的语句之后，而之后必须恢复到之前的缩进格式。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="3-TypeError-‘list’-object-cannot-be-interpreted-as-an-integer"><a href="#3-TypeError-‘list’-object-cannot-be-interpreted-as-an-integer" class="headerlink" title="3. TypeError: ‘list’ object cannot be interpreted as an integer"></a>3. TypeError: ‘list’ object cannot be interpreted as an integer</h3><ol>
+<li>在 for 循环语句中忘记调用 <code>len()</code><blockquote>
+<p>通常你想要通过索引来迭代一个list或者string的元素，这需要调用 range() 函数。要记得返回len 值而不是返回这个列表。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="4-TypeError-‘str’-object-does-not-support-item-assignment"><a href="#4-TypeError-‘str’-object-does-not-support-item-assignment" class="headerlink" title="4. TypeError: ‘str’ object does not support item assignment"></a>4. TypeError: ‘str’ object does not support item assignment</h3><ol>
+<li>尝试修改 string 的值，而 string 是一种不可变的数据类型</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">错误：</span><br><span class="line">spam = &#x27;I have a pet cat.&#x27;</span><br><span class="line">spam[13] = &#x27;r&#x27;</span><br><span class="line">print(spam)</span><br><span class="line"></span><br><span class="line">正确：</span><br><span class="line">spam = &#x27;I have a pet cat.&#x27;</span><br><span class="line">spam = spam[:13] + &#x27;r&#x27; + spam[14:]</span><br><span class="line">print(spam)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-TypeError-Can’t-convert-‘int’-object-to-str-implicitly"><a href="#5-TypeError-Can’t-convert-‘int’-object-to-str-implicitly" class="headerlink" title="5. TypeError: Can’t convert ‘int’ object to str implicitly"></a>5. TypeError: Can’t convert ‘int’ object to str implicitly</h3><ol>
+<li>尝试连接非字符串值与字符串，需通过 str(int) 来转化</li>
+</ol>
+<h3 id="6-SyntaxError-EOL-while-scanning-string-literal"><a href="#6-SyntaxError-EOL-while-scanning-string-literal" class="headerlink" title="6. SyntaxError: EOL while scanning string literal"></a>6. SyntaxError: EOL while scanning string literal</h3><ol>
+<li>在字符串首尾忘记加引号</li>
+</ol>
+<h3 id="7-NameError-name-‘fooba’-is-not-defined"><a href="#7-NameError-name-‘fooba’-is-not-defined" class="headerlink" title="7. NameError: name ‘fooba’ is not defined"></a>7. NameError: name ‘fooba’ is not defined</h3><ol>
+<li>变量或者函数名拼写错误</li>
+<li>使用变量之前为声明改变量<blockquote>
+<p>spam +&#x3D; 1等于spam &#x3D; spam + 1，意味着 spam 需要有一个初始值</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="8-AttributeError-‘str’-object-has-no-attribute-‘lowerr’"><a href="#8-AttributeError-‘str’-object-has-no-attribute-‘lowerr’" class="headerlink" title="8. AttributeError: ‘str’ object has no attribute ‘lowerr’"></a>8. AttributeError: ‘str’ object has no attribute ‘lowerr’</h3><ol>
+<li>方法名拼写错误</li>
+</ol>
+<h3 id="9-IndexError-list-index-out-of-range"><a href="#9-IndexError-list-index-out-of-range" class="headerlink" title="9. IndexError: list index out of range"></a>9. IndexError: list index out of range</h3><ol>
+<li>引用超过list最大索引</li>
+</ol>
+<h3 id="10-KeyError：’id’"><a href="#10-KeyError：’id’" class="headerlink" title="10. KeyError：’id’"></a>10. KeyError：’id’</h3><ol>
+<li>使用不存在的字典键值<blockquote>
+<p>在尝试获取字典键值的时候，先判断是否存在该键<br>id &#x3D; data[“id”] if “id” in data.keys() else “”</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="11-UnboundLocalError-local-variable-‘foobar’-referenced-before-assignment"><a href="#11-UnboundLocalError-local-variable-‘foobar’-referenced-before-assignment" class="headerlink" title="11. UnboundLocalError: local variable ‘foobar’ referenced before assignment"></a>11. UnboundLocalError: local variable ‘foobar’ referenced before assignment</h3><ol>
+<li>在定义局部变量前在函数中使用局部变量（此时有与局部变量同名的全局变量存在）</li>
+</ol>
+<h3 id="12-TypeError-‘range’-object-does-not-support-item-assignment"><a href="#12-TypeError-‘range’-object-does-not-support-item-assignment" class="headerlink" title="12. TypeError: ‘range’ object does not support item assignment"></a>12. TypeError: ‘range’ object does not support item assignment</h3><ol>
+<li>尝试使用 range()创建整数列表</li>
+</ol>
+<blockquote>
+<p>range() 返回的是 “range object”，而不是实际的 list 值</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">错误：</span><br><span class="line">spam = range(10)</span><br><span class="line">spam[4] = -1</span><br><span class="line"></span><br><span class="line">正确：</span><br><span class="line">spam = list(range(10))</span><br><span class="line">spam[4] = -1</span><br></pre></td></tr></table></figure>
+
+<h3 id="13-TypeError-myMethod-takes-no-arguments-1-given"><a href="#13-TypeError-myMethod-takes-no-arguments-1-given" class="headerlink" title="13. TypeError: myMethod() takes no arguments (1 given)"></a>13. TypeError: myMethod() takes no arguments (1 given)</h3><ol>
+<li>忘记为方法的第一个参数添加self参数</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Foo():</span><br><span class="line">  def myMethod():</span><br><span class="line">      print(&#x27;Hello!&#x27;)</span><br><span class="line">a = Foo()</span><br><span class="line">a.myMethod()</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/31/Flume/" rel="prev" title="Flume">
+      <i class="fa fa-chevron-left"></i> Flume
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/01/Algorithm-8/" rel="next" title="布隆过滤器 Bloom Filter 2">
+      布隆过滤器 Bloom Filter 2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84Python%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AF"><span class="nav-number">1.</span> <span class="nav-text">常见的Python运行时错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-SyntaxError%EF%BC%9Ainvalid-syntax"><span class="nav-number">1.1.</span> <span class="nav-text">1. SyntaxError：invalid syntax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-IndentationError%EF%BC%9Aunexpected-indent-%E6%88%96-IndentationError%EF%BC%9Aunindent-does-not-match-any-outer-indetation-level-%E6%88%96-IndentationError%EF%BC%9Aexpected-an-indented-block"><span class="nav-number">1.2.</span> <span class="nav-text">2. IndentationError：unexpected indent 或 IndentationError：unindent does not match any outer indetation level 或 IndentationError：expected an indented block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TypeError-%E2%80%98list%E2%80%99-object-cannot-be-interpreted-as-an-integer"><span class="nav-number">1.3.</span> <span class="nav-text">3. TypeError: ‘list’ object cannot be interpreted as an integer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-TypeError-%E2%80%98str%E2%80%99-object-does-not-support-item-assignment"><span class="nav-number">1.4.</span> <span class="nav-text">4. TypeError: ‘str’ object does not support item assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-TypeError-Can%E2%80%99t-convert-%E2%80%98int%E2%80%99-object-to-str-implicitly"><span class="nav-number">1.5.</span> <span class="nav-text">5. TypeError: Can’t convert ‘int’ object to str implicitly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-SyntaxError-EOL-while-scanning-string-literal"><span class="nav-number">1.6.</span> <span class="nav-text">6. SyntaxError: EOL while scanning string literal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-NameError-name-%E2%80%98fooba%E2%80%99-is-not-defined"><span class="nav-number">1.7.</span> <span class="nav-text">7. NameError: name ‘fooba’ is not defined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-AttributeError-%E2%80%98str%E2%80%99-object-has-no-attribute-%E2%80%98lowerr%E2%80%99"><span class="nav-number">1.8.</span> <span class="nav-text">8. AttributeError: ‘str’ object has no attribute ‘lowerr’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-IndexError-list-index-out-of-range"><span class="nav-number">1.9.</span> <span class="nav-text">9. IndexError: list index out of range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-KeyError%EF%BC%9A%E2%80%99id%E2%80%99"><span class="nav-number">1.10.</span> <span class="nav-text">10. KeyError：’id’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-UnboundLocalError-local-variable-%E2%80%98foobar%E2%80%99-referenced-before-assignment"><span class="nav-number">1.11.</span> <span class="nav-text">11. UnboundLocalError: local variable ‘foobar’ referenced before assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-TypeError-%E2%80%98range%E2%80%99-object-does-not-support-item-assignment"><span class="nav-number">1.12.</span> <span class="nav-text">12. TypeError: ‘range’ object does not support item assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-TypeError-myMethod-takes-no-arguments-1-given"><span class="nav-number">1.13.</span> <span class="nav-text">13. TypeError: myMethod() takes no arguments (1 given)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

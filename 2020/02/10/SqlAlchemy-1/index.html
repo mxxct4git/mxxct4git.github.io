@@ -1,37 +1,545 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="SqlAlchemy1. 理解之前使用的是 pymysql 插件，类似于 JDBC 的连接方式，通过写大量的 sql 语句来进行关联表、筛选字段等功能。SqlAlchemy 和 Flask-SqlAlchemy（后者是针对于 Flask 框架做了进一步的优化）则是通过类似于 Mybatis 的方式，将模型与表进行匹配，将 sql 中的关键字提取成方法，以此来获取数据。使用下来的话，官方文档给的例子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python之SqlAlchemy">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/02/10/SqlAlchemy-1/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="SqlAlchemy1. 理解之前使用的是 pymysql 插件，类似于 JDBC 的连接方式，通过写大量的 sql 语句来进行关联表、筛选字段等功能。SqlAlchemy 和 Flask-SqlAlchemy（后者是针对于 Flask 框架做了进一步的优化）则是通过类似于 Mybatis 的方式，将模型与表进行匹配，将 sql 中的关键字提取成方法，以此来获取数据。使用下来的话，官方文档给的例子">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-02-10T01:10:00.000Z">
+<meta property="article:modified_time" content="2020-03-24T08:50:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Flask">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/02/10/SqlAlchemy-1/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Python之SqlAlchemy | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/02/10/SqlAlchemy-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python之SqlAlchemy
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-10 09:10:00" itemprop="dateCreated datePublished" datetime="2020-02-10T09:10:00+08:00">2020-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-24 16:50:00" itemprop="dateModified" datetime="2020-03-24T16:50:00+08:00">2020-03-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Flask/" itemprop="url" rel="index"><span itemprop="name">Flask</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/10/SqlAlchemy-1/" class="post-meta-item leancloud_visitors" data-flag-title="Python之SqlAlchemy" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/02/10/SqlAlchemy-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/10/SqlAlchemy-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="SqlAlchemy"><a href="#SqlAlchemy" class="headerlink" title="SqlAlchemy"></a>SqlAlchemy</h2><h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>之前使用的是 pymysql 插件，类似于 JDBC 的连接方式，通过写大量的 sql 语句来进行关联表、筛选字段等功能。SqlAlchemy 和 Flask-SqlAlchemy（后者是针对于 Flask 框架做了进一步的优化）则是通过类似于 Mybatis 的方式，将模型与表进行匹配，将 sql 中的关键字提取成方法，以此来获取数据。使用下来的话，官方文档给的例子或者说明并不是很清楚，需要多去网上找例子。</p>
+<blockquote>
+<p>Flask-SqlAlchemy 通过配置可以自动管理多个数据源，比如默认数据源和数据源2，数据源3，在model里添加<code>__bind_key__=&quot;数据源别名&quot;</code>来自动在query执行时切换数据源</p>
+</blockquote>
+<h3 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h3><h4 id="2-1-数据库连接"><a href="#2-1-数据库连接" class="headerlink" title="2.1 数据库连接"></a>2.1 数据库连接</h4><p>通过读取配置文件获取参数，然后创建一个连接引擎，这个引擎会返回一个session对话，通过这个对话来对数据库进行操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># max_overflow: # 超过连接池大小外最多创建的连接</span><br><span class="line"># pool_size: # 连接池大小</span><br><span class="line">def getSession():</span><br><span class="line">    host, port, user, password, db = Conf.getDbConf()</span><br><span class="line">    linkStr = &quot;mysql+pymysql://&quot; + user + &quot;:&quot; + password + &quot;@&quot; + host + &quot;:&quot; + str(port) + &quot;/&quot; + db</span><br><span class="line">    engine = create_engine(linkStr, max_overflow=6, pool_size=6)</span><br><span class="line">    DBSession = sessionmaker(bind=engine)</span><br><span class="line">    session = DBSession()</span><br><span class="line">    return session</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-模型与表的关联"><a href="#2-2-模型与表的关联" class="headerlink" title="2.2 模型与表的关联"></a>2.2 模型与表的关联</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from sqlalchemy import Column, Integer, String</span><br><span class="line">from sqlalchemy.ext.declarative import declarative_base</span><br><span class="line"></span><br><span class="line">user_base = declarative_base()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 对应 t_user 表的定义</span><br><span class="line">class User(user_base):</span><br><span class="line">    __tablename__ = &#x27;t_user&#x27; # 这里是数据库中对应表名</span><br><span class="line">    id = Column(Integer, primary_key=True)</span><br><span class="line">    itcode = Column(String(50))</span><br><span class="line">    username = Column(String(50))</span><br><span class="line">    password = Column(String(50))</span><br><span class="line">    truename = Column(String(50))</span><br><span class="line">    email = Column(String(50))</span><br><span class="line">    is_active = Column(String(10))</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-增"><a href="#2-3-增" class="headerlink" title="2.3 增"></a>2.3 增</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 如果表里存在自增字段，那么可以通过下面方式插入：创建一个类的实例，并显式写出每个字段的赋值，之后获取到session会话实例，将类的实例将入到会话中，并提交，最后将会话关闭</span><br><span class="line"># 除查询外，其他三种都需要执行 session.commit() 来提交操作</span><br><span class="line">new_user = User(itcode=itcode, username=username, password=password, truename=truename, email=email, is_active=is_active)</span><br><span class="line">session = db.getSession()</span><br><span class="line">session.add(new_user)</span><br><span class="line">session.commit()</span><br><span class="line">session.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-删"><a href="#2-4-删" class="headerlink" title="2.4 删"></a>2.4 删</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 简单来看这也算是一种查询：查询 User 类对应的数据表，过滤出 id 等于 del_id 的数据，调用 delete() 方法进行删除</span><br><span class="line"># 这里的 del_res 返回的是受影响的总行数</span><br><span class="line">del_res = session.query(User).filter(User.id == del_id).delete()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-5-query"><a href="#2-5-query" class="headerlink" title="2.5 query"></a>2.5 query</h4><p><code>session.query()</code> 括号内可以是某个类，比如 <code>session.query(User)</code> 返回的结果就是 User 这个类对应的表的所有字段；也可以是类的字段，比如 <code>session.query(User.id, User.username)</code> 返回的结果就是 id 和 username 两个字段</p>
+<h4 id="2-6-join"><a href="#2-6-join" class="headerlink" title="2.6 join"></a>2.6 join</h4><p>目前用到的表和表之间关联有两种方式</p>
+<ul>
+<li>直接在类中添加外键定义</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from sqlalchemy import Column, Integer, String, ForeignKey</span><br><span class="line">from sqlalchemy.ext.declarative import declarative_base</span><br><span class="line">from model.User import User</span><br><span class="line"></span><br><span class="line">domain_base = declarative_base()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 对应 t_domain 表的定义</span><br><span class="line">class Domain(domain_base):</span><br><span class="line">    __tablename__ = &#x27;t_domain&#x27;</span><br><span class="line">    id = Column(Integer, primary_key=True)</span><br><span class="line">    name = Column(String(50))</span><br><span class="line">    region = Column(String(50))</span><br><span class="line">    responser_id = Column(Integer, ForeignKey(User.id)) # 业务域负责人</span><br><span class="line">    responser_truename = Column(String(50))</span><br><span class="line">    is_active = Column(String(10))</span><br></pre></td></tr></table></figure>
+
+<p>这种定义方式存在找不到或者不全的情况，更倾向于第二种</p>
+<ul>
+<li>在 join 时显示写出</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">res = session \</span><br><span class="line">	.query(UserDomainRole.id, UserDomainRole.user_id, User.truename,</span><br><span class="line">			UserDomainRole.domain_id, Domain.name.label(&quot;domain_name&quot;),</span><br><span class="line">			UserDomainRole.role_id, Role.name.label(&quot;role_name&quot;),</span><br><span class="line">			UserDomainRole.create_time, UserDomainRole.update_time,</span><br><span class="line">			UserDomainRole.is_active) \</span><br><span class="line">	.join(UserDomainRole, User.id == UserDomainRole.user_id) \</span><br><span class="line">	.join(Domain, Domain.id == UserDomainRole.domain_id) \</span><br><span class="line">	.join(Role, Role.id == UserDomainRole.role_id) \</span><br><span class="line">	.filter(UserDomainRole.id == query_id).all()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-7-别名"><a href="#2-7-别名" class="headerlink" title="2.7 别名"></a>2.7 别名</h4><p>如果 query 中存在多个重复字段，那么可以在后面添加 <code>label(&quot;别名&quot;)</code> 的方式来进行区分</p>
+<h4 id="2-8-filter"><a href="#2-8-filter" class="headerlink" title="2.8 filter"></a>2.8 filter</h4><p>如果是已确定的条件，那么通过 <code>session.query().filter(User.id == query_id)</code> 这样显式写出来没问题，但是多数情况下，类似于 Mybatis 中 <code>where 1 = 1</code> 后跟着 if 判断语句，并不清楚会有几个查询条件需要放到 filter 中，这时候需要换成下面的写法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 需要 filter 中遍历的参数</span><br><span class="line">params = list()</span><br><span class="line">if user_id != &quot;&quot;:</span><br><span class="line">	params.append(类.user_id == user_id)</span><br><span class="line">if domain_id != &quot;&quot;:</span><br><span class="line">	params.append(类.domain_id == domain_id)</span><br><span class="line">if role_id != &quot;&quot;:</span><br><span class="line">	params.append(类.role_id == role_id)</span><br><span class="line">if is_active != &quot;&quot;:</span><br><span class="line">	params.append(类.is_active == is_active)</span><br><span class="line"></span><br><span class="line">session = db.getSession()</span><br><span class="line">res = session.query(字段).join().join().filter(*params).filter().all()</span><br><span class="line"># 可以同时写多个 filter 条件来过滤</span><br><span class="line"># 将params传到 filter 中，会自动进行赋值，注意要用 *params</span><br><span class="line"># 最后调用 all() 方法返回所有数据，first() 返回第一条数据， one() 返回一条数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-9-分页"><a href="#2-9-分页" class="headerlink" title="2.9 分页"></a>2.9 分页</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 通过 limit 和 offset 来实现分页</span><br><span class="line"># limit(10) 表示返回10条数据</span><br><span class="line"># offset(lower) 表示把下标移动到 lower 的位置，然后从下一个位置开始返回</span><br><span class="line">res = session.query().join().filter().limit(10).offset(lower).all()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-10-排序"><a href="#2-10-排序" class="headerlink" title="2.10 排序"></a>2.10 排序</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过 order_by() 方法来进行数据排序，可以添加多个字段排序规则</span><br><span class="line">order_by(类1.字段1, 类2.字段2.desc())</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-11-改"><a href="#2-11-改" class="headerlink" title="2.11 改"></a>2.11 改</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 和 filter 中查询条件一样，多数情况下不知道更新哪几个字段，需要动态赋值</span><br><span class="line"># 和 filter 不一样的是，filter(*params) 和 update(params)</span><br><span class="line">params = &#123;&#125;</span><br><span class="line">if user_id != &quot;&quot;:</span><br><span class="line">	params[&quot;user_id&quot;] = user_id</span><br><span class="line">if domain_id != &quot;&quot;:</span><br><span class="line">	params[&quot;domain_id&quot;] = domain_id</span><br><span class="line">if role_id != &quot;&quot;:</span><br><span class="line">	params[&quot;role_id&quot;] = role_id</span><br><span class="line">if is_active != &quot;&quot;:</span><br><span class="line">	params[&quot;is_active&quot;] = is_active</span><br><span class="line">update_res = session.query(类).filter(类.id == query_id).update(params)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-12-聚合函数使用"><a href="#2-12-聚合函数使用" class="headerlink" title="2.12 聚合函数使用"></a>2.12 聚合函数使用</h4><h5 id="2-12-1-group-concat"><a href="#2-12-1-group-concat" class="headerlink" title="2.12.1 group_concat"></a>2.12.1 group_concat</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 对于分组来说，可以直接调用 group_by() 方法来指定按照哪些字段来分组</span><br><span class="line"># 对于像 group_concat() 这样的函数使用，需要引用 func</span><br><span class="line">from sqlalchemy.sql import func</span><br><span class="line"></span><br><span class="line">res = session \</span><br><span class="line">	.query(User.id, User.itcode, User.username, User.password, User.truename, User.email,</span><br><span class="line">			func.group_concat(UserDomainRole.domain_id), func.group_concat(Domain.name),</span><br><span class="line">			func.group_concat(Domain.responser_id), func.group_concat(Domain.responser_truename),</span><br><span class="line">			func.group_concat(UserDomainRole.role_id), func.group_concat(Role.name)) \</span><br><span class="line">	.join(UserDomainRole, User.id == UserDomainRole.user_id) \</span><br><span class="line">	.join(Domain, Domain.id == UserDomainRole.domain_id) \</span><br><span class="line">	.join(Role, Role.id == UserDomainRole.role_id) \</span><br><span class="line">	.filter(User.id == query_id, UserDomainRole.is_active == &#x27;Y&#x27;, Domain.is_active == &#x27;Y&#x27;,</span><br><span class="line">			Role.is_active == &#x27;Y&#x27;) \</span><br><span class="line">	.group_by(User.id, User.itcode, User.username, User.password, User.truename, User.email).all()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-12-2-count"><a href="#2-12-2-count" class="headerlink" title="2.12.2 count"></a>2.12.2 count</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 虽然有直接的 count() 方法，但是在数据量大的时候，会很慢，所以需要换一种方式</span><br><span class="line">first = session.query(UserDomainRole.id, User.id, Domain.id, Role.id) \</span><br><span class="line">	.join(UserDomainRole, User.id == UserDomainRole.user_id)\</span><br><span class="line">	.join(Domain, Domain.id == UserDomainRole.domain_id)\</span><br><span class="line">	.join(Role, Role.id == UserDomainRole.role_id)\</span><br><span class="line">	.filter(*params)\</span><br><span class="line">	.filter(Domain.is_active == &#x27;Y&#x27;, Role.is_active == &#x27;Y&#x27;)</span><br><span class="line">totalCount = first.with_entities(func.count(UserDomainRole.id)).scalar()</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Flask/" rel="tag"># Flask</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/05/SpringBoot-10/" rel="prev" title="Spring Boot 学习摘要--关于日志框架">
+      <i class="fa fa-chevron-left"></i> Spring Boot 学习摘要--关于日志框架
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/10/Flask-1/" rel="next" title="Python之Flask框架">
+      Python之Flask框架 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SqlAlchemy"><span class="nav-number">1.</span> <span class="nav-text">SqlAlchemy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%90%86%E8%A7%A3"><span class="nav-number">1.1.</span> <span class="nav-text">1. 理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">2. 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 数据库连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%A8%A1%E5%9E%8B%E4%B8%8E%E8%A1%A8%E7%9A%84%E5%85%B3%E8%81%94"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 模型与表的关联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%A2%9E"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E5%88%A0"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 删</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-query"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-join"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-%E5%88%AB%E5%90%8D"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 别名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-8-filter"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8 filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-9-%E5%88%86%E9%A1%B5"><span class="nav-number">1.2.9.</span> <span class="nav-text">2.9 分页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-10-%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.10.</span> <span class="nav-text">2.10 排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-11-%E6%94%B9"><span class="nav-number">1.2.11.</span> <span class="nav-text">2.11 改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-12-%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.12.</span> <span class="nav-text">2.12 聚合函数使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-12-1-group-concat"><span class="nav-number">1.2.12.1.</span> <span class="nav-text">2.12.1 group_concat</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-12-2-count"><span class="nav-number">1.2.12.2.</span> <span class="nav-text">2.12.2 count</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

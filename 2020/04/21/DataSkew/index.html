@@ -1,37 +1,560 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="DataSkew 数据倾斜1. Hive 里的数据倾斜1.1 null值 空值尽量提前过滤，或者把无效值替换成随机字符串，比如 if(a is null or trim(a) &#x3D; &quot;&quot; or trim(a) &#x3D; &quot;NULL&quot;, rand(1)+&quot;&quot;)，由于是无效值所以不影响最终的取数，但是因为把关联字段打散了，所以就不会把所有的key发送">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataSkew 数据倾斜">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/04/21/DataSkew/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="DataSkew 数据倾斜1. Hive 里的数据倾斜1.1 null值 空值尽量提前过滤，或者把无效值替换成随机字符串，比如 if(a is null or trim(a) &#x3D; &quot;&quot; or trim(a) &#x3D; &quot;NULL&quot;, rand(1)+&quot;&quot;)，由于是无效值所以不影响最终的取数，但是因为把关联字段打散了，所以就不会把所有的key发送">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-04-21T11:38:00.000Z">
+<meta property="article:modified_time" content="2020-04-24T02:26:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Hive">
+<meta property="article:tag" content="DataSkew">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/04/21/DataSkew/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>DataSkew 数据倾斜 | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/04/21/DataSkew/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DataSkew 数据倾斜
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-21 19:38:00" itemprop="dateCreated datePublished" datetime="2020-04-21T19:38:00+08:00">2020-04-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-24 10:26:00" itemprop="dateModified" datetime="2020-04-24T10:26:00+08:00">2020-04-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/21/DataSkew/" class="post-meta-item leancloud_visitors" data-flag-title="DataSkew 数据倾斜" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/04/21/DataSkew/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/21/DataSkew/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="DataSkew-数据倾斜"><a href="#DataSkew-数据倾斜" class="headerlink" title="DataSkew 数据倾斜"></a>DataSkew 数据倾斜</h2><h3 id="1-Hive-里的数据倾斜"><a href="#1-Hive-里的数据倾斜" class="headerlink" title="1. Hive 里的数据倾斜"></a>1. Hive 里的数据倾斜</h3><h4 id="1-1-null值-空值"><a href="#1-1-null值-空值" class="headerlink" title="1.1 null值 空值"></a>1.1 null值 空值</h4><p>尽量提前过滤，或者把无效值替换成随机字符串，比如 <code>if(a is null or trim(a) = &quot;&quot; or trim(a) = &quot;NULL&quot;, rand(1)+&quot;&quot;)</code>，由于是无效值所以不影响最终的取数，但是因为把关联字段打散了，所以就不会把所有的key发送到同一个reduce上，但是需要控制rand(1)的数据范围，小数点位数过多会导致分配的reduce太多，也会影响最终效率。</p>
+<blockquote>
+<p>打散key的方式同样适用于MapReduce和Spark。</p>
+</blockquote>
+<h4 id="1-2-小文件倾斜"><a href="#1-2-小文件倾斜" class="headerlink" title="1.2 小文件倾斜"></a>1.2 小文件倾斜</h4><p>这一点在 Hive 里主要表现在模型汇总程度越高，数据量越小，如果再带有分区，那么在HDFS里就会有很多小文件。HDFS的文件元信息，包括位置、大小、分块信息都保存在NameNode的内存中，文件越多占的内存越大，所以读取小文件就会消耗时间。还有一种产生的可能是MapReduce的reduce数量增加，也会增加输出结果文件的数量，从而导致小文件过多。</p>
+<blockquote>
+<p>最后这种情况主要针对的是 MapReduce。当然Hive也可以通过配置项来尽可能减少reduce输出的小文件。</p>
+</blockquote>
+<p>解决方法有两种：</p>
+<ol>
+<li>map输入端的小文件合并</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 每个Map最大输入大小，决定合并后的文件数</span><br><span class="line">set mapred.max.split.size=256000000; **常见**</span><br><span class="line">-- 一个节点上split的至少的大小 ，决定了多个data node上的文件是否需要合并</span><br><span class="line">set mapred.min.split.size.per.node=100000000;</span><br><span class="line">-- 一个交换机下split的至少的大小，决定了多个交换机上的文件是否需要合并</span><br><span class="line">set mapred.min.split.size.per.rack=100000000;</span><br><span class="line">-- 执行Map前进行小文件合并</span><br><span class="line">set hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat; **常见**</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>reduce输出端的小文件合并</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">hive.merge.mapfiles=True True时在map输出后合并文件，默认true</span><br><span class="line">hive.merge.mapredfiles=True True时在reduce输出后合并文件，默认false</span><br><span class="line">hive.merge.size.per.task 合并后每个文件的大小，默认256000000</span><br><span class="line">hive.merge.smallfiles.avgsize 当输出文件平均大小小于设定值时，并且前两个参数得有一个为true，才会启动合并操作，默认16000000</span><br><span class="line"></span><br><span class="line">Hive在对结果文件进行合并时会执行一个额外的map-only脚本，mapper的数量是文件总大小除以size.per.task参数所得的值，触发合并的条件是：</span><br><span class="line">根据查询类型不同，相应的mapfiles/mapredfiles参数需要打开；</span><br><span class="line">结果文件的平均大小需要大于avgsize参数的值。</span><br><span class="line"></span><br><span class="line">hive.map.aggr=true; Map 端部分聚合，相当于Combiner</span><br><span class="line">hive.groupby.mapaggr.checkinterval =100000 在 Map 端进行聚合操作的条目数目</span><br><span class="line">hive.groupby.skewindata=true; 这个是给groupby优化的。会生成2个mr job，其中第一个相当于是combiner的作用，会先做一部分聚合再给reduce传过去</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-mapjoin-和-streamtable"><a href="#1-3-mapjoin-和-streamtable" class="headerlink" title="1.3 mapjoin 和 streamtable"></a>1.3 mapjoin 和 streamtable</h4><p>这两个类似于注解一样，放在 select 的后面即可</p>
+<h5 id="1-3-1-mapjoin"><a href="#1-3-1-mapjoin" class="headerlink" title="1.3.1 mapjoin"></a>1.3.1 mapjoin</h5><p>适合于：N个较大的表，一个较小的表</p>
+<p>mapjoin 会把指定的小表在客户端打成一个哈希表序列化文件的压缩包，通过分布式缓存均匀分发到作业执行的每一个结点上。然后在结点上进行解压，在内存中完成关联，有一个超级小表的情况下，目前hive能做到自动判断并转为map join。Map Join全过程不会使用Reduce，非常均匀，不会存在数据倾斜问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">set hive.auto.convert.join = true; # 默认为false</span><br><span class="line">该参数为true时，Hive自动对左边的表统计量，如果是小表就加入内存，即对 小表使用Map join</span><br><span class="line"></span><br><span class="line">set hive.mapjoin.smalltable.filesize;</span><br><span class="line">hive.mapjoin.smalltable.filesize=25000000</span><br><span class="line">大表小表的阈值默认值是25mb</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-3-2-streamtable"><a href="#1-3-2-streamtable" class="headerlink" title="1.3.2 streamtable"></a>1.3.2 streamtable</h5><p>适合于：N个较小的表，一个超大的表</p>
+<p>join一般都是在reduce阶段完成的，因为在map阶段无法使同样key值的分在一个map上。<br>而在reduce阶段的join，hive默认把左表数据（小表）放在缓存中，右表数据（大表）放入到磁盘中，然后把内存中的表的数据逐条与硬盘上user表的数据做Join。<br>通过<code>/*+ streamtable(大表表名) */</code>来指定大表。<br>最好每次写join时，小表放左边，大表放右边。</p>
+<h4 id="1-4-单纯的多对多"><a href="#1-4-单纯的多对多" class="headerlink" title="1.4 单纯的多对多"></a>1.4 单纯的多对多</h4><p>主键拼接一个rand(1)，放入不同的reduce，group by 的时候把真正的主键做一个截取即可</p>
+<h3 id="2-MapReduce-中的数据倾斜"><a href="#2-MapReduce-中的数据倾斜" class="headerlink" title="2. MapReduce 中的数据倾斜"></a>2. MapReduce 中的数据倾斜</h3><h4 id="2-1-小文件倾斜"><a href="#2-1-小文件倾斜" class="headerlink" title="2.1 小文件倾斜"></a>2.1 小文件倾斜</h4><p>原理和Hive是一样的，太多的小文件，导致在ApplicationMaster在向ResourceManager去申请资源时，要频繁访问HDFS的NameNode，再去DataNode拿数据，准备数据时间太长。</p>
+<p>所以可以在 map 端开始之前先把小文件进行合并，再传递给MapReduce。比如客户端产生数据文件时进行合并，或者文件数据进入map之前通过继承CombineFileInputFormat类实现小文件的合并。job.setInputFormatClass(CombineTextInputFormat.class)，然后在代码里的Configuration中设置切分的块的最小值最大值等等，在同一节点上的数据块会合并，超过最大值就生产新的分片。<br>hadoopConf.set(“mapreduce.input.fileinputformat.split.maxsize”, “512000000”)<br>hadoopConf.set(“mapreduce.input.fileinputformat.split.minsize”, “268435456”)</p>
+<h4 id="2-2-key-值倾斜"><a href="#2-2-key-值倾斜" class="headerlink" title="2.2 key 值倾斜"></a>2.2 key 值倾斜</h4><p>同一个key的数据太多，导致全部传递到一个reduce上，导致其中一个reduce运行时间过长。</p>
+<p>可以先创建一个类，通过 extends Partitioner 来重写 <code>int getPartition()</code> 方法，将key先都拼接一个rand()随机数，但是这个随机数应该和最多能启动起来的reduceNum个数是一样的（感觉是这样，随机数不能太多不一样的值，不然会传递到太多的reduce上，虽然每个reduceTask上的数据相对少了，但是启动过多的reduceTask也会增加时间），然后再创建一个类，通过 extends WritableComparator 来重写 <code>public int compare(WritableComparable a, WritableComparable b)</code> 方法，reduce 会自动调用 WritableComparator 类中的 <code>int compare</code> 方法，来判断循环的key是否和前一个是同一个来做累加，所以如果修改了partition分区方法，一般都是需要再覆写 WritableComparator 类的。</p>
+<h3 id="3-Spark-中的数据倾斜"><a href="#3-Spark-中的数据倾斜" class="headerlink" title="3. Spark 中的数据倾斜"></a>3. Spark 中的数据倾斜</h3><ol>
+<li><p>数据源数据文件不均匀</p>
+<p> SparkContext.textFile(“”) 读取文件数据的时候底层实现是通过Hadoop读取文件的方式</p>
+<p> 在 Hadoop 读取文件时，会通过 <code>getPartitions()</code> 方法来获取分区，在这个方法里会调用 InputFormat 这个抽象类的 <code>getSplits()</code> 方法，这个方法的具体实现是在 FileInputFormat 类中对 <code>getSplits()</code> 方法进行覆写。如何去切分文件数据的思路是：</p>
+<ol>
+<li>inputPath 如果是一个文件夹的话，遍历里面的所有文件，累加所有文件的size作为totalSize</li>
+<li>求一个平均文件大小 <code>goalSize = totalSize / numSplits;  // numSplits 指的是 min(想要的分区个数，默认分区个数2个) 在spark里面是这样的，mr可能是读的配置</code></li>
+<li><code>while(fileSize / goalSize &gt; 1.1L)&#123;fileSize -= goalSize&#125;</code> 如果当前文件的大小超过平均大小的1.1倍，那么就从平均大小对应的offset那里进行切分文件</li>
+<li>综上，如果文件不可切分，那么一个分区就是那一整个不可切分文件；如果文件可切分，计算出一个理想文件大小，然后依次判断文件大小和这个理想文件大小的关系，幅度在1.1倍之内的都可以接受，否则就需要切割。</li>
+</ol>
+<p> 每一个partition都会是一个task，所以如果文件不可分割，那么就会input一个特别大的文件，造成倾斜<br> 适用场景：对于数据源单个spark input read数据量过大，或者单个task 相对于其他task spark input read较大的情况，读取数据源明显不均匀<br> 解决方式：尽量使用可切割的文本存储，生成尽量多的task进行并行计算<br> 优点：从数据源避免倾斜，并且从源头增大并行度，避免倾斜<br> 缺点：需要改造数据源，支持可切割</p>
+</li>
+<li><p>计算过程中key的分布不均（Shuffle导致的数据不均，在进行shuffle的时候，必须将各个节点上相同的key拉取到某个节点上的一个task来进行处理，此时如果某个key对应的数据量特别大的话，就会发生数据倾斜）</p>
+<ul>
+<li>单个rdd中进行groupby的时候key分布不均<br>  groupby(customerPart)<br>  map(key+rand()).reducebykey().reducebykey() 执行两次</li>
+<li>多个rdd进行join过程中key的不均匀<ul>
+<li>一个大表和一个小表的时候，将较小的RDD中的数据存到一个Broadcast变量（即广播变量）中，先广播到各个节点中，即在每个节点的内存中缓存一份，然后对大表RDD进行map算子，从Broadcast变量中获取较小RDD的全量数据，与当前RDD的每一条数据按照连接key进行比对，如果连接key相同的话，那么就将两个RDD的数据用你需要的方式连接起来。需要调整一下广播的阈值。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+              <a href="/tags/Hive/" rel="tag"># Hive</a>
+              <a href="/tags/DataSkew/" rel="tag"># DataSkew</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/21/Kafka-2/" rel="prev" title="Kafka进阶">
+      <i class="fa fa-chevron-left"></i> Kafka进阶
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/22/MapReduce/" rel="next" title="MapReduce">
+      MapReduce <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DataSkew-%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="nav-number">1.</span> <span class="nav-text">DataSkew 数据倾斜</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Hive-%E9%87%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="nav-number">1.1.</span> <span class="nav-text">1. Hive 里的数据倾斜</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-null%E5%80%BC-%E7%A9%BA%E5%80%BC"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 null值 空值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E5%B0%8F%E6%96%87%E4%BB%B6%E5%80%BE%E6%96%9C"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 小文件倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-mapjoin-%E5%92%8C-streamtable"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 mapjoin 和 streamtable</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-mapjoin"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.3.1 mapjoin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-streamtable"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">1.3.2 streamtable</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E5%8D%95%E7%BA%AF%E7%9A%84%E5%A4%9A%E5%AF%B9%E5%A4%9A"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 单纯的多对多</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-MapReduce-%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="nav-number">1.2.</span> <span class="nav-text">2. MapReduce 中的数据倾斜</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%B0%8F%E6%96%87%E4%BB%B6%E5%80%BE%E6%96%9C"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 小文件倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-key-%E5%80%BC%E5%80%BE%E6%96%9C"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 key 值倾斜</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Spark-%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="nav-number">1.3.</span> <span class="nav-text">3. Spark 中的数据倾斜</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

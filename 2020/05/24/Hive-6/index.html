@@ -1,37 +1,569 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Hive 建模1. 存储格式 textFile sequenceFile：一种Hadoop API提供的二进制文件，使用方便、可分割、可压缩。将数据以&lt;key,value&gt;的形式序列化到文件中。序列化和反序列化使用Hadoop 的标准的Writable 接口实现。key为空，用value 存放实际的值， 这样可以避免map 阶段的排序过程。 rcFile：一种行列存储相结合的存储方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive 建模">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/05/24/Hive-6/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Hive 建模1. 存储格式 textFile sequenceFile：一种Hadoop API提供的二进制文件，使用方便、可分割、可压缩。将数据以&lt;key,value&gt;的形式序列化到文件中。序列化和反序列化使用Hadoop 的标准的Writable 接口实现。key为空，用value 存放实际的值， 这样可以避免map 阶段的排序过程。 rcFile：一种行列存储相结合的存储方式。">
+<meta property="og:locale">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324180338683-1916113766.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324180236104-1134926519.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324175828948-2089267269.jpg">
+<meta property="article:published_time" content="2020-05-24T09:55:00.000Z">
+<meta property="article:modified_time" content="2020-06-15T03:19:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Hive">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324180338683-1916113766.jpg">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/05/24/Hive-6/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Hive 建模 | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/05/24/Hive-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hive 建模
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-24 17:55:00" itemprop="dateCreated datePublished" datetime="2020-05-24T17:55:00+08:00">2020-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-15 11:19:00" itemprop="dateModified" datetime="2020-06-15T11:19:00+08:00">2020-06-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/05/24/Hive-6/" class="post-meta-item leancloud_visitors" data-flag-title="Hive 建模" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/05/24/Hive-6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/24/Hive-6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Hive-建模"><a href="#Hive-建模" class="headerlink" title="Hive 建模"></a>Hive 建模</h2><h3 id="1-存储格式"><a href="#1-存储格式" class="headerlink" title="1. 存储格式"></a>1. 存储格式</h3><ul>
+<li>textFile</li>
+<li>sequenceFile：一种Hadoop API提供的二进制文件，使用方便、可分割、可压缩。将数据以&lt;key,value&gt;的形式序列化到文件中。序列化和反序列化使用Hadoop 的标准的Writable 接口实现。key为空，用value 存放实际的值， 这样可以避免map 阶段的排序过程。</li>
+<li>rcFile：一种行列存储相结合的存储方式。首先，其将数据按行分块，保证同一个record在一个块上，避免读一个记录需要读取多个block。其次，块数据列式存储，有利于数据压缩和快速的列存取。但是不好用。</li>
+<li>orc：ecFile升级版。常用于Hive、Presto。</li>
+<li>parquet：Parquet和ORC都以列的形式存储数据。面向列的数据存储针对读取繁重的分析工作负载进行了优化。常用于Impala、Drill、Spark、Arrow。</li>
+<li>avro：基于行的格式存储数据。基于行的数据库最适合于大量写入的事务性工作负载。常用于Kafka、Druid。</li>
+</ul>
+<p>数据压缩比例上ORC最优，相比textfile节省了50倍磁盘空间，parquet压缩性能也较好<br>SQL查询速度而言，ORC与parquet性能较好，远超其余存储格式</p>
+<h3 id="2-表的类型"><a href="#2-表的类型" class="headerlink" title="2. 表的类型"></a>2. 表的类型</h3><ul>
+<li>全量表：保存用户所有的数据（包括新增与历史数据）</li>
+<li>增量表：只保留当前新增的数据</li>
+<li>快照表：按日分区，记录截止数据日期的全量数据</li>
+<li>切片表：切片表根据基础表，往往只反映某一个维度的相应数据。其表结构与基础表结构相同，但数据往往只有某一维度，或者某一个事实条件的数据</li>
+<li>拉链表：记录一个事物从开始，一直到当前状态的所有变化的信息</li>
+</ul>
+<h3 id="3-数据仓库、数据建模"><a href="#3-数据仓库、数据建模" class="headerlink" title="3. 数据仓库、数据建模"></a>3. 数据仓库、数据建模</h3><h4 id="3-1-数据仓库目标"><a href="#3-1-数据仓库目标" class="headerlink" title="3.1 数据仓库目标"></a>3.1 数据仓库目标</h4><ol>
+<li>访问性能：能够快速查询所需的数据，减少数据I&#x2F;O。</li>
+<li>数据成本：减少不必要的数据冗余，实现计算结果数据复用，降低大数据系统中的存储成本和计算成本。</li>
+<li>使用效率：改善用户应用体验，提高使用数据的效率。</li>
+<li>数据质量：改善数据统计口径的不一致性，减少数据计算错误的可能性，提供高质量的、一致的数据访问平台。</li>
+</ol>
+<p>比如hive的优点：</p>
+<ul>
+<li>容量大 hdfs</li>
+<li>运算能力强 mapreduce</li>
+</ul>
+<h4 id="3-2-建模方式"><a href="#3-2-建模方式" class="headerlink" title="3.2 建模方式"></a>3.2 建模方式</h4><h5 id="3-2-1-ER实体模型"><a href="#3-2-1-ER实体模型" class="headerlink" title="3.2.1 ER实体模型"></a>3.2.1 ER实体模型</h5><p>实体Entity（矩形）、属性Property（椭圆形）、关系Relationship（菱形）</p>
+<h5 id="3-2-2-维度建模"><a href="#3-2-2-维度建模" class="headerlink" title="3.2.2 维度建模"></a>3.2.2 维度建模</h5><p><a href="https://www.cnblogs.com/muchen/p/5310732.html">参考地址</a></p>
+<p>维度建模源自数据集市，主要面向分析场景。Ralph Kimball推崇数据集市的集合为数据仓库，同时也提出了对数据集市的维度建模，将数据仓库中的表划分为事实表、维度表两种类型</p>
+<ol>
+<li>事实表</li>
+</ol>
+<p>在ER模型中抽象出了有实体、关系、属性三种类别，在现实世界中，每一个操作型事件，基本都是发生在实体之间的，伴随着这种操作事件的发生，会产生可度量的值，而这个过程就产生了一个事实表，存储了每一个可度量的事件。通常是数值类型，且记录数会不断增加，表规模迅速增长。</p>
+<blockquote>
+<p>业务里每一个提交的表单都可以作为一个事实表（一次业务处理流程），表单相关的一些信息作为维度表</p>
+</blockquote>
+<ol start="2">
+<li>维度表</li>
+</ol>
+<p>维度表一般为单一主键，在ER模型中，实体为客观存在的事务，会带有自己的描述性属性，属性一般为文本性、描述性的，这些描述被称为维度。</p>
+<p>比如商品，单一主键：商品ID，属性包括产地、颜色、材质、尺寸、单价等，但并非属性一定是文本，比如单价、尺寸，均为数值型描述性的，日常主要的维度抽象包括：时间维度表、地理区域维度表等。</p>
+<p>维度建模通常又分为星型模型和雪花模型。</p>
+<p>星型模型：<br><img src="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324180338683-1916113766.jpg" alt="星型模型"></p>
+<p>可以看出，星形模式的维度建模由一个事实表和一组维表成，且具有以下特点：</p>
+<p>a. 维表只和事实表关联，维表之间没有关联；<br>b. 每个维表的主码为单列，且该主码放置在事实表中，作为两边连接的外码；<br>c. 以事实表为核心，维表围绕核心呈星形分布；</p>
+<p>雪花模型：<br><img src="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324180236104-1134926519.jpg" alt="雪花模型"></p>
+<p>星型模型和雪花模型的主要区别在于对维度表的拆分，对于雪花模型，维度表的设计更加规范，一般符合3NF；而星型模型，一般采用降维的操作，利用冗余来避免模型过于复杂，提高易用性和分析效率。</p>
+<blockquote>
+<p>然而这种模式在实际应用中很少见，因为这样做会导致开发难度增大</p>
+</blockquote>
+<p>雪花、星型模型对比：</p>
+<p>1、冗余：雪花模型符合业务逻辑设计，采用3NF设计，有效降低数据冗余；星型模型的维度表设计不符合3NF，反规范化，维度表之间不会直接相关，牺牲部分存储空间。</p>
+<p>2、性能：雪花模型由于存在维度间的关联，采用3NF降低冗余，通常在使用过程中，需要连接更多的维度表，导致性能偏低；星型模型反三范式，采用降维的操作将维度整合，以存储空间为代价有效降低维度表连接数，性能较雪花模型高。</p>
+<p>3、ETL：雪花模型符合业务ER模型设计原则，在ETL过程中相对简单，但是由于附属模型的限制，ETL任务并行化较低；星型模型在设计维度表时反范式设计，所以在ETL过程中整合业务数据到维度表有一定难度，但由于避免附属维度，可并行化处理。</p>
+<p>大数据和传统关系型数据库的计算框架不一样，例如对比mapreduce和oracle，在mapreduce里面，每多一个表的关联，就多一个job。mapreduce的每个任务进来，要申请资源，分配容器，各节点通信等。有可能YARN调度时长大于任务运行时间，例如调度需要5秒才能申请到资源，而表之间的join只需要2秒。hive优化里面，要尽可能减少job任务数，也就是减少表之间的关联，可以用适当的冗余来避免低效的查询方式，这是和oracle等其他关系型数据库不同的地方。</p>
+<p>星座模型（星行模型的拓展）：</p>
+<p><img src="https://images2015.cnblogs.com/blog/903014/201603/903014-20160324175828948-2089267269.jpg"></p>
+<p>前面介绍的两种维度建模方法都是多维表对应单事实表，但在很多时候维度空间内的事实表不止一个，而一个维表也可能被多个事实表用到。在业务发展后期，绝大部分维度建模都采用的是星座模式。</p>
+<h5 id="3-2-3-Data-Vault模型"><a href="#3-2-3-Data-Vault模型" class="headerlink" title="3.2.3 Data Vault模型"></a>3.2.3 Data Vault模型</h5><h5 id="3-2-4-Anchor"><a href="#3-2-4-Anchor" class="headerlink" title="3.2.4 Anchor"></a>3.2.4 Anchor</h5>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+              <a href="/tags/Hive/" rel="tag"># Hive</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/23/Spark/" rel="prev" title="Spark">
+      <i class="fa fa-chevron-left"></i> Spark
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/31/Sqoop/" rel="next" title="Sqoop源码解析">
+      Sqoop源码解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.</span> <span class="nav-text">Hive 建模</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 存储格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%A1%A8%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2. 表的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E3%80%81%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.3.</span> <span class="nav-text">3. 数据仓库、数据建模</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9B%AE%E6%A0%87"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 数据仓库目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 建模方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-ER%E5%AE%9E%E4%BD%93%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">3.2.1 ER实体模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-%E7%BB%B4%E5%BA%A6%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">3.2.2 维度建模</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-3-Data-Vault%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">3.2.3 Data Vault模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-4-Anchor"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">3.2.4 Anchor</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

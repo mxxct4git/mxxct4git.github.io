@@ -1,37 +1,632 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Phoenix 异步创建索引当表数据量过大的时候，创建索引会报错，可以修改服务器端的 hbase.rpc.timeout，默认是1分钟，可以自定义时间。也可以异步创建索引，通过在语句后面添加async 关键字。 需要注意的是：  异步创建索引只支持全局索引 执行async语句只是第一步，还需要通过执行jar包来保证索引真正的建立  1. 为什么只支持全局索引？首先是本地索引和全局索引的一些概念和区">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Phoenix 异步创建索引">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/11/07/Phoenix-4/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Phoenix 异步创建索引当表数据量过大的时候，创建索引会报错，可以修改服务器端的 hbase.rpc.timeout，默认是1分钟，可以自定义时间。也可以异步创建索引，通过在语句后面添加async 关键字。 需要注意的是：  异步创建索引只支持全局索引 执行async语句只是第一步，还需要通过执行jar包来保证索引真正的建立  1. 为什么只支持全局索引？首先是本地索引和全局索引的一些概念和区">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-11-07T07:34:00.000Z">
+<meta property="article:modified_time" content="2020-11-20T07:17:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Phoenix">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/11/07/Phoenix-4/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Phoenix 异步创建索引 | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/07/Phoenix-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Phoenix 异步创建索引
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-07 15:34:00" itemprop="dateCreated datePublished" datetime="2020-11-07T15:34:00+08:00">2020-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-20 15:17:00" itemprop="dateModified" datetime="2020-11-20T15:17:00+08:00">2020-11-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Phoenix/" itemprop="url" rel="index"><span itemprop="name">Phoenix</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/07/Phoenix-4/" class="post-meta-item leancloud_visitors" data-flag-title="Phoenix 异步创建索引" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/07/Phoenix-4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/07/Phoenix-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Phoenix-异步创建索引"><a href="#Phoenix-异步创建索引" class="headerlink" title="Phoenix 异步创建索引"></a>Phoenix 异步创建索引</h2><p>当表数据量过大的时候，创建索引会报错，可以修改服务器端的 <code>hbase.rpc.timeout</code>，默认是1分钟，可以自定义时间。也可以异步创建索引，通过在语句后面添加<code>async</code> 关键字。</p>
+<p>需要注意的是：</p>
+<ol>
+<li>异步创建索引只支持全局索引</li>
+<li>执行async语句只是第一步，还需要通过执行jar包来保证索引真正的建立</li>
+</ol>
+<h3 id="1-为什么只支持全局索引？"><a href="#1-为什么只支持全局索引？" class="headerlink" title="1. 为什么只支持全局索引？"></a>1. 为什么只支持全局索引？</h3><p>首先是本地索引和全局索引的一些概念和区别</p>
+<ul>
+<li>本地索引<ul>
+<li>适合写多读少的情况</li>
+<li>索引数据直接写在原表里，<strong>不会新建一张表</strong>。在 <code>phoenix-sqlline</code> 里执行 <code>!tables</code> 的确会发现创建的本地索引表，但是那个只是一个映射，并不是单独存在的。由于索引数据直接写在表里，所以原表的数据量&#x3D;原始数据+索引数据。</li>
+<li>本地索引rowkey的设计规则: 原数据region的start key+”\x00”+二级索引字段1+”\x00”+二级索引字段2(复合索引)…+”\x00”+原rowkey。</li>
+<li>索引数据和真实数据存放在同一台机器上，减少了网络传输的开销。同理，创建索引后的rowkey的最开始的部分是 <em>原数据region的start key</em>，这样在通过二级索引定位到数据后，可以在当前的region中直接找到数据，减少网络开销。减少网络开销，也意味着写入的速度会变快。但是多了一步通过rowkey查找数据的过程，所以读的过程就不如直接读取列族里的数据的速度快。</li>
+</ul>
+</li>
+<li>全局索引<ul>
+<li><p>适合读多写少的情况</p>
+</li>
+<li><p>索引数据会单独存在一张表里。</p>
+</li>
+<li><p>全局索引必须是查询语句中所有列都包含在全局索引中，它才会生效。</p>
+<blockquote>
+<p>Select * 不会命中索引<br>select 具体的字段 from table where col …<br>col 必须是第一个主键或者是索引里包含的字段才会命中索引<br>如果索引表包含 a、b 三个字段，where 里有 a 和 c 两个字段，那么也不会走索引，因为c不在索引里，发现索引走不通，只能走全表</p>
+</blockquote>
+</li>
+<li><p>为了命中索引，要把需要查询的字段通过 include 关键字来一起写入索引表里，也就是覆盖索引。</p>
+<blockquote>
+<p>Phoenix 不能保证主表和索引表对应Region的本地化，所以也就无法根据索引表的结果再去查主表</p>
+</blockquote>
+</li>
+<li><p>写入数据的同时需要往索引表同步写数据，而索引表是分布在不同的数据节点上的，跨节点的数据传输带来了较大的性能消耗，所以写慢；但是查询的时候，如果命中了索引表，那就直接把数据带出来了，读会快。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>综上，本地索引不是表，全局索引才是表，而async是针对表的一种方式，所以只能作用于全局索引</p>
+<h3 id="2-如何执行async"><a href="#2-如何执行async" class="headerlink" title="2. 如何执行async"></a>2. 如何执行async</h3><ol>
+<li>首先是需要创建一个全局索引，同时使用 async</li>
+</ol>
+<p><code>create index XXX on database.tablename(col1, col2) include(col3, col4) async</code></p>
+<p>此时去看这个表，会发现 <code>index_state</code> 字段的值是 building，说明索引表还没创建好，这是因为 async 关键字会初始化一个mr作业，只是把创建索引的数据文件准备好，还没有正式开始</p>
+<ol start="2">
+<li>执行mr作业</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.phoenix.mapreduce.index.IndexTool \</span><br><span class="line">--schema 库名 --data-table 表名 --index-table 索引表名 \</span><br><span class="line">--output-path hdfs路径指向一个文件件即可</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>库名、表名、索引表名尽量都不要小写</p>
+</blockquote>
+<p>这个命令执行后可能会报错，遇到 org.apache.phoenix.mapreduce.index.IndexTool 依赖的jar没法加载，那就可以换一个方式执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ./本地文件夹路径:/data1/cloudera/parcels/PHOENIX/lib/phoenix/phoenix-5.0.0-cdh6.2.0-client.jar  org.apache.phoenix.mapreduce.index.IndexTool   --schema 库名 --data-table 表名 --index-table 索引表名     --output-path hdfs路径指向一个文件件即可</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>本地文件夹里需要包含 hbase yarn hdfs 的配置文件 </p>
+</blockquote>
+<p>如果遇到 <code>java.io.IOException: Can&#39;t get Master Kerberos principal for use as renewer</code> 说明缺少yarn的配置文件</p>
+<p>如果遇到 <code>org.apache.hadoop.security.AccessControlException: Permission denied: user=phoenix, access=WRITE, inode=&quot;/user&quot;:hdfs:supergroup:drwxr-xr-x</code> 需要在 <code>hbase-site.xml</code> 文件里添加 <code>hbase.fs.tmp.dir</code> 配置项，值是hdfs上一个有读写权限的目录路径。<br>原因：从 org.apache.phoenix.mapreduce.index.IndexTool 开始追代码，会找到 org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2，在配置mr作业的时候，<code>configurePartitioner()</code> 方法里 <code>String hbaseTmpFsDir = conf.get(&quot;hbase.fs.tmp.dir&quot;, HConstants.DEFAULT_TEMPORARY_HDFS_DIRECTORY);</code> 会去读取配置文件里的这个值，默认是 <code>&quot;/user/&quot; + System.getProperty(&quot;user.name&quot;) + &quot;/hbase-staging&quot;</code></p>
+<h3 id="3-附"><a href="#3-附" class="headerlink" title="3. 附"></a>3. 附</h3><ol>
+<li>查询执行计划，判断是否命中索引表</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">内容</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">CLIENT</td>
+<td align="center">表明操作在客户端执行还是服务端执行，客户端尽量返回少的数据。若为 SERVER 表示在服务端执行。</td>
+</tr>
+<tr>
+<td align="center">FILTER BY expression</td>
+<td align="center">返回和过滤条件匹配的结果。</td>
+</tr>
+<tr>
+<td align="center">FULL SCAN OVER tableName</td>
+<td align="center">表明全表扫描某张业务表。</td>
+</tr>
+<tr>
+<td align="center">RANGE SCAN OVER tableName [ … ]</td>
+<td align="center">表明代表范围扫描某张表，括号内代表 rowkey 的开始和结束。</td>
+</tr>
+<tr>
+<td align="center">ROUND ROBIN</td>
+<td align="center">无 ORDER BY 操作时, ROUND ROBIN 代表最大化客户端的并行化。</td>
+</tr>
+<tr>
+<td align="center">x-CHUNK</td>
+<td align="center">执行此操作的线程数。</td>
+</tr>
+<tr>
+<td align="center">PARALLEL x-WAY</td>
+<td align="center">表明合并多少并行的扫描。</td>
+</tr>
+<tr>
+<td align="center">EST_BYTES_READ</td>
+<td align="center">执行查询时预计扫描的总字节数。</td>
+</tr>
+<tr>
+<td align="center">EST_ROWS_READ</td>
+<td align="center">执行查询时预计扫描多少行。</td>
+</tr>
+<tr>
+<td align="center">EST_INFO_TS</td>
+<td align="center">收集查询信息的 epoch time</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>在创建索引的过程中，发现了一个可能是版本bug的地方，已提官网issue，链接如下</li>
+</ol>
+<p><a href="https://issues.apache.org/jira/projects/PHOENIX/issues/PHOENIX-6215?filter=updatedrecently">官网issue地址</a></p>
+<p>问题：如果在创建本地索引时，有一个字段设置了default value，在生成的索引表里就只会显示默认值，不管是什么类型；如果这个类型是tinyint的话，还可能会造成之后主键的数据，原表的数据是对的，但是索引表是错的，如果命中了索引表，那么就返回的是错误的数据。</p>
+<p>可能的解：<code>RowKeyColumnExpression</code> 和 <code>RowKeyValueAccessor</code> 两个类。</p>
+<blockquote>
+<p>对表字段的修改，只能修改 char、varchar、decimal 等类型的长度，不可以直接修改类型，比如修改integer到bigint，会导致修改之后出现乱码，应该也是因为phoenix在对column index下标进行切分的时候，每个类型有自己的长度，随便修改类型，会导致数据转换错误</p>
+</blockquote>
+<ol start="3">
+<li>union all 在使用时遇到问题</li>
+</ol>
+<p>类似问题在 <a href="https://stackoverflow.com/questions/40100813/apache-phoenix-join-fails-encountered-exception-in-sub-plan-0-execution">Encountered exception in sub plan [0] execution</a></p>
+<p>描述：<code>select user_id from (select user_id from table union all select user_id from table) where user_id in (select user_id from table)</code> 这个sql执行后报 NullPointerException；换成 <code>select t1.user_id from (select user_id from table union all select user_id from table)t1 inner join (select user_id from table)t2 on t1.user_id = t2.user_id</code> 也会报错，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Error: Encountered exception in sub plan [0] execution. (state=,code=0)</span><br><span class="line">java.sql.SQLException: Encountered exception in sub plan [0] execution.</span><br><span class="line">        at org.apache.phoenix.execute.HashJoinPlan.iterator(HashJoinPlan.java:209)</span><br><span class="line">        at org.apache.phoenix.execute.DelegateQueryPlan.iterator(DelegateQueryPlan.java:139)</span><br><span class="line">        at org.apache.phoenix.jdbc.PhoenixStatement$1.call(PhoenixStatement.java:291)</span><br><span class="line">        at org.apache.phoenix.jdbc.PhoenixStatement.execute(PhoenixStatement.java:1830)</span><br><span class="line">        ...</span><br><span class="line">Caused by: org.apache.phoenix.schema.TableNotFoundException: ERROR 1012 (42M03): Table undefined. tableName=unionSchemaName.unionTableName</span><br><span class="line">        at org.apache.phoenix.query.ConnectionQueryServicesImpl.getAllTableRegions(ConnectionQueryServicesImpl.java:604)</span><br><span class="line">        ....</span><br></pre></td></tr></table></figure>
+
+<p>参考链接写的那个方式，改成 <code>select /*+ USE_SORT_MERGE_JOIN */ t1.user_id from (select user_id from table union all select user_id from table)t1 inner join (select user_id from table)t2 on t1.user_id = t2.user_id</code> 就可以了，从官方文档上看，是将广播哈希连接替换成了排序合并连接。但是官网给的前提是<strong>当连接的两端都大于服务器端内存的容量时</strong>使用这一个hint，具体底层实现还不清楚。</p>
+<p>附：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHOENIX_OPTS=&quot;-Dsun.security.krb5.principal=phoenix&quot;</span><br><span class="line">/usr/java/jdk1.8.0_121/bin/java $PHOENIX_OPTS  -cp &quot;/etc/hbase/conf:/etc/hbase/conf:/data/cloudera/parcels/PHOENIX-5.0.0-cdh6.2.0.p0.1308267/lib/phoenix/bin/../phoenix-5.0.0-cdh6.2.0-client.jar:::/etc/hadoop/conf:/etc/hadoop/conf:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop/lib/*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop/.//*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-hdfs/./:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-hdfs/lib/*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-hdfs/.//*:/data/cloudera/parcels/CDH/lib/hadoop-mapreduce/.//*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-yarn/lib/*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-yarn/.//*&quot; -Dlog4j.configuration=file:/data/penglin/log4j.properties sqlline.SqlLine -d org.apache.phoenix.jdbc.PhoenixDriver -u jdbc:phoenix:host241.slave.dev.cluster.enn.cn:2181:/hbase -n none -p none --color=true --fastConnect=false --verbose=true --incremental=false --isolation=TRANSACTION_READ_COMMITTED </span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+              <a href="/tags/Phoenix/" rel="tag"># Phoenix</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/04/Int/" rel="prev" title="整型溢出">
+      <i class="fa fa-chevron-left"></i> 整型溢出
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/07/Lombok-1/" rel="next" title="Lombok">
+      Lombok <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Phoenix-%E5%BC%82%E6%AD%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">Phoenix 异步创建索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E6%94%AF%E6%8C%81%E5%85%A8%E5%B1%80%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 为什么只支持全局索引？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8Casync"><span class="nav-number">1.2.</span> <span class="nav-text">2. 如何执行async</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%99%84"><span class="nav-number">1.3.</span> <span class="nav-text">3. 附</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

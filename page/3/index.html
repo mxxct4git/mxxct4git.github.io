@@ -1,23 +1,1208 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta name="description" content="君子不器">
+<meta property="og:type" content="website">
+<meta property="og:title" content="猫熊小才天の书院">
+<meta property="og:url" content="https://mxxct4git.github.io/page/3/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="君子不器">
+<meta property="og:locale">
+<meta property="article:author" content="Mxxct">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/page/3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/12/08/Java-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/Java-3/" class="post-title-link" itemprop="url">Java 引用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:42:56 / Modified: 17:27:04" itemprop="dateCreated datePublished" datetime="2020-12-08T15:42:56+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/12/08/Java-3/" class="post-meta-item leancloud_visitors" data-flag-title="Java 引用" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/12/08/Java-3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/08/Java-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Java-引用"><a href="#Java-引用" class="headerlink" title="Java 引用"></a>Java 引用</h2><h3 id="1-引用类型"><a href="#1-引用类型" class="headerlink" title="1. 引用类型"></a>1. 引用类型</h3><ul>
+<li>强引用<ul>
+<li>栈 -&gt; 堆</li>
+<li>只要堆中对象可达，就不会被回收</li>
+</ul>
+</li>
+<li>软引用<ul>
+<li>需要 <code>import SoftReference</code> </li>
+<li>栈 -&gt; 堆中会创建一个 <code>SoftReference</code>对象，这个对象里会有一个<code>value</code> -&gt; 这个<code>value</code>指向了堆中的一个对象，也就是真正的值</li>
+<li>当堆中的内存不够的时候，软引用指向的对象就会被回收</li>
+<li>应用：适合做缓存，比如图片</li>
+</ul>
+</li>
+<li>弱引用<ul>
+<li>需要 <code>import WeakReference</code></li>
+<li>栈 -&gt; 堆中会创建一个 <code>WeakReference</code>对象，这个对象里会有一个<code>value</code> -&gt; 这个<code>value</code>指向了堆中的一个对象，也就是真正的值</li>
+<li>当弱引用遇到gc就会被回收</li>
+<li>应用：为了解决内存泄露问题，比如<code>ThreadLocal</code></li>
+</ul>
+</li>
+<li>虚引用<ul>
+<li>需要 <code>import PhantomReference</code></li>
+<li>应用：管理堆外内存。流程大概如下：OS读取数据，会放在内存里，之前的处理方式（比如BIO)会把这一部分内存复制到JVM内存中，来回复制，一方面是效率低下，另一方面容易造成内存溢出，因为JVM无法及时清理外面的内存。现在通过虚引用（NIO中的DirectByteBuffer）可以直接在JVM中创建一个指向堆外内存的对象，当JVM中的对象被回收的时候（应该就是处理完数据了），回收这个动作可以通过监听Queue探测到，这时候就可以由GC来回收堆外内存的对象。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-ThreadLocal中的弱引用"><a href="#2-ThreadLocal中的弱引用" class="headerlink" title="2. ThreadLocal中的弱引用"></a>2. ThreadLocal中的弱引用</h3><blockquote>
+<p>ThreadLocal的设计初衷：提供线程内部的局部变量，在本线程内可以随意使用，隔离其他线程</p>
+</blockquote>
+<p>每一个Thread对象，都包含一个 <code>ThreadLocal.ThreadLocalMap threadLocals</code> 的属性。</p>
+<p>以 <code>static ThreadLocal&lt;String&gt; localVar = new ThreadLocal&lt;&gt;();</code>为例，这个 <code>map</code> 的 <code>key</code> 就是 <code>localVar</code>，<code>value</code> 就是一个字符串，这个字符串是在每一个线程中，通过 <code>localVar.set(&quot;xxx&quot;)</code> 设置的</p>
+<blockquote>
+<p>ThreadLocal 在 get、set 的时候会首先获取到 Thread.currentThread()，然后再根据线程拿到 threadLocals  这个map，然后在map中进行操作，保证了只是针对当前线程的变量进行操作</p>
+</blockquote>
+<p><code>ThreadLocalMap</code> 中的每一对 <code>key,value</code> 都是存放在 <code>Entry</code> 中的，而 <code>Entry</code> 继承了 WeakReference，并在构造函数中将 <code>key</code> 作为了弱引用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The entries in this hash map extend WeakReference, using</span></span><br><span class="line"><span class="comment"> * its main ref field as the key (which is always a</span></span><br><span class="line"><span class="comment"> * ThreadLocal object).  Note that null keys (i.e. entry.get()</span></span><br><span class="line"><span class="comment"> * == null) mean that the key is no longer referenced, so the</span></span><br><span class="line"><span class="comment"> * entry can be expunged from table.  Such entries are referred to</span></span><br><span class="line"><span class="comment"> * as &quot;stale entries&quot; in the code that follows.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Entry</span> <span class="keyword">extends</span> <span class="title class_">WeakReference</span>&lt;ThreadLocal&lt;?&gt;&gt; &#123;</span><br><span class="line">  <span class="comment">/** The value associated with this ThreadLocal. */</span></span><br><span class="line">  Object value;</span><br><span class="line"></span><br><span class="line">  Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">    <span class="built_in">super</span>(k);</span><br><span class="line">    value = v;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>为什么要用到弱引用？避免内存溢出。为啥会内存溢出？</p>
+<p><code>Thread --&gt; ThreadLocal.ThreadLocalMap&lt;localVar, &quot;xxx&quot;&gt;</code> 其中 <code>localVar</code> 是弱引用</p>
+<p><code>Thread</code> 中含有指向 <code>ThreadLocal</code> 类下的 <code>ThreadLocalMap</code> 这个对象的变量</p>
+<p>创建一个 <code>ThreadLocal&lt;String&gt; localVar</code>，如果不是弱引用， <code>localVar = null</code>，对应的<code>ThreadLocalMap</code>中的<code>key</code>就是<code>null</code>，理论上应该回收 &#96;&#96;ThreadLocal<code>对象，但是并不会，因为</code>ThreadLocal.ThreadLocalMap<code> 还被某个线程强引用（生产上的线程多数都是一直在运行的），就会导致</code>ThreadLocalMap<code>中的内存一直无法被回收。现在是弱引用，即 </code>localVar &#x3D; null&#96;，如果这时候GC扫描到了就可以回收，哪怕线程正在进行。</p>
+<blockquote>
+<p>简单来说就是，ThreadLocalMap 这块内存，除了 ThreadLocal 指向它，Thread 也指向它，ThreadLocal 本身并不存储值，它只是作为一个 key 来让线程从 ThreadLocalMap 获取 value</p>
+</blockquote>
+<p>仅仅是把<code>key</code>置为<code>null</code>是不够的，因为<code>value</code>还是不会被回收掉，<code>key=null</code>的<code>Entry</code>的<code>value</code>还存在一个强引链 <code>Thread Ref -&gt; Thread -&gt; ThreaLocalMap -&gt; Entry -&gt; value</code>，导致内存泄漏。所以正确的做法是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> ThreadLocal&lt;String&gt; localVar = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">localVar.set(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">localVar.remove();	<span class="comment">// 调用remove()方法删除entry，底层调用expungeStaleEntry()方法，如果key=null，就把value置为null；如果key不为null，就通过开放寻址法将kv从Entry[] tab里移除</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>在ThreadLocal的get、set方法以及扩容时，会清理掉key&#x3D;null的Entry</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private Entry getEntry(ThreadLocal&lt;?&gt; key) &#123;</span><br><span class="line">    int i = key.threadLocalHashCode &amp; (table.length - 1);</span><br><span class="line">    Entry e = table[i];</span><br><span class="line">    if (e != null &amp;&amp; e.get() == key)</span><br><span class="line">        return e;</span><br><span class="line">    else</span><br><span class="line">        return getEntryAfterMiss(key, i, e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private Entry getEntryAfterMiss(ThreadLocal&lt;?&gt; key, int i, Entry e) &#123;</span><br><span class="line">     Entry[] tab = table;</span><br><span class="line">     int len = tab.length;</span><br><span class="line"></span><br><span class="line">     while (e != null) &#123;</span><br><span class="line">         ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">         if (k == key)</span><br><span class="line">             return e;</span><br><span class="line">         if (k == null)</span><br><span class="line">             expungeStaleEntry(i);</span><br><span class="line">         else</span><br><span class="line">             i = nextIndex(i, len);</span><br><span class="line">         e = tab[i];</span><br><span class="line">     &#125;</span><br><span class="line">     return null;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先在索引位置去拿到一个Entry e，如果e不为null并且key相同返回e；如果e为null或者key不一致则向下一个位置查询，如果下一个位置的key和当前需要查询的key相等，则返回对应的Entry，否则，如果key值为null，则擦除该位置的Entry，否则继续向下一个位置查询。</p>
+<p>虽然ThreadLocal本身也做了避免内存泄露的优化，但是上述成功前提是需要调用get、set方法 &#x3D;&gt; 大多数情况下还是手动调用 remove() 更好 &#x3D;&gt; JDK 建议就是把 <code>ThreadLocal</code> 变量定义成<code>private static</code>的，这样的话<code>ThreadLocal</code>的生命周期就更长，就会一直存在<code>ThreadLocal</code>的强引用，所以<code>ThreadLocal</code>也就不会被回收，也就能保证任何时候都能根据ThreadLocal的弱引用访问到Entry的value值，所以我们需要调用 <code>remove</code>，防止内存泄露。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/12/08/LFU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/LFU/" class="post-title-link" itemprop="url">LFU</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 10:49:21 / Modified: 14:57:09" itemprop="dateCreated datePublished" datetime="2020-12-08T10:49:21+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/LFU/" itemprop="url" rel="index"><span itemprop="name">LFU</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/12/08/LFU/" class="post-meta-item leancloud_visitors" data-flag-title="LFU" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/12/08/LFU/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/08/LFU/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h2><p>LFU（Least Frequently Used ，最近最少使用算法）</p>
+<p>算法描述：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="comment">// 构造容量为 capacity 的缓存</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 在缓存中查询 key</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 将 key 和 val 存入缓存</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> val)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>get(key)</code>方法会去缓存中查询键<code>key</code>，如果<code>key</code>存在，则返回<code>key</code>对应的<code>val</code>，否则返回 -1。</p>
+<p><code>put(key, value)</code>方法插入或修改缓存。如果<code>key</code>已存在，则将它对应的值改为<code>val</code>；如果<code>key</code>不存在，则插入键值对<code>(key, val)</code>。</p>
+<p>当缓存达到容量<code>capacity</code>时，则应该在插入新的键值对之前，删除使用频次（后文用<code>freq</code>表示）最低的键值对。如果<code>freq</code>最低的键值对有多个，则删除其中最旧的那个。</p>
+<p>思路：</p>
+<ol>
+<li>需要有一个HashMap来保存key到val的映射，用来计算 <code>get(key)</code></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, Integer&gt; keyToVal;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>需要有一个HashMap来保存<code>key</code>到<code>freq</code>的映射，用来计算每一个key的频次</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, Integer&gt; keyToFreq;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>算法的核心需求(思路)</p>
+<ol>
+<li>需要<code>freq</code>到<code>key</code>的映射，用来找到最小<code>freq</code>对应的<code>key</code></li>
+<li>如果要满足上一条，快速找到最小<code>freq</code>是多少，可以通过一个变量<code>minFreq</code>来记录当前最小<code>freq</code>，避免遍历</li>
+<li>可能会有多个<code>key</code>拥有相同的<code>freq</code>，所以<code>freq</code>和<code>key</code>是一对多的关系，那么就需要维护一个<code>freq</code>到key对应的映射关系</li>
+<li>为了保证快速查找并删除最旧的<code>key</code>，就需要保证<code>freq</code>对应的<code>key</code>的映射列表应该是有<strong>顺序</strong>的</li>
+<li>需要能够<strong>快速删除<code>key</code>列表中的任何一个key</strong>。如果频次为<code>freq</code>的<code>key</code>被访问了，它的频次应该变成<code>freq+1</code>，此时应该从freq对应的<code>key</code>列表中删除，并把<code>key</code>加入到<code>freq+1</code>对应的key列表中 &#x3D;&gt; 就是需要提高它的频次</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqToKeys;</span><br><span class="line"><span class="type">int</span> minFreq;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>如果用 LinkedList 可以满足第3、4条，但是链表不能快速访问某一个节点，所以不能满足第5条快速删除</p>
+</blockquote>
+<p>综上，<code>LFUCache</code> 类代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="comment">// key 到 val 的映射，我们后文称为 KV 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToVal;</span><br><span class="line">    <span class="comment">// key 到 freq 的映射，我们后文称为 KF 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToFreq;</span><br><span class="line">    <span class="comment">// freq 到 key 列表的映射，我们后文称为 FK 表</span></span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqToKeys;</span><br><span class="line">    <span class="comment">// 记录最小的频次</span></span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="comment">// 记录 LFU 缓存的最大容量</span></span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyToVal = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyToFreq = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqToKeys = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.cap = capacity;</span><br><span class="line">        <span class="built_in">this</span>.minFreq = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!keyToVal.containsKey(key))</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">				<span class="comment">// 增加key对应的频次</span></span><br><span class="line">        increaseFreq(key); </span><br><span class="line">        <span class="keyword">return</span> keyToVal.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="comment">// 避免初始化的时候capacity参数异常</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.cap &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 KV 表已经存在这个key</span></span><br><span class="line">        <span class="comment">// 修改对应的val，频次+1</span></span><br><span class="line">        <span class="keyword">if</span> (keyToVal.containsKey(key)) &#123;</span><br><span class="line">            keyToVal.put(key, val);</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 KV 表不存在这个key</span></span><br><span class="line">        <span class="comment">// 并且当前容量已满，就需要删除最小频次的key</span></span><br><span class="line">        <span class="keyword">if</span> (keyToVal.size() &gt;= <span class="built_in">this</span>.cap) &#123;</span><br><span class="line">            removeMinFreqKey();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当前容量未满，插入key和val，并且key对应的freq置为1</span></span><br><span class="line">        keyToVal.put(key, val);</span><br><span class="line">        keyToFreq.put(key, <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// putIfAbsent 如果有这个key的话就不进行任何操作，此处相当于对1这个key进行初始化</span></span><br><span class="line">        freqToKeys.putIfAbsent(<span class="number">1</span>, <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">        freqToKeys.get(<span class="number">1</span>).add(key);</span><br><span class="line">        <span class="comment">// 插入最新的key之后，最小的freq肯定是1</span></span><br><span class="line">        <span class="built_in">this</span>.minFreq = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">increaseFreq</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="comment">// 首先，能进入到这个函数的时候，keyToFreq 和 freqToKeys 一定保存过这个key了</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新 KF 表中key对应的频次+1</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">freq</span> <span class="operator">=</span> keyToFreq.get(key);</span><br><span class="line">        keyToFreq.put(key, freq + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Fk 表中删除freq对应的列表中的key</span></span><br><span class="line">        freqToKeys.get(freq).remove(key);</span><br><span class="line">        freqToKeys.putIfAbsent(freq + <span class="number">1</span>, <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">        freqToKeys.get(freq + <span class="number">1</span>).add(key);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 freq 对应的列表空了，就移除这个freq</span></span><br><span class="line">        <span class="keyword">if</span> (freqToKeys.get(freq).size() == <span class="number">0</span>) &#123;</span><br><span class="line">            freqToKeys.remove(freq);</span><br><span class="line">            <span class="comment">// 如果这个 freq 又恰好是 minFreq，更新 minFreq</span></span><br><span class="line">          	<span class="comment">// 这个地方容易忘记更新</span></span><br><span class="line">            <span class="keyword">if</span> (freq == <span class="built_in">this</span>.minFreq) &#123;</span><br><span class="line">                <span class="built_in">this</span>.minFreq++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">removeMinFreqKey</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// FK 表中最小freq对应的列表中 最先被插入的那个 key 就是该被淘汰的 key</span></span><br><span class="line">        LinkedHashSet&lt;Integer&gt; keyList = freqToKeys.get(<span class="built_in">this</span>.minFreq);</span><br><span class="line">        <span class="type">int</span> <span class="variable">deleteKey</span> <span class="operator">=</span> keyList.iterator().next();</span><br><span class="line">        keyList.remove(deleteKey);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 freq 对应的列表空了，就移除这个freq</span></span><br><span class="line">        <span class="keyword">if</span>(keyList.size() == <span class="number">0</span>)&#123;</span><br><span class="line">            freqToKeys.remove(<span class="built_in">this</span>.minFreq);</span><br><span class="line">            <span class="comment">// 这里不需要更新 minFreq，因为后面会紧跟一个put操作，minFreq 会被置为1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新 KV 表</span></span><br><span class="line">        keyToVal.remove(deleteKey);</span><br><span class="line">        <span class="comment">// 更新 KF 表</span></span><br><span class="line">        keyToFreq.remove(deleteKey);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/30/Docker-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/30/Docker-5/" class="post-title-link" itemprop="url">Docker 深入学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-30 15:23:00" itemprop="dateCreated datePublished" datetime="2020-11-30T15:23:00+08:00">2020-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-07 15:35:00" itemprop="dateModified" datetime="2020-12-07T15:35:00+08:00">2020-12-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/30/Docker-5/" class="post-meta-item leancloud_visitors" data-flag-title="Docker 深入学习" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/30/Docker-5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/30/Docker-5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Docker-深入学习"><a href="#Docker-深入学习" class="headerlink" title="Docker 深入学习"></a>Docker 深入学习</h2><p><a href="https://docs.docker.com/reference/">官方帮助文档</a></p>
+<h3 id="1-命令"><a href="#1-命令" class="headerlink" title="1. 命令"></a>1. 命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">$ docker --help</span><br><span class="line">用法:  docker COMMAND                                                                                                             </span><br><span class="line">A self-sufficient runtime for containers                                                                                           </span><br><span class="line">选项:                                                                                                                           </span><br><span class="line">      --config string      Location of client config files (default                                                                </span><br><span class="line">                           &quot;C:\\Users\\junchow\\.docker&quot;)                                                                          </span><br><span class="line">  -D, --debug              开启debug模式</span><br><span class="line">  -H, --host list          Daemon socket(s) to connect to                                                                          </span><br><span class="line">  -l, --log-level string   设置日志级别，级别分为debug|info|warn|error|fatal，默认为info。                                                                             </span><br><span class="line">      --tls                Use TLS; implied by --tlsverify                                                                         </span><br><span class="line">      --tlscacert string   Trust certs signed only by this CA (default                                                             </span><br><span class="line">                           &quot;C:\\Users\\junchow\\.docker\\machine\\machines\\default\\ca.pem&quot;)                                      </span><br><span class="line">      --tlscert string     Path to TLS certificate file (default                                                                   </span><br><span class="line">                           &quot;C:\\Users\\junchow\\.docker\\machine\\machines\\default\\cert.pem&quot;)                                    </span><br><span class="line">      --tlskey string      Path to TLS key file (default                                                                           </span><br><span class="line">                           &quot;C:\\Users\\junchow\\.docker\\machine\\machines\\default\\key.pem&quot;)                                     </span><br><span class="line">      --tlsverify          Use TLS and verify the remote (default true)                                                            </span><br><span class="line">  -v, --version            终端打印显示版本信息并退出                                                                                                                                   </span><br><span class="line">管理命令:                                                                                                               </span><br><span class="line">  config      管理Docker配置</span><br><span class="line">  container   管理容器                                                                                                    </span><br><span class="line">  image       管理镜像</span><br><span class="line">  network     管理网络</span><br><span class="line">  node        管理Swarm节点</span><br><span class="line">  plugin      管理插件</span><br><span class="line">  secret      管理Docker安全</span><br><span class="line">  service     管理服务</span><br><span class="line">  swarm       管理Swarm集群</span><br><span class="line">  system      管理Docker系统</span><br><span class="line">  trust       Manage trust on Docker images                                                                                        </span><br><span class="line">  volume      管理卷</span><br><span class="line">                                                                                                                                   </span><br><span class="line">命令:                                                                                                                          </span><br><span class="line">  attach      将标准输入和标准输出连接到正在运行的容器                                        </span><br><span class="line">  build       使用dockerfile文件创建镜像                                                                                     </span><br><span class="line">  commit      从容器的修改项中创建新的镜像</span><br><span class="line">  cp          将容器的目录或文件复制到本地文件系统中</span><br><span class="line">  create      创建一个新的镜像</span><br><span class="line">  diff        检查容器文件系统的修改</span><br><span class="line">  events      实时输出docker服务器中发生的事件</span><br><span class="line">  exec        从外部运行容器内部的命令</span><br><span class="line">  export      将容器的文件系统到处为tat文件包</span><br><span class="line">  history     显示镜像的历史</span><br><span class="line">  images      输出镜像列表</span><br><span class="line">  import      从压缩为tar文件的文件系统中创建镜像</span><br><span class="line">  info        显示当前系统信息、docker容器与镜像个数、设置信息等</span><br><span class="line">  inspect     使用JSON格式显示容器与镜像的详细信息</span><br><span class="line">  kill        向容器发送kill信号关闭容器</span><br><span class="line">  load        从tar文件或标准输入中加载镜像</span><br><span class="line">  login       登录docker注册服务器</span><br><span class="line">  logout      退出docker注册服务器</span><br><span class="line">  logs        输出容器日志信息</span><br><span class="line">  pause       暂停容器中正在运行的所有进程</span><br><span class="line">  port        查看容器的端口是否处于开放状态</span><br><span class="line">  ps          输出容器列表</span><br><span class="line">  pull        从注册服务器中拉取一个镜像或仓库</span><br><span class="line">  push        将镜像推送到docker注册服务器</span><br><span class="line">  rename      重命名一个容器</span><br><span class="line">  restart     重启一个或多个容器</span><br><span class="line">  rm          删除一个或多个容器，若没有指定标签则删除lastest标签。</span><br><span class="line">  rmi         删除一个或多个镜像，若没有指定标签则删除lastest标签。                                                </span><br><span class="line">  run         在一个新容器中中运行命令，用于指定镜像创建容器。</span><br><span class="line">  save        将一个或多个镜像保存为tar包             </span><br><span class="line">  search      从Docker Hub中搜索镜像</span><br><span class="line">  start       启动一个或多个已经停止的容器</span><br><span class="line">  stats       查看各个容器占用内存、CPU的情况                                                     </span><br><span class="line">  stop        停止一个或多个正在运行的容器</span><br><span class="line">  tag         设置镜像标签</span><br><span class="line">  top         显示容器中正在运行的进程信息</span><br><span class="line">  unpause     重启pause命令暂停的容器</span><br><span class="line">  update      更新一个或多个容器的配置</span><br><span class="line">  version     显示docker版本信息</span><br><span class="line">  wait        等待容器终止然后输出退出码</span><br><span class="line">Run &#x27;docker COMMAND --help&#x27; for more information on a command.                                                                     </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/4933701-c9c04d73e0eae5fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/935/format/webp" alt="命令小结"></p>
+<h4 id="1-1-镜像命令"><a href="#1-1-镜像命令" class="headerlink" title="1.1 镜像命令"></a>1.1 镜像命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker images   # 查询本机上所有的镜像</span><br><span class="line"></span><br><span class="line"># 可选项</span><br><span class="line">-a 显示全部</span><br><span class="line">-q 只显示镜像ID</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker search 镜像名</span><br><span class="line"></span><br><span class="line"># 可选项</span><br><span class="line">-f=stars=3000  # 搜索STARS大于3000的</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull 镜像名[:tag]</span><br><span class="line"></span><br><span class="line">针对不同版本，如果有一样的镜像文件，就不需要重复下载了</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker imi -f 镜像id                   # 删除指定镜像</span><br><span class="line">docker imi -f 镜像id 镜像id 镜像id      # 删除多个镜像</span><br><span class="line">docker imi -f $(docker images -q)     # 把$里面当成参数传递进去，获取所有的镜像id，然后全部删除</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-容器命令"><a href="#1-2-容器命令" class="headerlink" title="1.2 容器命令"></a>1.2 容器命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run [可选参数] image</span><br><span class="line"></span><br><span class="line"># 参数说明</span><br><span class="line">--name=&quot;Name&quot;   容器名字，用来区分容器</span><br><span class="line">-d              后台方式运行</span><br><span class="line">-i -t           使用交互方式运行，进入容器查看内容</span><br><span class="line">-p              指定容器的端口 -p 8080:8000</span><br><span class="line">    -p 主机端口:容器端口  # 进行映射</span><br><span class="line">    -p 容器端口</span><br><span class="line">-P              随机指定端口</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker ps # 列出所有正在运行的容器</span><br><span class="line"></span><br><span class="line"># 可选项</span><br><span class="line">-a      # 列出所有容器</span><br><span class="line">-n=?    # 列出前n个容器</span><br><span class="line">-q      # 只显示容器ID</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit 退出容器并停止</span><br><span class="line">ctrl+P+Q 大写模式下，退出容器且不停止</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dcoker rm 容器ID</span><br><span class="line">docker rm -f $(docker ps -q) 删除所有的容器ID</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器ID</span><br><span class="line">docker restart 容器ID</span><br><span class="line">docker stop 容器ID</span><br><span class="line">docker kill 容器ID   # 强制停止容器</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-常用其他命令"><a href="#1-3-常用其他命令" class="headerlink" title="1.3 常用其他命令"></a>1.3 常用其他命令</h4><p>通过 <code>docker run -d 镜像名</code> 来启动，然后通过 <code>docker ps</code> 会发现容器停止了</p>
+<p>&#x3D;&gt; docker 容器使用后台运行，就必须要有一个前台进程，docker 发现没有应用，就会自动停止<br>eg：nginx 容器启动后发现没有提供服务就会自动停止</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker logs     # 查看日志</span><br><span class="line"></span><br><span class="line"># 可选项</span><br><span class="line">-t  # 时间戳</span><br><span class="line">-f  # 持续输出日志</span><br><span class="line">    --tail number   # 显示最后的number条日志</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker top 容器ID   # 查看容器中的进程信息，其中pid是进程id，ppid是父进程id</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器ID/镜像ID   # 查看容器/镜像元数据，在下面有一个 layers 里面是镜像文件的每一层文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">很多容器都是后台运行，需要进入容器，修改一些配置</span><br><span class="line"></span><br><span class="line">方式一：</span><br><span class="line">docker exec -it 容器ID /bin/bash    # 以命令行的方式来进行交互</span><br><span class="line"># 进入容器后会开启一个新的终端，可以在终端里操作</span><br><span class="line"></span><br><span class="line">方式二：</span><br><span class="line">docker attach 容器ID    # 会进入到正在执行的终端，不会启动新的进程</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp 容器ID:容器内的路径 主机路径  # 将容器中的文件拷贝到主机中</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-测试安装tomcat"><a href="#1-4-测试安装tomcat" class="headerlink" title="1.4 测试安装tomcat"></a>1.4 测试安装tomcat</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker pull tomcat</span><br><span class="line">docker run -d -p 主机端口:8080 --name tomcat01 tomcat</span><br><span class="line"></span><br><span class="line">访问主机端口，发现404</span><br><span class="line">docker exec -it tomcat01 /bin/bash</span><br><span class="line">进入到webapps文件夹下面，发现是空的，原因是官方镜像删减了很多功能，只留下了能运行的最基本的功能</span><br><span class="line">解决方法：可以把 webapps.dist 下面的内容复制到 webapps 文件夹下即可</span><br><span class="line">但是这样的解决方法又太麻烦了，不能每次上线都进入容器部署 =&gt; 数据卷</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-测试安装ES"><a href="#1-5-测试安装ES" class="headerlink" title="1.5 测试安装ES"></a>1.5 测试安装ES</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker stats    # 查看各个容器占用内存、CPU的情况</span><br><span class="line">∵ es非常耗内存 ∴ 可以修改配置文件，来增加内存的限制，-e 设置最小内存和最大内存</span><br><span class="line"></span><br><span class="line">docker run -d --name elasticserch -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; -e ES_JAVA_OPTS=&quot;-Xms256m -Xms512m&quot; elasticsearch:7.6.2</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-可视化-portainer"><a href="#2-可视化-portainer" class="headerlink" title="2. 可视化 portainer"></a>2. 可视化 portainer</h3><p>一个可视化管理方案，直接用docker来安装即可，做好主机端口映射</p>
+<h3 id="3-联合文件系统"><a href="#3-联合文件系统" class="headerlink" title="3. 联合文件系统"></a>3. 联合文件系统</h3><p>镜像是一种轻量级、可执行的独立软件包，包含某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
+<p>UFS(UnionFS) 联合文件系统，是一种分层、轻量级并且高性能的文件系统，支持对文件系统的修改作为一次提交来一层层的叠加。类似于Git版本控制，每一次**提交（操作）**都记为一层。如果连个软件有共用的某一层文件，比如都基于linux，那么都可以去挂在这一层的linux的文件，就可以复用。</p>
+<p>ufs里面包含比如</p>
+<ul>
+<li>bootfs: 包含bootloader和kernel，bootloader主要是引导加载kernal，类似于启动系统的时候会有一个加载过程，当系统启动后，这个加载的程序就可以关闭了 &#x3D;&gt; 加载的这部分就是可以复用的部分</li>
+<li>rootfs: 在bootfs之上，包含的就是典型的linux系统的 <code>/dev, /proc, /bin, /etc</code> 等标准目录和文件 &#x3D;&gt; 比如linux的容器，占的内存很小，是因为镜像文件只需要包含rootfs里最基本的命令、工具即可，可以使用主机的kernel，这样的话可以提高效率</li>
+</ul>
+<p>所有的镜像都起始于一个基础镜像层，当进行修改或增加新的内容的时候，就会在当前镜像层之上，创建一个新的镜像层</p>
+<p>镜像都是只读的，当容器启动时，一个新的可写层（容器层）就会加载到镜像层的顶部</p>
+<p>通过 commit 来将容器层和镜像层进行合并打包，变成一个新的镜像文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m=&quot;提交的描述信息&quot; -a=&quot;作者&quot; 容器ID 目标镜像名[:tag]</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-数据卷"><a href="#5-数据卷" class="headerlink" title="5. 数据卷"></a>5. 数据卷</h3><ol>
+<li>每次修改配置文件都需要进入到容器很麻烦</li>
+<li>数据不应该放在容器中，否则删除容器，数据就丢失了</li>
+</ol>
+<p>&#x3D;&gt; 在容器外部提供一个映射路径，类似于数据共享技术，通过卷技术，也就是目录的挂载，将容器内的目录，挂在到linux上面，来实现容器数据的持久化和同步操作，容器之间也可以数据共享。</p>
+<blockquote>
+<p>容器里面的目录就像是快捷方式，宿主机的文件才是真实的</p>
+</blockquote>
+<p>实现方式：</p>
+<ol>
+<li>直接使用命令来挂载 -v</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v 主机目录:容器内目录 镜像名 /bin/bash</span><br><span class="line"></span><br><span class="line">docker run --name mysql02 -e MYSQL_ROOT_PASSWORD=123456 -p 3310:3306 -v testconf2:/etc/mysql/conf.d -v /Users/mxxct/mysqldata:/var/lib/mysql -d mysql:5.7</span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>docker inspect 容器ID</code> 查看元数据，在 <code>Mounts</code> 里可以看到挂载的详细信息</p>
+<ul>
+<li>匿名挂载<br>  不指定主机名，直接写容器内目录 <code>-v 容器内目录</code></li>
+<li>具名挂载<br>  也可以分为两种<ul>
+<li>指定主机目录 <code>-v 主机目录:容器内目录</code></li>
+<li>不指定主机目录，只是写一个名字 <code>-v xxx:容器内目录</code> 这时候会默认映射到主机 <code>/var/lib/docker/volumes/xxx/_data</code> 这个文件夹下面（在MacOS下面没找到这个路径）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker volume ls    # 查看所有的卷</span><br><span class="line">docker volume inspect 卷名字    # 查看具体数据卷的信息，这里卷名字是指具名挂载的那个名字</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以在容器内目录后面添加权限控制<br>eg: -v 主机目录:容器内目录:ro&#x2F;rw<br>ro readonly; rw readwrite 默认是rw，如果是ro就表示这个路径只能从主机上来操作，容器内只是读权限</p>
+</blockquote>
+<ol start="2">
+<li>通过 DockerFile 在构建镜像是指定 VOLUME</li>
+</ol>
+<blockquote>
+<p>这里是一个匿名挂载</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">VOLUME [&quot;vol1&quot;, &quot;vol2&quot;]</span><br><span class="line">CMD echo &quot;---- end ----&quot;</span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>直接创建文件然后执行 <code>docker build</code> 可能会提示 <code>error checking context：can&#39;t stat xxx</code> 错误，这个提示基本是权限不够外加目录结构不对<br>解决：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mkdir dockerfile</span><br><span class="line">chmod 777 dockerfile</span><br><span class="line">touch file1</span><br><span class="line">vi file1</span><br><span class="line">docker build -f /Users/mxxct/dockerfile/file1 -t test/centos:1.0 .</span><br><span class="line"></span><br><span class="line">(base) localhost:dockerfile mxxct$ docker build -f /Users/mxxct/dockerfile/file1 -t test/centos:1.0 .</span><br><span class="line">Sending build context to Docker daemon  2.048kB</span><br><span class="line">Step 1/4 : FROM centos</span><br><span class="line">latest: Pulling from library/centos</span><br><span class="line">3c72a8ed6814: Pull complete </span><br><span class="line">Digest: sha256:76d24f3ba3317fa945743bb3746fbaf3a0b752f10b10376960de01da70685fbd</span><br><span class="line">Status: Downloaded newer image for centos:latest</span><br><span class="line"> ---&gt; 0d120b6ccaa8</span><br><span class="line">Step 2/4 : VOLUME [&quot;vol1&quot;, &quot;vol2&quot;]</span><br><span class="line"> ---&gt; Running in 7cc3997837d7</span><br><span class="line">Removing intermediate container 7cc3997837d7</span><br><span class="line"> ---&gt; b55d348b6981</span><br><span class="line">Step 3/4 : CMD echo &quot;---- end ----&quot;</span><br><span class="line"> ---&gt; Running in 083ad85879af</span><br><span class="line">Removing intermediate container 083ad85879af</span><br><span class="line"> ---&gt; 11c45d147425</span><br><span class="line">Step 4/4 : CMD /bin/bash</span><br><span class="line"> ---&gt; Running in e7d39262c201</span><br><span class="line">Removing intermediate container e7d39262c201</span><br><span class="line"> ---&gt; ee8398f6597c</span><br><span class="line">Successfully built ee8398f6597c</span><br><span class="line">Successfully tagged test/centos:1.0</span><br></pre></td></tr></table></figure>
+
+<p>创建好镜像后，执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">docker run -it ee8398f6597c /bin/bash</span><br><span class="line"></span><br><span class="line">[root@2adb0cbdc19f /]# ls -l</span><br><span class="line">total 56</span><br><span class="line">lrwxrwxrwx   1 root root    7 May 11  2019 bin -&gt; usr/bin</span><br><span class="line">drwxr-xr-x   5 root root  360 Dec  1 06:23 dev</span><br><span class="line">drwxr-xr-x   1 root root 4096 Dec  1 06:23 etc</span><br><span class="line">drwxr-xr-x   2 root root 4096 May 11  2019 home</span><br><span class="line">lrwxrwxrwx   1 root root    7 May 11  2019 lib -&gt; usr/lib</span><br><span class="line">lrwxrwxrwx   1 root root    9 May 11  2019 lib64 -&gt; usr/lib64</span><br><span class="line">drwx------   2 root root 4096 Aug  9 21:40 lost+found</span><br><span class="line">drwxr-xr-x   2 root root 4096 May 11  2019 media</span><br><span class="line">drwxr-xr-x   2 root root 4096 May 11  2019 mnt</span><br><span class="line">drwxr-xr-x   2 root root 4096 May 11  2019 opt</span><br><span class="line">dr-xr-xr-x 159 root root    0 Dec  1 06:23 proc</span><br><span class="line">dr-xr-x---   2 root root 4096 Aug  9 21:40 root</span><br><span class="line">drwxr-xr-x  11 root root 4096 Aug  9 21:40 run</span><br><span class="line">lrwxrwxrwx   1 root root    8 May 11  2019 sbin -&gt; usr/sbin</span><br><span class="line">drwxr-xr-x   2 root root 4096 May 11  2019 srv</span><br><span class="line">dr-xr-xr-x  12 root root    0 Dec  1 06:23 sys</span><br><span class="line">drwxrwxrwt   7 root root 4096 Aug  9 21:40 tmp</span><br><span class="line">drwxr-xr-x  12 root root 4096 Aug  9 21:40 usr</span><br><span class="line">drwxr-xr-x  20 root root 4096 Aug  9 21:40 var</span><br><span class="line">drwxr-xr-x   2 root root 4096 Dec  1 06:23 vol1</span><br><span class="line">drwxr-xr-x   2 root root 4096 Dec  1 06:23 vol2</span><br></pre></td></tr></table></figure>
+
+<p>这里有 vol1 和 vol2 两个目录，然后去查看容器的元数据信息，会发现在 Mounts 这里已经把两个卷给挂在出去了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&quot;Mounts&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;Type&quot;: &quot;volume&quot;,</span><br><span class="line">        &quot;Name&quot;: &quot;baeff06c4bf78f14c8135dbdc5ae238bb513cf8375af699b47c602d3e3a0a529&quot;,</span><br><span class="line">        &quot;Source&quot;: &quot;/var/lib/docker/volumes/baeff06c4bf78f14c8135dbdc5ae238bb513cf8375af699b47c602d3e3a0a529/_data&quot;,</span><br><span class="line">        &quot;Destination&quot;: &quot;vol1&quot;,</span><br><span class="line">        &quot;Driver&quot;: &quot;local&quot;,</span><br><span class="line">        &quot;Mode&quot;: &quot;&quot;,</span><br><span class="line">        &quot;RW&quot;: true,</span><br><span class="line">        &quot;Propagation&quot;: &quot;&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;Type&quot;: &quot;volume&quot;,</span><br><span class="line">        &quot;Name&quot;: &quot;4cbbd6edd2093b5098b6d9994bc380c992445842c1b19a942816b090a8841e13&quot;,</span><br><span class="line">        &quot;Source&quot;: &quot;/var/lib/docker/volumes/4cbbd6edd2093b5098b6d9994bc380c992445842c1b19a942816b090a8841e13/_data&quot;,</span><br><span class="line">        &quot;Destination&quot;: &quot;vol2&quot;,</span><br><span class="line">        &quot;Driver&quot;: &quot;local&quot;,</span><br><span class="line">        &quot;Mode&quot;: &quot;&quot;,</span><br><span class="line">        &quot;RW&quot;: true,</span><br><span class="line">        &quot;Propagation&quot;: &quot;&quot;</span><br><span class="line">    &#125;</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-数据卷容器"><a href="#6-数据卷容器" class="headerlink" title="6. 数据卷容器"></a>6. 数据卷容器</h3><blockquote>
+<p>容器数据卷是容器实现数据持久化的一种机制，数据卷容器是一种特殊的容器<br>这个主要是通过类似，用于容器间的数据同步，不是容器和主机之间。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name docker01 imageID</span><br><span class="line">docker run -it --name docker02 --volumes-from docker01 imageID</span><br><span class="line"></span><br><span class="line">docker01中有挂载的文件夹</span><br><span class="line">通过 --volumes-from 让docker02继承docker01的挂载文件夹，此时docker01挂载出去的文件夹里的数据的任何修改在docker02也可以看到，同时在docker02上做的修改docker01也可以看到。docker01就是数据卷容器。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除docker01的话，挂载的文件夹数据依然存在，本质是因为他们都挂载到主机的目录下，只要主机对应目录存在，数据就不会丢失<br>docker01相当于映射主机数据目录的地址（想成一个快捷方式），docker02拿到这个映射地址（快捷方式），放到自己的mount里面</p>
+</blockquote>
+<h3 id="7-DockerFile"><a href="#7-DockerFile" class="headerlink" title="7. DockerFile"></a>7. DockerFile</h3><blockquote>
+<p>通过 docker history imageID 可以查看一个镜像的构建过程</p>
+</blockquote>
+<p>基础知识</p>
+<ol>
+<li>每个关键字指令都必须是大写</li>
+<li>按顺序从上到下执行</li>
+<li><code>#</code> 是注释</li>
+<li>每一个指令都会创建并提交一个新的镜像层。（docker run之后会创建一个可写容器）</li>
+</ol>
+<p>指令说明</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM        # 指定基础镜像</span><br><span class="line">MAINtAINER  # 指定维护者信息，姓名+邮箱</span><br><span class="line">RUN         # 镜像构建的时候需要运行的命令</span><br><span class="line">ADD         # 添加内容，会自动解压，比如tomcat压缩包</span><br><span class="line">WORKDIR     # 镜像的工作目录</span><br><span class="line">VOLUME      # 设置卷，挂载主机目录</span><br><span class="line">EXPOSE      # 指定暴露的端口，或者通过 -p 指定</span><br><span class="line">CMD         # 指定容器启动时要运行的命令，只有最后一个会生效，可被替代 </span><br><span class="line">ENTRYPOINT  # 指定容器启动时要运行的命令，可以追加命令</span><br><span class="line">ONBUILD     # 当构建一个被继承 DockerFile 这个时候会运行ONBUILD的指令，触发指令</span><br><span class="line">COPY        # 类似ADD，将文件拷贝到镜像中</span><br><span class="line">ENV         # 构建的时候设置环境变量</span><br></pre></td></tr></table></figure>
+
+<p><code>CMD [&quot;ls&quot;, &quot;-a&quot;]</code> 这时候的命令相当于 “ls -a”。只有当执行 <code>docker run imageID</code> 的时候才会执行最后一个CMD的命令。(<code>docker run -it imageID</code>这时候是通过命令行交互，所以不会执行CMD)</p>
+<p>如果执行 <code>docker run imageID -l</code> 想执行 <code>ls -al</code> 命令会报错，即CMD命令会被替代，不会追加。<br>换成 <code>ENTRYPOINT</code> 再执行 <code>docker run imageID -l</code> 就可以执行 <code>ls -al</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">COPY 主机路径/readme.txt 容器内路径</span><br><span class="line">ADD 主机路径/xxxx.tar 容器内路径    # ADD添加的文件会自动解压</span><br><span class="line"></span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line">ENV MYPATH /user/local</span><br><span class="line">WORKDIR $MYPATH</span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME /user/local/jdk1.8.0_11</span><br><span class="line">ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line">ENV CATALINA_HOME /user/local/apache-tomcat-9.0.22</span><br><span class="line">ENV CATALINA_BASH /user/local/apache-tomcat-9.0.22</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">CMD /user/local/apache-tomcat-9.0.22/bin/startup.sh &amp;&amp; tail -f /user/local/apache-tomcat-9.0.22/bin/logs/catalinas.out</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-Docker-网络"><a href="#8-Docker-网络" class="headerlink" title="8. Docker 网络"></a>8. Docker 网络</h3><p>每次启动一个程序，Linux 就会相应创建一个新的网卡地址 &#x3D;&gt; veth-pair 一对虚拟设备接口，一端连着协议，一端彼此相连 &#x3D;&gt; 每启动一个容器，docker会创建一对网卡连接地址，一端在主机，一端在容器</p>
+<blockquote>
+<p>Linux 虚拟网络设别 veth-pair。三个经典实验，直接相连、通过 Bridge 相连和通过 OVS 相连</p>
+</blockquote>
+<p>两个docker容器进行通信，需要先走到docker0，也就是类似于docker的路由器，通过广播或注册的方式，路由器会知道下一个容器的网络地址，然后转发请求连接。Docker0就相当于一个网桥的角色。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run --link 通过link可以将两个容器网络连接起来，但是这是单向的，A link B, 只是A可以连接B，想B连接A的话还需要再配置B</span><br><span class="line">link 操作相当于在容器内的 hosts 文件中写进去映射关系</span><br></pre></td></tr></table></figure>
+
+<p>不推荐 <code>--link</code>。因为 link 用的是 docker0，而docker0不支持容器名称映射，只能写死ip，如果牵扯到ip迁移，就需要重新配置一遍</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls   # 查看所有的docker网络</span><br></pre></td></tr></table></figure>
+
+<p>网络模式</p>
+<ul>
+<li>bridge： 桥接（docker默认）  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --net bridge     # 不写的话也默认有这个bridge</span><br></pre></td></tr></table></figure></li>
+<li>none：不配置</li>
+<li>host：和主机共享网络</li>
+<li>container：容器网络连通（用得少，局限很大）</li>
+</ul>
+<p>自定义创建网络</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 mynet</span><br></pre></td></tr></table></figure>
+
+<p>创建的容器基于各自不同的网络，可以保证同一类容器使用的是自己的网络ip。但是如果是两类容器想互相连接呢？网络打通。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network connect [option] container network   # 将一个容器连接到一个网关上，相当于一个容器两个ip地址。</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-Docker-Compose"><a href="#9-Docker-Compose" class="headerlink" title="9. Docker Compose"></a>9. Docker Compose</h3><p>目的：定义运行多个容器，避免一个个的运维容器<br>步骤：</p>
+<ol>
+<li>DockerFile</li>
+<li>docker-compose.yml</li>
+<li>run <code>docker-compose up</code></li>
+</ol>
+<blockquote>
+<p>配置项里有一个 deploy.replicas 可以设置副本，集群部署的时候使用这个参数</p>
+</blockquote>
+<p>单机</p>
+<h3 id="10-Docker-Swam"><a href="#10-Docker-Swam" class="headerlink" title="10. Docker Swam"></a>10. Docker Swam</h3><p>相当于是搭建一个小集群，有manager有worker。</p>
+<p>集群</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker swarm init		# 初始化节点</span><br><span class="line">docker swarm join-token manager		# 加入一个节点，并将该节点作为manager</span><br><span class="line">docker swarm join-token worker		# 加入一个节点，并将该节点作为worker</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-Raft-协议"><a href="#11-Raft-协议" class="headerlink" title="11. Raft 协议"></a>11. Raft 协议</h3><blockquote>
+<p>拜占庭将军问题：很久很久以前，拜占庭是东罗马帝国的首都。那个时候罗马帝国国土辽阔，为了防御目的，因此每个军队都分隔很远，将军与将军之间只能靠信使传递消息。在打仗的时候，拜占庭军队内所有将军必需达成一致的共识，才能更好地赢得胜利。但是，在军队内有可能存有叛徒，扰乱将军们的决定。这时候，在已知有成员不可靠的情况下，其余忠诚的将军需要在不受叛徒或间谍的影响下达成一致的协议。莱斯利·兰伯特（ Leslie Lamport ）通过这个比喻，表达了计算机网络中所存在的一致性问题。这个问题被称为拜占庭将军问题。</p>
+</blockquote>
+<blockquote>
+<p>二将军问题：白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。是否存在一个能使蓝军必胜的通信协议，这就是两将军问题。</p>
+</blockquote>
+<blockquote>
+<p>二将军问题探讨的是不可靠信道下两方的通信准确性问题，而拜占庭将军问题探讨的是多方通信结果一致性和决策正确性的问题。<br>准确性是指发送的是什么，接收的就是什么；一致性是在节点更多的情况下的准确性；正确性是无论收到的通信结果是否有干扰（不完全满足一致性），正常工作的节点能够做出正确的决策。</p>
+</blockquote>
+<p>&#x3D;&gt; 二将军问题可以通过TCP3次握手来解决；拜占庭将军问题可以通过Raft&#x2F;Paxos（谷哥Chubby）&#x2F;ZAB（zookeeper）&#x2F;PBFT（区块链）几种算法解决。另外 PS：raft，zab，paxos解决的是节点故障问题，而非拜占庭问题(节点故意欺骗)。PBFT解决了拜占庭问题。</p>
+<p><a href="https://mp.weixin.qq.com/s/bMY5unx7OijlaDmj6fVKOA">Raft协议 </a></p>
+<p>Raft 协议的具体流程：</p>
+<ol>
+<li>在最初，还没有一个主节点的时候，所有节点的身份都是Follower。每一个节点都有自己的计时器，当计时达到了超时时间（Election Timeout），该节点会转变为Candidate。</li>
+<li>成为Candidate的节点，会首先给自己投票，然后向集群中其他所有的节点发起请求，要求大家都给自己投票。</li>
+<li>其他收到投票请求且还未投票的Follower节点会向发起者投票，发起者收到反馈通知后，票数增加。</li>
+<li>当得票数超过了集群节点数量的一半，该节点晋升为Leader节点。Leader节点会立刻向其他节点发出通知，告诉大家自己才是老大。收到通知的节点全部变为Follower，并且各自的计时器清零。</li>
+</ol>
+<p>这里需要说明一点，每个节点的超时时间都是不一样的。比如A节点的超时时间是3秒，B节点的超时时间是5秒，C节点的超时时间是4秒。这样一来，A节点将会最先发起投票请求，而不是所有节点同时发起。为什么这样设计呢？设想如果所有节点同时发起投票，必然会导致大家的票数差不多，形成僵局，谁也当不成老大。</p>
+<p>那么，成为Leader的节点是否就坐稳了老大的位置呢？并不是。Leader节点需要每隔一段时间向集群其他节点发送心跳通知，表明你们的老大还活着。一旦Leader节点挂掉，发不出通知，那么计时达到了超时时间的Follower节点会转变为Candidate节点，发起选主投票，周而复始……</p>
+<p>数据同步的流程：</p>
+<ol>
+<li>由客户端提交数据到Leader节点</li>
+<li>由Leader节点把数据复制到集群内所有的Follower节点。如果一次复制失败，会不断进行重试</li>
+<li>Follower节点们接收到复制的数据，会反馈给Leader节点</li>
+<li>如果Leader节点接收到超过半数的Follower反馈，表明复制成功。于是提交自己的数据，并通知客户端数据提交成功。</li>
+<li>由Leader节点通知集群内所有的Follower节点提交数据，从而完成数据同步流程。</li>
+</ol>
+<p><a href="https://www.jianshu.com/p/2bceacd60b8a">ZAB协议</a></p>
+<h3 id="12-容器服务"><a href="#12-容器服务" class="headerlink" title="12. 容器服务"></a>12. 容器服务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker service create -p ip:端口 --name my-service xxx</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">和 docker run 的区别是，run是容器启动，不具备扩缩容的概念；service是服务启动，可以自动扩缩容</span></span><br><span class="line"></span><br><span class="line">docker service ps my-service	# 查看服务进程</span><br><span class="line">docker service ls		# 查看服务列表，这里有一个 replicas，表示当前服务的副本</span><br><span class="line">docker servie update --replicas N my-service	# 将 my-service 自动扩容到 N 个副本</span><br><span class="line">docker service scale my-service=N		# 将 my-service 自动扩容到 N 个副本</span><br><span class="line"></span><br><span class="line">有一个 --mode 参数，默认是 replicated，可以改成 global</span><br><span class="line">replicated 只能在worker节点中运行，global的话manager节点也可以运行</span><br></pre></td></tr></table></figure>
+
+<p>灰度发布：金丝雀发布</p>
+<p>命令 -&gt; manager节点调用api -&gt; schedule api -&gt; worker节点创建并维护容器服务</p>
+<p>镜像使用的os版本不统一，比如Linux基于的os不一样，版本不一样，命令缺失，阉割版和增肥版都不统一，数据文件可能都修改了位置等等</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/29/Arthas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/29/Arthas/" class="post-title-link" itemprop="url">Arthas</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-29 18:39:39 / Modified: 19:39:39" itemprop="dateCreated datePublished" datetime="2020-11-29T18:39:39+08:00">2020-11-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/Arthas/" itemprop="url" rel="index"><span itemprop="name">Arthas</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/29/Arthas/" class="post-meta-item leancloud_visitors" data-flag-title="Arthas" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/29/Arthas/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/29/Arthas/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Arthas"><a href="#Arthas" class="headerlink" title="Arthas"></a>Arthas</h2><h3 id="1-官方教程"><a href="#1-官方教程" class="headerlink" title="1. 官方教程"></a>1. 官方教程</h3><p>下载官方jar包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://arthas.aliyun.com/arthas-boot.jar</span><br></pre></td></tr></table></figure>
+<p>启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar</span><br><span class="line">启动后会列出所有的Java进程，用户可以选择需要诊断的目标进程。输入序号即可。成功监听后会打印 Arthas LOGO</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-指令"><a href="#2-指令" class="headerlink" title="2. 指令"></a>2. 指令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dashboard</span><br></pre></td></tr></table></figure>
+<p>查看当前系统的实时数据面板<br>输入Q或Ctrl+C退出dashboard命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread 1</span><br></pre></td></tr></table></figure>
+<p>打印线程ID 1的栈<br>Arthas支持管道，可以用 <code>thread 1 | grep &#39;main(&#39;</code> 查找到main class</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc -d *MathGame</span><br></pre></td></tr></table></figure>
+<p>查找JVM里已加载的类，如果搜索的是接口，还会搜索所有的实现类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sm -d java.math.RoundingMode</span><br></pre></td></tr></table></figure>
+<p>查找类的具体函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jad demo.MathGame</span><br></pre></td></tr></table></figure>
+<p>反编译代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch com.example.demo.arthas.user.UserController * &#x27;&#123;params, throwExp&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<p>第一个参数是类名，支持通配；第二个参数是函数名，支持通配；第三个参数是返回值表达式，内置对象有<br>loader<br>clazz<br>method<br>target<br>params<br>returnObj<br>throwExp<br>isBefore<br>isThrow<br>isReturn</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit/quit</span><br></pre></td></tr></table></figure>
+<p>退出Arthas</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stop</span><br></pre></td></tr></table></figure>
+<p>彻底退出Arthas</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ognl</span><br></pre></td></tr></table></figure>
+<p>动态执行代码</p>
+<p><code>trace</code><br>跟踪类</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/25/Redis-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/25/Redis-7/" class="post-title-link" itemprop="url">分布式锁实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-25 17:10:00 / Modified: 17:40:00" itemprop="dateCreated datePublished" datetime="2020-11-25T17:10:00+08:00">2020-11-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/25/Redis-7/" class="post-meta-item leancloud_visitors" data-flag-title="分布式锁实现" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/25/Redis-7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/25/Redis-7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="分布式锁实现"><a href="#分布式锁实现" class="headerlink" title="分布式锁实现"></a>分布式锁实现</h2><p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_png/1J6IbIcPCLZO3ZKMzm3Vmc5L6icEx7JtA3QWLj02ROzbS9Nc3Ws5nCNAXS0RoKfvGXzibXwHAcUSPrrQbouSnI9g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>电商场景，当用户下单的时候，redis 里库存只有一件，并发执行的时候可能会造成<strong>库存超卖问题</strong></p>
+<p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_png/1J6IbIcPCLZO3ZKMzm3Vmc5L6icEx7JtAOxHO6gxicqjzJAcGEVLiaibiafgnibsXbScFI9FewYrk20USwQ7HvaDjyWQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>通过在执行第二步加锁，可以保证并发请求在下单的时候操作是串行化的，但是并发增多，增加一台机器</p>
+<p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_png/1J6IbIcPCLZO3ZKMzm3Vmc5L6icEx7JtA5AxlRwFCcEXicQqThGCeTmdWvybbFoSRJ4XFEWIkCAtEalQmjYWDQWg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>此时还是会造成<strong>库存超卖问题</strong>。原因是：两个系统运行在两个不同的JVM里面，他们加的锁只对属于自己JVM里面的线程有效，对于其他JVM的线程是无效的。即 <strong>Java提供的原生锁机制在多机部署场景下失效了</strong></p>
+<p>分布式锁：redis 或 zookeeper</p>
+<h3 id="1-Redis-实现方式"><a href="#1-Redis-实现方式" class="headerlink" title="1. Redis 实现方式"></a>1. Redis 实现方式</h3><p>思路：在redis中设置一个值表示加了锁，然后释放锁的时候就把这个key删除。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 获取锁</span><br><span class="line">// NX是指如果key不存在就成功，key存在返回false，PX可以指定过期时间</span><br><span class="line">SET anyLock unique_value NX PX 30000</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 释放锁：通过执行一段lua脚本</span><br><span class="line">// 释放锁涉及到两条指令，这两条指令不是原子性的</span><br><span class="line">// 需要用到redis的lua脚本支持特性，redis执行lua脚本是原子性的</span><br><span class="line">if redis.call(&quot;get&quot;,KEYS[1]) == ARGV[1] then</span><br><span class="line">return redis.call(&quot;del&quot;,KEYS[1])</span><br><span class="line">else</span><br><span class="line">return 0</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的地方：</p>
+<ol>
+<li>一定要用SET key value NX PX milliseconds 命令<br> 如果不用，先设置了值，再设置过期时间，这个不是原子性操作，有可能在设置过期时间之前宕机，会造成死锁(key永久存在)</li>
+<li>value 要具有唯一性<br> 这个是为了在解锁的时候，需要验证value是和加锁的一致才删除key。<br> 这是避免了一种情况：假设A获取了锁，过期时间30s，此时35s之后，锁已经自动释放了，A去释放锁，但是此时可能B获取了锁。A客户端就不能删除B的锁了。</li>
+</ol>
+<p>这样有可能会有一个问题是：设置了key的过期时间，但是业务处理逻辑的时间可能大于过期时间，这样A获取了锁，但是处理超时了，key被过期，B获取了锁，也有可能会恶性循环</p>
+<p>组件 <em>Redission</em> 实现</p>
+<ol>
+<li>redisson所有指令都通过lua脚本执行，redis支持lua脚本原子性执行</li>
+<li>redisson中有一个watchdog的概念，翻译过来就是看门狗，它会在你获取锁之后，每隔10秒帮你把key的超时时间设为30s。这样的话，就算一直持有锁也不会出现key过期了，其他线程获取到锁的问题了。同时也保证了没有死锁的产生，哪怕机器宕机，key也会在时间到了之后自己过期</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">// 加锁逻辑</span><br><span class="line">private &lt;T&gt; RFuture&lt;Long&gt; tryAcquireAsync(long leaseTime, TimeUnit unit, final long threadId) &#123;</span><br><span class="line">    if (leaseTime != -1) &#123;</span><br><span class="line">        return tryLockInnerAsync(leaseTime, unit, threadId, RedisCommands.EVAL_LONG);</span><br><span class="line">    &#125;</span><br><span class="line">    // 调用一段lua脚本，设置一些key、过期时间</span><br><span class="line">    RFuture&lt;Long&gt; ttlRemainingFuture = tryLockInnerAsync(commandExecutor.getConnectionManager().getCfg().getLockWatchdogTimeout(), TimeUnit.MILLISECONDS, threadId, RedisCommands.EVAL_LONG);</span><br><span class="line">    ttlRemainingFuture.addListener(new FutureListener&lt;Long&gt;() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void operationComplete(Future&lt;Long&gt; future) throws Exception &#123;</span><br><span class="line">            if (!future.isSuccess()) &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Long ttlRemaining = future.getNow();</span><br><span class="line">            // lock acquired</span><br><span class="line">            if (ttlRemaining == null) &#123;</span><br><span class="line">                // 看门狗逻辑</span><br><span class="line">                scheduleExpirationRenewal(threadId);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return ttlRemainingFuture;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;T&gt; RFuture&lt;T&gt; tryLockInnerAsync(long leaseTime, TimeUnit unit, long threadId, RedisStrictCommand&lt;T&gt; command) &#123;</span><br><span class="line">    internalLockLeaseTime = unit.toMillis(leaseTime);</span><br><span class="line"></span><br><span class="line">    return commandExecutor.evalWriteAsync(getName(), LongCodec.INSTANCE, command,</span><br><span class="line">              &quot;if (redis.call(&#x27;exists&#x27;, KEYS[1]) == 0) then &quot; +</span><br><span class="line">                  &quot;redis.call(&#x27;hset&#x27;, KEYS[1], ARGV[2], 1); &quot; +</span><br><span class="line">                  &quot;redis.call(&#x27;pexpire&#x27;, KEYS[1], ARGV[1]); &quot; +</span><br><span class="line">                  &quot;return nil; &quot; +</span><br><span class="line">              &quot;end; &quot; +</span><br><span class="line">              &quot;if (redis.call(&#x27;hexists&#x27;, KEYS[1], ARGV[2]) == 1) then &quot; +</span><br><span class="line">                  &quot;redis.call(&#x27;hincrby&#x27;, KEYS[1], ARGV[2], 1); &quot; +</span><br><span class="line">                  &quot;redis.call(&#x27;pexpire&#x27;, KEYS[1], ARGV[1]); &quot; +</span><br><span class="line">                  &quot;return nil; &quot; +</span><br><span class="line">              &quot;end; &quot; +</span><br><span class="line">              &quot;return redis.call(&#x27;pttl&#x27;, KEYS[1]);&quot;,</span><br><span class="line">                Collections.&lt;Object&gt;singletonList(getName()), internalLockLeaseTime, getLockName(threadId));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 看门狗最终会调用了这里</span><br><span class="line">private void scheduleExpirationRenewal(final long threadId) &#123;</span><br><span class="line">    if (expirationRenewalMap.containsKey(getEntryName())) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 这个任务会延迟10s执行</span><br><span class="line">    Timeout task = commandExecutor.getConnectionManager().newTimeout(new TimerTask() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run(Timeout timeout) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">            // 这个操作会将key的过期时间重新设置为30s</span><br><span class="line">            RFuture&lt;Boolean&gt; future = renewExpirationAsync(threadId);</span><br><span class="line"></span><br><span class="line">            future.addListener(new FutureListener&lt;Boolean&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void operationComplete(Future&lt;Boolean&gt; future) throws Exception &#123;</span><br><span class="line">                    expirationRenewalMap.remove(getEntryName());</span><br><span class="line">                    if (!future.isSuccess()) &#123;</span><br><span class="line">                        log.error(&quot;Can&#x27;t update lock &quot; + getName() + &quot; expiration&quot;, future.cause());</span><br><span class="line">                        return;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    if (future.getNow()) &#123;</span><br><span class="line">                        // reschedule itself</span><br><span class="line">                        // 通过递归调用本方法，无限循环延长过期时间</span><br><span class="line">                        scheduleExpirationRenewal(threadId);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;, internalLockLeaseTime / 3, TimeUnit.MILLISECONDS);</span><br><span class="line"></span><br><span class="line">    if (expirationRenewalMap.putIfAbsent(getEntryName(), new ExpirationEntry(threadId, task)) != null) &#123;</span><br><span class="line">        task.cancel();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-ZooKeeper-实现方式"><a href="#2-ZooKeeper-实现方式" class="headerlink" title="2. ZooKeeper 实现方式"></a>2. ZooKeeper 实现方式</h3><p>Zookeeper是一种提供配置管理、分布式协同以及命名的中心化服务。</p>
+<p>zk的模型是这样的：zk包含一系列的节点，叫做znode，就好像文件系统一样每个znode表示一个目录，然后znode有一些特性：</p>
+<ul>
+<li>有序节点<ul>
+<li>假如当前有一个父节点为&#x2F;lock，我们可以在这个父节点下面创建子节点<br>  zookeeper提供了一个可选的有序特性，例如我们可以创建子节点“&#x2F;lock&#x2F;node-”并且指明有序，那么zookeeper在生成子节点时会根据当前的子节点数量自动添加整数序号<br>  也就是说，如果是第一个创建的子节点，那么生成的子节点为&#x2F;lock&#x2F;node-0000000000，下一个节点则为&#x2F;lock&#x2F;node-0000000001，依次类推。</li>
+</ul>
+</li>
+<li>临时节点<ul>
+<li>客户端可以建立一个临时节点，在会话结束或者会话超时后，zookeeper会自动删除该节点。</li>
+</ul>
+</li>
+<li>事件监听<ul>
+<li>在读取数据时，我们可以同时对节点设置事件监听，当节点数据或结构变化时，zookeeper会通知客户端。当前zookeeper有如下四种事件：<ul>
+<li>节点创建</li>
+<li>节点删除</li>
+<li>节点数据修改</li>
+<li>子节点变更</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>实现分布式锁的思路</p>
+<ol>
+<li>使用zk的临时节点和有序节点，每个线程获取锁就是在zk创建一个临时有序的节点，比如在&#x2F;lock&#x2F;目录下。</li>
+<li>创建节点成功后，获取&#x2F;lock目录下的所有临时节点，再判断当前线程创建的节点是否是所有的节点的序号最小的节点</li>
+<li>如果当前线程创建的节点是所有节点序号最小的节点，则认为获取锁成功。</li>
+<li>如果当前线程创建的节点不是所有节点序号最小的节点，则对节点序号的前一个节点添加一个事件监听。</li>
+</ol>
+<p>比如当前线程获取到的节点序号为 <code>/lock/003</code>，然后所有的节点列表为<code>[/lock/001,/lock/002,/lock/003]</code>，则对&#x2F;lock&#x2F;002这个节点添加一个事件监听器。<br>如果锁释放了，会唤醒下一个序号的节点，然后重新执行第3步，判断是否自己的节点序号是最小。比如<code>/lock/001</code>释放了，<code>/lock/002</code>监听到事件，此时节点集合为<code>[/lock/002,/lock/003]</code>，则<code>/lock/002</code>为最小序号节点，获取到锁。</p>
+<p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_jpg/1J6IbIcPCLblQkicuWPYZicf1yqrpficlt2bhIqLu3VOmTM6qIyibrPc87X2dAoNibxOJ03vtJiaMKfKm0jic7l2rcSng/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

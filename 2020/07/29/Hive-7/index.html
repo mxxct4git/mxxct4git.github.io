@@ -1,37 +1,519 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="血缘分析1. LineageLogger首先需要对 org.apache.hadoop.hive.ql.hooks.LineageLogger 这个类进行改写，原类会把 lineage 字段依赖信息打印到日志里去，但是现在我们需要把 lineage 信息直接 return 回来。 12345678910String lineage &#x3D; out.toString();if (testMode) &amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="血缘分析">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/07/29/Hive-7/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="血缘分析1. LineageLogger首先需要对 org.apache.hadoop.hive.ql.hooks.LineageLogger 这个类进行改写，原类会把 lineage 字段依赖信息打印到日志里去，但是现在我们需要把 lineage 信息直接 return 回来。 12345678910String lineage &#x3D; out.toString();if (testMode) &amp;#">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-07-29T01:54:00.000Z">
+<meta property="article:modified_time" content="2020-08-04T09:09:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Hive">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/07/29/Hive-7/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>血缘分析 | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/07/29/Hive-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          血缘分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-29 09:54:00" itemprop="dateCreated datePublished" datetime="2020-07-29T09:54:00+08:00">2020-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-04 17:09:00" itemprop="dateModified" datetime="2020-08-04T17:09:00+08:00">2020-08-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/29/Hive-7/" class="post-meta-item leancloud_visitors" data-flag-title="血缘分析" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/07/29/Hive-7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/29/Hive-7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="血缘分析"><a href="#血缘分析" class="headerlink" title="血缘分析"></a>血缘分析</h2><h3 id="1-LineageLogger"><a href="#1-LineageLogger" class="headerlink" title="1. LineageLogger"></a>1. LineageLogger</h3><p>首先需要对 org.apache.hadoop.hive.ql.hooks.LineageLogger 这个类进行改写，原类会把 lineage 字段依赖信息打印到日志里去，但是现在我们需要把 lineage 信息直接 return 回来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String lineage = out.toString();</span><br><span class="line">if (testMode) &#123;</span><br><span class="line">    log(lineage);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    LOG.info(lineage);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">=&gt; </span><br><span class="line">String lineage = out.toString();</span><br><span class="line">return lineage;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-添加-hook"><a href="#2-添加-hook" class="headerlink" title="2. 添加 hook"></a>2. 添加 hook</h3><p>Hive 提供了多个 hook 给开发者调用，对于字段分析来说，需要在 conf 里添加 <code>hConf.set(&quot;hive.exec.post.hooks&quot;, &quot;org.apache.hadoop.hive.ql.hooks.LineageLogger&quot;)</code></p>
+<h3 id="3-LineageInfo"><a href="#3-LineageInfo" class="headerlink" title="3. LineageInfo"></a>3. LineageInfo</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><span class="line">package cn.edata.StageTest;</span><br><span class="line"></span><br><span class="line">import cn.edata.Lineage.LineageLogger;</span><br><span class="line">import org.apache.hadoop.hive.conf.HiveConf;</span><br><span class="line">import org.apache.hadoop.hive.conf.HiveVariableSource;</span><br><span class="line">import org.apache.hadoop.hive.conf.VariableSubstitution;</span><br><span class="line">import org.apache.hadoop.hive.metastore.MetaStoreUtils;</span><br><span class="line">import org.apache.hadoop.hive.metastore.api.FieldSchema;</span><br><span class="line">import org.apache.hadoop.hive.metastore.api.Schema;</span><br><span class="line">import org.apache.hadoop.hive.ql.Context;</span><br><span class="line">import org.apache.hadoop.hive.ql.QueryDisplay;</span><br><span class="line">import org.apache.hadoop.hive.ql.QueryPlan;</span><br><span class="line">import org.apache.hadoop.hive.ql.exec.FetchTask;</span><br><span class="line">import org.apache.hadoop.hive.ql.hooks.WriteEntity;</span><br><span class="line">import org.apache.hadoop.hive.ql.lockmgr.LockException;</span><br><span class="line">import org.apache.hadoop.hive.ql.optimizer.lineage.LineageCtx;</span><br><span class="line">import org.apache.hadoop.hive.ql.parse.*;</span><br><span class="line">import org.apache.hadoop.hive.ql.plan.FetchWork;</span><br><span class="line">import org.apache.hadoop.hive.ql.plan.PartitionDesc;</span><br><span class="line">import org.apache.hadoop.hive.ql.plan.TableDesc;</span><br><span class="line">import org.apache.hadoop.hive.ql.processors.SetProcessor;</span><br><span class="line">import org.apache.hadoop.hive.ql.session.SessionState;</span><br><span class="line">import org.apache.hadoop.util.StringUtils;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line">import javax.sql.CommonDataSource;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.HashSet;</span><br><span class="line">import java.util.LinkedList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 改写hive本身编译过程，获取字段依赖关系</span><br><span class="line"> */</span><br><span class="line">public class LineageInfo &#123;</span><br><span class="line">    private static final String KEY_ADD = &quot;add &quot;;</span><br><span class="line">    private static final String KEY_DROP = &quot;drop &quot;;</span><br><span class="line">    private static final String KEY_SET = &quot;set &quot;;</span><br><span class="line">    private static final String KEY_FUNCTION = &quot;create temporary function &quot;;</span><br><span class="line">    private static final SetProcessor setProcessor = new SetProcessor();</span><br><span class="line">    static Logger LOG = LoggerFactory.getLogger(&quot;LineageInfo&quot;);</span><br><span class="line"></span><br><span class="line">    private static final LineageLogger lineageLogger = new LineageLogger();</span><br><span class="line"></span><br><span class="line">    public void getLineageInfo(HiveConf conf, String filePath, boolean testTableDenpendency) throws LockException, IOException, ParseException, SemanticException &#123;</span><br><span class="line">        SessionState ss = SessionState.start(conf);</span><br><span class="line">        ss.initTxnMgr(conf);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;filePath: &quot; + filePath);</span><br><span class="line">        // TODO: 2020/8/3 后续添加对直接读取文件的支持 </span><br><span class="line">        String command2 = &quot;select * from model_ennenergy_ccs.a_md_ccs_common_h limit 2&quot;;</span><br><span class="line">        List&lt;String&gt; commandList = new LinkedList&lt;&gt;();</span><br><span class="line">        commandList.add(&quot;use model_ennenergy_ccs&quot;);</span><br><span class="line">        commandList.add(&quot;select * from a_md_ccs_common_h limit 2&quot;);</span><br><span class="line">        </span><br><span class="line">        for(String command : commandList)&#123;</span><br><span class="line">            String lowerSql = command.toLowerCase();</span><br><span class="line">            // add / drop 无需解析</span><br><span class="line">            if (lowerSql.startsWith(KEY_ADD) || lowerSql.startsWith(KEY_DROP)) &#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            // 设置参数</span><br><span class="line">            if (lowerSql.startsWith(KEY_SET)) &#123;</span><br><span class="line">                setProcessor.run(command.substring(KEY_SET.length()));</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            command = new VariableSubstitution(new HiveVariableSource() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public Map&lt;String, String&gt; getHiveVariable() &#123;</span><br><span class="line">                    return ss.getHiveVariables();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).substitute(conf, command);</span><br><span class="line">            Context ctx = new Context(conf);</span><br><span class="line">            ctx.setCmd(command);</span><br><span class="line">            System.out.println(&quot;ctx: &quot; + ctx);</span><br><span class="line">            ASTNode tree;</span><br><span class="line">            try &#123;</span><br><span class="line">                ParseDriver pd = new ParseDriver();</span><br><span class="line">                tree = pd.parse(command, ctx);</span><br><span class="line">                tree = ParseUtils.findRootNonNullToken(tree);</span><br><span class="line">            &#125; catch (ParseException e) &#123;</span><br><span class="line">                throw e;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot;tree: &quot; + tree);</span><br><span class="line"></span><br><span class="line">            // 切换数据库</span><br><span class="line">            if (tree.getToken().getType() == HiveParser.TOK_SWITCHDATABASE) &#123;</span><br><span class="line">                ss.setCurrentDatabase(tree.getChild(0).getText());</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ss.setupQueryCurrentTimestamp();</span><br><span class="line">            System.out.println(&quot;ss: &quot; + ss);</span><br><span class="line">            // 6.2.0 版本</span><br><span class="line">            // QueryState queryState = new QueryState(conf);</span><br><span class="line">            // System.out.println(&quot;queryState: &quot; + queryState);</span><br><span class="line">            // BaseSemanticAnalyzer sem = SemanticAnalyzerFactory.get(queryState, tree);</span><br><span class="line">            BaseSemanticAnalyzer sem = SemanticAnalyzerFactory.get(conf, tree);</span><br><span class="line">            sem.analyze(tree, ctx);</span><br><span class="line">            sem.validate();</span><br><span class="line">            System.out.println(&quot;sem: &quot; + sem);</span><br><span class="line"></span><br><span class="line">            Schema schema = getSchame(sem, conf);</span><br><span class="line">            // System.out.println(&quot;schema: &quot; + schema);</span><br><span class="line">            </span><br><span class="line">            // 查询计划</span><br><span class="line">            // QueryDisplay queryDisplay = new QueryDisplay();</span><br><span class="line">            // queryDisplay.setQueryStr(command);</span><br><span class="line">            // queryDisplay.setQueryId(QueryPlan.makeQueryId());</span><br><span class="line">            // QueryPlan queryPlan = new QueryPlan(command, sem, 0L, QueryPlan.makeQueryId(), SessionState.get().getHiveOperation(), schema, queryDisplay);</span><br><span class="line">            // System.out.println(&quot;queryPlan: &quot; + queryPlan);</span><br><span class="line">            </span><br><span class="line">            List&lt;FieldSchema&gt; fieldSchemas = schema.getFieldSchemas();</span><br><span class="line">            // System.out.println(&quot;fieldSchemas: &quot; + fieldSchemas);</span><br><span class="line"></span><br><span class="line">            // 部分语句不能完整的分析出schema</span><br><span class="line">            // 例：ALTER TABLE model_icome_cheme.cheme_icome_kpi_month_h SET</span><br><span class="line">            // TBLPROPERTIES(&#x27;comment&#x27; = &#x27;化工月指标&#x27;)</span><br><span class="line">            // 可以针对 alter 开头的语句进行过滤，无需解析</span><br><span class="line">            if (fieldSchemas == null) &#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            HashSet&lt;WriteEntity&gt; outputs = sem.getOutputs();</span><br><span class="line">            System.out.println(&quot;outputs: &quot; + outputs);</span><br><span class="line"></span><br><span class="line">            // 字段血缘分析信息输出</span><br><span class="line">            LineageCtx.Index index = ss.getLineageState().getIndex();</span><br><span class="line">            // 6.2.0 版本</span><br><span class="line">            // LineageCtx.Index index = queryState.getLineageState().getIndex();</span><br><span class="line">            System.out.println(&quot;index: &quot; + index);</span><br><span class="line"></span><br><span class="line">            String result = lineageLogger.getJsonString(command, fieldSchemas, outputs, index);</span><br><span class="line">            System.out.println(&quot;result: &quot; + result);</span><br><span class="line"></span><br><span class="line">            if(testTableDenpendency)&#123;</span><br><span class="line">                DependencyInfo dependencyInfo = new DependencyInfo();</span><br><span class="line">                dependencyInfo.getDependencyInfo(result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 拿过来Driver类下的方法</span><br><span class="line">    private Schema getSchame(BaseSemanticAnalyzer sem, HiveConf conf) &#123;</span><br><span class="line">        Schema schema = null;</span><br><span class="line">        if (sem != null) &#123;</span><br><span class="line">            if (sem.getResultSchema() != null) &#123;</span><br><span class="line">                List&lt;FieldSchema&gt; lst = sem.getResultSchema();</span><br><span class="line">                schema = new Schema(lst, (Map) null);</span><br><span class="line">            &#125; else if (sem.getFetchTask() != null) &#123;</span><br><span class="line">                FetchTask ft = sem.getFetchTask();</span><br><span class="line">                TableDesc td = ft.getTblDesc();</span><br><span class="line">                if (td == null &amp;&amp; ft.getWork() != null &amp;&amp; ((FetchWork) ft.getWork()).getPartDesc() != null &amp;&amp; ((FetchWork) ft.getWork()).getPartDesc().size() &gt; 0) &#123;</span><br><span class="line">                    td = ((PartitionDesc) ((FetchWork) ft.getWork()).getPartDesc().get(0)).getTableDesc();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                if (td != null) &#123;</span><br><span class="line">                    String tableName = &quot;result&quot;;</span><br><span class="line">                    List lst = null;</span><br><span class="line"></span><br><span class="line">                    try &#123;</span><br><span class="line">                        lst = MetaStoreUtils.getFieldsFromDeserializer(tableName, td.getDeserializer(conf));</span><br><span class="line">                    &#125; catch (Exception e) &#123;</span><br><span class="line">                        System.out.println(&quot;Error getting schema: &quot; + StringUtils.stringifyException(e));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    if (lst != null) &#123;</span><br><span class="line">                        schema = new Schema(lst, (Map) null);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (schema == null) &#123;</span><br><span class="line">            schema = new Schema();</span><br><span class="line">        &#125;</span><br><span class="line">        // System.out.println(&quot;Returning Hive schema: &quot; + schema);</span><br><span class="line">        return schema;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-TableDependency"><a href="#4-TableDependency" class="headerlink" title="4. TableDependency"></a>4. TableDependency</h3><p>除了字段的血缘分析，还可以进一步去获取表之间的依赖关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">package cn.edata.StageTest;</span><br><span class="line"></span><br><span class="line">import com.alibaba.fastjson.JSON;</span><br><span class="line">import com.alibaba.fastjson.JSONArray;</span><br><span class="line">import com.alibaba.fastjson.JSONObject;</span><br><span class="line"></span><br><span class="line">import java.util.HashSet;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.stream.Collectors;</span><br><span class="line">import java.util.stream.Stream;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 拿到返回的字段依赖信息，解析数据，获取表之间的依赖关系</span><br><span class="line"> */</span><br><span class="line">public class DependencyInfo &#123;</span><br><span class="line">    public void getDependencyInfo(String lineageInfo)&#123;</span><br><span class="line">        JSONObject result = JSONObject.parseObject(lineageInfo);</span><br><span class="line">        System.out.println(&quot;#########&quot;);</span><br><span class="line"></span><br><span class="line">        JSONArray verticesArray = JSONArray.parseArray(result.getString(&quot;vertices&quot;));</span><br><span class="line"></span><br><span class="line">        HashSet&lt;String&gt; modelTables = new HashSet&lt;&gt;();</span><br><span class="line">        HashSet&lt;String&gt; originTables = new HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        verticesArray.forEach(data-&gt;&#123;</span><br><span class="line">            JSONObject tmp = JSONObject.parseObject(data.toString());</span><br><span class="line">            String vertextId = tmp.getString(&quot;vertexId&quot;);</span><br><span class="line">            if(vertextId.startsWith(&quot;model&quot;))</span><br><span class="line">                modelTables.add(vertextId.split(&quot;\\.&quot;)[0]+&quot;.&quot;+vertextId.split(&quot;\\.&quot;)[1]);</span><br><span class="line">            if(vertextId.startsWith(&quot;origin&quot;))</span><br><span class="line">                originTables.add(vertextId);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;####&quot;);</span><br><span class="line">        System.out.println(&quot;modelTables: &quot; + modelTables.toString());</span><br><span class="line">        System.out.println(&quot;originTables: &quot; + originTables.toString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-pom-xml"><a href="#5-pom-xml" class="headerlink" title="5. pom.xml"></a>5. pom.xml</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;!--        查询--&gt;</span><br><span class="line">    &lt;!--        &lt;cdh.hadoop.version&gt;3.0.0-cdh6.2.0&lt;/cdh.hadoop.version&gt;--&gt;</span><br><span class="line">    &lt;!--        &lt;cdh.hive.version&gt;2.1.1-cdh6.2.0&lt;/cdh.hive.version&gt;--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;cdh.hadoop.version&gt;2.6.0-cdh5.14.4&lt;/cdh.hadoop.version&gt;</span><br><span class="line">    &lt;cdh.hive.version&gt;1.1.0-cdh5.14.4&lt;/cdh.hive.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.4&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.2.4&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;hadoop-mapreduce-client-core&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;cdh.hadoop.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;hadoop-mapreduce-client-common&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;cdh.hadoop.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.hive&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;hive-exec&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;cdh.hive.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;exclusions&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;</span><br><span class="line">                    hadoop-yarn-server-resourcemanager</span><br><span class="line">                &lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">&lt;!--                &lt;exclusion&gt;--&gt;</span><br><span class="line">&lt;!--                    &lt;artifactId&gt;gson&lt;/artifactId&gt;--&gt;</span><br><span class="line">&lt;!--                    &lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;--&gt;</span><br><span class="line">&lt;!--                &lt;/exclusion&gt;--&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hive-shims&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hive&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">        &lt;/exclusions&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.hive&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;hive-jdbc&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;cdh.hive.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;exclusions&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hbase-server&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jasper-compiler&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;tomcat&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jasper-runtime&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;tomcat&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hadoop-hdfs&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jetty-rewrite&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jetty-server&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jetty-runner&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jetty-servlet&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jetty-webapp&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hadoop-yarn-registry&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;jetty&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hbase-hadoop2-compat&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;gson&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hive-shims-0.23&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hive.shims&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">            &lt;exclusion&gt;</span><br><span class="line">                &lt;artifactId&gt;hive-common&lt;/artifactId&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.hive&lt;/groupId&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">        &lt;/exclusions&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;hadoop-hdfs&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;cdh.hadoop.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+              <a href="/tags/Hive/" rel="tag"># Hive</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/20/Parquet/" rel="prev" title="Parquet 源码解析">
+      <i class="fa fa-chevron-left"></i> Parquet 源码解析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/11/Thread-2/" rel="next" title="同步队列">
+      同步队列 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%80%E7%BC%98%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">血缘分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-LineageLogger"><span class="nav-number">1.1.</span> <span class="nav-text">1. LineageLogger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0-hook"><span class="nav-number">1.2.</span> <span class="nav-text">2. 添加 hook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-LineageInfo"><span class="nav-number">1.3.</span> <span class="nav-text">3. LineageInfo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-TableDependency"><span class="nav-number">1.4.</span> <span class="nav-text">4. TableDependency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-pom-xml"><span class="nav-number">1.5.</span> <span class="nav-text">5. pom.xml</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

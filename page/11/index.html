@@ -1,23 +1,1044 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta name="description" content="君子不器">
+<meta property="og:type" content="website">
+<meta property="og:title" content="猫熊小才天の书院">
+<meta property="og:url" content="https://mxxct4git.github.io/page/11/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="君子不器">
+<meta property="og:locale">
+<meta property="article:author" content="Mxxct">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/page/11/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/07/20/Parquet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/20/Parquet/" class="post-title-link" itemprop="url">Parquet 源码解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-20 16:15:00" itemprop="dateCreated datePublished" datetime="2020-07-20T16:15:00+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-27 13:40:00" itemprop="dateModified" datetime="2020-07-27T13:40:00+08:00">2020-07-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Parquet/" itemprop="url" rel="index"><span itemprop="name">Parquet</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/20/Parquet/" class="post-meta-item leancloud_visitors" data-flag-title="Parquet 源码解析" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/07/20/Parquet/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/20/Parquet/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Parquet-源码解析"><a href="#Parquet-源码解析" class="headerlink" title="Parquet 源码解析"></a>Parquet 源码解析</h2><p>Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。在HDFS文件系统和Parquet文件中存在如下几个概念。</p>
+<ul>
+<li>HDFS块(Block)：它是HDFS上的最小的副本单位，HDFS会把一个Block存储在本地的一个文件并且维护分散在不同的机器上的多个副本，通常情况下一个Block的大小为256M、512M等。</li>
+<li>HDFS文件(File)：一个HDFS的文件，包括数据和元数据，数据分散存储在多个Block中。</li>
+<li>行组(Row Group)：按照行将数据物理上划分为多个单元，每一个行组包含一定的行数，在一个HDFS文件中至少存储一个行组，Parquet读写的时候会将整个行组缓存在内存中，所以如果每一个行组的大小是由内存大的小决定的，例如记录占用空间比较小的Schema可以在每一个行组中存储更多的行。</li>
+<li>列块(Column Chunk)：在一个行组中每一列保存在一个列块中，行组中的所有列连续的存储在这个行组文件中。一个列块中的值都是相同类型的，不同的列块可能使用不同的算法进行压缩。</li>
+<li>页(Page)：每一个列块划分为多个页，一个页是最小的编码的单位，在同一个列块的不同页可能使用不同的编码方式。</li>
+</ul>
+<blockquote>
+<p>一般按照 Block 大小来设置行组的大小，每一个mapper处理数据的最小单位是一个 block，这样就可以把每一个行组由一个mapper处理，提高任务执行并行度</p>
+</blockquote>
+<p><img src="https://images2017.cnblogs.com/blog/400827/201710/400827-20171017112835787-354192287.png"></p>
+<blockquote>
+<p>MapredParquetOutputFormat.getHiveRecordWriter()<br>-&gt; DataWritableWriteSupport.setSchema(HiveSchemaConverter.convert((List)columnNames, columnTypes), jobConf) 根据列名和类型，生成schema<br>-&gt; ParquetRecordWriterWrapper.ParquetRecordWriterWrapper() 生成一个 ParquetOutputFormat 对象<br>-&gt; ParquetFileWriter<br>    创建一个文件写入对象，<br>    ParquetFileWriter(Configuration configuration, MessageType schema, Path file, ParquetFileWriter.Mode mode, long rowGroupSize, int maxPaddingSize)<br>    参数包括：conf配置，schema表结构，file文件路径，mode文件写入的模式（新建或覆写），blockSizeHDFS块大小，也就是一个行组的大小<br>    之后会先在这个文件的最开始的位置写入四个字节的 “PAR1” 表示该文件为 parquet 格式，”parquet.writer.max-padding”, 8388608<br>    根据这个文件写入对象，去创建一个<br>-&gt; InternalParquetRecordWriter<br>    创建一个 InternalParquetRecordWriter(fileWriter, writeSupport, schema, writeContext.getExtraMetaData(), (long)blockSize, compressor, validating, encodingProps); 对象，每读取一条数据，调用该对象的 write() 方法写入，底层实现是调用 DataWritableWriter.write(T value)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">InternalParquetRecordWriter 类</span><br><span class="line">public void write(T value) throws IOException, InterruptedException &#123;</span><br><span class="line">    this.writeSupport.write(value);</span><br><span class="line">    ++this.recordCount; // 每写入一条数据，记录数+1</span><br><span class="line">    this.checkBlockSizeReached();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void checkBlockSizeReached() throws IOException &#123;</span><br><span class="line">    if (this.recordCount &gt;= this.recordCountForNextMemCheck) &#123; // 默认值 this.recordCountForNextMemCheck = 100L，每调用一次修改为新值</span><br><span class="line">        // this.pageStore = new ColumnChunkPageWriteStore(this.compressor, this.schema, this.props.getAllocator());</span><br><span class="line">        // this.columnStore = this.props.newColumnWriteStore(this.schema, this.pageStore);</span><br><span class="line">        // props 就是 ParquetProperties</span><br><span class="line">        // 已写入到内存中的记录的总大小，除以记录数，得到平均一条记录的大小</span><br><span class="line">        long memSize = this.columnStore.getBufferedSize();</span><br><span class="line">        long recordSize = memSize / this.recordCount; </span><br><span class="line">        if (memSize &gt; this.nextRowGroupSize - 2L * recordSize) &#123;</span><br><span class="line">            // 如果内存中的记录总大小 &gt; 行组大小 - 2*平均一条记录大小 ？？？</span><br><span class="line">            // 当 memSize &gt; GroupSize(约等于blocksize)，就可以刷到磁盘</span><br><span class="line">            LOG.debug(&quot;mem size &#123;&#125; &gt; &#123;&#125;: flushing &#123;&#125; records to disk.&quot;, new Object[]&#123;memSize, this.nextRowGroupSize, this.recordCount&#125;);</span><br><span class="line">            // 刷写内存的记录</span><br><span class="line">            this.flushRowGroupToStore();</span><br><span class="line">            this.initStore(); // 重置 pageStore、columnStore 等信息</span><br><span class="line">            this.recordCountForNextMemCheck = Math.min(Math.max(100L, this.recordCount / 2L), 10000L);</span><br><span class="line">            this.lastRowGroupEndPos = this.parquetFileWriter.getPos();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 当目前内存中的记录的总大小还不够大时，修改 recordCountForNextMemCheck 的值，每次会增大一点，差不多相当于之前增量的一半，如果recordsize变化不大的话</span><br><span class="line">            this.recordCountForNextMemCheck = Math.min(Math.max(100L, (this.recordCount + (long)((float)this.nextRowGroupSize / (float)recordSize)) / 2L), this.recordCount + 10000L);</span><br><span class="line">            LOG.debug(&quot;Checked mem at &#123;&#125; will check again at: &#123;&#125;&quot;, this.recordCount, this.recordCountForNextMemCheck);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void flushRowGroupToStore() throws IOException &#123;</span><br><span class="line">    // 先将null值刷写出去？？？</span><br><span class="line">    this.recordConsumer.flush();</span><br><span class="line">    LOG.debug(&quot;Flushing mem columnStore to file. allocated memory: &#123;&#125;&quot;, this.columnStore.getAllocatedSize());</span><br><span class="line">    if (this.columnStore.getAllocatedSize() &gt; 3L * this.rowGroupSizeThreshold) &#123;</span><br><span class="line">        LOG.warn(&quot;Too much memory used: &#123;&#125;&quot;, this.columnStore.memUsageString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (this.recordCount &gt; 0L) &#123;</span><br><span class="line">        // 获取block的元数据信息</span><br><span class="line">        this.parquetFileWriter.startBlock(this.recordCount);</span><br><span class="line">        // 把每一列的值写到文件</span><br><span class="line">        this.columnStore.flush();</span><br><span class="line">        this.pageStore.flushToFileWriter(this.parquetFileWriter);</span><br><span class="line">        this.recordCount = 0L;</span><br><span class="line">        this.parquetFileWriter.endBlock();</span><br><span class="line">        this.nextRowGroupSize = Math.min(this.parquetFileWriter.getNextRowGroupSize(), this.rowGroupSizeThreshold);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.columnStore = null;</span><br><span class="line">    this.pageStore = null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ColumnWriteStoreV1 类</span><br><span class="line">this.columnStore = ColumnWriteStoreV1 时，执行的方法</span><br><span class="line">public void flush() &#123;</span><br><span class="line">    // private final Map&lt;ColumnDescriptor, ColumnWriterV1&gt; columns = new TreeMap();</span><br><span class="line">    Collection&lt;ColumnWriterV1&gt; values = this.columns.values();</span><br><span class="line">    Iterator var2 = values.iterator();</span><br><span class="line"></span><br><span class="line">    while(var2.hasNext()) &#123;</span><br><span class="line">        ColumnWriterV1 memColumn = (ColumnWriterV1)var2.next();</span><br><span class="line">        memColumn.flush();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ColumnWriterV1 类</span><br><span class="line">public void flush() &#123;</span><br><span class="line">    if (this.valueCount &gt; 0) &#123;</span><br><span class="line">        this.writePage(); </span><br><span class="line">        // 将所有数据都转换成了Bytes</span><br><span class="line">        // this.pageWriter.writePage(BytesInput.concat(new BytesInput[]&#123;this.repetitionLevelColumn.getBytes(), this.definitionLevelColumn.getBytes(), this.dataColumn.getBytes()&#125;), this.valueCount, this.statistics, this.repetitionLevelColumn.getEncoding(), this.definitionLevelColumn.getEncoding(), this.dataColumn.getEncoding());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    DictionaryPage dictionaryPage = this.dataColumn.toDictPageAndClose();</span><br><span class="line">    if (dictionaryPage != null) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            this.pageWriter.writeDictionaryPage(dictionaryPage);</span><br><span class="line">        &#125; catch (IOException var3) &#123;</span><br><span class="line">            throw new ParquetEncodingException(&quot;could not write dictionary page for &quot; + this.path, var3);</span><br><span class="line">        &#125;</span><br><span class="line">        this.dataColumn.resetDictionary();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ParquetProperties 默认变量信息</span><br><span class="line">private Builder() &#123;</span><br><span class="line">    this.pageSize = 1048576;</span><br><span class="line">    this.dictPageSize = 1048576;</span><br><span class="line">    this.enableDict = true;</span><br><span class="line">    this.writerVersion = ParquetProperties.DEFAULT_WRITER_VERSION =&gt; &quot;v1&quot;;</span><br><span class="line">    this.minRowCountForPageSizeCheck = 100;</span><br><span class="line">    this.maxRowCountForPageSizeCheck = 10000;</span><br><span class="line">    this.estimateNextSizeCheck = true;</span><br><span class="line">    this.allocator = new HeapByteBufferAllocator();</span><br><span class="line">    this.valuesWriterFactory = ParquetProperties.DEFAULT_VALUES_WRITER_FACTORY;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>org.apache.parquet.hadoop.api 包下 </p>
+<ul>
+<li>ReadSupport<ul>
+<li>GroupReadSupport</li>
+<li>DataWritableReadSupport</li>
+</ul>
+</li>
+<li>WriteSupport<ul>
+<li>GroupWriteSupport</li>
+<li>DataWritableWriteSupport</li>
+</ul>
+</li>
+</ul>
+<p>映射下推(Project PushDown)<br>说到列式存储的优势，映射下推是最突出的，它意味着在获取表中原始数据时只需要扫描查询中需要的列，由于每一列的所有值都是连续存储的，所以分区取出每一列的所有值就可以实现TableScan算子，而避免扫描整个表文件内容。</p>
+<p>在Parquet中原生就支持映射下推，执行查询的时候可以通过Configuration传递需要读取的列的信息，这些列必须是Schema的子集，映射每次会扫描一个Row Group的数据，然后一次性得将该Row Group里所有需要的列的Cloumn Chunk都读取到内存中，每次读取一个Row Group的数据能够大大降低随机读的次数，除此之外，Parquet在读取的时候会考虑列是否连续，如果某些需要的列是存储位置是连续的，那么一次读操作就可以把多个列的数据读取到内存。</p>
+<p>谓词下推(Predicate PushDown)<br>在数据库之类的查询系统中最常用的优化手段就是谓词下推了，通过将一些过滤条件尽可能的在最底层执行可以减少每一层交互的数据量，从而提升性能，例如”select count(1) from A Join B on A.id &#x3D; B.id where A.a &gt;数据 10 and B.b &lt; 100”SQL查询中，在处理Join操作之前需要首先对A和B执行TableScan操作，然后再进行Join，再执行过滤，最后计算聚合函数返回，但是如果把过滤条件A.a &gt; 10和B.b &lt; 100分别移到A表的TableScan和B表的TableScan的时候执行，可以大大降低Join操作的输入数据。</p>
+<p>无论是行式存储还是列式存储，都可以在将过滤条件在读取一条记录之后执行以判断该记录是否需要返回给调用者，在Parquet做了更进一步的优化，优化的方法时对每一个Row Group的每一个Column Chunk在存储的时候都计算对应的统计信息，包括该Column Chunk的最大值、最小值和空值个数。通过这些统计值和该列的过滤条件可以判断该Row Group是否需要扫描。另外Parquet未来还会增加诸如Bloom Filter和Index等优化数据，更加有效的完成谓词下推。</p>
+<p>在使用Parquet的时候可以通过如下两种策略提升查询性能：1、类似于关系数据库的主键，对需要频繁过滤的列设置为有序的，这样在导入数据的时候会根据该列的顺序存储数据，这样可以最大化的利用最大值、最小值实现谓词下推。2、减小行组大小和页大小，这样增加跳过整个行组的可能性，但是此时需要权衡由于压缩和编码效率下降带来的I&#x2F;O负载。</p>
+<p><a href="https://www.cnblogs.com/windliu/p/10942252.html">参考地址</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">4-byte magic number &quot;PAR1&quot;</span><br><span class="line">&lt;Column 1 Chunk 1 + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk 1 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk 1 + Column Metadata&gt;</span><br><span class="line">&lt;Column 1 Chunk 2 + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk 2 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk 2 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column 1 Chunk M + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk M + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk M + Column Metadata&gt;</span><br><span class="line">File Metadata</span><br><span class="line">4-byte length in bytes of file metadata</span><br><span class="line">4-byte magic number &quot;PAR1&quot;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/07/09/LRU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/09/LRU/" class="post-title-link" itemprop="url">LinkedHashMap 实现LRU缓存</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-09 13:52:00" itemprop="dateCreated datePublished" datetime="2020-07-09T13:52:00+08:00">2020-07-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-21 17:40:00" itemprop="dateModified" datetime="2020-07-21T17:40:00+08:00">2020-07-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/LinkedHashMap/" itemprop="url" rel="index"><span itemprop="name">LinkedHashMap</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/09/LRU/" class="post-meta-item leancloud_visitors" data-flag-title="LinkedHashMap 实现LRU缓存" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/07/09/LRU/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/09/LRU/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="LinkedHashMap-实现LRU缓存"><a href="#LinkedHashMap-实现LRU缓存" class="headerlink" title="LinkedHashMap 实现LRU缓存"></a>LinkedHashMap 实现LRU缓存</h2><p><a href="https://www.cnblogs.com/lzrabbit/p/3734850.html#f1">参考</a></p>
+<p>LinkedHashMap是HashMap的子类，但是内部还有一个双向链表维护键值对的顺序，每个键值对既位于哈希表中，也位于双向链表中。LinkedHashMap支持两种顺序插入顺序 、 访问顺序</p>
+<p>插入顺序：先添加的在前面，后添加的在后面。修改操作不影响顺序<br>访问顺序：所谓访问指的是get&#x2F;put操作，对一个键执行get&#x2F;put操作后，其对应的键值对会移动到链表末尾，<strong>所以最末尾的是最近访问的，最开始的是最久没有被访问的</strong>，这就是访问顺序。</p>
+<p><code>public LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)</code> 其中参数accessOrder就是用来指定是否按访问顺序，如果为true，就是访问顺序。</p>
+<p>LRU(Least Recently Used): 最近最少使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class LRUCache&lt;K, V&gt; extends LinkedHashMap&lt;K, V&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private int maxEntries;</span><br><span class="line"></span><br><span class="line">    public LRUCache(int maxEntries) &#123;</span><br><span class="line">        super(16, 0.75f, true);</span><br><span class="line">        this.maxEntries = maxEntries;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) &#123;</span><br><span class="line">        return size() &gt; maxEntries;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在LinkedHashMap添加元素后，会调用removeEldestEntry防范，传递的参数时最久没有被访问的键值对，如果方法返回true，这个最久的键值对就会被删除。LinkedHashMap中的实现总返回false，该子类重写后即可实现对容量的控制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LRUCache&lt;String,Object&gt; cache = new LRUCache&lt;&gt;(3);</span><br><span class="line">cache.put(&quot;a&quot;,&quot;abstract&quot;);</span><br><span class="line">cache.put(&quot;b&quot;,&quot;basic&quot;);</span><br><span class="line">cache.put(&quot;c&quot;,&quot;call&quot;);</span><br><span class="line">cache.get(&quot;a&quot;);</span><br><span class="line">cache.put(&quot;d&quot;,&quot;滴滴滴&quot;);</span><br><span class="line">System.out.println(cache); // 输出为：&#123;c=call, a=abstract, d=滴滴滴&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>相比HashMap，LinkedHashMap还实现了三个方法，当且仅当 accessOrder&#x3D;True 时会被调用到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void afterNodeAccess(Node&lt;K,V&gt; p) &#123; &#125;  //访问节点之后调用的方法</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; &#125; //插入节点之后调用的方法</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; p) &#123; &#125;  //删除节点之后调用的方法</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">在get()方法中调用afterNodeAccess()方法，具体作用是：在对节点进行访问之后，会更新链表，将节点移动到链表的尾部，表示最近被访问过。</span><br><span class="line">void afterNodeAccess(Node&lt;K,V&gt; e) &#123; // move node to last</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">    if (accessOrder &amp;&amp; (last = tail) != e) &#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">        p.after = null;</span><br><span class="line">        if (b == null)</span><br><span class="line">            head = a;</span><br><span class="line">        else</span><br><span class="line">            b.after = a;</span><br><span class="line">        if (a != null)</span><br><span class="line">            a.before = b;</span><br><span class="line">        else</span><br><span class="line">            last = b;</span><br><span class="line">        if (last == null)</span><br><span class="line">            head = p;</span><br><span class="line">        else &#123;</span><br><span class="line">            p.before = last;</span><br><span class="line">            last.after = p;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = p;</span><br><span class="line">        ++modCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">LinkedHashMap的put()是调用的父类HashMap的put()方法</span><br><span class="line">这个方法是在HashMap中的put()方法中被调用，在LinkedHashMap中被实现，具体作用是：在插入新节点后，因为缓存不够，需要删除最近最少使用的节点。要成功调用这个方法，还需要用户覆写 removeEldestEntry(first) 方法</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; // possibly remove eldest</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; first;</span><br><span class="line">    if (evict &amp;&amp; (first = head) != null &amp;&amp; removeEldestEntry(first)) &#123;</span><br><span class="line">        K key = first.key;</span><br><span class="line">        removeNode(hash(key), key, null, false, true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">当LinkedHashMap成功调用removeNode()方法，删除节点之后，会调用本方法</span><br><span class="line">具体作用是：在removeNode方法中，只是删除了HashMap中的节点，并没有在链表中删除。所以在removeNode中，回调了这个方法，将该节点从链表中删除（这里是删除的头结点，因为头结点是最早进入或者最近最久未使用的）。</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; e) &#123; // unlink</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">        (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">    p.before = p.after = null;</span><br><span class="line">    if (b == null)</span><br><span class="line">        head = a;</span><br><span class="line">    else</span><br><span class="line">        b.after = a;</span><br><span class="line">    if (a == null)</span><br><span class="line">        tail = b;</span><br><span class="line">    else</span><br><span class="line">        a.before = b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190413205151890.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5tZW5neXVhbkNTRE4=,size_16,color_FFFFFF,t_70" alt="左HashMap右LinkedHashMap"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/04/23/HashMap-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/23/HashMap-1/" class="post-title-link" itemprop="url">HashMap 源码解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-23 11:55:00" itemprop="dateCreated datePublished" datetime="2020-04-23T11:55:00+08:00">2020-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-10 16:11:00" itemprop="dateModified" datetime="2020-07-10T16:11:00+08:00">2020-07-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/HashMap/" itemprop="url" rel="index"><span itemprop="name">HashMap</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/23/HashMap-1/" class="post-meta-item leancloud_visitors" data-flag-title="HashMap 源码解析" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/04/23/HashMap-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/23/HashMap-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HashMap-源码解析"><a href="#HashMap-源码解析" class="headerlink" title="HashMap 源码解析"></a>HashMap 源码解析</h2><p><a href="https://www.cnblogs.com/skywang12345/p/3310835.html">参考地址1</a><br><a href="https://www.cnblogs.com/duodushuduokanbao/p/9492952.html">参考地址2</a></p>
+<h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h3><p>java.lang.Object<br>   ↳     java.util.AbstractMap&lt;K, V&gt;<br>         ↳     java.util.HashMap&lt;K, V&gt;</p>
+<p>public class HashMap&lt;K,V&gt;<br>    extends AbstractMap&lt;K,V&gt;<br>    implements Map&lt;K,V&gt;, Cloneable, Serializable { }</p>
+<p>HashMap 是一个散列表，它存储的内容是键值对(key-value)映射。<br>HashMap 继承于AbstractMap，实现了Map、Cloneable、java.io.Serializable接口。<br>HashMap 的实现不是同步的，这意味着它不是线程安全的。（多线程时可以用ConcurrentHashMap，比HashTable更高效）。它的key、value都可以为null。此外，HashMap中的映射不是有序的。</p>
+<p>HashMap 的实例有两个参数影响其性能：“初始容量” 和 “加载因子”。容量 是哈希表中桶的数量（默认是16），初始容量 只是哈希表在创建时的容量。加载因子 是哈希表在其容量自动增加之前可以达到多满的一种尺度。当哈希表中的条目数超出了加载因子与当前容量的乘积时，则要对该哈希表进行 rehash 操作（即重建内部数据结构），从而哈希表将具有大约两倍的桶数。<br>通常，默认加载因子是 0.75, 这是在时间和空间成本上寻求一种折衷。加载因子过高虽然减少了空间开销，但同时也增加了查询成本（在大多数 HashMap 类的操作中，包括 get 和 put 操作，都反映了这一点）。在设置初始容量时应该考虑到映射中所需的条目数及其加载因子，以便最大限度地减少 rehash 操作次数。如果初始容量大于最大条目数除以加载因子，则不会发生 rehash 操作。</p>
+<p>HashMap继承于AbstractMap类，实现了Map接口。Map是”key-value键值对”接口，AbstractMap实现了”键值对”的通用函数接口。</p>
+<p>HashMap是通过”拉链法”实现的哈希表。它包括几个重要的成员变量：table, size, threshold, loadFactor, modCount。<br>table是一个Entry[]数组类型，而Entry实际上就是一个单向链表。哈希表的”key-value键值对”都是存储在Entry数组中的。<br>size是HashMap的大小，它是HashMap保存的键值对的数量。<br>threshold是HashMap的阈值，用于判断是否需要调整HashMap的容量。threshold的值&#x3D;”当前最大容量*加载因子”，当HashMap中存储数据的数量达到threshold时，就需要将HashMap的容量加倍。<br>loadFactor就是加载因子。<br>modCount是记录发生内部结构变化的次数，如果是put但是put的值是覆盖原有的值，这样不算是内部结构变化；是用来实现fail-fast机制的。如果在 Iterator 过程中，并发的对集合进行修改，此时会报ConcurrentModificationException异常 &#x3D;&gt; 即线程不安全</p>
+<p><img src="https://images.weserv.nl/?url=https://images2018.cnblogs.com/blog/1373220/201808/1373220-20180817111003861-1536817344.png" alt="HashMap数据结构"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package java.util;</span><br><span class="line">import java.io.*;</span><br><span class="line"></span><br><span class="line">public class HashMap&lt;K,V&gt;</span><br><span class="line">    extends AbstractMap&lt;K,V&gt;</span><br><span class="line">    implements Map&lt;K,V&gt;, Cloneable, Serializable</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    // 默认的初始容量是16，必须是2的幂。</span><br><span class="line">    static final int DEFAULT_INITIAL_CAPACITY = 16;</span><br><span class="line"></span><br><span class="line">    // 最大容量（必须是2的幂且小于2的30次方，传入容量过大将被这个值替换）</span><br><span class="line">    static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line"></span><br><span class="line">    // 默认加载因子</span><br><span class="line">    static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line"></span><br><span class="line">    // 存储数据的Entry数组，长度是2的幂。</span><br><span class="line">    // HashMap是采用拉链法实现的，每一个Entry本质上是一个单向链表</span><br><span class="line">    transient Entry[] table;</span><br><span class="line"></span><br><span class="line">    // HashMap的大小，它是HashMap保存的键值对的数量</span><br><span class="line">    transient int size;</span><br><span class="line"></span><br><span class="line">    // HashMap的阈值，用于判断是否需要调整HashMap的容量（threshold = 容量*加载因子）</span><br><span class="line">    int threshold;</span><br><span class="line"></span><br><span class="line">    // 加载因子实际大小</span><br><span class="line">    final float loadFactor;</span><br><span class="line"></span><br><span class="line">    // HashMap被改变的次数</span><br><span class="line">    transient volatile int modCount;</span><br><span class="line"></span><br><span class="line">    static final int hash(Object key) &#123;</span><br><span class="line">        int h;</span><br><span class="line">        return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Put-方法实现"><a href="#2-Put-方法实现" class="headerlink" title="2. Put 方法实现"></a>2. Put 方法实现</h3><p><img src="https://images.weserv.nl/?url=https://img2018.cnblogs.com/blog/1684605/201905/1684605-20190522150831073-641494049.png" alt="HashMap之put过程"></p>
+<ol>
+<li>table[] 是否为空</li>
+<li>判断 table[i] 位置是否插入过值</li>
+<li>判断链表长度是否大于8，如果大于就转换为红黑二叉树，并插入树中</li>
+<li>判断key是否和原有key相同，如果相同就覆盖原有key的value，并返回原有value</li>
+<li>如果key不相同，就插入一个key，记录结构变化一次</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">                   boolean evict) &#123;</span><br><span class="line">//判断table是否为空，如果是空的就创建一个table，并获取他的长度</span><br><span class="line">        Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;</span><br><span class="line">        if ((tab = table) == null || (n = tab.length) == 0)</span><br><span class="line">            n = (tab = resize()).length;</span><br><span class="line">//如果计算出来的索引位置之前没有放过数据，就直接放入</span><br><span class="line">        if ((p = tab[i = (n - 1) &amp; hash]) == null)</span><br><span class="line">            tab[i] = newNode(hash, key, value, null);</span><br><span class="line">        else &#123;</span><br><span class="line">//进入这里说明索引位置已经放入过数据了</span><br><span class="line">            Node&lt;K,V&gt; e; K k;</span><br><span class="line">//判断put的数据和之前的数据是否重复</span><br><span class="line">            if (p.hash == hash &amp;&amp;</span><br><span class="line">                ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))   //key的地址或key的equals()只要有一个相等就认为key重复了，就直接覆盖原来key的value</span><br><span class="line">                e = p;</span><br><span class="line">//判断是否是红黑树，如果是红黑树就直接插入树中</span><br><span class="line">            else if (p instanceof TreeNode)</span><br><span class="line">                e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">            else &#123;</span><br><span class="line">//如果不是红黑树，就遍历每个节点，判断链表长度是否大于8，如果大于就转换为红黑树</span><br><span class="line">                for (int binCount = 0; ; ++binCount) &#123;</span><br><span class="line">                    if ((e = p.next) == null) &#123;</span><br><span class="line">                        p.next = newNode(hash, key, value, null);</span><br><span class="line">                        if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</span><br><span class="line">                            treeifyBin(tab, hash);</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">//判断索引每个元素的key是否可要插入的key相同，如果相同就直接覆盖</span><br><span class="line">                    if (e.hash == hash &amp;&amp;</span><br><span class="line">                        ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">                        break;</span><br><span class="line">                    p = e;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">//如果e不是null，说明没有迭代到最后就跳出了循环，说明链表中有相同的key，因此只需要将value覆盖，并将oldValue返回即可</span><br><span class="line">            if (e != null) &#123; // existing mapping for key</span><br><span class="line">                V oldValue = e.value;</span><br><span class="line">                if (!onlyIfAbsent || oldValue == null)</span><br><span class="line">                    e.value = value;</span><br><span class="line">                afterNodeAccess(e);</span><br><span class="line">                return oldValue;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">//说明没有key相同，因此要插入一个key-value，并记录内部结构变化次数</span><br><span class="line">        ++modCount;</span><br><span class="line">        if (++size &gt; threshold)</span><br><span class="line">            resize();</span><br><span class="line">        afterNodeInsertion(evict);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Get-方法实现"><a href="#3-Get-方法实现" class="headerlink" title="3. Get 方法实现"></a>3. Get 方法实现</h3><ol>
+<li>判断表或key是否是null，如果是直接返回null key对应的value</li>
+<li>判断索引处第一个key与传入key是否相等，如果相等直接返回</li>
+<li>如果不相等，判断链表是否是红黑二叉树，如果是，直接从树中取值</li>
+<li>如果不是树，就遍历链表查找</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">final Node&lt;K,V&gt; getNode(int hash, Object key) &#123;</span><br><span class="line">        Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;</span><br><span class="line">//如果表不是空的，并且要查找索引处有值，就判断位于第一个的key是否是要查找的key</span><br><span class="line">        if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;</span><br><span class="line">            (first = tab[(n - 1) &amp; hash]) != null) &#123;</span><br><span class="line">            if (first.hash == hash &amp;&amp; // always check first node</span><br><span class="line">                ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">//如果是，就直接返回</span><br><span class="line">                return first;</span><br><span class="line">//如果不是就判断链表是否是红黑二叉树，如果是，就从树中取值</span><br><span class="line">            if ((e = first.next) != null) &#123;</span><br><span class="line">                if (first instanceof TreeNode)</span><br><span class="line">                    return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);</span><br><span class="line">//如果不是树，就遍历链表</span><br><span class="line">                do &#123;</span><br><span class="line">                    if (e.hash == hash &amp;&amp;</span><br><span class="line">                        ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">                        return e;</span><br><span class="line">                &#125; while ((e = e.next) != null);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-table-的初始化时机是什么时候"><a href="#4-table-的初始化时机是什么时候" class="headerlink" title="4. table 的初始化时机是什么时候"></a>4. table 的初始化时机是什么时候</h3><ul>
+<li>一般情况下，在第一次 put 的时候，调用 resize 方法进行 table 的初始化（懒初始化，懒加载思想在很多框架中都有应用！）</li>
+</ul>
+<h3 id="5-初始化的-table-length-是多少、阀值（threshold）是多少，实际能容下多少元素"><a href="#5-初始化的-table-length-是多少、阀值（threshold）是多少，实际能容下多少元素" class="headerlink" title="5. 初始化的 table.length 是多少、阀值（threshold）是多少，实际能容下多少元素"></a>5. 初始化的 table.length 是多少、阀值（threshold）是多少，实际能容下多少元素</h3><ul>
+<li>默认情况下，table.length &#x3D; 16; 指定了 initialCapacity 的情况放到问题 5 中分析</li>
+<li>默认情况下，threshold &#x3D; 12; 指定了 initialCapacity 的情况放到问题 5 中分析</li>
+<li>默认情况下，能存放 12 个元素，当存放第 13 个元素后进行扩容</li>
+</ul>
+<h3 id="6-什么时候触发扩容，扩容之后的-table-length、阀值各是多少"><a href="#6-什么时候触发扩容，扩容之后的-table-length、阀值各是多少" class="headerlink" title="6. 什么时候触发扩容，扩容之后的 table.length、阀值各是多少"></a>6. 什么时候触发扩容，扩容之后的 table.length、阀值各是多少</h3><ul>
+<li>当 size &gt; threshold 的时候进行扩容</li>
+<li>扩容之后的 table.length &#x3D; 旧 table.length * 2,</li>
+<li>扩容之后的 threshold &#x3D; 旧 threshold * 2</li>
+</ul>
+<h3 id="7-JDK7-和-JDK8-的区别"><a href="#7-JDK7-和-JDK8-的区别" class="headerlink" title="7. JDK7 和 JDK8 的区别"></a>7. JDK7 和 JDK8 的区别</h3><p><img src="https://images.weserv.nl/?url=https://img-blog.csdnimg.cn/20190122151826171.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmV6aGFvaGFpbWln,size_16,color_FFFFFF,t_70"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/06/16/Phoenix-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/16/Phoenix-1/" class="post-title-link" itemprop="url">Phoenix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-16 10:03:00" itemprop="dateCreated datePublished" datetime="2020-06-16T10:03:00+08:00">2020-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-08 11:15:00" itemprop="dateModified" datetime="2020-07-08T11:15:00+08:00">2020-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Phoenix/" itemprop="url" rel="index"><span itemprop="name">Phoenix</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/16/Phoenix-1/" class="post-meta-item leancloud_visitors" data-flag-title="Phoenix" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/06/16/Phoenix-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/16/Phoenix-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Phoenix"><a href="#Phoenix" class="headerlink" title="Phoenix"></a>Phoenix</h2><h3 id="1-phoenix-sqlline"><a href="#1-phoenix-sqlline" class="headerlink" title="1. phoenix-sqlline"></a>1. phoenix-sqlline</h3><p>退出 <code>!quit</code> <code>!exit</code><br>列出metadata信息 <code>!dbinfo</code><br>查看当前库中存在的表 <code>!tables</code><br>phoenix中的表信息都存在SYSTEM.CATALOG表中，也可以通过下面的sql语句查看系统的表信息 <code>select * from SYSTEM.CATALOG;</code></p>
+<blockquote>
+<p>主键信息保存在元数据表的 key_seq 列。可以通过 <code>!set maxWidth 10000</code> 来显示所有的列</p>
+</blockquote>
+<blockquote>
+<p>如果不加双引号，会自动将小写转为大写<br>phoenix&#x2F;hbase对表名、字段名都是大小写敏感，如果直接写小写字母，不加双引号，则默认会被转换成大写字母</p>
+</blockquote>
+<p>删除表 <code>drop table 库.表;</code><br>查看表结构 <code>!describe &quot;METRIC_AGGREGATE&quot;</code><br>创建表 <code>create table if not exists 库.表(id integer primary key,name varchar(20));</code><br>插入&amp;更新 <code>upsert into 库.表(id,name) values(1,&#39;zhangsan&#39;);</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS TEST4PHOENIX.testdata (</span><br><span class="line">   tag_id char(10) NOT NULL,</span><br><span class="line">   user_id char(10) NOT NULL,</span><br><span class="line">   val char(10),</span><br><span class="line">   update_time char(30),</span><br><span class="line">   CONSTRAINT pk PRIMARY KEY (tag_id, user_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>添加字段 <code>alter table 库.表 add xxx 类型 (default 默认值);</code></p>
+<p>修改字段信息 <code>upsert into SYSTEM.CATALOG (TENANT_ID,TABLE_SCHEM,TABLE_NAME,COLUMN_NAME,COLUMN_FAMILY,DATA_TYPE,COLUMN_SIZE) values(&#39;&#39;,&#39;库&#39;,&#39;表&#39;,&#39;字段&#39;,&#39;列族&#39;,12,15);</code> </p>
+<blockquote>
+<p>data_type 12 字符串 4 int -6 tinyint 修改为数值类型的时候就不需要column_size了<br>COLUMN_FAMILY 列族，有可能是空有可能是0，这个最好修改之前先查看一下元数据表，尤其是修改已存在的字段信息</p>
+</blockquote>
+<p>查看元数据表 <code>select COLUMN_FAMILY, TENANT_ID, COLUMN_NAME, DATA_TYPE, COLUMN_SIZE from SYSTEM.CATALOG where TABLE_SCHEM = &#39;库&#39; and TABLE_NAME = &#39;表&#39;;</code></p>
+<p>设置字段默认值 <code>upsert into SYSTEM.CATALOG (TENANT_ID,TABLE_SCHEM,TABLE_NAME,COLUMN_NAME,COLUMN_FAMILY,COLUMN_DEF) values(&#39;&#39;,&#39;库&#39;,&#39;表&#39;,&#39;字段&#39;,&#39;&#39;,&#39;\&#39;xxx\&#39;&#39;);</code></p>
+<blockquote>
+<p>字段如果字符串类型，默认值应该填 ‘&#39;xxx&#39;‘，需要对’进行转义；如果是数值类型，可以直接写 ‘123’，默认值对应的是CATALOG表中的COLUMN_DEF字段<br>修改默认值有一个场景可以用，比如之前的主键做了修改，不想删表重建，那么就把之前的主键加默认值，这样sql里就不需要带着主键字段了<br>对元数据表的修改可能需要重启客户端甚至重启hbase才可以生效</p>
+</blockquote>
+<h3 id="2-预分区"><a href="#2-预分区" class="headerlink" title="2. 预分区"></a>2. 预分区</h3><p>HBase 默认分区规则<br>memstore.flush.size&#x3D;128MB<br>max.store.size&#x3D;10G</p>
+<p>分区规则：Min(R^2 * “hbase.hregion.memstore.flush.size”, “hbase.hregion.max.filesize”)</p>
+<p>第一次拆分大小为：min(10G，1<em>1</em>128M)&#x3D;128M &#x2F;&#x2F; 一开始的时候就一个region，当数据量达到128M时，会一分为二，变成2个region，然后会往第二个region里写数据，但是第一个不会写，处于半满状态 &#x3D;&gt; 之前分裂的region都不会再被写入数据，处于半满状态<br>第二次拆分大小为：min(10G，3<em>3</em>128M)&#x3D;1152M<br>第三次拆分大小为：min(10G，5<em>5</em>128M)&#x3D;3200M<br>第四次拆分大小为：min(10G，7<em>7</em>128M)&#x3D;6272M<br>第五次拆分大小为：min(10G，9<em>9</em>128M)&#x3D;10G<br>第五次拆分大小为：min(10G，11<em>11</em>128M)&#x3D;10G &#x2F;&#x2F; 最大是10G</p>
+<p>phoenix 自定义分区<br>如果指定了 SALT_BUCKETS&#x3D;N，那么就会通过 hash(rowkey) % SALT_BUCKETS 划分成 N 个region。SALT_BUCKETS 取值为1到256。实现原理是会在row_key的byte数组的第一个字节位置设定一个系统生成的byte值，byte值 &#x3D; hash(rowkey) % SALT_BUCKETS，这样就可以划分到不同region里。</p>
+<p>如果指定了 SPLIT ON(“a”,”b”,”c”)，就会将rowkey划分到 空——a、a——b、b——c、c——无穷 这四个分区里。</p>
+<p>如果同时指定了 SALT_BUCKETS&#x3D;N 和 SPLIT ON(“a”,”b”,”c”)，会根据N拿到散列值，然后同散列值去SPLIT ON指定的分区规则里查询，放入到对应的分区里。</p>
+<blockquote>
+<p>SALT_BUCKETS + SPLIT ON 通过散列+分区的方式，在 RowKey 的前面拼接通过 hash 生成的随机字符串，可以生成范围比较随机的 RowKey，可以比较均衡分散到不同的 Region 中。<br>但是可能会存在极限情况：加盐产生的散列数，都集中到某几个分区中，导致热点问题，所以如果要用到 split_on，需要对主键对散列有一个很好的规划</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/06/18/Spring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/18/Spring/" class="post-title-link" itemprop="url">Spring注解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-18 10:09:45" itemprop="dateCreated datePublished" datetime="2020-06-18T10:09:45+08:00">2020-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-06 16:45:45" itemprop="dateModified" datetime="2020-07-06T16:45:45+08:00">2020-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/18/Spring/" class="post-meta-item leancloud_visitors" data-flag-title="Spring注解" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/06/18/Spring/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/18/Spring/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Spring注解"><a href="#Spring注解" class="headerlink" title="Spring注解"></a>Spring注解</h2><h3 id="1-组件类注解"><a href="#1-组件类注解" class="headerlink" title="1. 组件类注解"></a>1. 组件类注解</h3><ul>
+<li>@Component ：标准一个普通的spring Bean类</li>
+<li>@Repository：标注一个数据访问层DAO组件类</li>
+<li>@Service：标注一个业务逻辑组件类</li>
+<li>@Controller：标注一个控制器（用于和前端交互）组件类</li>
+</ul>
+<p>这些都是注解在平时的开发过程中出镜率极高，@Component、@Repository、@Service、@Controller实质上属于同一类注解，都在 org.springframework.stereotype 包下，用法相同，功能相同，区别在于标识组件的类型。@Component可以代替@Repository、@Service、@Controller，因为这三个注解是被@Component标注的。如下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Component</span><br><span class="line">public @interface Controller &#123;</span><br><span class="line">    String value() default &quot;&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-装配bean时常用的注解"><a href="#2-装配bean时常用的注解" class="headerlink" title="2. 装配bean时常用的注解"></a>2. 装配bean时常用的注解</h3><ul>
+<li>@Autowired：属于Spring 的org.springframework.beans.factory.annotation包下,可用于为类的属性、构造器、方法进行注值。默认情况下，其依赖的对象必须存在（Bean可用），如果要改变这种默认方式，可以设置其 required 属性为 false</li>
+<li>@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.METHOD, </span><br><span class="line">ElementType.ANNOTATION_TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">public @interface Autowired &#123;</span><br><span class="line">    boolean required() default true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class HappyController &#123;</span><br><span class="line">	@Autowired //默认依赖的ClubDao 对象（Bean）必须存在</span><br><span class="line">	//@Autowired(required = false) 改变默认方式</span><br><span class="line">	@Qualifier(&quot;goodClubService&quot;)</span><br><span class="line">    private ClubService clubService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Autowired 注解默认按照类型装配，如果容器中包含多个同一类型的Bean，那么启动容器时会报找不到指定类型bean的异常，解决办法是结合 <strong>@Qualifier</strong> 注解进行限定，指定注入的bean名称。</p>
+<h3 id="3-Component-vs-Configuration-and-Bean"><a href="#3-Component-vs-Configuration-and-Bean" class="headerlink" title="3. @Component vs @Configuration and @Bean"></a>3. @Component vs @Configuration and @Bean</h3><p>@Component可以替代 @Configuration注解，但是依旧有区别</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Component  //看这里！！！</span><br><span class="line">public @interface Configuration &#123;</span><br><span class="line">    String value() default &quot;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>Bean注解主要用于方法上，有点类似于工厂方法，当使用了@Bean注解，我们可以连续使用多种定义bean时用到的注解，譬如用@Qualifier注解定义工厂方法的名称，用@Scope注解定义该bean的作用域范围，譬如是singleton还是prototype等</p>
+<p>Spring 中新的 Java 配置支持的核心就是@Configuration 注解的类。这些类主要包括 @Bean 注解的方法来为 Spring 的 IoC 容器管理的对象定义实例，配置和初始化逻辑。</p>
+<p>使用@Configuration 来注解类表示类可以被 Spring 的 IoC 容器所使用，作为 bean 定义的资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public MyService myService() &#123;</span><br><span class="line">        return new MyServiceImpl();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#beans">Spring IoC</a></p>
+<h3 id="4-web模块常用到的注解"><a href="#4-web模块常用到的注解" class="headerlink" title="4. web模块常用到的注解"></a>4. web模块常用到的注解</h3><ul>
+<li>@Controller ：表明该类会作为与前端作交互的控制层组件，通过服务接口定义的提供访问应用程序的一种行为，解释用户的输入，将其转换成一个模型然后将试图呈献给用户。<ul>
+<li>@RequestMapping ： 这个注解用于将url映射到整个处理类或者特定的处理请求的方法。可以只用通配符！<ul>
+<li>既可以作用在类级别，也可以作用在方法级别。当它定义在类级别时，标明该控制器处理所有的请求都被映射到 &#x2F;xxx 路径下；定义在方法类型下，可以指定接收的方法类型，@RequestMapping(value&#x3D;”&#x2F;haha”,method&#x3D;RequestMethod.GET)</li>
+</ul>
+</li>
+<li>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required&#x3D;true，也就是改参数必须要传。如果改参数可以传可不传，可以配置required&#x3D;false  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public String sayHappy(</span><br><span class="line">@RequestParam(value = &quot;name&quot;, required = false) String name,</span><br><span class="line">@RequestParam(value = &quot;age&quot;, required = true) String age) &#123;</span><br><span class="line">//age参数必须传 ，name可传可不传</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@PathVariable ： 该注解用于方法修饰方法参数，会将修饰的方法参数变为可供使用的uri变量（可用于动态绑定）。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/happy/&#123;dayid&#125;&quot;,method=RequestMethod.GET)</span><br><span class="line">public String findPet(@PathVariable String dayid, Model mode) &#123;</span><br><span class="line">//使用@PathVariable注解绑定 &#123;dayid&#125; 到String dayid</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@RequestBody ： @RequestBody是指方法参数应该被绑定到HTTP请求Body上。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/something&quot;, method = RequestMethod.PUT)</span><br><span class="line">public void handle(@RequestBody String body，@RequestBody User user)&#123;</span><br><span class="line">//可以绑定自定义的对象类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@ResponseBody ： @ResponseBody与@RequestBody类似，它的作用是将返回类型直接输入到HTTP response body中。@ResponseBody在输出JSON格式的数据时，会经常用到。  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/happy&quot;, method =RequestMethod.POST)</span><br><span class="line">@ResponseBody</span><br><span class="line">public String helloWorld() &#123;    </span><br><span class="line">return &quot;Hello World&quot;;//返回String类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

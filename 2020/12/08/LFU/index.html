@@ -1,37 +1,535 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="LFULFU（Least Frequently Used ，最近最少使用算法） 算法描述： 12345678class LFUCache &#123;    &#x2F;&#x2F; 构造容量为 capacity 的缓存    public LFUCache(int capacity) &#123;&#125;    &#x2F;&#x2F; 在缓存中查询 key    public int get(int key) &#123;&amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LFU">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/12/08/LFU/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="LFULFU（Least Frequently Used ，最近最少使用算法） 算法描述： 12345678class LFUCache &#123;    &#x2F;&#x2F; 构造容量为 capacity 的缓存    public LFUCache(int capacity) &#123;&#125;    &#x2F;&#x2F; 在缓存中查询 key    public int get(int key) &#123;&amp;#1">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-12-08T02:49:21.000Z">
+<meta property="article:modified_time" content="2020-12-08T06:57:09.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="LFU">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/12/08/LFU/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>LFU | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/12/08/LFU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LFU
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 10:49:21 / Modified: 14:57:09" itemprop="dateCreated datePublished" datetime="2020-12-08T10:49:21+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/LFU/" itemprop="url" rel="index"><span itemprop="name">LFU</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/12/08/LFU/" class="post-meta-item leancloud_visitors" data-flag-title="LFU" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/12/08/LFU/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/08/LFU/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h2><p>LFU（Least Frequently Used ，最近最少使用算法）</p>
+<p>算法描述：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="comment">// 构造容量为 capacity 的缓存</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 在缓存中查询 key</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 将 key 和 val 存入缓存</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> val)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>get(key)</code>方法会去缓存中查询键<code>key</code>，如果<code>key</code>存在，则返回<code>key</code>对应的<code>val</code>，否则返回 -1。</p>
+<p><code>put(key, value)</code>方法插入或修改缓存。如果<code>key</code>已存在，则将它对应的值改为<code>val</code>；如果<code>key</code>不存在，则插入键值对<code>(key, val)</code>。</p>
+<p>当缓存达到容量<code>capacity</code>时，则应该在插入新的键值对之前，删除使用频次（后文用<code>freq</code>表示）最低的键值对。如果<code>freq</code>最低的键值对有多个，则删除其中最旧的那个。</p>
+<p>思路：</p>
+<ol>
+<li>需要有一个HashMap来保存key到val的映射，用来计算 <code>get(key)</code></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, Integer&gt; keyToVal;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>需要有一个HashMap来保存<code>key</code>到<code>freq</code>的映射，用来计算每一个key的频次</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, Integer&gt; keyToFreq;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>算法的核心需求(思路)</p>
+<ol>
+<li>需要<code>freq</code>到<code>key</code>的映射，用来找到最小<code>freq</code>对应的<code>key</code></li>
+<li>如果要满足上一条，快速找到最小<code>freq</code>是多少，可以通过一个变量<code>minFreq</code>来记录当前最小<code>freq</code>，避免遍历</li>
+<li>可能会有多个<code>key</code>拥有相同的<code>freq</code>，所以<code>freq</code>和<code>key</code>是一对多的关系，那么就需要维护一个<code>freq</code>到key对应的映射关系</li>
+<li>为了保证快速查找并删除最旧的<code>key</code>，就需要保证<code>freq</code>对应的<code>key</code>的映射列表应该是有<strong>顺序</strong>的</li>
+<li>需要能够<strong>快速删除<code>key</code>列表中的任何一个key</strong>。如果频次为<code>freq</code>的<code>key</code>被访问了，它的频次应该变成<code>freq+1</code>，此时应该从freq对应的<code>key</code>列表中删除，并把<code>key</code>加入到<code>freq+1</code>对应的key列表中 &#x3D;&gt; 就是需要提高它的频次</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqToKeys;</span><br><span class="line"><span class="type">int</span> minFreq;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>如果用 LinkedList 可以满足第3、4条，但是链表不能快速访问某一个节点，所以不能满足第5条快速删除</p>
+</blockquote>
+<p>综上，<code>LFUCache</code> 类代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="comment">// key 到 val 的映射，我们后文称为 KV 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToVal;</span><br><span class="line">    <span class="comment">// key 到 freq 的映射，我们后文称为 KF 表</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; keyToFreq;</span><br><span class="line">    <span class="comment">// freq 到 key 列表的映射，我们后文称为 FK 表</span></span><br><span class="line">    HashMap&lt;Integer, LinkedHashSet&lt;Integer&gt;&gt; freqToKeys;</span><br><span class="line">    <span class="comment">// 记录最小的频次</span></span><br><span class="line">    <span class="type">int</span> minFreq;</span><br><span class="line">    <span class="comment">// 记录 LFU 缓存的最大容量</span></span><br><span class="line">    <span class="type">int</span> cap;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LFUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        keyToVal = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        keyToFreq = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        freqToKeys = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.cap = capacity;</span><br><span class="line">        <span class="built_in">this</span>.minFreq = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!keyToVal.containsKey(key))</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">				<span class="comment">// 增加key对应的频次</span></span><br><span class="line">        increaseFreq(key); </span><br><span class="line">        <span class="keyword">return</span> keyToVal.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="comment">// 避免初始化的时候capacity参数异常</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.cap &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 KV 表已经存在这个key</span></span><br><span class="line">        <span class="comment">// 修改对应的val，频次+1</span></span><br><span class="line">        <span class="keyword">if</span> (keyToVal.containsKey(key)) &#123;</span><br><span class="line">            keyToVal.put(key, val);</span><br><span class="line">            increaseFreq(key);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 KV 表不存在这个key</span></span><br><span class="line">        <span class="comment">// 并且当前容量已满，就需要删除最小频次的key</span></span><br><span class="line">        <span class="keyword">if</span> (keyToVal.size() &gt;= <span class="built_in">this</span>.cap) &#123;</span><br><span class="line">            removeMinFreqKey();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当前容量未满，插入key和val，并且key对应的freq置为1</span></span><br><span class="line">        keyToVal.put(key, val);</span><br><span class="line">        keyToFreq.put(key, <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// putIfAbsent 如果有这个key的话就不进行任何操作，此处相当于对1这个key进行初始化</span></span><br><span class="line">        freqToKeys.putIfAbsent(<span class="number">1</span>, <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">        freqToKeys.get(<span class="number">1</span>).add(key);</span><br><span class="line">        <span class="comment">// 插入最新的key之后，最小的freq肯定是1</span></span><br><span class="line">        <span class="built_in">this</span>.minFreq = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">increaseFreq</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="comment">// 首先，能进入到这个函数的时候，keyToFreq 和 freqToKeys 一定保存过这个key了</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新 KF 表中key对应的频次+1</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">freq</span> <span class="operator">=</span> keyToFreq.get(key);</span><br><span class="line">        keyToFreq.put(key, freq + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Fk 表中删除freq对应的列表中的key</span></span><br><span class="line">        freqToKeys.get(freq).remove(key);</span><br><span class="line">        freqToKeys.putIfAbsent(freq + <span class="number">1</span>, <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;());</span><br><span class="line">        freqToKeys.get(freq + <span class="number">1</span>).add(key);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 freq 对应的列表空了，就移除这个freq</span></span><br><span class="line">        <span class="keyword">if</span> (freqToKeys.get(freq).size() == <span class="number">0</span>) &#123;</span><br><span class="line">            freqToKeys.remove(freq);</span><br><span class="line">            <span class="comment">// 如果这个 freq 又恰好是 minFreq，更新 minFreq</span></span><br><span class="line">          	<span class="comment">// 这个地方容易忘记更新</span></span><br><span class="line">            <span class="keyword">if</span> (freq == <span class="built_in">this</span>.minFreq) &#123;</span><br><span class="line">                <span class="built_in">this</span>.minFreq++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">removeMinFreqKey</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// FK 表中最小freq对应的列表中 最先被插入的那个 key 就是该被淘汰的 key</span></span><br><span class="line">        LinkedHashSet&lt;Integer&gt; keyList = freqToKeys.get(<span class="built_in">this</span>.minFreq);</span><br><span class="line">        <span class="type">int</span> <span class="variable">deleteKey</span> <span class="operator">=</span> keyList.iterator().next();</span><br><span class="line">        keyList.remove(deleteKey);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 freq 对应的列表空了，就移除这个freq</span></span><br><span class="line">        <span class="keyword">if</span>(keyList.size() == <span class="number">0</span>)&#123;</span><br><span class="line">            freqToKeys.remove(<span class="built_in">this</span>.minFreq);</span><br><span class="line">            <span class="comment">// 这里不需要更新 minFreq，因为后面会紧跟一个put操作，minFreq 会被置为1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新 KV 表</span></span><br><span class="line">        keyToVal.remove(deleteKey);</span><br><span class="line">        <span class="comment">// 更新 KF 表</span></span><br><span class="line">        keyToFreq.remove(deleteKey);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/LFU/" rel="tag"># LFU</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/30/Docker-5/" rel="prev" title="Docker 深入学习">
+      <i class="fa fa-chevron-left"></i> Docker 深入学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/08/Java-3/" rel="next" title="Java 引用">
+      Java 引用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LFU"><span class="nav-number">1.</span> <span class="nav-text">LFU</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

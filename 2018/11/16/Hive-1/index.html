@@ -1,37 +1,623 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一、简介要访问HDFS上的数据可以通过shell命令和API如果要处理HDFS上的数据可以通过MapReduce，但MR的操作门槛比较高，eg：需要不断的进行调试，如果无法在本地运行，需要不断地导出jar包放到linux下进行调试   Hive是通过一种叫做HQL的类SQL语句来处理HDFS上的数据，但是和SQL不一样的是，HQL语言会转换为MR程序执行（select * from table不需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive">
+<meta property="og:url" content="https://mxxct4git.github.io/2018/11/16/Hive-1/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="一、简介要访问HDFS上的数据可以通过shell命令和API如果要处理HDFS上的数据可以通过MapReduce，但MR的操作门槛比较高，eg：需要不断的进行调试，如果无法在本地运行，需要不断地导出jar包放到linux下进行调试   Hive是通过一种叫做HQL的类SQL语句来处理HDFS上的数据，但是和SQL不一样的是，HQL语言会转换为MR程序执行（select * from table不需">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-11-16T11:01:03.000Z">
+<meta property="article:modified_time" content="2018-11-16T11:01:03.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Hive">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2018/11/16/Hive-1/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Hive | 猫熊小才天の书院</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/16/Hive-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hive
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-11-16 19:01:03" itemprop="dateCreated datePublished" datetime="2018-11-16T19:01:03+08:00">2018-11-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/11/16/Hive-1/" class="post-meta-item leancloud_visitors" data-flag-title="Hive" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/11/16/Hive-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/16/Hive-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>要访问HDFS上的数据可以通过shell命令和API<br>如果要处理HDFS上的数据可以通过MapReduce，但MR的操作门槛比较高，eg：需要不断的进行调试，如果无法在本地运行，需要不断地导出jar包放到linux下进行调试  </p>
+<p><strong>Hive</strong>是通过一种叫做HQL的类SQL语句来处理HDFS上的数据，但是和SQL不一样的是，HQL语言会转换为MR程序执行（select * from table不需要，因为select * from table只是对全部文件数据进行读取，并没有对数据进行操作）  </p>
+<p><strong>Hive元数据</strong>：指在Hive中创建的数据库、表、视图等信息。这些元数据存储在关系型数据库中，比如MySQL  </p>
+<h3 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h3><ol>
+<li><p>解压<br> tar -zxvf apache-hive-1.2.1-bin.tar.gz  </p>
+</li>
+<li><p>设置环境变量<br> 需要用root权限，修改&#x2F;etc&#x2F;profile文件，退出root权限，输入source &#x2F;etc&#x2F;profile使环境变量生效  </p>
+<pre><code> HIVE_HOME=/home/hadoop/app/apache-hive-1.0.0-bin  
+ export PATH=$PATH:$HIVE_HOME/bin
+</code></pre>
+</li>
+<li><p>修改hive-env.sh<br> 进入conf目录，将hive-env.sh.template复制并改名为hive-env.sh  </p>
+<pre><code> #Set HADOOP_HOME to point to a specific hadoop install directory  
+ HADOOP_HOME=/home/hadoop/app/hadoop-2.6.0
+</code></pre>
+</li>
+<li><p>修改hive-site.xml<br> 进入conf目录，将hive-site.xml放进去  </p>
+<pre><code> &lt;configuration&gt;
+   &lt;property&gt;
+ &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+ &lt;value&gt;jdbc:mysql://localhost:3306/hive&lt;/value&gt;
+ &lt;description&gt;JDBC connect string for a JDBC metastore&lt;/description&gt;
+   &lt;/property&gt;
+   
+   &lt;property&gt;
+ &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+ &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+ &lt;description&gt;Driver class name for a JDBC metastore&lt;/description&gt;
+   &lt;/property&gt;
+   
+   &lt;property&gt;
+ &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+ &lt;value&gt;root&lt;/value&gt;
+ &lt;description&gt;password to use against metastore database&lt;/description&gt;
+   &lt;/property&gt;
+   &lt;property&gt;
+ &lt;name&gt;hive.hwi.listen.port&lt;/name&gt;
+ &lt;value&gt;9999&lt;/value&gt;
+ &lt;description&gt;This is the port the Hive Web Interface will listen on&lt;/description&gt;
+   &lt;/property&gt;
+   
+   &lt;property&gt;
+ &lt;name&gt;datanucleus.autoCreateSchema&lt;/name&gt;
+ &lt;value&gt;true&lt;/value&gt;
+ &lt;description&gt;creates necessary schema on a startup if one doesn&#39;t exist. set this to false, after creating it once&lt;/description&gt;
+   &lt;/property&gt;
+   
+   &lt;property&gt;
+ &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+ &lt;value&gt;root&lt;/value&gt;
+ &lt;description&gt;Username to use against metastore database&lt;/description&gt;
+   &lt;/property&gt;
+   
+   &lt;property&gt;
+ &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;
+ &lt;value&gt;/home/oracle/appdata/hivetmp/iotmp&lt;/value&gt;
+ &lt;description&gt;Local scratch space for Hive jobs&lt;/description&gt;
+   &lt;/property&gt;
+   
+   &lt;property&gt;
+ &lt;name&gt;hive.downloaded.resources.dir&lt;/name&gt;
+ &lt;value&gt;/home/oracle/appdata/hivetmp/iotmp&lt;/value&gt;
+ &lt;description&gt;Temporary local directory for added resources in the remote file system.&lt;/description&gt;
+   &lt;/property&gt;
+   
+   &lt;property&gt;
+ &lt;name&gt;hive.querylog.location&lt;/name&gt;
+ &lt;value&gt;/home/oracle/appdata/hivetmp/iotmp&lt;/value&gt;
+ &lt;description&gt;Location of Hive run time structured log file&lt;/description&gt;
+   &lt;/property&gt;
+ 
+ &lt;/configuration&gt;  
+</code></pre>
+</li>
+<li><p>拷贝mysql-connector-java-5.0.8-bin.jar到hive 的lib下面  </p>
+</li>
+<li><p>在linux下安装mysql，需在root权限下进行操作 <strong>记得设置密码</strong>  </p>
+<ul>
+<li>安装mysql：yum install mysql-server mysql mysql-devel  </li>
+<li>开启mysql服务：service mysqld start  </li>
+<li>设置mysql密码：mysqladmin -u root password ‘root’  </li>
+<li>mysql服务开机启动：chkconfig mysqld on</li>
+</ul>
+</li>
+</ol>
+<br/>
+7. 把jline-2.12.jar拷贝到hadoop相应的目录下，替代jline-0.9.94.jar，否则启动会报错  
+
+<pre><code>	cp hive/lib/jline-2.12.jar  hadoop-2.6.0/share/hadoop/yarn/lib/
+</code></pre>
+<h3 id="三、启动Hive"><a href="#三、启动Hive" class="headerlink" title="三、启动Hive"></a>三、启动Hive</h3><ol>
+<li>MySql<br> 先启动MySQL创建hive数据库  create database hive;  </li>
+<li>Hadoop<br> 启动hadoop sbin&#x2F;start-all.sh </li>
+<li>Hive<br> 输入hive进入到hive shell</li>
+</ol>
+<p><strong>Hive默认存储在hadoop下的&#x2F;user&#x2F;hive&#x2F;warehouse下</strong>  </p>
+<h3 id="四、Hive使用"><a href="#四、Hive使用" class="headerlink" title="四、Hive使用"></a>四、Hive使用</h3><ol>
+<li><p>Hive默认数据库是default，直接创建table会建在defaul数据库中，同时会在&#x2F;user&#x2F;hive&#x2F;warehouse下创建对应表名的一个目录  </p>
+</li>
+<li><p>如果创建了一个新的数据库，会在&#x2F;user&#x2F;hive&#x2F;warehouse下新建一个对应库名的目录，以.db结尾，该新建数据库的所有table都会存在该目录下  </p>
+</li>
+<li><p>内部表的三种插入数据方式：  	</p>
+<ul>
+<li>insert  </li>
+<li>hive的load命令，加载数据<br> <code>load data local inpath &#39;/home/hadoop/student.txt&#39; into table student;</code></li>
+<li>直接把数据文件复制到相应的HDFS目录中</li>
+</ul>
+</li>
+</ol>
+<br/>
+4. 外部表只有前两种插入数据方式  
+	因为创建外部表的时候，不会在HDFS的数据库目录下创建该表的目录，在向表里添加数据时，也不在表目录中存储，删除外部表的时候，只会把表信息删除，不会删除表里的数据
+
+
+
+<p>###五、使用Hive解析Json</p>
+<ol>
+<li><p>把json-serde-1.3.6-SNAPSHOT-jar-with-dependencies.jar复制到hive的lib目录下，重新进入hive  </p>
+</li>
+<li><p>建表：  </p>
+<pre><code> create table user_movie(custid string, sno string, genreid string, movieid string) ROW FORMAT SERDE &#39;org.openx.data.jsonserde.JsonSerDe&#39;  STORED AS TEXTFILE;
+</code></pre>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+              <a href="/tags/Hive/" rel="tag"># Hive</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/16/Hadoop-3/" rel="prev" title="Yarn">
+      <i class="fa fa-chevron-left"></i> Yarn
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/16/Hive-2/" rel="next" title="Hive sql函数">
+      Hive sql函数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">二、安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%90%AF%E5%8A%A8Hive"><span class="nav-number">3.</span> <span class="nav-text">三、启动Hive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Hive%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">四、Hive使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

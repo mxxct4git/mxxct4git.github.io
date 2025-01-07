@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Presto深入理解Presto  有赞Presto 主要目的: 针对 Hive 并不擅长的交互式查询领域，提供快速查询性能 &#x3D;&gt; 查询引擎，效率偏秒级">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Presto">
+<meta property="og:url" content="https://mxxct4git.github.io/2021/03/15/Presto/Presto/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Presto深入理解Presto  有赞Presto 主要目的: 针对 Hive 并不擅长的交互式查询领域，提供快速查询性能 &#x3D;&gt; 查询引擎，效率偏秒级">
+<meta property="og:locale">
+<meta property="og:image" content="https://mmbiz.qpic.cn/sz_mmbiz_png/PfMGv3PxR78wLIhE8GLYwxeFuibGB6NA4Ct6srZc9XtJoqbIOCRujcgLdh7S5VWKkENibiccXLAMoco6n2lsiaLHfA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-262b162a434dfde2e79ecb9080521495_720w.jpg">
+<meta property="article:published_time" content="2021-03-15T01:54:47.000Z">
+<meta property="article:modified_time" content="2021-03-15T03:27:03.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Presto">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/sz_mmbiz_png/PfMGv3PxR78wLIhE8GLYwxeFuibGB6NA4Ct6srZc9XtJoqbIOCRujcgLdh7S5VWKkENibiccXLAMoco6n2lsiaLHfA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2021/03/15/Presto/Presto/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Presto | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2021/03/15/Presto/Presto/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Presto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-15 09:54:47 / Modified: 11:27:03" itemprop="dateCreated datePublished" datetime="2021-03-15T09:54:47+08:00">2021-03-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Presto/" itemprop="url" rel="index"><span itemprop="name">Presto</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/03/15/Presto/Presto/" class="post-meta-item leancloud_visitors" data-flag-title="Presto" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/03/15/Presto/Presto/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/15/Presto/Presto/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Presto"><a href="#Presto" class="headerlink" title="Presto"></a>Presto</h2><p><a href="https://zhuanlan.zhihu.com/p/101366898">深入理解Presto</a> </p>
+<p><a href="https://mp.weixin.qq.com/s/p7x6Mg1u4nB4h4IefY_qsA">有赞Presto</a></p>
+<p>主要目的: 针对 Hive 并不擅长的交互式查询领域，提供快速查询性能 &#x3D;&gt; 查询引擎，效率偏秒级</p>
+<span id="more"></span>
+<h3 id="1-架构"><a href="#1-架构" class="headerlink" title="1. 架构"></a>1. 架构</h3><p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/PfMGv3PxR78wLIhE8GLYwxeFuibGB6NA4Ct6srZc9XtJoqbIOCRujcgLdh7S5VWKkENibiccXLAMoco6n2lsiaLHfA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="Presto架构"></p>
+<ul>
+<li>coordinator(master): 负责meta管理，worker管理，query的解析和调度</li>
+<li>worker: 负责计算和读写。</li>
+<li>discovery server: 通常内嵌于coordinator节点中，也可以单独部署，用于节点心跳。</li>
+</ul>
+<h3 id="2-执行查询过程"><a href="#2-执行查询过程" class="headerlink" title="2. 执行查询过程"></a>2. 执行查询过程</h3><ol>
+<li>Client 发送请求给 Coordinator。</li>
+<li>SQL 通过 ANTLR 进行解析生成 AST。</li>
+<li>AST 通过元数据进行语义解析。</li>
+<li>语义解析后的数据生成逻辑执行计划，并且通过规则进行优化。</li>
+<li>切分逻辑执行计划为不同 Stage，并调度 Worker 节点去生成 Task。</li>
+<li>Task 生成相应物理执行计划。</li>
+<li>调度完后根据调度结果 Coordinator 将 Stage 串联起来。</li>
+<li>Worker 执行相应的物理执行计划。</li>
+<li>Client 不断地向 Coordinator 拉取查询结果，Coordinator 从最终汇聚输出的 Worker 节点拉取查询结果。</li>
+</ol>
+<h3 id="3-高性能"><a href="#3-高性能" class="headerlink" title="3. 高性能"></a>3. 高性能</h3><ol>
+<li>Pipeline 全内存计算</li>
+<li>SQL查询计划规则优化</li>
+<li>动态代码生成技术</li>
+<li>数据调度本地化，注重内存开销效率，优化数据结构，Cache，非精确查询等其他技术</li>
+</ol>
+<h3 id="4-数据模型"><a href="#4-数据模型" class="headerlink" title="4. 数据模型"></a>4. 数据模型</h3><p><img src="https://pic2.zhimg.com/80/v2-262b162a434dfde2e79ecb9080521495_720w.jpg" alt="img"></p>
+<ul>
+<li>表<ol>
+<li>catalog: 对应某一类数据源，比如hive、mysql</li>
+<li>schema: 对应数据源中的数据库</li>
+<li>table: 对应库中的表</li>
+</ol>
+</li>
+<li>存储单元<ol>
+<li>Page: 多行数据的集合，包含多个列的数据，内部仅提供逻辑行，实际以列式存储</li>
+<li>Block: 一列数据，根据不同类型的数据，通常采取不同的编码方式</li>
+</ol>
+</li>
+</ul>
+<h3 id="5-内存管理"><a href="#5-内存管理" class="headerlink" title="5. 内存管理"></a>5. 内存管理</h3><p>内存分为三个内存池:</p>
+<ul>
+<li><p>System Pool</p>
+<p>保留给系统使用，默认是40%的内存空间留给系统</p>
+</li>
+<li><p>Reserved Pool</p>
+<p>占用最大内存的query会被允许使用 Reserved Pool，即这个大小是一个query在一个机器上能运行使用的最大内存大小。默认是10%的内存空间</p>
+</li>
+<li><p>General Pool</p>
+<p>除上面两个内存空间，剩下的空间都属于 General Pool，大部分query都占用这里的内存</p>
+</li>
+</ul>
+<p><em>为什么要用内存池？为什么要有 Reserved Pool？</em> System Pool 用于系统使用的内存，例如机器之间传递数据，在内存中会维护buffer，这部分内存挂在System名下</p>
+<p>如果没有 Reserved Pool，此时query非常多，内存快要用完的时候，大query是无法执行的，等小query执行完的时候又会有新的小query进来，导致大query一直挂起最终饿死。Presto 每秒会挑一个占内存最多的query来使用 Reserved Pool 保证大query的执行</p>
+<blockquote>
+<p>  要让大query的所有task在所有的机器上都占用 Reserved Pool，原因是如果有一个 task 不占用，可能导致其他的 task 执行完了，剩下最后一个 task 一直没内存资源执行，导致这个query无法结束</p>
+</blockquote>
+<h3 id="6-一些优化"><a href="#6-一些优化" class="headerlink" title="6. 一些优化"></a>6. 一些优化</h3><ol>
+<li>由于 presto 比较吃内存，在和 hadoop 混合部署阶段，哪怕是白天，也可能会因为白天不定期的跑批任务导致内存资源不够 &#x3D;&gt; 这么看的话可能更适合单独部署，这会涉及到如何将离线集群的数据导入到presto单独集群？？？</li>
+<li>小文件问题。Presto 这两个参数限制了 Presto 每个节点每个 Task 可执行的最大 Split 数目。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node-scheduler.max-splits-per-node=100</span><br><span class="line">node-scheduler.max-pending-splits-per-task=10</span><br></pre></td></tr></table></figure>
+
+<p>可是适当调大参数；在 Spark，Hive ETL 层面引入 Adaptive Spark 和小文件合并工具去解决这个小文件问题</p>
+<ol>
+<li>多个列 distinct</li>
+</ol>
+<p>一般的查询引擎在遇到 count(distinct) 时会在sql优化器中进行优化，来解决数据倾斜的问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> A, <span class="built_in">count</span>(<span class="keyword">distinct</span> B) <span class="keyword">from</span> T <span class="keyword">group</span> <span class="keyword">by</span> A</span><br><span class="line"><span class="operator">=</span><span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">select</span> A, <span class="built_in">count</span>(B) <span class="keyword">from</span> (<span class="keyword">select</span> A, B <span class="keyword">from</span> T <span class="keyword">group</span> <span class="keyword">by</span> A, B) <span class="keyword">group</span> <span class="keyword">by</span> A</span><br></pre></td></tr></table></figure>
+
+<p>如果是多个列的话，会使用 grouping sets 将多个group by 整合到一起来提升速度</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a1, a2,..., an, F1(b1), F2(b2), F3(b3), ...., Fm(bm), F1(<span class="keyword">distinct</span> c1), ...., Fm(<span class="keyword">distinct</span> cm) <span class="keyword">FROM</span> <span class="keyword">Table</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> a1, a2, ..., an</span><br><span class="line"><span class="operator">=</span><span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">SELECT</span> a1, a2,..., an, arbitrary(if(<span class="keyword">group</span> <span class="operator">=</span> <span class="number">0</span>, f1)),...., arbitrary(if(<span class="keyword">group</span> <span class="operator">=</span> <span class="number">0</span>, fm)), F(if(<span class="keyword">group</span> <span class="operator">=</span> <span class="number">1</span>, c1)), ...., F(if(<span class="keyword">group</span> <span class="operator">=</span> m, cm)) <span class="keyword">FROM</span></span><br><span class="line">    <span class="keyword">SELECT</span> a1, a2,..., an, F1(b1) <span class="keyword">as</span> f1, F2(b2) <span class="keyword">as</span> f2,...., Fm(bm) <span class="keyword">as</span> fm, c1,..., cm <span class="keyword">group</span> <span class="keyword">FROM</span></span><br><span class="line">        <span class="keyword">SELECT</span> a1, a2,..., an, b1, b2, ... ,bn, c1,..., cm <span class="keyword">FROM</span> <span class="keyword">Table</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">GROUPING SETS</span> ((a1, a2,..., an, b1, b2, ... ,bn), (a1, a2,..., an, c1), ..., ((a1, a2,..., an, cm)))</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> a1, a2,..., an, c1,..., cm <span class="keyword">group</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a1, a2,..., an</span><br></pre></td></tr></table></figure>
+
+<p>但是 presto 没有实现这一点，需要自己去修改代码，或者优化sql</p>
+<ol>
+<li>presto的sql要比hive严格的多，感觉最好嵌套一层 sql parser 来做语法迁移，不知道有没有钩子一样的东西，如果有的话就比较好改</li>
+</ol>
+<p>presto mian函数：io.prestosql.server.PrestoServer#main</p>
+<p>启动入口：io.prestosql.server.Server#doStart</p>
+<p>核心模块：new ServerMainModule(prestoVersion)</p>
+<p>coordinatorModule 模块的实现：io.prestosql.server.CoordinatorModule</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 失败检测</span></span><br><span class="line">binder.install(<span class="keyword">new</span> <span class="title class_">FailureDetectorModule</span>());</span><br><span class="line">jaxrsBinder(binder).bind(NodeResource.class);</span><br><span class="line">jaxrsBinder(binder).bind(WorkerResource.class);</span><br><span class="line">httpClientBinder(binder).bindHttpClient(<span class="string">&quot;workerInfo&quot;</span>, ForWorkerInfo.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 集群内存管理</span></span><br><span class="line">binder.bind(ClusterMemoryManager.class).in(Scopes.SINGLETON);</span><br><span class="line">binder.bind(ClusterMemoryPoolManager.class).to(ClusterMemoryManager.class).in(Scopes.SINGLETON);</span><br><span class="line">httpClientBinder(binder).bindHttpClient(<span class="string">&quot;memoryManager&quot;</span>, ForMemoryManager.class)</span><br><span class="line">        .withTracing()</span><br><span class="line">        .withConfigDefaults(config -&gt; &#123;</span><br><span class="line">            config.setIdleTimeout(<span class="keyword">new</span> <span class="title class_">Duration</span>(<span class="number">30</span>, SECONDS));</span><br><span class="line">            config.setRequestTimeout(<span class="keyword">new</span> <span class="title class_">Duration</span>(<span class="number">10</span>, SECONDS));</span><br><span class="line">        &#125;);</span><br><span class="line">bindLowMemoryKiller(LowMemoryKillerPolicy.NONE, NoneLowMemoryKiller.class);</span><br><span class="line">bindLowMemoryKiller(LowMemoryKillerPolicy.TOTAL_RESERVATION, TotalReservationLowMemoryKiller.class);</span><br><span class="line">bindLowMemoryKiller(LowMemoryKillerPolicy.TOTAL_RESERVATION_ON_BLOCKED_NODES, TotalReservationOnBlockedNodesLowMemoryKiller.class);</span><br><span class="line">newExporter(binder).export(ClusterMemoryManager.class).withGeneratedName();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 统计值计算</span></span><br><span class="line">binder.install(<span class="keyword">new</span> <span class="title class_">StatsCalculatorModule</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 成本计算</span></span><br><span class="line">binder.bind(TaskCountEstimator.class).in(Scopes.SINGLETON);</span><br><span class="line">binder.bind(CostCalculator.class).to(CostCalculatorUsingExchanges.class).in(Scopes.SINGLETON);</span><br><span class="line">binder.bind(CostCalculator.class).annotatedWith(EstimatedExchanges.class).to(CostCalculatorWithEstimatedExchanges.class).in(Scopes.SINGLETON);</span><br><span class="line">binder.bind(CostComparator.class).in(Scopes.SINGLETON);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计划器</span></span><br><span class="line">binder.bind(PlanFragmenter.class).in(Scopes.SINGLETON);</span><br><span class="line">binder.bind(PlanOptimizers.class).in(Scopes.SINGLETON);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询解释</span></span><br><span class="line">binder.bind(QueryExplainer.class).in(Scopes.SINGLETON);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解释分析</span></span><br><span class="line">binder.bind(ExplainAnalyzeContext.class).in(Scopes.SINGLETON);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行调度</span></span><br><span class="line">jsonCodecBinder(binder).bindJsonCodec(TaskUpdateRequest.class);</span><br><span class="line">binder.bind(RemoteTaskFactory.class).to(HttpRemoteTaskFactory.class).in(Scopes.SINGLETON);</span><br><span class="line">newExporter(binder).export(RemoteTaskFactory.class).withGeneratedName();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询执行</span></span><br><span class="line">binder.bind(ExecutorService.class).annotatedWith(ForQueryExecution.class)</span><br><span class="line">        .toInstance(newCachedThreadPool(threadsNamed(<span class="string">&quot;query-execution-%s&quot;</span>)));</span><br><span class="line">binder.bind(QueryExecutionMBean.class).in(Scopes.SINGLETON);</span><br><span class="line">newExporter(binder).export(QueryExecutionMBean.class)</span><br><span class="line">        .as(generator -&gt; generator.generatedNameOf(QueryExecution.class));</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-日常问题"><a href="#7-日常问题" class="headerlink" title="7. 日常问题"></a>7. 日常问题</h3><h4 id="7-1-presto-创建表并指定数据存储位置的问题"><a href="#7-1-presto-创建表并指定数据存储位置的问题" class="headerlink" title="7.1 presto 创建表并指定数据存储位置的问题"></a>7.1 presto 创建表并指定数据存储位置的问题</h4><p>需求如下: 想利用 presto 的速度来创建一个表并且指定表的数据的 location 在 oss 上保存。</p>
+<p>过程:</p>
+<ol>
+<li>官网上给出的例子是 presto 可以创建表，并将数据 location 到 s3 上保存</li>
+<li>查看 presto 安装目录下的元数据配置 <code>安装路径/etc/catalog/hive.properties</code></li>
+<li>查看创建表时候的一些可以选配的项 <code>SELECT * FROM system.metadata.table_properties</code> 在这里可以看到创建 hive 表如果想指定 location，那么就只有 <code>external_location</code> 这一个选项，即外部表</li>
+<li>可以执行的sql</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table tmp.test ( day varchar, dev_cnt bigint ) with (format=&#x27;TEXTFILE&#x27;, external_location=&#x27;oss://bucket/x/xx/xxx&#x27;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  但是需要注意的是，presto 执行这句话必须是指定到一个已有的目录下，不会自动创建</p>
+</blockquote>
+<blockquote>
+<p>  从 hive 上看这个表的信息，发现是外部表</p>
+</blockquote>
+<ol>
+<li>presto 想指定表的 location，只能去创建外部表，然而问题在于，哪怕创建了，也不能去写入数据</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Presto/" rel="tag"><i class="fa fa-tag"></i> Presto</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/18/Spark/Spark%20vs%20Flink/" rel="prev" title="Spark VS Flink">
+      <i class="fa fa-chevron-left"></i> Spark VS Flink
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/14/Redis/Redis-8%20HyperLogLog/" rel="next" title="HyperLogLog">
+      HyperLogLog <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Presto"><span class="nav-number">1.</span> <span class="nav-text">Presto</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1. 架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%89%A7%E8%A1%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2. 执行查询过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%AB%98%E6%80%A7%E8%83%BD"><span class="nav-number">1.3.</span> <span class="nav-text">3. 高性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">4. 数据模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">5. 内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%B8%80%E4%BA%9B%E4%BC%98%E5%8C%96"><span class="nav-number">1.6.</span> <span class="nav-text">6. 一些优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98"><span class="nav-number">1.7.</span> <span class="nav-text">7. 日常问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-presto-%E5%88%9B%E5%BB%BA%E8%A1%A8%E5%B9%B6%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 presto 创建表并指定数据存储位置的问题</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/16/Hive-2/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/Spring/SpringBoot-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -200,7 +200,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/16/Hive-2/" class="post-title-link" itemprop="url">Hive sql函数</a>
+            <a href="/2018/11/18/Spring/SpringBoot-2/" class="post-title-link" itemprop="url">搭建Spring Boot项目（一）</a>
         </h2>
 
         <div class="post-meta">
@@ -210,7 +210,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-16 19:03:08" itemprop="dateCreated datePublished" datetime="2018-11-16T19:03:08+08:00">2018-11-16</time>
+              <time title="Created: 2018-11-18 11:17:19" itemprop="dateCreated datePublished" datetime="2018-11-18T11:17:19+08:00">2018-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,16 +218,16 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/16/Hive-2/" class="post-meta-item leancloud_visitors" data-flag-title="Hive sql函数" title="Views">
+            <span id="/2018/11/18/Spring/SpringBoot-2/" class="post-meta-item leancloud_visitors" data-flag-title="搭建Spring Boot项目（一）" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -242,8 +242,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/16/Hive-2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/16/Hive-2/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/11/18/Spring/SpringBoot-2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/Spring/SpringBoot-2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,14 +253,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>25k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>23 mins.</span>
+              <span>1 mins.</span>
             </span>
 
         </div>
@@ -272,119 +272,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Hive-sql函数"><a href="#Hive-sql函数" class="headerlink" title="Hive sql函数"></a>Hive sql函数</h2><h3 id="一、关系运算"><a href="#一、关系运算" class="headerlink" title="一、关系运算"></a>一、关系运算</h3><ol>
-<li><p>等值比较: &#x3D;<br> <code>select 1 from dual where 1 = 2;</code></p>
-</li>
-<li><p>等值比较:&lt;&#x3D;&gt;<br>a &lt;&#x3D;&gt; b</p>
-</li>
-<li><p>不等值比较: &lt;&gt;和!&#x3D;<br>a !&#x3D; b || a &lt;&gt; b</p>
-</li>
-<li><p>小于比较: &lt;<br>a &lt; b</p>
-</li>
-<li><p>小于等于比较: &lt;&#x3D;<br>a &lt;&#x3D; b</p>
-</li>
-<li><p>大于比较: &gt;<br>a &gt; b</p>
-</li>
-<li><p>大于等于比较: &gt;&#x3D;<br>a &gt;&#x3D; b</p>
-</li>
-<li><p>区间比较？？？？？  </p>
-<pre><code> # step1 设定区间分类个数，此处设置为10
- m=10
- 
- # step2 求解字段 result 的最大值和最小值
- section=`hive -e &quot;
- select max(result) as max_num,
-    min(result) as min_num
- from  tmp
- &quot;`
- max_num=`echo -e &quot;$&#123;section&#125;&quot; | cut -f1`
- min_num=`echo -e &quot;$&#123;section&#125;&quot; | cut -f2`
- 
- # step3 求解区间的长度
- len_section=`hive -e &quot;
- select ($&#123;max_num&#125; - $&#123;min_num&#125;) / $&#123;m&#125;
- from   dual
- &quot;`
- 
- # step4 统计每个区间的个数
- hive -e &quot;
- select $&#123;min_num&#125; + floor((result - $&#123;min_num&#125;) / $&#123;len_section&#125;) * $&#123;len_section&#125; as section_flag,
-    count(*) as num  
- from   tmp
- &quot;
-</code></pre>
-</li>
-<li><p>空值判断: IS NULL<br> <code>select 1 from dual where A is null;</code></p>
-</li>
-<li><p>非空判断: IS NOT NULL<br><code>select 1 from dual where A is not null;</code></p>
-</li>
-<li><p>LIKE比较: A LIKE B<br><strong>B中字符”_“表示任意单个字符，而字符”%”表示任意数量的字符</strong><br><strong>否定比较的时候用 NOT A LIKE B</strong></p>
-<pre><code>select 1 from dual where ‘key&#39; like &#39;foot%&#39;;  
-select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
-</code></pre>
-</li>
-<li><p>JAVA的LIKE操作: A RLIKE B<br>如果字符串A或者字符串B为NULL，则返回NULL；如果字符串A符合JAVA正则表达式B的正则语法，则为TRUE；否则为FALSE  </p>
-<pre><code>select 1 from dual where &#39;123456&#39; rlike &#39;^\\d+$&#39;    判断一个字符串是否都是数字
-</code></pre>
-</li>
-<li><p>REGEXP操作: A REGEXP B<br>功能和RLIKE一样  </p>
-<pre><code>select 1 from dual where ‘key&#39; REGEXP &#39;^f.*r$&#39;;
-</code></pre>
-</li>
-</ol>
-<h3 id="二、数学运算"><a href="#二、数学运算" class="headerlink" title="二、数学运算"></a>二、数学运算</h3><ol>
-<li><p>加法操作: +</p>
-</li>
-<li><p>减法操作: –<br> <strong>结果的数值类型等于A的类型和B的类型的最小父类型</strong><br> 比如int ± int 一般结果为int类型，而int ± double 一般结果为double类型  </p>
-</li>
-<li><p>乘法操作: *<br> <strong>结果的数值类型等于A的类型和B的类型的最小父类型</strong><br> 如果A乘以B的结果超过默认结果类型的数值范围，则需要通过cast将结果转换成范围更大的数值类型</p>
-</li>
-<li><p>除法操作: &#x2F;？？？？？<br> 返回A除以B的结果。结果的数值类型为double  </p>
-<pre><code> 注意：hive 中最高精度的数据类型是 double, 只精确到小数点后16位，做除法运算时要特别注意  
- hive&gt;select ceil(28.0/6.999999999999999999999) from dual limit 1;  
- 结果为4  
- hive&gt;select ceil(28.0/6.99999999999999) from dual limit 1;  
- 结果为5
-</code></pre>
-</li>
-<li><p>取余操作: %<br> 返回A除以B的余数。结果的数值类型等于A的类型和B的类型的最小父类型  </p>
-<pre><code> 注意：精度在 hive 中是个很大的问题，类似这样的操作最好通过 round 指定精度  
- hive&gt; select round(8.4 % 4 , 2) from dual;  
- 0.4  
-</code></pre>
-</li>
-<li><p>位与操作: &amp;<br> 返回A和B按位进行与操作的结果。结果的数值类型等于A的类型和B的类型的最小父类型  </p>
-<pre><code> hive&gt; select 4 &amp; 8 from dual;  
- 0  
- hive&gt; select 6 &amp; 4 from dual;  
- 4
-</code></pre>
-</li>
-<li><p>位或操作: |<br> 返回A和B按位进行或操作的结果。结果的数值类型等于A的类型和B的类型的最小父类型  </p>
-<pre><code> hive&gt; select 4 | 8 from dual;  
- 12  
- hive&gt; select 6 | 8 from dual;  
- 14
-</code></pre>
-</li>
-<li><p>位异或操作: ^<br> 返回A和B按位进行异或操作的结果。结果的数值类型等于A的类型和B的类型的最小父类型</p>
-<pre><code> hive&gt; select 4 ^ 8 from dual;  
- 12  
- hive&gt; select 6 ^ 4 from dual;  
- 2
-</code></pre>
-</li>
-<li><p>位取反操作: ~<br>返回A按位取反操作的结果。结果的数值类型等于A的类型。</p>
-<pre><code> hive&gt; select ~6 from dual;  
- -7  
- hive&gt; select ~4 from dual;  
- -5
-</code></pre>
-</li>
-</ol>
+          <p>访问<a href="http://start.spring.io/%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE">http://start.spring.io/自动创建项目</a><br>在pom.xml文件中添加支持web的模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>pom.xml文件中默认有两个模块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring-boot-starter：核心模块，包括自动配置支持、日志和YAML；</span><br><span class="line">spring-boot-starter-test：测试模块，包括JUnit、Hamcrest、Mockito</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/16/Hive-2/#more" rel="contents">
+              <a class="btn" href="/2018/11/18/Spring/SpringBoot-2/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -408,7 +302,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/16/Hive-1/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/Spring/SpringBoot-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -422,7 +316,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/16/Hive-1/" class="post-title-link" itemprop="url">Hive</a>
+            <a href="/2018/11/18/Spring/SpringBoot-1/" class="post-title-link" itemprop="url">Spring框架之间的比较</a>
         </h2>
 
         <div class="post-meta">
@@ -432,7 +326,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-16 19:01:03" itemprop="dateCreated datePublished" datetime="2018-11-16T19:01:03+08:00">2018-11-16</time>
+              <time title="Created: 2018-11-18 11:15:00" itemprop="dateCreated datePublished" datetime="2018-11-18T11:15:00+08:00">2018-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -440,16 +334,16 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/16/Hive-1/" class="post-meta-item leancloud_visitors" data-flag-title="Hive" title="Views">
+            <span id="/2018/11/18/Spring/SpringBoot-1/" class="post-meta-item leancloud_visitors" data-flag-title="Spring框架之间的比较" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -464,8 +358,8 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/16/Hive-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/16/Hive-1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/11/18/Spring/SpringBoot-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/Spring/SpringBoot-1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -475,7 +369,129 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.9k</span>
+              <span>668</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Spring-MVC开发的麻烦："><a href="#Spring-MVC开发的麻烦：" class="headerlink" title="Spring MVC开发的麻烦："></a>Spring MVC开发的麻烦：</h4><ol>
+<li>依赖太多，而且要注意版本兼容。spring的包，mybatis或hibernate的包，spring和其整合包，日志包，json包，还有版本兼容</li>
+<li>配置太多。要配置注解驱动，配置数据库连接池，配置mybatis或hibernate，配置事务管理器，配置资源映射，在web.xml中配置启动spring和spring mvc</li>
+<li>部署和运行麻烦。要部署到tomcat中，不能直接用java命令运行。</li>
+</ol>
+<h4 id="Spring-boot"><a href="#Spring-boot" class="headerlink" title="Spring boot"></a>Spring boot</h4><ol>
+<li>通过starter和依赖管理解决依赖问题</li>
+<li>通过自动配置，解决配置复杂问题</li>
+<li>通过内嵌web容器，由应用启动tomcat，而不是用tomcat启动应用</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/Spring/SpringBoot-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/Algorithm/Al-2%20%E6%9F%A5%E6%89%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/18/Algorithm/Al-2%20%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">查找</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-11-18 11:13:09" itemprop="dateCreated datePublished" datetime="2018-11-18T11:13:09+08:00">2018-11-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Search/" itemprop="url" rel="index"><span itemprop="name">Search</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/11/18/Algorithm/Al-2%20%E6%9F%A5%E6%89%BE/" class="post-meta-item leancloud_visitors" data-flag-title="查找" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/11/18/Algorithm/Al-2%20%E6%9F%A5%E6%89%BE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/Algorithm/Al-2%20%E6%9F%A5%E6%89%BE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -494,13 +510,11 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>要访问HDFS上的数据可以通过shell命令和API<br>如果要处理HDFS上的数据可以通过MapReduce，但MR的操作门槛比较高，eg：需要不断的进行调试，如果无法在本地运行，需要不断地导出jar包放到linux下进行调试  </p>
-<p><strong>Hive</strong>是通过一种叫做HQL的类SQL语句来处理HDFS上的数据，但是和SQL不一样的是，HQL语言会转换为MR程序执行（select * from table不需要，因为select * from table只是对全部文件数据进行读取，并没有对数据进行操作）  </p>
-<p><strong>Hive元数据</strong>：指在Hive中创建的数据库、表、视图等信息。这些元数据存储在关系型数据库中，比如MySQL  </p>
-<h3 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h3>
+          <h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="1-顺序查找（线性查找）"><a href="#1-顺序查找（线性查找）" class="headerlink" title="1. 顺序查找（线性查找）"></a>1. 顺序查找（线性查找）</h3><p>时间复杂度为O(n)<br>说明：适合于存储结构为顺序存储或链式存储的线性表  </p>
+<h3 id="2-折半查找（二分查找）"><a href="#2-折半查找（二分查找）" class="headerlink" title="2. 折半查找（二分查找）"></a>2. 折半查找（二分查找）</h3><p>时间复杂度为O(logn)<br>说明：折半查找的前提条件是需要有序表顺序存储，对于静态查找表，一次排序后不再变化，折半查找能得到不错的效率。但对于需要频繁执行插入或删除操作的数据集来说，维护有序的排序会带来不小的工作量，那就不建议使用。  </p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/16/Hive-1/#more" rel="contents">
+              <a class="btn" href="/2018/11/18/Algorithm/Al-2%20%E6%9F%A5%E6%89%BE/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -524,7 +538,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/16/Hadoop-3/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/Algorithm/Al-1%20%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -538,7 +552,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/16/Hadoop-3/" class="post-title-link" itemprop="url">Yarn</a>
+            <a href="/2018/11/18/Algorithm/Al-1%20%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">排序</a>
         </h2>
 
         <div class="post-meta">
@@ -548,7 +562,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-16 18:59:29" itemprop="dateCreated datePublished" datetime="2018-11-16T18:59:29+08:00">2018-11-16</time>
+              <time title="Created: 2018-11-18 11:11:46" itemprop="dateCreated datePublished" datetime="2018-11-18T11:11:46+08:00">2018-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -556,16 +570,16 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/Yarn/" itemprop="url" rel="index"><span itemprop="name">Yarn</span></a>
+                  <a href="/categories/Algorithm/Sort/" itemprop="url" rel="index"><span itemprop="name">Sort</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/16/Hadoop-3/" class="post-meta-item leancloud_visitors" data-flag-title="Yarn" title="Views">
+            <span id="/2018/11/18/Algorithm/Al-1%20%E6%8E%92%E5%BA%8F/" class="post-meta-item leancloud_visitors" data-flag-title="排序" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -580,8 +594,8 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/16/Hadoop-3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/16/Hadoop-3/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/11/18/Algorithm/Al-1%20%E6%8E%92%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/Algorithm/Al-1%20%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -591,14 +605,14 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.7k</span>
+              <span>7.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
+              <span>6 mins.</span>
             </span>
 
         </div>
@@ -610,145 +624,10 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><p>Yarn的简介<br>Yarn是Hadoop集群的资源管理系统,Hadoop2.0对MapReduce框架做了彻底的设计重构。<br>Hadoop1.x对MapReduce job的调度管理方式主要包括两部分功能：** ResourceManagement 资源管理** 和 <strong>JobScheduling&#x2F;JobMonitoring 任务调度监控</strong>。<br>到了Hadoop2.x也就是Yarn，它的目标是将这两部分功能分开，也就是分别用两个进程来管理这两个任务，将此拆分成了<strong>ResourceManager</strong> 和 <strong>ApplicationMaster</strong>。<br>需要注意的是，在Yarn中我们把job的概念换成了application，因为在新的Hadoop2.x中，运行的应用不只是MapReduce了，还有可能是其它应用如一个DAG（有向无环图Directed Acyclic Graph，例如storm应用）。  </p>
-</li>
-<li><p>Yarn的组件及架构<br> Yarn主要由以下几个组件组成：<br> 1. ResourceManager：Global（全局）的进程<br> 2. NodeManager：运行在每个节点上的进程<br> 3. ApplicationMaster：Application-specific（应用级别）的进程<br> - <em>Scheduler：是ResourceManager的一个组件</em><br> - <em>Container：节点上一组CPU和内存资源</em><br> Container是Yarn对计算机计算资源的抽象，它其实就是一组CPU和内存资源，所有的应用都会运行在Container中。<br> ApplicationMaster是对运行在Yarn中某个应用的抽象，它其实就是某个类型应用的实例，ApplicationMaster是应用级别的，它的主要功能就是向ResourceManager（全局的）申请计算资源（Containers）并且和NodeManager交互来执行和监控具体的task。<br> Scheduler是ResourceManager专门进行资源管理的一个组件，负责分配NodeManager上的Container资源，NodeManager也会不断发送自己Container使用情况给ResourceManager。  </p>
-<p> ResourceManager和NodeManager两个进程主要负责系统管理方面的任务。<br> ResourceManager有一个Scheduler，负责各个集群中应用的资源分配。对于每种类型的每个应用，都会对应一个ApplicationMaster实例，ApplicationMaster通过和ResourceManager沟通获得Container资源来运行具体的job，并跟踪这个job的运行状态、监控运行进度。  </p>
-</li>
-<li><p>Yarn 框架相对于老的 MapReduce 框架什么优势呢？  </p>
-<pre><code> 这个设计大大减小了 ResourceManager 的资源消耗，并且让监测每一个 Job 子任务 (tasks) 状态的程序分布式化了，更安全、更优美。
- 在新的 Yarn 中，ApplicationMaster 是一个可变更的部分，用户可以对不同的编程模型写自己的 AppMst，让更多类型的编程模型能够跑在 Hadoop 集群中，可以参考 hadoop Yarn 官方配置模板中的 ``mapred-site.xml`` 配置。
- 对于资源的表示以内存为单位 ( 在目前版本的 Yarn 中，没有考虑 cpu 的占用 )，比之前以剩余 slot 数目更合理。
- 老的框架中，JobTracker 一个很大的负担就是监控 job 下的 tasks 的运行状况，现在，这个部分就扔给 ApplicationMaster 做了，而 ResourceManager 中有一个模块叫做 ApplicationsManager，它是监测 ApplicationMaster 的运行状况，如果出问题，会将其在其他机器上重启。
- Container 是 Yarn 为了将来作资源隔离而提出的一个框架。这一点应该借鉴了 Mesos 的工作，目前是一个框架，仅仅提供 java 虚拟机内存的隔离 ,hadoop 团队的设计思路应该后续能支持更多的资源调度和控制 , 既然资源表示成内存量，那就没有了之前的 map slot/reduce slot 分开造成集群资源闲置的尴尬情况。
-</code></pre>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/16/Hadoop-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/16/Hadoop-2/" class="post-title-link" itemprop="url">Hadoop生态圈</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-16 18:57:14" itemprop="dateCreated datePublished" datetime="2018-11-16T18:57:14+08:00">2018-11-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/11/16/Hadoop-2/" class="post-meta-item leancloud_visitors" data-flag-title="Hadoop生态圈" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/11/16/Hadoop-2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/16/Hadoop-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、Hadoop"><a href="#一、Hadoop" class="headerlink" title="一、Hadoop"></a>一、Hadoop</h2><ol>
-<li><p>Hadoop是一个由Apache基金会所开发的分布式系统基础架构  </p>
-</li>
-<li><p>充分利用集群的威力进行高速运算和存储，具有可靠、高效、可伸缩的特点  </p>
-</li>
-<li><p>Hadoop的核心是Yarn、HDFS和MapReduce</p>
-<ul>
-<li>适合大数据的分布式存储与计算平台</li>
-<li>HDFS: Hadoop Distributed File System分布式文件系统</li>
-<li>MapReduce：并行计算框架</li>
-</ul>
-</li>
-</ol>
-<h2 id="二、HDFS-Hadoop分布式文件系统"><a href="#二、HDFS-Hadoop分布式文件系统" class="headerlink" title="二、HDFS(Hadoop分布式文件系统)"></a>二、HDFS(Hadoop分布式文件系统)</h2><ol>
-<li>Hadoop Distributed File System  </li>
-<li>HDFS是Hadoop体系中数据存储管理的基础  </li>
-<li>高容错；高吞吐量；在项目里处理大数据集；流式访问文件系统数据；可以构建在普通的硬件之上  </li>
-<li>一次写入多次读取；数据以块的形式，同时分布在集群不同物理机器上</li>
-</ol>
-<h2 id="三、MapReduce-分布式计算框架"><a href="#三、MapReduce-分布式计算框架" class="headerlink" title="三、MapReduce(分布式计算框架)"></a>三、MapReduce(分布式计算框架)</h2>
+          <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p><img src="http://upload-images.jianshu.io/upload_images/1156494-ab4cecff133d87b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><br><img src="http://upload-images.jianshu.io/upload_images/1156494-62f859c2ac6f95ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">  </p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/16/Hadoop-2/#more" rel="contents">
+              <a class="btn" href="/2018/11/18/Algorithm/Al-1%20%E6%8E%92%E5%BA%8F/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -772,7 +651,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/16/Hadoop-1/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/Linux/Tomcat/Linux%20%E9%85%8D%E7%BD%AETomcat/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -786,7 +665,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/16/Hadoop-1/" class="post-title-link" itemprop="url">Hadoop1.0 和 Hadoop2.0</a>
+            <a href="/2018/11/18/Linux/Tomcat/Linux%20%E9%85%8D%E7%BD%AETomcat/" class="post-title-link" itemprop="url">Linux下安装Tomcat</a>
         </h2>
 
         <div class="post-meta">
@@ -796,7 +675,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-16 18:54:37" itemprop="dateCreated datePublished" datetime="2018-11-16T18:54:37+08:00">2018-11-16</time>
+              <time title="Created: 2018-11-18 11:10:52" itemprop="dateCreated datePublished" datetime="2018-11-18T11:10:52+08:00">2018-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -804,12 +683,16 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/Tomcat/" itemprop="url" rel="index"><span itemprop="name">Tomcat</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/16/Hadoop-1/" class="post-meta-item leancloud_visitors" data-flag-title="Hadoop1.0 和 Hadoop2.0" title="Views">
+            <span id="/2018/11/18/Linux/Tomcat/Linux%20%E9%85%8D%E7%BD%AETomcat/" class="post-meta-item leancloud_visitors" data-flag-title="Linux下安装Tomcat" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -824,8 +707,8 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/16/Hadoop-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/16/Hadoop-1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/11/18/Linux/Tomcat/Linux%20%E9%85%8D%E7%BD%AETomcat/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/Linux/Tomcat/Linux%20%E9%85%8D%E7%BD%AETomcat/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -835,7 +718,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.1k</span>
+              <span>1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -854,9 +737,22 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-从Hadoop整体框架来说"><a href="#1-从Hadoop整体框架来说" class="headerlink" title="1.从Hadoop整体框架来说"></a>1.从Hadoop整体框架来说</h3><p>1.1 Hadoop1.0即第一代Hadoop，由分布式存储系统HDFS和分布式计算框架MapReduce组成，其中HDFS由一个NameNode和多个DateNode组成，MapReduce由一个JobTracker和多个TaskTracker组成。<br>1.2 Hadoop2.0为克服Hadoop1.0中的不足：<strong>针对Hadoop1.0单NameNode制约HDFS的扩展性问题</strong>，提出HDFS Federation，它让多个NameNode分管不同的目录进而实现访问隔离和横向扩展，同时彻底解决了NameNode单点故障问题；<br>针对Hadoop1.0中的MapReduce在扩展性和多框架支持等方面的不足，它将JobTracker中的资源管理和作业控制分开，分别由ResourceManager（负责所有应用程序的资源分配）和ApplicationMaster（负责管理一个应用程序）实现，即<strong>引入了资源管理框架Yarn</strong>。同时Yarn作为Hadoop2.0中的资源管理系统，它是一个通用的资源管理模块，可为各类应用程序进行资源管理和调度，不仅限于MapReduce一种框架，也可以为其他框架使用，如Tez、Spark、Storm等</p>
-<h3 id="2-从MapReduce计算框架来说"><a href="#2-从MapReduce计算框架来说" class="headerlink" title="2.从MapReduce计算框架来说"></a>2.从MapReduce计算框架来说</h3><p>2.1 MapReduce1.0计算框架主要由三部分组成：编程模型、数据处理引擎和运行时环境。它的基本编程模型是将问题抽象成Map和Reduce两个阶段，其中Map阶段将输入的数据解析成key&#x2F;value，迭代调用map()函数处理后，再以key&#x2F;value的形式输出到本地目录，Reduce阶段将key相同的value进行规约处理，并将最终结果写到HDFS上；它的数据处理引擎由MapTask和ReduceTask组成，分别负责Map阶段逻辑和Reduce阶段的逻辑处理；它的运行时环境由一个JobTracker和若干个TaskTracker两类服务组成，其中JobTracker负责资源管理和所有作业的控制，TaskTracker负责接收来自JobTracker的命令并执行它。<br>2.2 MapReducer2.0具有与MRv1相同的编程模型和数据处理引擎，唯一不同的是运行时环境。MRv2是在MRv1基础上经加工之后，运行于资源管理框架Yarn之上的计算框架MapReduce。它的运行时环境不再由JobTracker和TaskTracker等服务组成，而是变为通用资源管理系统Yarn和作业控制进程ApplicationMaster，其中Yarn负责资源管理的调度而ApplicationMaster负责作业的管理。</p>
-
+          <h1 id="Linux下配置Tomcat"><a href="#Linux下配置Tomcat" class="headerlink" title="Linux下配置Tomcat"></a>Linux下配置Tomcat</h1><ol>
+<li><p>先去官网查看Tomcat版本和JDK版本匹配关系<br> <a href="http://http//tomcat.apache.org/whichversion.html">http://http://tomcat.apache.org/whichversion.html</a></p>
+</li>
+<li><p>下载Tomcat的Linux版本<br> 文件后缀是tar.gz</p>
+</li>
+<li><p>下载到Linux下解压<br> tar -zxvf apache-tomcat-8.0.46.tar.gz</p>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/Linux/Tomcat/Linux%20%E9%85%8D%E7%BD%AETomcat/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -874,7 +770,7 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -942,20 +838,20 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">73</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -994,28 +890,28 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
         </div>
         <ul class="links-of-blogroll-list recent-posts-list">
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="ClickHouse笔记" target="">
-              ClickHouse笔记
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/01/18/ck-1%20%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7/" title="ClickHouse笔记-尚硅谷" target="">
-              ClickHouse笔记-尚硅谷
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/10/29/JVM-1/" title="JVM 内存管理" target="">
-              JVM 内存管理
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/12/28/Interview-1/" title="Interview-1" target="">
-              Interview-1
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2021/01/19/Linux-3/" title="Linux 常用命令" target="">
-              Linux 常用命令
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
               </a>
           </li>
         </ul>
@@ -1047,12 +943,12 @@ select 1 from dual where ‘key &#39; like &#39;foot____&#39;;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">617k</span>
+    <span title="Symbols count total">648k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9:21</span>
+    <span title="Reading time total">9:49</span>
 </div>
 
         

@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/25/Algorithm-2/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/05/Algorithm/LeetCode-2%20Medium/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -200,7 +200,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/25/Algorithm-2/" class="post-title-link" itemprop="url">栈&队列&并查集&哈希表（julyedu网课整理）</a>
+            <a href="/2018/12/05/Algorithm/LeetCode-2%20Medium/" class="post-title-link" itemprop="url">LeetCode刷题（Medium）</a>
         </h2>
 
         <div class="post-meta">
@@ -210,8 +210,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-25 08:31:30" itemprop="dateCreated datePublished" datetime="2018-11-25T08:31:30+08:00">2018-11-25</time>
+              <time title="Created: 2018-12-05 17:02:37" itemprop="dateCreated datePublished" datetime="2018-12-05T17:02:37+08:00">2018-12-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-04-22 10:45:34" itemprop="dateModified" datetime="2019-04-22T10:45:34+08:00">2019-04-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -222,12 +229,12 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/julyedu/" itemprop="url" rel="index"><span itemprop="name">julyedu</span></a>
+                  <a href="/categories/Algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/25/Algorithm-2/" class="post-meta-item leancloud_visitors" data-flag-title="栈&队列&并查集&哈希表（julyedu网课整理）" title="Views">
+            <span id="/2018/12/05/Algorithm/LeetCode-2%20Medium/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode刷题（Medium）" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -242,8 +249,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/25/Algorithm-2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/25/Algorithm-2/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/12/05/Algorithm/LeetCode-2%20Medium/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/05/Algorithm/LeetCode-2%20Medium/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,14 +260,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.5k</span>
+              <span>9k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
+              <span>8 mins.</span>
             </span>
 
         </div>
@@ -272,21 +279,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="栈-队列-并查集-哈希表（julyedu网课整理）"><a href="#栈-队列-并查集-哈希表（julyedu网课整理）" class="headerlink" title="栈&amp;队列&amp;并查集&amp;哈希表（julyedu网课整理）"></a>栈&amp;队列&amp;并查集&amp;哈希表（julyedu网课整理）</h2><h3 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h3><h4 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h4><ul>
-<li>存放数据的线性表</li>
-<li>操作：入栈&#x2F;队列、出栈&#x2F;队列、判断满&#x2F;空</li>
-<li>空间复杂度：O(n)</li>
-<li>单次操作时间复杂度：O(1)</li>
-<li>区别<ul>
-<li>先进后出（FILO, First In Last Out）</li>
-<li>先进先出（FIFO, First In First Out）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-实现"><a href="#2-实现" class="headerlink" title="2.实现"></a>2.实现</h4>
+          <h2 id="LeetCode刷题"><a href="#LeetCode刷题" class="headerlink" title="LeetCode刷题"></a>LeetCode刷题</h2><h3 id="Type：Medium"><a href="#Type：Medium" class="headerlink" title="Type：Medium"></a>Type：Medium</h3><p><a href="https://leetcode-cn.com/problemset/all/" title="LeetCode">https://leetcode-cn.com/problemset/all/</a></p>
+<h5 id="8-字符串转换整数"><a href="#8-字符串转换整数" class="headerlink" title="#8 字符串转换整数"></a>#8 字符串转换整数</h5><p>需要注意几个测试用例</p>
+<pre><code>&quot;  +0 123&quot;
+&quot; 0012&quot;
+&quot;3.14&quot;
+</code></pre>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/25/Algorithm-2/#more" rel="contents">
+              <a class="btn" href="/2018/12/05/Algorithm/LeetCode-2%20Medium/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -310,7 +311,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/22/OS-1/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2019/04/19/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%8C%AA%E5%A8%81%E7%9A%84%E6%A3%AE%E6%9E%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -324,7 +325,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/22/OS-1/" class="post-title-link" itemprop="url">操作系统知识总结</a>
+            <a href="/2019/04/19/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%8C%AA%E5%A8%81%E7%9A%84%E6%A3%AE%E6%9E%97/" class="post-title-link" itemprop="url">挪威的森林</a>
         </h2>
 
         <div class="post-meta">
@@ -334,124 +335,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-22 16:43:38" itemprop="dateCreated datePublished" datetime="2018-11-22T16:43:38+08:00">2018-11-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/11/22/OS-1/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统知识总结" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/11/22/OS-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/22/OS-1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>16k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>15 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="第一章-OS引论"><a href="#第一章-OS引论" class="headerlink" title="第一章 OS引论"></a>第一章 OS引论</h2><h3 id="1-OS定义"><a href="#1-OS定义" class="headerlink" title="1 OS定义"></a>1 OS定义</h3><p>操作系统是一组能有效地控制和管理计算机软件和硬件硬件和软件资源，合理地对各类作业进行调度，以及方便用户使用的程序的集合。是配置在计算机硬件上的第一层软件。是现代计算机系统中最基本和最重要的系统软件。</p>
-<h3 id="2-OS目标：有效性、方便性、可扩充性、开放性"><a href="#2-OS目标：有效性、方便性、可扩充性、开放性" class="headerlink" title="2 OS目标：有效性、方便性、可扩充性、开放性"></a>2 OS目标：有效性、方便性、可扩充性、开放性</h3><h3 id="3-推动OS发展的主要动力"><a href="#3-推动OS发展的主要动力" class="headerlink" title="3 推动OS发展的主要动力"></a>3 推动OS发展的主要动力</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/11/22/OS-1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/19/SpringBoot-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/19/SpringBoot-7/" class="post-title-link" itemprop="url">Spring Boot打包部署</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-19 15:30:11" itemprop="dateCreated datePublished" datetime="2018-11-19T15:30:11+08:00">2018-11-19</time>
+              <time title="Created: 2019-04-19 12:16:19" itemprop="dateCreated datePublished" datetime="2019-04-19T12:16:19+08:00">2019-04-19</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-11-21 08:28:37" itemprop="dateModified" datetime="2018-11-21T08:28:37+08:00">2018-11-21</time>
+                <time title="Modified: 2019-04-20 21:10:02" itemprop="dateModified" datetime="2019-04-20T21:10:02+08:00">2019-04-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -459,16 +350,12 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+                  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">读书笔记</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/19/SpringBoot-7/" class="post-meta-item leancloud_visitors" data-flag-title="Spring Boot打包部署" title="Views">
+            <span id="/2019/04/19/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%8C%AA%E5%A8%81%E7%9A%84%E6%A3%AE%E6%9E%97/" class="post-meta-item leancloud_visitors" data-flag-title="挪威的森林" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -483,8 +370,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/19/SpringBoot-7/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/19/SpringBoot-7/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/04/19/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%8C%AA%E5%A8%81%E7%9A%84%E6%A3%AE%E6%9E%97/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/19/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%8C%AA%E5%A8%81%E7%9A%84%E6%A3%AE%E6%9E%97/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -494,7 +381,117 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.1k</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="挪威的森林"><a href="#挪威的森林" class="headerlink" title="挪威的森林"></a>挪威的森林</h2><p>上周六读完《云边有个小卖部》，第二天写完读后感，并发起了一个很有意思的活动（是在和朋友聊天的时候学到的），就是让朋友来推荐一本有意义的书，这样一来避免了自己找书的时间，另一方面也可以变相扩展阅读的广度，至于深度，怕是需要不断地研读吧。目前接下来的书单有《娱乐至死》，《活着》，《追风筝的人》。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/19/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%8C%AA%E5%A8%81%E7%9A%84%E6%A3%AE%E6%9E%97/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2019/04/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%BE%B9%E6%9C%89%E4%B8%AA%E5%B0%8F%E5%8D%96%E9%83%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%BE%B9%E6%9C%89%E4%B8%AA%E5%B0%8F%E5%8D%96%E9%83%A8/" class="post-title-link" itemprop="url">云边有个小卖部</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-04-14 12:16:19 / Modified: 12:33:02" itemprop="dateCreated datePublished" datetime="2019-04-14T12:16:19+08:00">2019-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">读书笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/04/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%BE%B9%E6%9C%89%E4%B8%AA%E5%B0%8F%E5%8D%96%E9%83%A8/" class="post-meta-item leancloud_visitors" data-flag-title="云边有个小卖部" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/04/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%BE%B9%E6%9C%89%E4%B8%AA%E5%B0%8F%E5%8D%96%E9%83%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%BE%B9%E6%9C%89%E4%B8%AA%E5%B0%8F%E5%8D%96%E9%83%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -513,15 +510,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Spring-Boot打包部署"><a href="#Spring-Boot打包部署" class="headerlink" title="Spring Boot打包部署"></a>Spring Boot打包部署</h2><h3 id="第一种方式-打包成jar包部署在服务器上"><a href="#第一种方式-打包成jar包部署在服务器上" class="headerlink" title="第一种方式 打包成jar包部署在服务器上"></a>第一种方式 打包成jar包部署在服务器上</h3><h4 id="1-1-添加插件"><a href="#1-1-添加插件" class="headerlink" title="1.1 添加插件"></a>1.1 添加插件</h4><pre><code>&lt;plugin&gt;
-   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-   &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
-&lt;/plugin&gt;
-</code></pre>
-<h4 id="1-2-打包"><a href="#1-2-打包" class="headerlink" title="1.2 打包"></a>1.2 打包</h4>
+          <h2 id="云边有个小卖部"><a href="#云边有个小卖部" class="headerlink" title="云边有个小卖部"></a>云边有个小卖部</h2><blockquote>
+<p>为别人活着，也为自己活着。希望和悲伤，都是一缕光。总有一天，我们会再相遇。</p>
+</blockquote>
+<p>上次读张嘉佳的作品是《从你的全世界路过》，每个小故事连起来，用悲伤的文字来慰藉自己的伤口，从中找到属于自己的一份共鸣，从此也爱上了他的文字。《云边有个小卖部》是逛书店时不经意间看到的，用时五年，期间不断缝缝补补，2018年7月份上市。</p>
+<p>为什么要叫做《云边有个小卖部》呢？<br>刘十三的家乡是一个山间小镇，外婆在院子里开了个小卖部，推开窗户，伸手仿佛能触碰到云朵的边缘，所以这个镇子叫云边镇，这本书叫《云边有个小卖部》。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/19/SpringBoot-7/#more" rel="contents">
+              <a class="btn" href="/2019/04/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%BE%B9%E6%9C%89%E4%B8%AA%E5%B0%8F%E5%8D%96%E9%83%A8/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -545,7 +541,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/19/Algorithm-1/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/05/Algorithm/LeetCode-1%20Easy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -559,7 +555,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/19/Algorithm-1/" class="post-title-link" itemprop="url">算法初步（julyedu网课整理）</a>
+            <a href="/2018/12/05/Algorithm/LeetCode-1%20Easy/" class="post-title-link" itemprop="url">LeetCode刷题（Easy）</a>
         </h2>
 
         <div class="post-meta">
@@ -568,9 +564,129 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-11-19 13:41:29 / Modified: 14:31:04" itemprop="dateCreated datePublished" datetime="2018-11-19T13:41:29+08:00">2018-11-19</time>
+              <time title="Created: 2018-12-05 17:00:36" itemprop="dateCreated datePublished" datetime="2018-12-05T17:00:36+08:00">2018-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-04-10 12:44:54" itemprop="dateModified" datetime="2019-04-10T12:44:54+08:00">2019-04-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/05/Algorithm/LeetCode-1%20Easy/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode刷题（Easy）" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/05/Algorithm/LeetCode-1%20Easy/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/05/Algorithm/LeetCode-1%20Easy/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="LeetCode刷题"><a href="#LeetCode刷题" class="headerlink" title="LeetCode刷题"></a>LeetCode刷题</h2><h3 id="Type：Easy"><a href="#Type：Easy" class="headerlink" title="Type：Easy"></a>Type：Easy</h3><p><a href="https://leetcode-cn.com/problemset/all/" title="LeetCode">https://leetcode-cn.com/problemset/all/</a></p>
+<h5 id="7-整数翻转"><a href="#7-整数翻转" class="headerlink" title="#7 整数翻转"></a>#7 整数翻转</h5><p>注意int整数范围<br>-2147483638 ~  2147483637<br>在翻转计算之前需要判断翻转后是否会超出范围</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/05/Algorithm/LeetCode-1%20Easy/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/14/Algorithm/Al-7%20%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8-1%20%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/14/Algorithm/Al-7%20%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8-1%20%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">布隆过滤器 Bloom Filter</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-14 13:57:00" itemprop="dateCreated datePublished" datetime="2018-12-14T13:57:00+08:00">2018-12-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -582,12 +698,12 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/julyedu/" itemprop="url" rel="index"><span itemprop="name">julyedu</span></a>
+                  <a href="/categories/Algorithm/Bloom-Filter/" itemprop="url" rel="index"><span itemprop="name">Bloom Filter</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/19/Algorithm-1/" class="post-meta-item leancloud_visitors" data-flag-title="算法初步（julyedu网课整理）" title="Views">
+            <span id="/2018/12/14/Algorithm/Al-7%20%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8-1%20%E5%AE%9E%E7%8E%B0/" class="post-meta-item leancloud_visitors" data-flag-title="布隆过滤器 Bloom Filter" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -602,8 +718,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/19/Algorithm-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/19/Algorithm-1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/12/14/Algorithm/Al-7%20%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8-1%20%E5%AE%9E%E7%8E%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/Algorithm/Al-7%20%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8-1%20%E5%AE%9E%E7%8E%B0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -613,14 +729,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.2k</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
+              <span>3 mins.</span>
             </span>
 
         </div>
@@ -632,128 +748,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="算法初步（julyedu网课整理）"><a href="#算法初步（julyedu网课整理）" class="headerlink" title="算法初步（julyedu网课整理）"></a>算法初步（julyedu网课整理）</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><h5 id="O-1"><a href="#O-1" class="headerlink" title="O(1)"></a>O(1)</h5><p>基本运算  </p>
-<h5 id="O-logn"><a href="#O-logn" class="headerlink" title="O(logn)"></a>O(logn)</h5>
+          <h2 id="布隆过滤器-Bloom-Filter"><a href="#布隆过滤器-Bloom-Filter" class="headerlink" title="布隆过滤器 Bloom Filter"></a>布隆过滤器 Bloom Filter</h2><blockquote>
+<p>它主要用于解决判断一个元素是否在一个集合中，优势在于只需要占用很小的内存空间以及有着高效的查询效率。</p>
+</blockquote>
+<h3 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h3><blockquote>
+<p>它是一个保存了很长的二级制向量，同时结合 Hash 函数实现的。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/nA4kc3K.jpg"></p>
+<p>如上图所示：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/19/Algorithm-1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/SpringBoot-6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/18/SpringBoot-6/" class="post-title-link" itemprop="url">Spring Boot注解与资源文件配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-18 16:57:17" itemprop="dateCreated datePublished" datetime="2018-11-18T16:57:17+08:00">2018-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/11/18/SpringBoot-6/" class="post-meta-item leancloud_visitors" data-flag-title="Spring Boot注解与资源文件配置" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/11/18/SpringBoot-6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/SpringBoot-6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>7.2k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>7 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-不需要多余的配置文件信息"><a href="#1-不需要多余的配置文件信息" class="headerlink" title="1.不需要多余的配置文件信息"></a>1.不需要多余的配置文件信息</h3><p><img src="https://images.weserv.nl/?url=https://i.imgur.com/3tbNB0o.png"> </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">application.properties</span><br><span class="line">mybatis.type-aliases-package=com.mxxd.SCM.Dao</span><br><span class="line">mybatis.mapper-locations=classpath:mybatis/mapper/*.xml</span><br><span class="line"></span><br><span class="line">spring.datasource.driverClassName = com.mysql.jdbc.Driver</span><br><span class="line">spring.datasource.url = jdbc:mysql://localhost:3306/scm?useUnicode=true&amp;characterEncoding=utf-8</span><br><span class="line">spring.datasource.username = root</span><br><span class="line">spring.datasource.password =</span><br><span class="line"></span><br><span class="line">spring.freemarker.template-loader-path=classpath:/template/</span><br><span class="line">spring.freemarker.suffix=.ftl</span><br><span class="line">spring.freemarker.cache=false</span><br><span class="line">spring.freemarker.charset=UTF-8  </span><br></pre></td></tr></table></figure>
-
-<p>Dao层mapper 添加注解 @Repository</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Repository</span><br><span class="line">public interface UserMapper &#123;</span><br><span class="line"></span><br><span class="line">//@Select(&quot;SELECT * FROM `users` where user_username = #&#123;username&#125; and user_password = #&#123;password&#125;&quot;)</span><br><span class="line">public UserEntity login(String username, String password);</span><br><span class="line"></span><br><span class="line">public UserEntity queryUser(String name);</span><br><span class="line"></span><br><span class="line">public boolean insert(UserEntity user);</span><br><span class="line"></span><br><span class="line">public boolean update(UserEntity user);</span><br><span class="line"></span><br><span class="line">public boolean delete(int id);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/11/18/SpringBoot-6/#more" rel="contents">
+              <a class="btn" href="/2018/12/14/Algorithm/Al-7%20%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8-1%20%E5%AE%9E%E7%8E%B0/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -776,7 +781,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -844,20 +849,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">73</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -896,28 +901,28 @@
         </div>
         <ul class="links-of-blogroll-list recent-posts-list">
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="ClickHouse笔记" target="">
-              ClickHouse笔记
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/01/18/ck-1%20%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7/" title="ClickHouse笔记-尚硅谷" target="">
-              ClickHouse笔记-尚硅谷
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/10/29/JVM-1/" title="JVM 内存管理" target="">
-              JVM 内存管理
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/12/28/Interview-1/" title="Interview-1" target="">
-              Interview-1
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2021/01/19/Linux-3/" title="Linux 常用命令" target="">
-              Linux 常用命令
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
               </a>
           </li>
         </ul>
@@ -949,12 +954,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">617k</span>
+    <span title="Symbols count total">648k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9:21</span>
+    <span title="Reading time total">9:49</span>
 </div>
 
         

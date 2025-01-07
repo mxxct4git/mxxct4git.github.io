@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/04/Int/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/25/Redis/Redis-6%20%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -200,7 +200,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/04/Int/" class="post-title-link" itemprop="url">整型溢出</a>
+            <a href="/2020/11/25/Redis/Redis-6%20%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/" class="post-title-link" itemprop="url">Redis 和 MySQL 数据不一致性</a>
         </h2>
 
         <div class="post-meta">
@@ -211,7 +211,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-11-04 14:20:00 / Modified: 17:25:00" itemprop="dateCreated datePublished" datetime="2020-11-04T14:20:00+08:00">2020-11-04</time>
+              <time title="Created: 2020-11-25 15:16:00 / Modified: 15:55:00" itemprop="dateCreated datePublished" datetime="2020-11-25T15:16:00+08:00">2020-11-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,16 +219,12 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Int/" itemprop="url" rel="index"><span itemprop="name">Int</span></a>
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/11/04/Int/" class="post-meta-item leancloud_visitors" data-flag-title="整型溢出" title="Views">
+            <span id="/2020/11/25/Redis/Redis-6%20%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/" class="post-meta-item leancloud_visitors" data-flag-title="Redis 和 MySQL 数据不一致性" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -243,8 +239,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/11/04/Int/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/04/Int/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/25/Redis/Redis-6%20%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/25/Redis/Redis-6%20%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -254,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>482</span>
+              <span>452</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -273,15 +269,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="整型溢出"><a href="#整型溢出" class="headerlink" title="整型溢出"></a>整型溢出</h2><p><a href="https://mp.weixin.qq.com/s/62-CRwuwX7t-LAkzNLIWMw">参考网址</a></p>
-<p>数学上一个数的平方当然大于等于 0，但对于大多数编程语言，当 46341 &lt;&#x3D; int x &lt;&#x3D; 65535 时，x 的平方结果会是负数。</p>
-<h3 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h3><ul>
-<li>bit 位： 0和1</li>
-<li>byte 字节：1个字节有8个比特位</li>
-</ul>
+          <h2 id="Redis-和-MySQL-数据不一致性"><a href="#Redis-和-MySQL-数据不一致性" class="headerlink" title="Redis 和 MySQL 数据不一致性"></a>Redis 和 MySQL 数据不一致性</h2><p><a href="https://zhuanlan.zhihu.com/p/91770135">参考地址</a></p>
+<p>具体如何去解决还得结合业务去综合考虑。</p>
+<p>下面几个方式可能比较通用</p>
+<h3 id="1-双删法"><a href="#1-双删法" class="headerlink" title="1. 双删法"></a>1. 双删法</h3><p>写流程</p>
+<ol>
+<li>先删除缓存</li>
+<li>写更新数据库</li>
+<li>再次删除缓存 &#x3D;&gt; 避免在第二步的时候有读请求访问数据库，然后把旧的值写入到缓存中</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/11/04/Int/#more" rel="contents">
+              <a class="btn" href="/2020/11/25/Redis/Redis-6%20%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -305,7 +304,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/03/Factorial/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/07/Hadoop/Phoenix/Phoenix-4%20%E5%BC%82%E6%AD%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -319,7 +318,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/03/Factorial/" class="post-title-link" itemprop="url">阶乘相关</a>
+            <a href="/2020/11/07/Hadoop/Phoenix/Phoenix-4%20%E5%BC%82%E6%AD%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">Phoenix 异步创建索引</a>
         </h2>
 
         <div class="post-meta">
@@ -329,14 +328,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-11-03 17:18:00" itemprop="dateCreated datePublished" datetime="2020-11-03T17:18:00+08:00">2020-11-03</time>
+              <time title="Created: 2020-11-07 15:34:00" itemprop="dateCreated datePublished" datetime="2020-11-07T15:34:00+08:00">2020-11-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-04 14:15:00" itemprop="dateModified" datetime="2020-11-04T14:15:00+08:00">2020-11-04</time>
+                <time title="Modified: 2020-11-20 15:17:00" itemprop="dateModified" datetime="2020-11-20T15:17:00+08:00">2020-11-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -344,16 +343,16 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Factorial/" itemprop="url" rel="index"><span itemprop="name">Factorial</span></a>
+                  <a href="/categories/Hadoop/Phoenix/" itemprop="url" rel="index"><span itemprop="name">Phoenix</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/11/03/Factorial/" class="post-meta-item leancloud_visitors" data-flag-title="阶乘相关" title="Views">
+            <span id="/2020/11/07/Hadoop/Phoenix/Phoenix-4%20%E5%BC%82%E6%AD%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95/" class="post-meta-item leancloud_visitors" data-flag-title="Phoenix 异步创建索引" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -368,8 +367,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/11/03/Factorial/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/03/Factorial/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/07/Hadoop/Phoenix/Phoenix-4%20%E5%BC%82%E6%AD%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/07/Hadoop/Phoenix/Phoenix-4%20%E5%BC%82%E6%AD%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -379,249 +378,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="阶乘相关"><a href="#阶乘相关" class="headerlink" title="阶乘相关"></a>阶乘相关</h2><h3 id="1-问题分类"><a href="#1-问题分类" class="headerlink" title="1. 问题分类"></a>1. 问题分类</h3><ol>
-<li>输入一个非负整数 n，请你计算阶乘 n! 的结果末尾有几个 0</li>
-<li>输入一个非负整数 K，请你计算有多少个 n，满足 n! 的结果末尾恰好有 K 个 0。</li>
-</ol>
-<h4 id="1-1-求-n-的结果末尾有几个-0"><a href="#1-1-求-n-的结果末尾有几个-0" class="headerlink" title="1.1 求 n! 的结果末尾有几个 0"></a>1.1 求 n! 的结果末尾有几个 0</h4><p>n! &#x3D; 1 * 2 * 3 * … * n</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/03/Factorial/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/03/Mybatis-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/03/Mybatis-1/" class="post-title-link" itemprop="url">MyBatis 查询结果自动封装为map，出现null而没有字段名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-11-03 17:14:00 / Modified: 17:40:00" itemprop="dateCreated datePublished" datetime="2020-11-03T17:14:00+08:00">2020-11-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/11/03/Mybatis-1/" class="post-meta-item leancloud_visitors" data-flag-title="MyBatis 查询结果自动封装为map，出现null而没有字段名" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/11/03/Mybatis-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/03/Mybatis-1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="MyBatis-查询结果自动封装为map，出现null而没有字段名"><a href="#MyBatis-查询结果自动封装为map，出现null而没有字段名" class="headerlink" title="MyBatis 查询结果自动封装为map，出现null而没有字段名"></a>MyBatis 查询结果自动封装为map，出现null而没有字段名</h2><ol>
-<li>问题</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">select a, b, c from table</span><br><span class="line">&gt;&gt; </span><br><span class="line">a   b   c</span><br><span class="line"></span><br><span class="line">1      </span><br><span class="line">// 查询结果中，第一条数据这三个字段都是null，没有值，第二条数据只有a字段有值，在自动封装为hashmap返回时的结果如下：</span><br><span class="line">[</span><br><span class="line">    null,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;a&quot;: 1</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>原因：</li>
-</ol>
-<p>org.apache.ibatis.executor.resultset.DefaultResultSetHandler 类下面找到 <code>getRowValue</code> 方法</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/03/Mybatis-1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/10/15/Redis-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/15/Redis-3/" class="post-title-link" itemprop="url">Redis的一些问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-15 10:58:00" itemprop="dateCreated datePublished" datetime="2020-10-15T10:58:00+08:00">2020-10-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-19 18:00:00" itemprop="dateModified" datetime="2020-10-19T18:00:00+08:00">2020-10-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/10/15/Redis-3/" class="post-meta-item leancloud_visitors" data-flag-title="Redis的一些问题" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/10/15/Redis-3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/15/Redis-3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>5.8k</span>
+              <span>5.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -640,13 +397,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Redis的一些问题"><a href="#Redis的一些问题" class="headerlink" title="Redis的一些问题"></a>Redis的一些问题</h2><p>Remote Dictionary Server</p>
-<p>底层C写的</p>
-<p>类似于 mysql，可以把最近的query和对应的结果保存下来 &#x3D;&gt; hashquery 存入到缓存里，如果其他用户的query的hash值是一样的，说明查询是一样的，直接从缓存里读出来结果 &#x3D;&gt; 多级缓存，目的是将最初的query进行过滤、优化，尽可能只让最后的事务操作落到DB中，缓解DB压力</p>
-<h3 id="1-redis出现的原因"><a href="#1-redis出现的原因" class="headerlink" title="1. redis出现的原因"></a>1. redis出现的原因</h3>
+          <h2 id="Phoenix-异步创建索引"><a href="#Phoenix-异步创建索引" class="headerlink" title="Phoenix 异步创建索引"></a>Phoenix 异步创建索引</h2><p>当表数据量过大的时候，创建索引会报错，可以修改服务器端的 <code>hbase.rpc.timeout</code>，默认是1分钟，可以自定义时间。也可以异步创建索引，通过在语句后面添加<code>async</code> 关键字。</p>
+<p>需要注意的是：</p>
+<ol>
+<li>异步创建索引只支持全局索引</li>
+<li>执行async语句只是第一步，还需要通过执行jar包来保证索引真正的建立</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/10/15/Redis-3/#more" rel="contents">
+              <a class="btn" href="/2020/11/07/Hadoop/Phoenix/Phoenix-4%20%E5%BC%82%E6%AD%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -670,7 +429,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/09/28/Singleton/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/10/15/Redis/Redis-4%20%E8%B7%B3%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -684,7 +443,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/28/Singleton/" class="post-title-link" itemprop="url">单例模式</a>
+            <a href="/2020/10/15/Redis/Redis-4%20%E8%B7%B3%E8%A1%A8/" class="post-title-link" itemprop="url">Redis中的跳表</a>
         </h2>
 
         <div class="post-meta">
@@ -693,26 +452,28 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-09-28 16:09:00 / Modified: 17:42:00" itemprop="dateCreated datePublished" datetime="2020-09-28T16:09:00+08:00">2020-09-28</time>
+              <time title="Created: 2020-10-15 14:58:00" itemprop="dateCreated datePublished" datetime="2020-10-15T14:58:00+08:00">2020-10-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-17 18:28:00" itemprop="dateModified" datetime="2020-11-17T18:28:00+08:00">2020-11-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/Singleton/" itemprop="url" rel="index"><span itemprop="name">Singleton</span></a>
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/09/28/Singleton/" class="post-meta-item leancloud_visitors" data-flag-title="单例模式" title="Views">
+            <span id="/2020/10/15/Redis/Redis-4%20%E8%B7%B3%E8%A1%A8/" class="post-meta-item leancloud_visitors" data-flag-title="Redis中的跳表" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -727,8 +488,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/09/28/Singleton/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/28/Singleton/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/10/15/Redis/Redis-4%20%E8%B7%B3%E8%A1%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/15/Redis/Redis-4%20%E8%B7%B3%E8%A1%A8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -738,7 +499,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.9k</span>
+              <span>3.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -757,13 +518,256 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h3 id="1-饿汉式"><a href="#1-饿汉式" class="headerlink" title="1. 饿汉式"></a>1. 饿汉式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class EHan &#123;</span><br><span class="line">    private static EHan instance = new EHan();</span><br><span class="line">    private EHan()&#123;&#125;</span><br><span class="line">    public static EHan getInstance()&#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>优点：没有线程安全问题<br>缺点：在初始化时就创建好了，浪费内存空间</p>
-<h3 id="2-懒汉式"><a href="#2-懒汉式" class="headerlink" title="2. 懒汉式"></a>2. 懒汉式</h3>
+          <h2 id="Redis中的跳表"><a href="#Redis中的跳表" class="headerlink" title="Redis中的跳表"></a>Redis中的跳表</h2><p><a href="https://www.cnblogs.com/lfri/p/9991925.html">参考网址1</a><br><a href="https://www.cnblogs.com/hunternet/p/11248192.html">参考网址2</a></p>
+<p>redis 数据类型 zset 实现有序集合，底层使用的数据结构是跳表。</p>
+<p>源码在 <code>src/t_zset.c</code> 文件中，相关数据结构的定义在 <code>src/server.h</code> 文件中。(4.0版本)</p>
+<p>元素有序的时候，如果是数组，可以通过二分查找来提速；如果是链表，如何提速？ &#x3D;&gt; 跳表，插入&#x2F;删除&#x2F;搜索 都是O(logn)</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/28/Singleton/#more" rel="contents">
+              <a class="btn" href="/2020/10/15/Redis/Redis-4%20%E8%B7%B3%E8%A1%A8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/16/Hadoop/HBase/HBase-3%20WAL%E6%97%A5%E5%BF%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/16/Hadoop/HBase/HBase-3%20WAL%E6%97%A5%E5%BF%97/" class="post-title-link" itemprop="url">HBase WAL日志</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-16 15:18:00 / Modified: 18:45:00" itemprop="dateCreated datePublished" datetime="2020-11-16T15:18:00+08:00">2020-11-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/16/Hadoop/HBase/HBase-3%20WAL%E6%97%A5%E5%BF%97/" class="post-meta-item leancloud_visitors" data-flag-title="HBase WAL日志" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/16/Hadoop/HBase/HBase-3%20WAL%E6%97%A5%E5%BF%97/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/16/Hadoop/HBase/HBase-3%20WAL%E6%97%A5%E5%BF%97/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HBase-WAL日志"><a href="#HBase-WAL日志" class="headerlink" title="HBase WAL日志"></a>HBase WAL日志</h2><p><a href="https://www.cnblogs.com/frankdeng/p/9310278.html">参考网址1</a><br><a href="http://hbasefly.com/2017/07/02/hbase-sequenceid/">参考网址2</a></p>
+<p><strong>每一个region servser维护一个或多个Hlog（1.X版本可以开启multiwal），而不是每一个region一个日志</strong>。这样不同 region(可能来自来自不同 table) 的日志会混在一起，这样做的目的是不断追加单个文件相对于同时写多个文件而言，可以减少磁盘寻址次数，因此可以提高对 table 的写性能。带来的麻烦是，如果一台 region server 下线，为了恢复其上的 region，需要将 region server 上的 log 进行拆分，然后分发到其它 region server 上进行恢复。</p>
+<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/11.png" alt="HLog文件基本结构"></p>
+<p>HLog中日志单元WALEntry表示一次行级更新的最小追加单元（图中红色&#x2F;黄色小方框）。它由两部分组成：HLogKey和WALEdit，HLogKey中包含多个属性信息，包含table name、region name、sequenceid等；WALEdit用来表示一个事务中的更新集合，一次行级事务可以原子操作同一行中的多个列。上图中WALEdit包含多个KeyValue。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/16/Hadoop/HBase/HBase-3%20WAL%E6%97%A5%E5%BF%97/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/11/12/Java/JVM/JVM-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/12/Java/JVM/JVM-2/" class="post-title-link" itemprop="url">JVM SafePoint</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-12 17:58:00" itemprop="dateCreated datePublished" datetime="2020-11-12T17:58:00+08:00">2020-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-16 10:03:00" itemprop="dateModified" datetime="2020-11-16T10:03:00+08:00">2020-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/12/Java/JVM/JVM-2/" class="post-meta-item leancloud_visitors" data-flag-title="JVM SafePoint" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/12/Java/JVM/JVM-2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/12/Java/JVM/JVM-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>795</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="JVM-SafePoint"><a href="#JVM-SafePoint" class="headerlink" title="JVM SafePoint"></a>JVM SafePoint</h2><p>在多线程环境下，为了能正确回收不再使用的内存，安全回收需要满足以下两个条件</p>
+<ol>
+<li>堆内存的变化是受控制的，最好所有的线程都停止</li>
+<li>堆中的对象是已知的，不再使用的对象都可以找到</li>
+</ol>
+<p>∴ JVM 是在 SafePoint 点时才进行回收，所谓 SafePoint 即Java线程执行到某个位置时，JVM能够安全可控地回收对象</p>
+<p>如何到达 SafePoint</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/12/Java/JVM/JVM-2/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -786,7 +790,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -854,20 +858,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">73</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -906,28 +910,28 @@
         </div>
         <ul class="links-of-blogroll-list recent-posts-list">
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="ClickHouse笔记" target="">
-              ClickHouse笔记
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/01/18/ck-1%20%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7/" title="ClickHouse笔记-尚硅谷" target="">
-              ClickHouse笔记-尚硅谷
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/10/29/JVM-1/" title="JVM 内存管理" target="">
-              JVM 内存管理
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/12/28/Interview-1/" title="Interview-1" target="">
-              Interview-1
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2021/01/19/Linux-3/" title="Linux 常用命令" target="">
-              Linux 常用命令
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
               </a>
           </li>
         </ul>
@@ -959,12 +963,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">617k</span>
+    <span title="Symbols count total">648k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9:21</span>
+    <span title="Reading time total">9:49</span>
 </div>
 
         

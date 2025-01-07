@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/07/08/Hive-5/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/09/27/Hadoop/Phoenix/Phoenix-3%20%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -200,7 +200,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/08/Hive-5/" class="post-title-link" itemprop="url">Hive源码解析</a>
+            <a href="/2020/09/27/Hadoop/Phoenix/Phoenix-3%20%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">Phoenix创建索引源码过程</a>
         </h2>
 
         <div class="post-meta">
@@ -210,14 +210,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-07-08 15:12:00" itemprop="dateCreated datePublished" datetime="2020-07-08T15:12:00+08:00">2020-07-08</time>
+              <time title="Created: 2020-09-27 13:50:00" itemprop="dateCreated datePublished" datetime="2020-09-27T13:50:00+08:00">2020-09-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 17:38:00" itemprop="dateModified" datetime="2020-08-21T17:38:00+08:00">2020-08-21</time>
+                <time title="Modified: 2020-09-28 16:30:00" itemprop="dateModified" datetime="2020-09-28T16:30:00+08:00">2020-09-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,12 +229,12 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+                  <a href="/categories/Hadoop/Phoenix/" itemprop="url" rel="index"><span itemprop="name">Phoenix</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/07/08/Hive-5/" class="post-meta-item leancloud_visitors" data-flag-title="Hive源码解析" title="Views">
+            <span id="/2020/09/27/Hadoop/Phoenix/Phoenix-3%20%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E8%BF%87%E7%A8%8B/" class="post-meta-item leancloud_visitors" data-flag-title="Phoenix创建索引源码过程" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -249,8 +249,480 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/07/08/Hive-5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/08/Hive-5/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/09/27/Hadoop/Phoenix/Phoenix-3%20%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E8%BF%87%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/27/Hadoop/Phoenix/Phoenix-3%20%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E8%BF%87%E7%A8%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Phoenix创建索引源码过程"><a href="#Phoenix创建索引源码过程" class="headerlink" title="Phoenix创建索引源码过程"></a>Phoenix创建索引源码过程</h2><p>org.apache.phoenix.index.IndexMaintainer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public byte[] buildRowKey(ValueGetter valueGetter, ImmutableBytesWritable rowKeyPtr, byte[] regionStartKey, byte[] regionEndKey, long ts)  &#123;</span><br><span class="line">    ImmutableBytesWritable ptr = new ImmutableBytesWritable();</span><br><span class="line"></span><br><span class="line">//判断是否是构建本地索引，考虑两个条件：1.本地索引是否开启 2.startRK 是否传进来了</span><br><span class="line">    boolean prependRegionStartKey = isLocalIndex &amp;&amp; regionStartKey != null;</span><br><span class="line">    boolean isIndexSalted = !isLocalIndex &amp;&amp; nIndexSaltBuckets &gt; 0;</span><br><span class="line"></span><br><span class="line">//如果开启本地索引，则在数据前面添加前缀，判断startRK是否是region起始startRK，如果是则使用该region的EndRK</span><br><span class="line">    int prefixKeyLength =</span><br><span class="line">            prependRegionStartKey ? (regionStartKey.length != 0 ? regionStartKey.length</span><br><span class="line">                    : regionEndKey.length) : 0;</span><br><span class="line">    TrustedByteArrayOutputStream stream = new TrustedByteArrayOutputStream(estimatedIndexRowKeyBytes + (prependRegionStartKey ? prefixKeyLength : 0));</span><br><span class="line"></span><br><span class="line">// 构建数据流对象，对数据进行put</span><br><span class="line">    DataOutput output = new DataOutputStream(stream);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/27/Hadoop/Phoenix/Phoenix-3%20%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E8%BF%87%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">Redis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-18 17:07:00" itemprop="dateCreated datePublished" datetime="2020-09-18T17:07:00+08:00">2020-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-25 11:03:00" itemprop="dateModified" datetime="2020-09-25T11:03:00+08:00">2020-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/" class="post-meta-item leancloud_visitors" data-flag-title="Redis" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p><a href="https://mp.weixin.qq.com/s/jNVJHJOPUv6V9cRU8M75Hw">参考网址</a></p>
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>Redis的主要功能都基于单线程模型实现，也就是说Redis使用一个线程来服务所有的客户端请求，同时Redis采用了非阻塞式IO，并精细地优化各种命令的算法时间复杂度，这些信息意味着：</p>
+<ul>
+<li>Redis是线程安全的（因为只有一个线程），其所有操作都是原子的，不会因并发产生数据异常</li>
+<li>Redis的速度非常快（因为使用非阻塞式IO，且大部分命令的算法时间复杂度都是O(1))</li>
+<li>使用高耗时的Redis命令是很危险的，会占用唯一的一个线程的大量处理时间，导致所有的请求都被拖慢。（例如时间复杂度为O(N)的KEYS命令，严格禁止在生产环境中使用）</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/09/24/Redis/Redis-2%20%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/24/Redis/Redis-2%20%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/" class="post-title-link" itemprop="url">Mac 搭建 Redis 集群</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-24 16:24:00 / Modified: 17:30:00" itemprop="dateCreated datePublished" datetime="2020-09-24T16:24:00+08:00">2020-09-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/24/Redis/Redis-2%20%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/" class="post-meta-item leancloud_visitors" data-flag-title="Mac 搭建 Redis 集群" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/09/24/Redis/Redis-2%20%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/24/Redis/Redis-2%20%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>594</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Mac-搭建-Redis-集群"><a href="#Mac-搭建-Redis-集群" class="headerlink" title="Mac 搭建 Redis 集群"></a>Mac 搭建 Redis 集群</h2><p><a href="https://www.jianshu.com/p/e5b046b8dcbf">参考文档</a></p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>安装docker<br>brew cask install docker</p>
+<p>在设置里选择 Docker Engine，添加国内下载镜像</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/24/Redis/Redis-2%20%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/09/28/Java/Thread/Thread-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/28/Java/Thread/Thread-5/" class="post-title-link" itemprop="url">线程一些问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-28 11:08:00" itemprop="dateCreated datePublished" datetime="2020-09-28T11:08:00+08:00">2020-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-21 18:15:00" itemprop="dateModified" datetime="2020-09-21T18:15:00+08:00">2020-09-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/Thread/" itemprop="url" rel="index"><span itemprop="name">Thread</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/28/Java/Thread/Thread-5/" class="post-meta-item leancloud_visitors" data-flag-title="线程一些问题" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/09/28/Java/Thread/Thread-5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/28/Java/Thread/Thread-5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="线程一些问题"><a href="#线程一些问题" class="headerlink" title="线程一些问题"></a>线程一些问题</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>单线程和多线程 表象化的一种理解：线程就是程序执行的路径，单线程就是只有一条路径，多线程就是多条路径</p>
+<p>进程：一个程序装载到内存里，分配好资源如网络等等。是分配资源的最基本单位</p>
+<p>线程：程序开始运行，将一条条指令放到cpu里执行。是调度执行的最基本单位</p>
+<p>CPU：ALU（算术逻辑单元，负责计算） + Registers（寄存器，存储数据） + PC（计数器，记录执行到哪一条指令，记录指令地址）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/28/Java/Thread/Thread-5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/09/21/Java/JUF/Function-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/21/Java/JUF/Function-1/" class="post-title-link" itemprop="url">java.util.function 包</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-21 13:41:00 / Modified: 14:40:00" itemprop="dateCreated datePublished" datetime="2020-09-21T13:41:00+08:00">2020-09-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/JUF/" itemprop="url" rel="index"><span itemprop="name">JUF</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/21/Java/JUF/Function-1/" class="post-meta-item leancloud_visitors" data-flag-title="java.util.function 包" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/09/21/Java/JUF/Function-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/21/Java/JUF/Function-1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -279,536 +751,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Hive源码解析"><a href="#Hive源码解析" class="headerlink" title="Hive源码解析"></a>Hive源码解析</h2><p>入口：hive-cli-1.1.0-cdh5.14.4.jar!&#x2F;org&#x2F;apache&#x2F;hadoop&#x2F;hive&#x2F;cli&#x2F;CliDriver.class</p>
-<p><a href="https://blog.csdn.net/zyzzxycj/article/details/102861166">参考文档</a></p>
-<h3 id="1-启动"><a href="#1-启动" class="headerlink" title="1. 启动"></a>1. 启动</h3><p>命令行输入 hive 后，启动log进程，建立一个客户端Session，获取到服务器的hive conf配置文件，启动客户端</p>
+          <h2 id="java-util-function-包"><a href="#java-util-function-包" class="headerlink" title="java.util.function 包"></a>java.util.function 包</h2><h3 id="1-Function"><a href="#1-Function" class="headerlink" title="1. Function"></a>1. Function</h3><p>接收一个参数，并返回一个结果</p>
+<h3 id="2-BiFunction"><a href="#2-BiFunction" class="headerlink" title="2. BiFunction"></a>2. BiFunction</h3><p>接收两个参数，并返回一个结果</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/07/08/Hive-5/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/06/14/IO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/14/IO/" class="post-title-link" itemprop="url">Java IO相关使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-06-14 14:42:22" itemprop="dateCreated datePublished" datetime="2020-06-14T14:42:22+08:00">2020-06-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 17:35:45" itemprop="dateModified" datetime="2020-08-21T17:35:45+08:00">2020-08-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/IO/" itemprop="url" rel="index"><span itemprop="name">IO</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/06/14/IO/" class="post-meta-item leancloud_visitors" data-flag-title="Java IO相关使用" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/06/14/IO/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/14/IO/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.7k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Java-IO相关使用"><a href="#Java-IO相关使用" class="headerlink" title="Java IO相关使用"></a>Java IO相关使用</h2><h3 id="1-文件"><a href="#1-文件" class="headerlink" title="1. 文件"></a>1. 文件</h3><p>创建 File 对象的三种方式</p>
-<ul>
-<li>一个路径名：<code>File(String pathname)</code></li>
-<li>一个父路径名和子路径名：<code>File(File parent, String child)</code> 或 <code>File(String parent, String child)</code></li>
-<li>一个URI (统一资源标识符)：<code>File(URI uri)</code></li>
-</ul>
-<p>有文件时覆盖，无文件时创建。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/14/IO/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/05/31/Sqoop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/31/Sqoop/" class="post-title-link" itemprop="url">Sqoop源码解析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-31 12:09:00" itemprop="dateCreated datePublished" datetime="2020-05-31T12:09:00+08:00">2020-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 17:33:00" itemprop="dateModified" datetime="2020-08-21T17:33:00+08:00">2020-08-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/Sqoop/" itemprop="url" rel="index"><span itemprop="name">Sqoop</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/05/31/Sqoop/" class="post-meta-item leancloud_visitors" data-flag-title="Sqoop源码解析" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/05/31/Sqoop/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/31/Sqoop/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Sqoop源码解析"><a href="#Sqoop源码解析" class="headerlink" title="Sqoop源码解析"></a>Sqoop源码解析</h2><p>org.apache.sqoop 文件夹</p>
-<blockquote>
-<p>参考文档：</p>
-<ol>
-<li><a href="https://blog.csdn.net/omadesala/article/details/48368163">https://blog.csdn.net/omadesala/article/details/48368163</a></li>
-</ol>
-</blockquote>
-<h3 id="1-启动"><a href="#1-启动" class="headerlink" title="1. 启动"></a>1. 启动</h3><ul>
-<li>Sqoop 类下的 main() 方法: 如果没有参数，返回 “sqoop help’ for usage.” 并终止。如果有参数，调用 runTool(args, new Configuration())<ul>
-<li>runTool(args, new Configuration()): 主要任务是负责解析参数<ul>
-<li>尝试调用 OptionsFileUtil 类下的 expandArguments(String[] args) 方法<ul>
-<li>expandedArgs &#x3D; OptionsFileUtil.expandArguments(args); 遍历所有参数，如果有 “–options-file” 这个参数，就打开指定的脚本文件（保存要执行语句的参数和值），先过滤掉 # 开头的注释部分，然后判断 \ 结尾、’ 、 “ 开头，依次过滤掉这些情况，将最后的参数加入 options[] 中；否则就将参数直接添加到 options[] 中。最终返回结果为 (String[])options.toArray(new String[options.size()]) 。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>expandArguments() 返回的结果保存在 expandedArgs[] 中，String toolName &#x3D; expandedArgs[0] 第一个位置的参数就是 sqoop 语句要使用的功能（export，import等）</li>
-<li>通过 Configuration pluginConf &#x3D; SqoopTool.loadPlugins(conf); 返回 sqoop 所有 tool 以及对应的配置信息。</li>
-<li>调用 SqoopTool 类下的 getTool(String toolName) 方法，会从 Map&lt;String, Class&lt;? extends SqoopTool&gt;&gt; TOOLS 这个里面来读取具体使用的 tool 的类信息，创建一个实例，返回一个 SqoopTool</li>
-<li>调用 runSqoop(sqoop, (String[])Arrays.copyOfRange(expandedArgs, 1, expandedArgs.length)); sqoop 是传入 tool 和 pluginConf 创建的一个 Sqoop 实例；将 tool 之后的所有参数传递出去。 eg: sqoop export –connect … expandedArgs&#x3D;[“export”,”–connect”,…] export 就是 tool</li>
-<li>调用 ToolRunner.run(sqoop.getConf(), sqoop, toolArgs); 方法执行。由于 Tool 是一个抽象类，run() 方法被 Sqoop 重写，所以最终调用的方法还是 Sqoop 类下的 run() 方法<ul>
-<li>通过 Parser 类下的 parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption) 方法对一些普遍的option进行解析，比如 <code>-fs &lt;local|namenode:port&gt;      specify a namenode</code> <code>-jt &lt;local|resourcemanager:port&gt;    specify a ResourceManager</code> <code>-D &lt;property=value&gt;            use value for given property</code> 等等</li>
-</ul>
-</li>
-<li>调用 SqoopTool 类下的 parseArguments(String[] args, Configuration conf, SqoopOptions in, boolean useGenericOptions) 方法来解析参数。此时的 tool 指向的是具体的功能，import、export 等，调用的方法都在对应的类下: tool 包下有对应的所有的功能文件。在判断完参数是完整的情况下，最后执行的 run() 方法也是在对应功能文件下的 run() 方法。<br>  — 以 ExportTool 为例，在执行 run() 方法时，会回调父类 BaseSqoopTool 类下的 init(SqoopOptions sqoopOpts) 方法，来生成一个 ConnManager 实例，用来管理连接信息。通过 this.codeGenerator.generateORM(options, tableName); 来将表结构对应的 java 类写入 jar 文件，这个 jar 文件和其他 options 会构造出一个 ExportJobContext 对象，根据 –update_mode 参数来决定更新方式<ul>
-<li>通过调用 orm 包下的 ClassWriter 类的 ClassWriter(SqoopOptions opts, ConnManager connMgr, String table, CompilationManager compMgr) 方法，和 generate() 方法来生成一个 .java 文件，路径保存在 orm 包下的 CompilationManager 类的对象中，再经过 compile() 和 jar() 方法来打包生成 表名.jar 文件。</li>
-<li>在 SqoopOptions 类下会保存目标表的所有字段，针对字段会做一个过滤，是否等于 java 保留关键字，如果等于就用在前面加一个 _。</li>
-</ul>
-</li>
-<li>数据库的连接方法基类抽象类在 manager 包下的 ConnManager 文件里，主要包括 1.MainFrameManager——连接主机 2.SqlManager——连接各种支持JDBC连接的数据库<br>  Sqlmanager 类下在获取到参数后，会先尝试连接一下数据库，执行一个 select t.* from XX as t limit 1 的语句</li>
-<li>mysql 和 hadoop 连接的时候使用的是 SqlManager 类，如果是 import 调用的是 importTable 方法，如果是 export 调用的是 exportTable 方法。根据生成的 ExportJobContext 上下文实例，执行 runExport() 方法，调用的是 mapreduce 包下的 ExportJobBase 类的方法。</li>
-<li>配置好 job 相关信息，执行 runJob(job) 方法。<ul>
-<li>在 hive export to mysql 时，如果字段还有特殊字符，可能会出现因为切分数据而导致数据错位导致推数失败的情况。如果要对 hive 表中的数据进行处理的话，需要在 mapreduce 包下找到对应的 mapper 类（根据 hive 表类型划分为 TextExportMapper、ParquetMapper、SequenceFileMapper 等）</li>
-</ul>
-</li>
-<li>具体解析参数是在 SqoopParser 类下的 processArgs(Option opt, ListIterator iter) 方法</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/05/31/Sqoop/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/08/19/Thread-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/19/Thread-4/" class="post-title-link" itemprop="url">守护线程和用户线程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-19 13:48:00" itemprop="dateCreated datePublished" datetime="2020-08-19T13:48:00+08:00">2020-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-21 17:23:00" itemprop="dateModified" datetime="2020-08-21T17:23:00+08:00">2020-08-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/Thread/" itemprop="url" rel="index"><span itemprop="name">Thread</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/08/19/Thread-4/" class="post-meta-item leancloud_visitors" data-flag-title="守护线程和用户线程" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/08/19/Thread-4/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/19/Thread-4/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>398</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="守护线程和用户线程"><a href="#守护线程和用户线程" class="headerlink" title="守护线程和用户线程"></a>守护线程和用户线程</h2><p>Java分为两种线程：用户线程和守护线程</p>
-<p>所谓守护线程是指在程序运行的时候在后台提供一种通用服务的线程，比如垃圾回收线程就是一个很称职的守护者，并且这种线程并不属于程序中不可或缺的部分。</p>
-<p>当用户进程结束后，程序终止，不管此时是否还有正在运行的守护线程。</p>
-<p>将线程转换为守护线程可以通过调用Thread对象的setDaemon(true)方法来实现。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/19/Thread-4/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/08/21/HashMap-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/21/HashMap-2/" class="post-title-link" itemprop="url">HashMap 中的哈希值计算问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-08-21 16:48:00 / Modified: 16:52:00" itemprop="dateCreated datePublished" datetime="2020-08-21T16:48:00+08:00">2020-08-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/HashMap/" itemprop="url" rel="index"><span itemprop="name">HashMap</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/08/21/HashMap-2/" class="post-meta-item leancloud_visitors" data-flag-title="HashMap 中的哈希值计算问题" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/08/21/HashMap-2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/21/HashMap-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>665</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="HashMap-中的哈希值计算问题"><a href="#HashMap-中的哈希值计算问题" class="headerlink" title="HashMap 中的哈希值计算问题"></a>HashMap 中的哈希值计算问题</h2><h3 id="1-hash-计算"><a href="#1-hash-计算" class="headerlink" title="1. hash 计算"></a>1. hash 计算</h3><p>JDK1.8<br>HashMap源码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://images.weserv.nl/?url=https://img2018.cnblogs.com/blog/984423/201907/984423-20190718113737330-625791541.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/21/HashMap-2/#more" rel="contents">
+              <a class="btn" href="/2020/09/21/Java/JUF/Function-1/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -831,7 +778,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -899,20 +846,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">73</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -951,28 +898,28 @@
         </div>
         <ul class="links-of-blogroll-list recent-posts-list">
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="ClickHouse笔记" target="">
-              ClickHouse笔记
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/01/18/ck-1%20%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7/" title="ClickHouse笔记-尚硅谷" target="">
-              ClickHouse笔记-尚硅谷
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/10/29/JVM-1/" title="JVM 内存管理" target="">
-              JVM 内存管理
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/12/28/Interview-1/" title="Interview-1" target="">
-              Interview-1
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2021/01/19/Linux-3/" title="Linux 常用命令" target="">
-              Linux 常用命令
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
               </a>
           </li>
         </ul>
@@ -1004,12 +951,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">617k</span>
+    <span title="Symbols count total">648k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9:21</span>
+    <span title="Reading time total">9:49</span>
 </div>
 
         

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="数仓架构1. 数据仓库特点：  面向主题 电商，流量，交易。。。   集成 各个数据源：数据库，日志，爬虫。。。   相对稳定 主要用来查询，不是用来删除和修改   反映历史变化 N年的记录，每个月、每个季度、每年的汇总记录   管理决策 分析数据 -&gt; 指标     数据湖指的是所有的原始数据，数据仓库指经过处理的原始数据（四层）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数仓架构">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/12/13/DW/%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="数仓架构1. 数据仓库特点：  面向主题 电商，流量，交易。。。   集成 各个数据源：数据库，日志，爬虫。。。   相对稳定 主要用来查询，不是用来删除和修改   反映历史变化 N年的记录，每个月、每个季度、每年的汇总记录   管理决策 分析数据 -&gt; 指标     数据湖指的是所有的原始数据，数据仓库指经过处理的原始数据（四层）">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-12-13T03:49:06.000Z">
+<meta property="article:modified_time" content="2020-12-16T09:16:14.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="DW">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/12/13/DW/%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>数仓架构 | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/12/13/DW/%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数仓架构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-13 11:49:06" itemprop="dateCreated datePublished" datetime="2020-12-13T11:49:06+08:00">2020-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-16 17:16:14" itemprop="dateModified" datetime="2020-12-16T17:16:14+08:00">2020-12-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DW/" itemprop="url" rel="index"><span itemprop="name">DW</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/12/13/DW/%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84/" class="post-meta-item leancloud_visitors" data-flag-title="数仓架构" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/12/13/DW/%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/13/DW/%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数仓架构"><a href="#数仓架构" class="headerlink" title="数仓架构"></a>数仓架构</h2><h3 id="1-数据仓库"><a href="#1-数据仓库" class="headerlink" title="1. 数据仓库"></a>1. 数据仓库</h3><p>特点：</p>
+<ol>
+<li>面向主题<blockquote>
+<p>电商，流量，交易。。。</p>
+</blockquote>
+</li>
+<li>集成<blockquote>
+<p>各个数据源：数据库，日志，爬虫。。。</p>
+</blockquote>
+</li>
+<li>相对稳定<blockquote>
+<p>主要用来查询，不是用来删除和修改</p>
+</blockquote>
+</li>
+<li>反映历史变化<blockquote>
+<p>N年的记录，每个月、每个季度、每年的汇总记录</p>
+</blockquote>
+</li>
+<li>管理决策<blockquote>
+<p>分析数据 -&gt; 指标</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>数据湖指的是所有的原始数据，数据仓库指经过处理的原始数据（四层）</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="2-数据库和数据仓库的区别"><a href="#2-数据库和数据仓库的区别" class="headerlink" title="2. 数据库和数据仓库的区别"></a>2. 数据库和数据仓库的区别</h3><p>数据库： 联机事务处理和查询处理 OLTP<br>传统的数据仓库：主要是查询，用结果来支撑决策。联机分析处理 OLAP<br>大数据数据仓库：基于Hadoop的海量 分布式数据仓库<br>实时仓库：Flink + Kafka&#x2F;Redis&#x2F;HBase</p>
+<h3 id="3-架构"><a href="#3-架构" class="headerlink" title="3. 架构"></a>3. 架构</h3><p>lambda：实时+ 数仓<br>kappa：实时<br>批流一体</p>
+<h3 id="4-数仓分层"><a href="#4-数仓分层" class="headerlink" title="4. 数仓分层"></a>4. 数仓分层</h3><h4 id="4-1-分层"><a href="#4-1-分层" class="headerlink" title="4.1 分层"></a>4.1 分层</h4><ol>
+<li>ODS(Operation Data Store)：原始数据</li>
+<li>DWD(Data Warehouse Detail)：对原始数据进行清洗（去除空值、脏数据、超过极限范围的数据）、脱敏等，保存明细数据<ul>
+<li>选择业务过程 -&gt; 声明粒度 -&gt; 确认维度 —&gt; 确认事实</li>
+</ul>
+</li>
+<li>DWS(Data Warehouse Service)：按天进行轻度汇总，比如一个用户一天下单次数</li>
+<li>DWT(Data Warehouse Topic)：对数据进行累计汇总，比如一个用户从注册那天开始至今一共下了多少次单</li>
+<li>ADS(Application Data Store)：为各种统计报表提供数据</li>
+</ol>
+<blockquote>
+<p>第3、4层不一定都有，甚至都没有，直接从第2层经过操作到第5层，中间没有保留中间表<br>并不能保证一定按照这个分层来进行。如果说过滤条件也比较少，甚至可以直接从ODS进行过滤后直接返回给用户。</p>
+</blockquote>
+<h4 id="4-2-为什么要分层"><a href="#4-2-为什么要分层" class="headerlink" title="4.2 为什么要分层"></a>4.2 为什么要分层</h4><ol>
+<li>把复杂问题简单化：拆解每一个需求，方便定位问题</li>
+<li>减少重复开发：提供模型的复用性</li>
+<li>隔离原始数据：使真实数据和汇总数据解耦</li>
+</ol>
+<h3 id="5-数据集市和数据仓库的区别"><a href="#5-数据集市和数据仓库的区别" class="headerlink" title="5. 数据集市和数据仓库的区别"></a>5. 数据集市和数据仓库的区别</h3><p>数据集市是一个微型的数据仓库，通常有更少的数据，更少的主题区域，以及更少的历史数据，是部门级的。<br>数据仓库是企业级的。</p>
+<h3 id="6-数据理论"><a href="#6-数据理论" class="headerlink" title="6. 数据理论"></a>6. 数据理论</h3><h4 id="6-1-范式"><a href="#6-1-范式" class="headerlink" title="6.1 范式"></a>6.1 范式</h4><ol>
+<li>定义：范式可以理解为设计一张数据表的表结构</li>
+<li>优点：降低数据的冗余性；数据保存多份，一次修改，需要修改多个表，很难保证数据的<strong>一致性</strong></li>
+<li>缺点：获取数据的时候，需要通过Join连接来获取最后的数据</li>
+<li>分类：<ol>
+<li>第一范式：属性不可分割</li>
+<li>第二范式：不能存在非主键字段<strong>部分函数依赖</strong>主键字段，可以消除部分数据冗余</li>
+<li>第三范式：不能存在非主键字段<strong>传递函数依赖</strong>主键字段</li>
+<li>BCNF、第四范式、第五范式。。。</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>满足的范式越多，数据冗余性越低，但是表会越散，影响查询效率</p>
+</blockquote>
+<ol start="5">
+<li>函数依赖：完全函数依赖、部分函数依赖、传递函数依赖</li>
+</ol>
+<h4 id="6-2-OLTP-和-OLAP"><a href="#6-2-OLTP-和-OLAP" class="headerlink" title="6.2 OLTP 和 OLAP"></a>6.2 OLTP 和 OLAP</h4><ul>
+<li>OLTP：传统数据库的主要应用，主要是基本的、日常的事务处理，比如银行交易</li>
+<li>OLAP：数据仓库的主要应用，支持复杂的分析操作，侧重决策支持，并且提供直观的查询结果</li>
+</ul>
+<blockquote>
+<p>OLTP 一般是关系建模方式，OLAP 一般是维度建模方式</p>
+</blockquote>
+<h4 id="6-3-关系建模和维度建模"><a href="#6-3-关系建模和维度建模" class="headerlink" title="6.3 关系建模和维度建模"></a>6.3 关系建模和维度建模</h4><p>关系建模符合3NF，表松散，表的数据量多，但是数据冗余性低。由于数据分布在很多的表中，这些数据可以更为灵活地被应用，功能性更强。</p>
+<p>维度建模：基于维度和度量。维度就是事实，相当于用户进行的业务操作</p>
+<h4 id="6-4-维度表和事实表"><a href="#6-4-维度表和事实表" class="headerlink" title="6.4 维度表和事实表"></a>6.4 维度表和事实表</h4><p>维度表：一般是对事实的描述信息，例如：用户、商品、日期、地区等<br>特征：维度表的范围很宽（具有多个属性，列比较多）；跟事实表相比，行数较小；内容比较固定，比如编码表</p>
+<p>事实表：对应着业务事件，每一个业务都应该有一个事实表。<strong>事实</strong>对应了业务事件中的<strong>度量值</strong>。<br>特征：行数很多；内容相对的窄，列数较少（维度外键 + 度量值）；经常发生变化</p>
+<p>事实表又分为如下三种：</p>
+<ol>
+<li>事务型事实表<ul>
+<li>以每个事务或事件为单位，一旦插入就不会再作修改，更新方式就只能是增量方式</li>
+</ul>
+</li>
+<li>周期型快照事实表<ul>
+<li>不会保留所有数据，只保留固定时间间隔的数据</li>
+<li>事务型事实表用来保存所有的数据。比如购物车数据，不需要记录每一次加减，只要汇总每一天最后的那个状态就行。</li>
+</ul>
+</li>
+<li>累积型快照事实表<ul>
+<li>用于跟踪业务事实的变化。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>这三种像是针对关系型数据库如何设计表来说的，根据表类型的不同，来决定每天同步数据到数仓的方式是全量还是增量。<br>比如第一种因为只会新增数据，所以每天增量同步到数仓即可；第二种需要全量同步；第三种将新增变化数据同步之后，还需要再做一步整合。</p>
+</blockquote>
+<blockquote>
+<p>事实表一般是动词，维度表一般是名词。</p>
+</blockquote>
+<h3 id="7-星型模型、雪花模型、星座模型"><a href="#7-星型模型、雪花模型、星座模型" class="headerlink" title="7. 星型模型、雪花模型、星座模型"></a>7. 星型模型、雪花模型、星座模型</h3><p>雪花模型和星型模型的区别主要是在维度的层级，标准的星型模型维度只有一层，雪花模型可能会涉及多层。<br>多个事实表可能会使用相同的维度表，组合起来就是星座模型。</p>
+<h3 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p>数仓最重要的是什么？<br>数据的准确性。数仓最终是为了支撑决策，决策的前提要保证数据的准确性。</p>
+<p>如何保证数据的准确性？<br>元数据的建设与管理是其中重要的一个环节。元数据建设的目标是打通数据接入到加工 ，再到数据消费整个链路，规范元数据体系与模型，提供统一的元数据服务出口，保障元数据产出的稳定性和质量。首先梳理清楚元仓底层数据，对元数据做分类，如计算元数据、存储元数据、质量元数据等，减少数据重复建设，保障数据的唯一性。<br>另外， 要丰富表和字段使用说明，方便使用和理解。根据元仓底层数据构建元仓中间层，建设元数据基础宽表，也就是元数据中间层，打通从数据产生到消费整个链路。<br>也可在粒度、规范等方面展开，见仁见智。</p>
+<p>如何做数据治理？数据资产管理呢？<br>在明确数据治理是数据管理的一部分之后，下一个问题就是定义数据管理。治理相对容易界定，它是用来明确相关角色、工作责任和工作流程的，确保数据资产能长期有序地、可持续地得到管理。<br>而数据管理则是一个更为广泛的定义，它与任何时间采集和应用数据的可重复流程的方方面面都紧密相关。<br>其实在数仓的整个链路中数据治理的理念是渗入其中的，在ETL过程中开发人员会对数据清洗这其实就是治理的一部分，再加上后期数据资产的管理和落定都有数据治理的渗入。</p>
+<p>如何控制数据质量？<br>1.数据质量保证原则：完整性，准确性，数据质量，及时性，一致性<br>2.数据质量方法：数据资产等级的划定<br>3.数据加工过程卡点校验<br>4.风险点监控：针对在线或者离线数据的监控<br>5.质量衡量：故障等级的划定以及数据质量的事件的记录</p>
+<p>元数据的理解？元数据管理系统？<br>元数据主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及 ETL 的任务运行状态。<br>元数据有重要的应用价值，是数据管理、数据内容、数据应用的基础，在数据管理方面为集团数据提供在计算、存储、成本、质量、安全、模型等治理领域上的数据支持。<br>元数据管理系统： 首先梳理清楚元仓底层数据，对元数据做分类，如计算元数据、存储元数据、质量元数据等，减少数据重复建设，保障数据的唯一性。<br>另外， 要丰富表和字段使用说明，方便使用和理解。根据元仓底层数据构建元仓中间层，建设元数据基础宽表，也就是元数据中间层，打通从数据产生到消费整个链路</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DW/" rel="tag"><i class="fa fa-tag"></i> DW</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/09/Java/Collection/Java-4/" rel="prev" title="Java 容器">
+      <i class="fa fa-chevron-left"></i> Java 容器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/28/Interview/Interview-1/" rel="next" title="Interview-1">
+      Interview-1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">数仓架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">1. 数据仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.2.</span> <span class="nav-text">2. 数据库和数据仓库的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9E%B6%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">3. 架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82"><span class="nav-number">1.4.</span> <span class="nav-text">4. 数仓分层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E5%88%86%E5%B1%82"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 分层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%86%E5%B1%82"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 为什么要分层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%B8%82%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.5.</span> <span class="nav-text">5. 数据集市和数据仓库的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA"><span class="nav-number">1.6.</span> <span class="nav-text">6. 数据理论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-%E8%8C%83%E5%BC%8F"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 范式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-OLTP-%E5%92%8C-OLAP"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 OLTP 和 OLAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-%E5%85%B3%E7%B3%BB%E5%BB%BA%E6%A8%A1%E5%92%8C%E7%BB%B4%E5%BA%A6%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3 关系建模和维度建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-%E7%BB%B4%E5%BA%A6%E8%A1%A8%E5%92%8C%E4%BA%8B%E5%AE%9E%E8%A1%A8"><span class="nav-number">1.6.4.</span> <span class="nav-text">6.4 维度表和事实表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%98%9F%E5%9E%8B%E6%A8%A1%E5%9E%8B%E3%80%81%E9%9B%AA%E8%8A%B1%E6%A8%A1%E5%9E%8B%E3%80%81%E6%98%9F%E5%BA%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.7.</span> <span class="nav-text">7. 星型模型、雪花模型、星座模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-A"><span class="nav-number">1.8.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

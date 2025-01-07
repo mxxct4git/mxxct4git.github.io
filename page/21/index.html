@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/SpringBoot-5/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/14/Algorithm/Al-6%20Google%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%88%E9%80%89%E8%87%AA%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -200,7 +200,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/18/SpringBoot-5/" class="post-title-link" itemprop="url">Spring Boot测试与打包</a>
+            <a href="/2018/12/14/Algorithm/Al-6%20Google%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%88%E9%80%89%E8%87%AA%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%89/" class="post-title-link" itemprop="url">Google面试题（选自公众号）</a>
         </h2>
 
         <div class="post-meta">
@@ -210,7 +210,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-11-18 11:20:37" itemprop="dateCreated datePublished" datetime="2018-11-18T11:20:37+08:00">2018-11-18</time>
+              <time title="Created: 2018-12-14 13:34:56" itemprop="dateCreated datePublished" datetime="2018-12-14T13:34:56+08:00">2018-12-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,16 +218,16 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+                  <a href="/categories/Algorithm/Topics/" itemprop="url" rel="index"><span itemprop="name">Topics</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/18/SpringBoot-5/" class="post-meta-item leancloud_visitors" data-flag-title="Spring Boot测试与打包" title="Views">
+            <span id="/2018/12/14/Algorithm/Al-6%20Google%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%88%E9%80%89%E8%87%AA%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%89/" class="post-meta-item leancloud_visitors" data-flag-title="Google面试题（选自公众号）" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -242,8 +242,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/18/SpringBoot-5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/SpringBoot-5/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/12/14/Algorithm/Al-6%20Google%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%88%E9%80%89%E8%87%AA%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/Algorithm/Al-6%20Google%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%88%E9%80%89%E8%87%AA%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%89/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,14 +253,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.8k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
+              <span>2 mins.</span>
             </span>
 
         </div>
@@ -272,12 +272,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-单元测试"><a href="#1-单元测试" class="headerlink" title="1.单元测试"></a>1.单元测试</h3><h4 id="1-1-在pom-xml中添加以下依赖即可"><a href="#1-1-在pom-xml中添加以下依赖即可" class="headerlink" title="1.1 在pom.xml中添加以下依赖即可"></a>1.1 在pom.xml中添加以下依赖即可</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">	&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="1-2-开发测试类"><a href="#1-2-开发测试类" class="headerlink" title="1.2 开发测试类"></a>1.2 开发测试类</h4><p>以最简单的helloworld为例，在测试类的类头部需要添加：@RunWith(SpringRunner.class)和@SpringBootTest注解，在测试方法的顶端添加@Test即可，最后在方法上点击右键run就可以运行。</p>
+          <h2 id="Google面试题（选自公众号）"><a href="#Google面试题（选自公众号）" class="headerlink" title="Google面试题（选自公众号）"></a>Google面试题（选自公众号）</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>把你的手机拨号页想象成一个棋盘。棋子走只能走“L”形状，横着两步，竖着一步；或者竖着两步，横着一步。</p>
+<p><img src="https://images.weserv.nl/?url=https://i.imgur.com/k7OgLAX.png"></p>
+<p>现在，假设你拨号只能像棋子一样走“L”形状。每走完一个“L”形拨一次号，起始位置也算拨号一次。问题：从某点开始，在N步内，你可以拨到多少不同的数字？</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/18/SpringBoot-5/#more" rel="contents">
+              <a class="btn" href="/2018/12/14/Algorithm/Al-6%20Google%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%88%E9%80%89%E8%87%AA%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%89/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -301,7 +301,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/SpringBoot-4/">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/14/Python/Python/Python-2%20Selenium/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/panda-180.png">
@@ -315,7 +315,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/11/18/SpringBoot-4/" class="post-title-link" itemprop="url">Spring Boot添加定时任务</a>
+            <a href="/2018/12/14/Python/Python/Python-2%20Selenium/" class="post-title-link" itemprop="url">Selenium</a>
         </h2>
 
         <div class="post-meta">
@@ -324,8 +324,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2018-11-18 11:20:03" itemprop="dateCreated datePublished" datetime="2018-11-18T11:20:03+08:00">2018-11-18</time>
+              <time title="Created: 2018-12-14 08:47:49 / Modified: 13:14:22" itemprop="dateCreated datePublished" datetime="2018-12-14T08:47:49+08:00">2018-12-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -333,16 +334,12 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
           
-            <span id="/2018/11/18/SpringBoot-4/" class="post-meta-item leancloud_visitors" data-flag-title="Spring Boot添加定时任务" title="Views">
+            <span id="/2018/12/14/Python/Python/Python-2%20Selenium/" class="post-meta-item leancloud_visitors" data-flag-title="Selenium" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -357,8 +354,352 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2018/11/18/SpringBoot-4/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/SpringBoot-4/" itemprop="commentCount"></span>
+    <a title="valine" href="/2018/12/14/Python/Python/Python-2%20Selenium/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/Python/Python/Python-2%20Selenium/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h2><h3 id="1-配置环境"><a href="#1-配置环境" class="headerlink" title="1.配置环境"></a>1.配置环境</h3><h4 id="1-1-安装selenium"><a href="#1-1-安装selenium" class="headerlink" title="1.1 安装selenium"></a>1.1 安装selenium</h4><p>pip install selenium</p>
+<h4 id="1-2-安装webdriver"><a href="#1-2-安装webdriver" class="headerlink" title="1.2 安装webdriver"></a>1.2 安装webdriver</h4><p>安装Chrome的webdriver插件</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/14/Python/Python/Python-2%20Selenium/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/" class="post-title-link" itemprop="url">Python爬虫</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-14 08:45:29" itemprop="dateCreated datePublished" datetime="2018-12-14T08:45:29+08:00">2018-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/" class="post-meta-item leancloud_visitors" data-flag-title="Python爬虫" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>8.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Python爬虫"><a href="#Python爬虫" class="headerlink" title="Python爬虫"></a>Python爬虫</h2><blockquote>
+<p> 以爬取豆瓣电影评价为例 </p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">关系型和非关系型数据库对比</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-11 15:40:29" itemprop="dateCreated datePublished" datetime="2018-12-11T15:40:29+08:00">2018-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataBase/" itemprop="url" rel="index"><span itemprop="name">DataBase</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-meta-item leancloud_visitors" data-flag-title="关系型和非关系型数据库对比" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="关系型数据库-Structured-Query-Language"><a href="#关系型数据库-Structured-Query-Language" class="headerlink" title="关系型数据库 Structured Query Language"></a>关系型数据库 Structured Query Language</h4><h5 id="1-优点"><a href="#1-优点" class="headerlink" title="1.优点"></a>1.优点</h5><ol>
+<li><p>事务处理时保持数据的一致性</p>
+<blockquote>
+<p>如果读取的过程中其他事务对数据有写入操作，查询出来的结果也依旧是读取开始前的状态，不会呈现修改后的结果。</p>
+</blockquote>
+</li>
+<li><p>以标准化为前提，数据更新的开销很小（相同字段基本上只有一处） [mdmdt.css](..&#x2F;..&#x2F;..&#x2F;Library&#x2F;Application Support&#x2F;abnerworks.Typora&#x2F;themes&#x2F;mdmdt.css) </p>
+</li>
+<li><p>可以使用join等复杂查询</p>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/05/Algorithm/Al-5%20%E6%A0%91%E5%92%8C%E5%A0%86--julyedu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/05/Algorithm/Al-5%20%E6%A0%91%E5%92%8C%E5%A0%86--julyedu/" class="post-title-link" itemprop="url">树和堆（julyedu网课整理）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-05 16:59:15" itemprop="dateCreated datePublished" datetime="2018-12-05T16:59:15+08:00">2018-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/julyedu/" itemprop="url" rel="index"><span itemprop="name">julyedu</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/05/Algorithm/Al-5%20%E6%A0%91%E5%92%8C%E5%A0%86--julyedu/" class="post-meta-item leancloud_visitors" data-flag-title="树和堆（julyedu网课整理）" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/05/Algorithm/Al-5%20%E6%A0%91%E5%92%8C%E5%A0%86--julyedu/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/05/Algorithm/Al-5%20%E6%A0%91%E5%92%8C%E5%A0%86--julyedu/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -387,376 +728,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>定时任务<br>在启动类上面加上 @EnableScheduling即可开启定时</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableScheduling</span><br><span class="line">public class Application &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		SpringApplication.run(Application.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>创建定时任务实现类<br>①</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class SchedulerTask &#123;</span><br><span class="line"></span><br><span class="line">    private int count=0;</span><br><span class="line"></span><br><span class="line">    @Scheduled(cron=&quot;*/6 * * * * ?&quot;)</span><br><span class="line">    private void process()&#123;</span><br><span class="line">        System.out.println(&quot;this is scheduler task runing  &quot;+(count++));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>②</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/11/18/SpringBoot-4/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/SpringBoot-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/18/SpringBoot-3/" class="post-title-link" itemprop="url">搭建Spring Boot项目（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-18 11:19:06" itemprop="dateCreated datePublished" datetime="2018-11-18T11:19:06+08:00">2018-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/11/18/SpringBoot-3/" class="post-meta-item leancloud_visitors" data-flag-title="搭建Spring Boot项目（二）" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/11/18/SpringBoot-3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/SpringBoot-3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>623</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>json接口<br>添加@RestController注解</p>
-<p>自定义Filter<br>Spring boot自动添加了OrderedCharacterEncodingFilter 和 HiddenHttpMethodFilter<br>实现自定义Fliter需要添加@Configuration注解，将自定义Fliter加入过滤链</p>
-<p>自定义Property<br>配置在application.properties中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mxxct_name=猫熊小才天</span><br><span class="line">mxxct_pass=12345</span><br></pre></td></tr></table></figure>
-
-<p><strong>需要和Application放在同级</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/11/18/SpringBoot-3/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/SpringBoot-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/18/SpringBoot-2/" class="post-title-link" itemprop="url">搭建Spring Boot项目（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-18 11:17:19" itemprop="dateCreated datePublished" datetime="2018-11-18T11:17:19+08:00">2018-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/11/18/SpringBoot-2/" class="post-meta-item leancloud_visitors" data-flag-title="搭建Spring Boot项目（一）" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/11/18/SpringBoot-2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/SpringBoot-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>访问<a href="http://start.spring.io/%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE">http://start.spring.io/自动创建项目</a><br>在pom.xml文件中添加支持web的模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<p>pom.xml文件中默认有两个模块：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring-boot-starter：核心模块，包括自动配置支持、日志和YAML；</span><br><span class="line">spring-boot-starter-test：测试模块，包括JUnit、Hamcrest、Mockito</span><br></pre></td></tr></table></figure>
-
-
-<p>在src&#x2F;main&#x2F;java中重新编写一个controller</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/11/18/SpringBoot-2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/11/18/SpringBoot-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/panda-180.png">
-      <meta itemprop="name" content="Mxxct">
-      <meta itemprop="description" content="君子不器">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫熊小才天の书院">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/18/SpringBoot-1/" class="post-title-link" itemprop="url">Spring框架之间的比较</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-18 11:15:00" itemprop="dateCreated datePublished" datetime="2018-11-18T11:15:00+08:00">2018-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2018/11/18/SpringBoot-1/" class="post-meta-item leancloud_visitors" data-flag-title="Spring框架之间的比较" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2018/11/18/SpringBoot-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/SpringBoot-1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>668</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Spring-MVC开发的麻烦："><a href="#Spring-MVC开发的麻烦：" class="headerlink" title="Spring MVC开发的麻烦："></a>Spring MVC开发的麻烦：</h4><ol>
-<li>依赖太多，而且要注意版本兼容。spring的包，mybatis或hibernate的包，spring和其整合包，日志包，json包，还有版本兼容</li>
-<li>配置太多。要配置注解驱动，配置数据库连接池，配置mybatis或hibernate，配置事务管理器，配置资源映射，在web.xml中配置启动spring和spring mvc</li>
-<li>部署和运行麻烦。要部署到tomcat中，不能直接用java命令运行。</li>
+          <h2 id="树和堆（julyedu网课整理）"><a href="#树和堆（julyedu网课整理）" class="headerlink" title="树和堆（julyedu网课整理）"></a>树和堆（julyedu网课整理）</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1 定义"></a>1 定义</h3><h4 id="1-1-树的定义"><a href="#1-1-树的定义" class="headerlink" title="1.1 树的定义"></a>1.1 树的定义</h4><p>它是由n（n&gt;&#x3D;1）个有限节点组成一个具有层次关系的集合。把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+<ol>
+<li>每个节点有零个或多个子节点</li>
+<li>没有父节点的节点称为根节点</li>
+<li>每一个非根节点有且只有一个父节点</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
 </ol>
-<h4 id="Spring-boot"><a href="#Spring-boot" class="headerlink" title="Spring boot"></a>Spring boot</h4><ol>
-<li>通过starter和依赖管理解决依赖问题</li>
-<li>通过自动配置，解决配置复杂问题</li>
-<li>通过内嵌web容器，由应用启动tomcat，而不是用tomcat启动应用</li>
-</ol>
-<h5 id="Spring-boot-和-Spring-Cloud的比较"><a href="#Spring-boot-和-Spring-Cloud的比较" class="headerlink" title="Spring boot 和 Spring Cloud的比较"></a>Spring boot 和 Spring Cloud的比较</h5>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/11/18/SpringBoot-1/#more" rel="contents">
+              <a class="btn" href="/2018/12/05/Algorithm/Al-5%20%E6%A0%91%E5%92%8C%E5%A0%86--julyedu/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -779,7 +760,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -847,20 +828,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">73</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -899,28 +880,28 @@
         </div>
         <ul class="links-of-blogroll-list recent-posts-list">
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="ClickHouse笔记" target="">
-              ClickHouse笔记
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2022/01/18/ck-1%20%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7/" title="ClickHouse笔记-尚硅谷" target="">
-              ClickHouse笔记-尚硅谷
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/10/29/JVM-1/" title="JVM 内存管理" target="">
-              JVM 内存管理
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2020/12/28/Interview-1/" title="Interview-1" target="">
-              Interview-1
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
               </a>
           </li>
                 <li class="my-links-of-blogroll-item">
-              <a href="/2021/01/19/Linux-3/" title="Linux 常用命令" target="">
-              Linux 常用命令
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
               </a>
           </li>
         </ul>
@@ -952,12 +933,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">617k</span>
+    <span title="Symbols count total">648k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9:21</span>
+    <span title="Reading time total">9:49</span>
 </div>
 
         

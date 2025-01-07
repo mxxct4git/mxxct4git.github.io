@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Redis参考网址 1. 概述Redis的主要功能都基于单线程模型实现，也就是说Redis使用一个线程来服务所有的客户端请求，同时Redis采用了非阻塞式IO，并精细地优化各种命令的算法时间复杂度，这些信息意味着：  Redis是线程安全的（因为只有一个线程），其所有操作都是原子的，不会因并发产生数据异常 Redis的速度非常快（因为使用非阻塞式IO，且大部分命令的算法时间复杂度都是O(1)) 使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Redis参考网址 1. 概述Redis的主要功能都基于单线程模型实现，也就是说Redis使用一个线程来服务所有的客户端请求，同时Redis采用了非阻塞式IO，并精细地优化各种命令的算法时间复杂度，这些信息意味着：  Redis是线程安全的（因为只有一个线程），其所有操作都是原子的，不会因并发产生数据异常 Redis的速度非常快（因为使用非阻塞式IO，且大部分命令的算法时间复杂度都是O(1)) 使">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-09-18T09:07:00.000Z">
+<meta property="article:modified_time" content="2020-09-25T03:03:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Redis | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-18 17:07:00" itemprop="dateCreated datePublished" datetime="2020-09-18T17:07:00+08:00">2020-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-25 11:03:00" itemprop="dateModified" datetime="2020-09-25T11:03:00+08:00">2020-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/" class="post-meta-item leancloud_visitors" data-flag-title="Redis" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/18/Redis/Redis-1%20%E6%A6%82%E8%BF%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p><a href="https://mp.weixin.qq.com/s/jNVJHJOPUv6V9cRU8M75Hw">参考网址</a></p>
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>Redis的主要功能都基于单线程模型实现，也就是说Redis使用一个线程来服务所有的客户端请求，同时Redis采用了非阻塞式IO，并精细地优化各种命令的算法时间复杂度，这些信息意味着：</p>
+<ul>
+<li>Redis是线程安全的（因为只有一个线程），其所有操作都是原子的，不会因并发产生数据异常</li>
+<li>Redis的速度非常快（因为使用非阻塞式IO，且大部分命令的算法时间复杂度都是O(1))</li>
+<li>使用高耗时的Redis命令是很危险的，会占用唯一的一个线程的大量处理时间，导致所有的请求都被拖慢。（例如时间复杂度为O(N)的KEYS命令，严格禁止在生产环境中使用）</li>
+</ul>
+<span id="more"></span>
+<h3 id="2-数据结构"><a href="#2-数据结构" class="headerlink" title="2. 数据结构"></a>2. 数据结构</h3><h4 id="2-1-Key-Value"><a href="#2-1-Key-Value" class="headerlink" title="2.1 Key-Value"></a>2.1 Key-Value</h4><p>任何二进制序列都可以作为Redis的Key使用（例如普通的字符串或一张JPEG图片）。</p>
+<ul>
+<li>不要使用过长的Key。例如使用一个1024字节的key就不是一个好主意，不仅会消耗更多的内存，还会导致查找的效率降低</li>
+<li>Key短到缺失了可读性也是不好的，例如”u1000flw”比起”user:1000:followers”来说，节省了寥寥的存储空间，却引发了可读性和可维护性上的麻烦</li>
+<li>最好使用统一的规范来设计Key，比如”object-type:id:attr”，以这一规范设计出的Key可能是”user:1000”或”comment:1234:reply-to”</li>
+<li>Redis允许的最大Key长度是512MB（对Value的长度限制也是512MB）</li>
+</ul>
+<h4 id="2-2-String"><a href="#2-2-String" class="headerlink" title="2.2 String"></a>2.2 String</h4><p>Redis的基础数据类型只有 String。</p>
+<p>与 String 相关的常用命令：</p>
+<ul>
+<li>SET ：为一个key设置value，可以设置过期时间，-1为永久有效，时间复杂度O(1)</li>
+<li>GET ：获取某个key对应的value，时间复杂度O(1)</li>
+<li>GETSET ：为一个key设置value，并返回该key的原value，时间复杂度O(1)</li>
+<li>MSET ：为多个key设置value，时间复杂度O(N) -&gt; 参数为 <code>Map&lt;byte[], byte[]&gt;</code> <ul>
+<li>底层实现的时候还是for循环一个个set进去，mset和set的效率差别在是否需要销毁连接，通过pipeline的方式可以一次性发送过去多条指令，但是通过连接池实现时连接会一直存在，此时的效率差距就不是很大了</li>
+<li>由于底层是for循环，那么根据数据的key，计算出槽位，按照槽位来分组，通过 ParallelStream 来并行处理相同槽位的数据，可以提高上下行效率</li>
+</ul>
+</li>
+<li>MSETNX ：同MSET，如果指定的key中有任意一个已存在，则不进行任何操作，时间复杂度O(N)</li>
+<li>MGET ：获取多个key对应的value，时间复杂度O(N)</li>
+</ul>
+<p>虽然Redis的基本数据类型只有String，但Redis可以把String作为整型或浮点型数字来使用，主要体现在INCR、DECR类的命令上：</p>
+<ul>
+<li>INCR ：将key对应的value值自增1，并返回自增后的值。只对可以转换为整型的String数据起作用。时间复杂度O(1)</li>
+<li>INCRBY ：将key对应的value值自增指定的整型数值，并返回自增后的值。只对可以转换为整型的String数据起作用。时间复杂度O(1)</li>
+<li>DECR&#x2F;DECRBY ：同INCR&#x2F;INCRBY，自增改为自减。</li>
+</ul>
+<p>INCR&#x2F;DECR系列命令要求操作的value类型为String，并可以转换为64位带符号的整型数字，否则会返回错误。也就是说，进行INCR&#x2F;DECR系列命令的value，必须在[-2^63 ~ 2^63 - 1]范围内。</p>
+<h4 id="2-3-其他存储形式"><a href="#2-3-其他存储形式" class="headerlink" title="2.3 其他存储形式"></a>2.3 其他存储形式</h4><h3 id="3-数据持久化"><a href="#3-数据持久化" class="headerlink" title="3. 数据持久化"></a>3. 数据持久化</h3><h4 id="3-1-RDB"><a href="#3-1-RDB" class="headerlink" title="3.1 RDB"></a>3.1 RDB</h4><p>采用RDB持久方式，Redis会定期保存数据快照至一个rbd文件中，并在启动时自动加载rdb文件，恢复之前保存的数据。</p>
+<p>可以在配置文件中配置多个Redis进行快照保存的时机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">save [seconds] [changes]</span><br><span class="line">意为在[seconds]秒内如果发生了[changes]次数据修改，则进行一次RDB快照保存</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>RDB的优点：<ul>
+<li>对性能影响最小。如前文所述，Redis在保存RDB快照时会fork出子进程进行，几乎不影响Redis处理客户端请求的效率。</li>
+<li>每次快照会生成一个完整的数据快照文件，所以可以辅以其他手段保存多个时间点的快照（例如把每天0点的快照备份至其他存储媒介中），作为非常可靠的灾难恢复手段。</li>
+<li>使用RDB文件进行数据恢复比使用AOF要快很多。</li>
+</ul>
+</li>
+<li>RDB的缺点：<ul>
+<li>快照是定期生成的，所以在Redis crash时或多或少会丢失一部分数据。</li>
+<li>如果数据集非常大且CPU不够强（比如单核CPU），Redis在fork子进程时可能会消耗相对较长的时间（长至1秒），影响这期间的客户端请求。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-AOF"><a href="#3-2-AOF" class="headerlink" title="3.2 AOF"></a>3.2 AOF</h4><p>采用AOF持久方式时，Redis会把每一个写请求都记录在一个日志文件里。在Redis重启时，会把AOF文件中记录的所有写操作顺序执行一遍，确保数据恢复到最新。</p>
+<p>缺点：恢复速度慢，因为恢复的时候需要遍历日记文件；对一个key不断进行操作，记录多次，有冗余，针对这一点可以对日志冗余的部分进行合并重写</p>
+<h3 id="4-内存管理"><a href="#4-内存管理" class="headerlink" title="4. 内存管理"></a>4. 内存管理</h3><p>提前预估设置最大内存使用大小，避免无限制占用内存。</p>
+<p>在内存占用达到了maxmemory后，再向Redis写入数据时，Redis会：</p>
+<ul>
+<li>根据配置的数据淘汰策略尝试淘汰数据，释放空间</li>
+<li>如果没有数据可以淘汰，或者没有配置数据淘汰策略，那么Redis会对所有写请求返回错误，但读请求仍然可以正常执行</li>
+</ul>
+<p>在为Redis设置maxmemory时，需要注意：</p>
+<ul>
+<li>如果采用了Redis的主从同步，主节点向从节点同步数据时，会占用掉一部分内存空间，如果maxmemory过于接近主机的可用内存，导致数据同步时内存不足。所以设置的maxmemory不要过于接近主机可用的内存，留出一部分预留用作主从同步。</li>
+</ul>
+<h3 id="5-数据淘汰机制"><a href="#5-数据淘汰机制" class="headerlink" title="5. 数据淘汰机制"></a>5. 数据淘汰机制</h3><p>Redis 提供5种数据淘汰策略：</p>
+<ul>
+<li>volatile-lru：使用LRU算法进行数据淘汰（淘汰上次使用时间最早的，且使用次数最少的key），只淘汰设定了有效期的key</li>
+<li>allkeys-lru：使用LRU算法进行数据淘汰，所有的key都可以被淘汰</li>
+<li>volatile-random：随机淘汰数据，只淘汰设定了有效期的key</li>
+<li>allkeys-random：随机淘汰数据，所有的key都可以被淘汰</li>
+<li>volatile-ttl：淘汰剩余有效期最短的key</li>
+</ul>
+<h3 id="6-PipeLining"><a href="#6-PipeLining" class="headerlink" title="6. PipeLining"></a>6. PipeLining</h3><p>比起多次传输数据不如一次性传输多个数据 &#x3D;&gt; mset 一次性传输一个map的key-value的效率要高于多次set传输key-value的效率 &#x3D;&gt; 前提是set返回的结果并不是迫切需要的</p>
+<h3 id="7-性能调优"><a href="#7-性能调优" class="headerlink" title="7. 性能调优"></a>7. 性能调优</h3><p>尽管Redis是一个非常快速的内存数据存储媒介，也并不代表Redis不会产生性能问题。前文中提到过，Redis采用单线程模型，所有的命令都是由一个线程串行执行的，所以当某个命令执行耗时较长时，会拖慢其后的所有命令，这使得Redis对每个任务的执行效率更加敏感。</p>
+<p>针对Redis的性能优化，主要从下面几个层面入手：</p>
+<ul>
+<li>最初的也是最重要的，确保没有让Redis执行耗时长的命令</li>
+<li>使用pipelining将连续执行的命令组合执行</li>
+<li>操作系统的Transparent huge pages功能必须关闭：<br><code>echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</code></li>
+<li>如果在虚拟机中运行Redis，可能天然就有虚拟机环境带来的固有延迟。可以通过.&#x2F;redis-cli –intrinsic-latency 100命令查看固有延迟。同时如果对Redis的性能有较高要求的话，应尽可能在物理机上直接部署Redis。</li>
+<li>检查数据持久化策略</li>
+<li>考虑引入读写分离机制</li>
+</ul>
+<h3 id="8-长耗时命令"><a href="#8-长耗时命令" class="headerlink" title="8. 长耗时命令"></a>8. 长耗时命令</h3><p>避免使用 O(N) 的指令。</p>
+<h3 id="9-为什么只有16384个槽"><a href="#9-为什么只有16384个槽" class="headerlink" title="9. 为什么只有16384个槽"></a>9. 为什么只有16384个槽</h3><p><a href="https://www.cnblogs.com/rjzheng/p/11430592.html">参考</a></p>
+<p>客户端请求的key，根据 <code>HASH_SLOT=CRC16(key) mod 16384</code> 计算出需要映射到哪一个分片上，然后 redis 会到相应的节点进行操作。</p>
+<p>CRC16 算法产生的hash值有16bit，该算法可以产生2^16-&#x3D;65536个值。换句话说，值是分布在0~65535之间。那作者在做mod运算的时候，为什么不mod65536，而选择mod16384？</p>
+<p><a href="https://github.com/antirez/redis/issues/2576">作者回答</a></p>
+<blockquote>
+<p>The reason is:<br>Normal heartbeat packets carry the full configuration of a node, that can be replaced in an idempotent way with the old in order to update an old config. This means they contain the slots configuration for a node, in raw form, that uses 2k of space with16k slots, but would use a prohibitive 8k of space using 65k slots.<br>At the same time it is unlikely that Redis Cluster would scale to more than 1000 mater nodes because of other design tradeoffs.<br>So 16k was in the right range to ensure enough slots per master with a max of 1000 maters, but a small enough number to propagate the slot configuration as a raw bitmap easily. Note that in small clusters the bitmap would be hard to compress because when N is small the bitmap would have slots&#x2F;N bits set that is a large percentage of bits set.</p>
+</blockquote>
+<p>当两个节点meet之后，会定期进行通信，交换数据信息。这个数据信息包括节点id、ip、端口号以及本节点负责的槽位信息等等。在消息头里最占空间的是 <code>myslots[CLUSTER_SLOTS/8]</code>，大小为 <code>16384÷8÷1024=2kb</code>，myslots 是一个char数组，每一位代表一个槽，该位为1表示这个槽属于这个节点。</p>
+<p>数据消息体里会携带一定数量的其他节点信息用于交换 &#x3D;&gt; 节点数量越多，消息体内容越大。</p>
+<p>∴ 如果槽位过多，那么消息体占的内容越大，65536个槽对应8k，浪费带宽；同时也不会有太多的节点，16384足够用</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/10/Hadoop/Phoenix/Phoenix-2%20%E7%B4%A2%E5%BC%95/" rel="prev" title="Phoenix的一些问题">
+      <i class="fa fa-chevron-left"></i> Phoenix的一些问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/21/Java/JUF/Function-1/" rel="next" title="java.util.function 包">
+      java.util.function 包 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis"><span class="nav-number">1.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">2. 数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Key-Value"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 Key-Value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-String"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%85%B6%E4%BB%96%E5%AD%98%E5%82%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 其他存储形式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">3. 数据持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-RDB"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 RDB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-AOF"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 AOF</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">4. 内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%95%B0%E6%8D%AE%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">5. 数据淘汰机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-PipeLining"><span class="nav-number">1.6.</span> <span class="nav-text">6. PipeLining</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="nav-number">1.7.</span> <span class="nav-text">7. 性能调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E9%95%BF%E8%80%97%E6%97%B6%E5%91%BD%E4%BB%A4"><span class="nav-number">1.8.</span> <span class="nav-text">8. 长耗时命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E6%9C%8916384%E4%B8%AA%E6%A7%BD"><span class="nav-number">1.9.</span> <span class="nav-text">9. 为什么只有16384个槽</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

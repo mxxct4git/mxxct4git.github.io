@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="MapReduce1.1 输入输出 首先都是 k, v 的形式 map 到 reduce 端是通过网络来传输，所以 k, v 都需要序列化和反序列化，Java 基本数据类型不支持序列化，所以需要用 MR 自己封装的类型，比如 LongWritable, Text, IntWritable 等等 reduce 的输入顺序默认是按照 key 的大小顺序（字符串的字典顺序）来进行处理，如果 map 输出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/04/22/Hadoop/MapReduce/MapReduce/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="MapReduce1.1 输入输出 首先都是 k, v 的形式 map 到 reduce 端是通过网络来传输，所以 k, v 都需要序列化和反序列化，Java 基本数据类型不支持序列化，所以需要用 MR 自己封装的类型，比如 LongWritable, Text, IntWritable 等等 reduce 的输入顺序默认是按照 key 的大小顺序（字符串的字典顺序）来进行处理，如果 map 输出">
+<meta property="og:locale">
+<meta property="og:image" content="https://images.weserv.nl/?url=https://upload-images.jianshu.io/upload_images/12652505-0716b5d505b94bc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/577/format/webp">
+<meta property="og:image" content="https://images.weserv.nl/?url=https://img-blog.csdn.net/20180722005722553?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lneWJsdWUy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="article:published_time" content="2020-04-22T12:15:00.000Z">
+<meta property="article:modified_time" content="2020-04-24T01:40:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="MapReduce">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.weserv.nl/?url=https://upload-images.jianshu.io/upload_images/12652505-0716b5d505b94bc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/577/format/webp">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/04/22/Hadoop/MapReduce/MapReduce/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>MapReduce | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/04/22/Hadoop/MapReduce/MapReduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MapReduce
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-22 20:15:00" itemprop="dateCreated datePublished" datetime="2020-04-22T20:15:00+08:00">2020-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-24 09:40:00" itemprop="dateModified" datetime="2020-04-24T09:40:00+08:00">2020-04-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/MapReduce/" itemprop="url" rel="index"><span itemprop="name">MapReduce</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/22/Hadoop/MapReduce/MapReduce/" class="post-meta-item leancloud_visitors" data-flag-title="MapReduce" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/04/22/Hadoop/MapReduce/MapReduce/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/22/Hadoop/MapReduce/MapReduce/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>9.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>9 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><h3 id="1-1-输入输出"><a href="#1-1-输入输出" class="headerlink" title="1.1 输入输出"></a>1.1 输入输出</h3><p><img src="https://images.weserv.nl/?url=https://upload-images.jianshu.io/upload_images/12652505-0716b5d505b94bc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/577/format/webp" alt="pic1"></p>
+<p>首先都是 k, v 的形式</p>
+<p>map 到 reduce 端是通过网络来传输，所以 k, v 都需要序列化和反序列化，Java 基本数据类型不支持序列化，所以需要用 MR 自己封装的类型，比如 LongWritable, Text, IntWritable 等等</p>
+<p>reduce 的输入顺序默认是按照 key 的大小顺序（字符串的字典顺序）来进行处理，如果 map 输出的 key 是一个对象，可以 implements WritableComparable 接口，自定义 key 的顺序来交给 reduce</p>
+<span id="more"></span>
+<p>map 输出的内容会被序列化，所以如果是输出一个对象的话，也不会有影响</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;OrderBean&gt; beans = new ArrayList&lt;&gt;();</span><br><span class="line">OrderBean bean = new OrderBean();</span><br><span class="line">bean.set(1);</span><br><span class="line">beans.add(bean); // 此时保存的只是bean对象的一个地址引用</span><br><span class="line">bean.set(2);</span><br><span class="line">beans.add(bean); // 由于是地址引用，在原先地址上修改了bean对象的值，那么beans最后呈现出来的值也是最新的值，打印出来都是 2</span><br><span class="line"></span><br><span class="line">class xxMapper extends Mapper&lt;&gt;&#123;</span><br><span class="line">    OrderBean bean = new OrderBean();</span><br><span class="line">    Text k = new Text();</span><br><span class="line">    @Override</span><br><span class="line">    protected void map()&#123;</span><br><span class="line">        // 每一个 maptask 都会调用 map 方法，如果在 map 方法里创建对象，就会占用大量资源，由于对象写入到上下文的时候要经过序列化，所以并不需要担心多个maptask 在频繁赋值造成前后影响</span><br><span class="line">        context.write(k, bean);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>reduce 里虽然只有一个key，但是迭代器values每迭代一次，key也会跟着变</p>
+<p>运行机制：<br>map task(其实是叫 yarn child)，拿到的是内容是 TextInputFormat，读取每一行用的是 LineRecordReader，返回一对kv，k是偏移量，v是行的内容。频繁的IO会降低效率，所以context(k, v) 会把结果写入到一个 MapOutputCollector 的环形内存缓冲区，当内容写到一定程度之后（缓冲区默认大小100M，spill的阈值是0.8，可以通过<code>mapreduce.map.io.sort.spill.percent</code>来设置），有一个 Spiller 溢出监控的线程，去把缓冲区的内容通过轮询的方式写入到<code>mapreduce.cluster.local.dir</code>属性指定的目录中，在写入的同时会根据key排序和合并（也就是combiner执行的地方），整个map输出完毕之后，会对所有临时文件终会执行一个合并任务，将生产的小文件全部合并为一个文件，相同分区的会拼接在一起，并且分区内保证key有序（map过程的输出是写入本地磁盘而不是HDFS，但是一开始数据并不是直接写入磁盘而是缓冲在内存中，缓存的好处就是减少磁盘I&#x2F;O的开销，提高合并和排序的速度。在编写map函数的时候要尽量减少内存的使用，为shuffle过程预留更多的内存，这个过程最耗时）。文件路径会保存在NodeManager里，reduceTask 通过网络下载，文件可能存放在多个服务器，每个文件只能保证在本服务器内是分区且有序的，所以 reduceTask 在拿到文件分区后还需要再执行一次合并使key有序。reduce 里的迭代器 values 每迭代一次都会调用 groupingComparator 来判断下一次和上一次的key是不是一个。reduce 里的 context 会通过TextOutputFormat 类下的 LineRecordWriter 写入文件。map的输出到reduce的输入的过程叫 shuffle。</p>
+<blockquote>
+<p>写磁盘时压缩map端的输出，因为这样会让写磁盘的速度更快，节约磁盘空间，并减少传给reducer的数据量。默认情况下，输出是不压缩的(将mapreduce.map.output.compress设置为true即可启动）</p>
+</blockquote>
+<p>sequenceFile 里面保存的是kv形式，这样就不需要split文本内容了。 job.setOutputFormatClass(xx); 默认是 TextOutputFormat.class（同理输入），改成 SequenceFileOutputFormat.class 就可以修改输出文件的类型，直接将内容转换成二进制</p>
+<h3 id="1-2-combiner"><a href="#1-2-combiner" class="headerlink" title="1.2 combiner"></a>1.2 combiner</h3><p>combiner 是先在 map 端做一次合并，减少传输到 reduce 端的数据量，因为 combiner 的输出是 reduce 的输入，所以 combiner 是不能对 map 的输出进行修改，所以适用的场景比如累加、求最大值等，但是求平均数就不行了。</p>
+<p>combiner 操作发生在 map 端的，处理一个任务所接收的文件中的数据，做局部聚合，不能跨 map 任务执行；只有 reduce 可以接收多个 map 任务处理的数据（也就是通过 key 的 hash 值取模分配到对应的 reduce上）</p>
+<p>继承的也是 reduce 父类，实现的是对 reduce 方法的覆写，然后在启动类添加 job.setCombinerClass();</p>
+<p>可以用来解决一定的数据倾斜问题</p>
+<h3 id="1-3-启动类配置"><a href="#1-3-启动类配置" class="headerlink" title="1.3 启动类配置"></a>1.3 启动类配置</h3><p>设置 hadoop 用户<br>System.setProperty(“HADOOP_USER_NAME”, “root”); &#x2F;&#x2F; 这样写可以在本地运行程序的时候以 root 用户去执行 jar，从而拥有对输入输出路径下文件的读写权限</p>
+<p>job 执行时提交请求给 resource manager，分配一定的 node manager 的资源来运行 job</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">conf.set(&quot;fs.defaultFS&quot;, &quot;hdfs://9000&quot;); // 对应linux下hadoop安装目录下 core-site.xml 里面的配置项</span><br><span class="line">conf.set(&quot;mapreduce.framework.name&quot;, &quot;yarn&quot;); // 对应linux下hadoop安装目录下 mapred-site.xml 里面的配置项，不写的话默认值是 local</span><br><span class="line">conf.set(&quot;yarn.resourcemanager.hostname&quot;, &quot;yarn-01&quot;);</span><br><span class="line">// 如果从 windows 运行的话，需要跨平台提交</span><br><span class="line">conf.set(&quot;mapreduce.app-submission.cross-platform&quot;, true);</span><br><span class="line"></span><br><span class="line">Job job = Job.getInstance(conf);</span><br><span class="line">job.setJarByClass(类名.class) | (&quot;d:/xxx.jar&quot;);</span><br><span class="line">// 还需要设置 map reduce 的 key value 的类型，以及 map reduce 对应的类，还有输入输出路径，输出路径必须不存在</span><br><span class="line">// 设置 reduceTask 个数</span><br><span class="line">job.setNumReduceTasks(2);</span><br><span class="line">// 提交到 yarn 并保持通信，打印 resource manager 返回的日志信息</span><br><span class="line">job.waitForCompletion(true);</span><br></pre></td></tr></table></figure>
+
+<p>以上是在 windows 下启动运行，以下是在 linux 下运行</p>
+<p>hadoop jar xx.jar 启动类 &#x2F;&#x2F; hadoop jar 会把本机器上 hadoop 安装目录下的所有jar包和配置文件（core-site.xml)加载到执行语句的classpath下，这样jvm就可以读取到想要的配置</p>
+<h3 id="1-4-yarn"><a href="#1-4-yarn" class="headerlink" title="1.4 yarn"></a>1.4 yarn</h3><p>客户端提交一个job，在yarn的resourcemanager中请求一个容器来运行，在启动 mapreduce 的时候会首先启动一个 MRAppMaster 类，用来管理所有的 mapreduce，需要1.5G的一个启动内存，所以内存至少要2G以上，而 maptask 和 reducetask 都需要至少1G内存。并不是说会全部吃满内存，但是需要这样的一个上限值才能启动。</p>
+<p>会依次启动yarnchild（maptask）和yarnchild(reducetask)，提交到job的客户端</p>
+<p>第一代hadoop，只有一个hdfs文件系统和mr计算调度平台<br>第二代hadoop，将调度交给yarn统一管理资源<br>Hdfs namenode datanode 第一代 client提交job，jobtracker先从namenode里拿到所需文件的数据块信息，发送到datanode中运行，tasktracker监督datanode状态，反馈给jobtracker，并一直反馈给client。客户端包括ide运行或者shell里 hadoop jar x.jar</p>
+<p>Yarn 分为resourcemanager nodemanager 主从结构</p>
+<p>1.用户向YARN中提交应用程序，其中包括AM程序、启动AM的命令、用户程序等。<br>2.RM为该应用程序分配一个container，并向对应的NM通信，要求他在这个container中启动ApplicationMaster。<br>3.AM向RM注册，这样用户可以直接通过RM查看应用程序的运行状态，然后它将为任务申请资源，并监控其运行状态，直到运行结束（重复4-7）<br>4.AM采用轮询的方式通过RPC协议向RM申请和领取资源。<br>5.AM申请到资源后，便于NM通信，要求其启动任务。<br>6.NM为任务设置好运行环境（包括环境变量、JAR包、二进制程序等）后，将任务启动命令写到一个脚本中，并通过运行改脚本启动任务。<br>7.各个任务通过RPC协议向AM汇报自己的进度和状态，让AM随时掌握各个任务的运行状态，从而可以在任务失败是重启任务。在应用程序运行过程中，用户可随时通过RPC向AM查询应用程序的当前运行状态。<br>8.应用程序运行完成后，AM注销并关闭自己。</p>
+<h3 id="1-5-自定义类型"><a href="#1-5-自定义类型" class="headerlink" title="1.5 自定义类型"></a>1.5 自定义类型</h3><p>输入输出都是 k,v 的形式，k 是唯一的，但是 v 如果有很多个，那就使用一个类来封装，但是这个类需要实现 hadoop 的序列化接口：implements Writable，重写 write(DataOutput out) 和 readFields(DataInput in) 方法。</p>
+<p>out.writeInt(字段); &#x2F;&#x2F; 一定是4个字节<br>out.writeUTF(“我”); &#x2F;&#x2F; 一共是5个字节，按照utf-8编码，一个汉字3个字节，然后最前面有2个字节来声明后面有几个字节是属于这个字符串的，所以可以通过这个方式来截取字节长度，然后反序列化字符串<br>out,write(“我”.getBytes()); &#x2F;&#x2F; 3个字节，单纯的utf-8编码，一个汉字3个字节，在传输时并不知道具体字符串会有多长，不方便截取，所以更推荐使用上面的方式</p>
+<blockquote>
+<p>unicode 一个英文2个字节，一个汉字2个字节，中英文标点都是2个字节<br>utf-8 一个英文1个字节，一个汉字3个字节，中文标点3个字节，英文标点1个字节<br>gbk 英文1个字节，汉字2个字节</p>
+</blockquote>
+<p>字段 &#x3D; in.readInt();<br>字段 &#x3D; in.readUTF();</p>
+<h3 id="1-6-以求最大值为例，在reduce之后还要进行最终结果的筛选"><a href="#1-6-以求最大值为例，在reduce之后还要进行最终结果的筛选" class="headerlink" title="1.6 以求最大值为例，在reduce之后还要进行最终结果的筛选"></a>1.6 以求最大值为例，在reduce之后还要进行最终结果的筛选</h3><p>首先在 reduce() 方法里就不能直接用 <code>context.write()</code>，这是直接写结果的。可以创建一个类，来保存 reduce 后的所有结果，然后在 reduceTask 处理完所有数据之后，会调用 cleanUp(Context context) 方法，重写这个方法，获取到这个类，然后进行数据筛选，把最终结果写到 context.write() 里</p>
+<p>但是如果是大数据量的话，通过构建最小堆来获取最大的几个值</p>
+<p>Configuration conf &#x3D; context.getConfiguration();<br>int topN &#x3D; conf.getInt(“topN”, 5); &#x2F;&#x2F; 会尝试从 conf 中获取这个 name 对应的值，如果没有配置的话，默认值就是5；可以在启动类那里用过传参来设置这个topN是多少；或者自己写一个xml配置文件，通过 conf.addResource(“xx.xml”)，就可以识别出来</p>
+<p>在 map 和 reduce 里都存在 setup()、map()&#x2F;reduce()、cleanup() 方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">eg: </span><br><span class="line">父类 Mapper()&#123;</span><br><span class="line">    run()&#123;</span><br><span class="line">        setup();</span><br><span class="line">        try&#123;</span><br><span class="line">            while()&#123;</span><br><span class="line">                mapper();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;finally&#123;</span><br><span class="line">            cleanup();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-7-Partitioner-修改分发规则"><a href="#1-7-Partitioner-修改分发规则" class="headerlink" title="1.7 Partitioner 修改分发规则"></a>1.7 Partitioner 修改分发规则</h3><blockquote>
+<p>分发的动作由 maptask 来执行，由 maptask 来执行 getPartitioner() 方法，然后分发到对应的 reduce 中</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">源码：</span><br><span class="line">默认是按照 map 输出的 key.hashcode() % reduceTask的数量</span><br><span class="line">public class HashPartitioner&lt;K2, V2&gt; implements Partitioner&lt;K2, V2&gt;&#123;</span><br><span class="line">    public void configure(JobConf job)&#123;&#125;</span><br><span class="line">    public int getPartitioner(K2 key, V2 value, int numReduceTasks)&#123;</span><br><span class="line">        return (key.hashCode() &amp; Integer.MAX_VALUE) % numReduceTasks;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个类，extends Partitioner 覆写 getPartitioner() 方法，在启动类中设置 job.setPartitionerClass(xxx.class);</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static class WordcountHashPartitioner extends Partitioner&lt;Text, IntWritable&gt; &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getPartition(Text key, IntWritable value, int numPartitions) &#123;</span><br><span class="line">        String location = key.toString().split(&quot;:&quot;)[0];</span><br><span class="line">        return Math.abs(location.hashCode() * 127) % numPartitions;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他的几个分发方法：BinaryPartitioner, HashPartitioner, KeyFieldBasedPartitioner, TotalOrderPartitioner。这些分发方法只能保证大体有序</p>
+<p>全局排序：确保Partition之间是有序<br>对数据进行抽样分层，为了保证partition分布均匀，在相同区间的数据返回到同一个reduce，map输出的key默认是按照字典顺序实现了升序排序，如果需要降序或者输出的key是一个对象的话，要覆写comparable，那么到一个reduce中的数据都是有序的。<br>取样：</p>
+<ol>
+<li>对Math.min(10, splits.length)个split（输入分片）进行随机取样，对每个split取10000个样，总共10万个样 </li>
+<li>10万个样排序，根据reducer的数量(n)，取出间隔平均的n-1个样 </li>
+<li>将这个n-1个样写入partitionFile(_partition.list，是一个SequenceFile)，key是取的样，值是nullValue </li>
+<li>将partitionFile写入DistributedCache</li>
+</ol>
+<p>全局排序在key是相对稳定的时候，可以随机采样元数据，重写partitioner方法，将数据分到reduce上，来保证数据的连续性；还有一个方式是实现TotalOrderPartitioner类的方法，一共有三种采样方式，动态生成一个partition file，在查找具体key应该分到哪个reduce时底层是通过一个Tire tree来实现，使用二分法继续查找找到返回key在划分数组中的索引，找不到会返回一个和它最接近的划分的索引。</p>
+<table>
+<thead>
+<tr>
+<th align="center">类名称</th>
+<th align="center">采样方式</th>
+<th align="center">构造方法</th>
+<th align="center">效率</th>
+<th align="center">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SplitSampler&lt;K,V&gt;</td>
+<td align="center">对前n个记录进行采样</td>
+<td align="center">采样总数，划分数</td>
+<td align="center">最高</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">RandomSampler&lt;K,V&gt;</td>
+<td align="center">遍历所有数据，随机采样</td>
+<td align="center">采样频率，采样总数，划分数</td>
+<td align="center">最低</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">IntervalSampler&lt;K,V&gt;</td>
+<td align="center">固定间隔采样</td>
+<td align="center">采样频率，划分数</td>
+<td align="center">中</td>
+<td align="center">对有序的数据十分适用</td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.cnblogs.com/wuyudong/p/hadoop-partitioner.html">参考文档</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="1-8-map端输入的分区切片原理"><a href="#1-8-map端输入的分区切片原理" class="headerlink" title="1.8 map端输入的分区切片原理"></a>1.8 map端输入的分区切片原理</h3><p>在 map 方法中，有一个变量是 context，存储了作业运行时的上下文信息，可以通过 <code>InputSplit inputSplit = context.getInputSplit();</code> 方法来获取切片信息</p>
+<p>在 Hadoop 读取文件时，会通过 <code>getPartitions()</code> 方法来获取分区，在这个方法里会调用 InputFormat 这个抽象类的 <code>getSplits()</code> 方法，这个方法的具体实现是在 FileInputFormat 类中对 <code>getSplits()</code> 方法进行覆写。如何去切分文件数据的思路是：</p>
+<ol>
+<li>inputPath 如果是一个文件夹的话，遍历里面的所有文件，累加所有文件的size作为totalSize</li>
+<li>求一个平均文件大小 <code>goalSize = totalSize / numSplits;  // numSplits 指的是 min(想要的分区个数，默认分区个数2个) 在spark里面是这样的，mr可能是读的配置</code></li>
+<li><code>while(fileSize / goalSize &gt; 1.1L)&#123;fileSize -= goalSize&#125;</code> 如果当前文件的大小超过平均大小的1.1倍，那么就从平均大小对应的offset那里进行切分文件</li>
+<li>综上，如果文件不可切分，那么一个分区就是那一整个不可切分文件；如果文件可切分，计算出一个理想文件大小，然后依次判断文件大小和这个理想文件大小的关系，幅度在1.1倍之内的都可以接受，否则就需要切割。</li>
+</ol>
+<blockquote>
+<p>切片是在 data manager 拿到 mr 后，创建容器来运行 maptask，创建几个要根据切片后的结果来确定。通过 getSplits() 方法，获取所有输入文件（也可能是连接数据库，那就保存的是库名表名偏移量信息），然后按照128M开始切片，不到128M的也会是一个maptask，不允许被切片的文件比如二进制文件，会单独一个切片，空文件也会是一个切片，一个切片可以跨大文件的多个block<br>当一个分片包含的多个block的时候，总会从其他节点读取数据，也就是做不到所有的计算都是本地化。为了发挥计算本地化性能，应该尽量使InputSplit大小与块大小相当</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">由于 InputSplit 是一个抽象类，用的时候，需要用它的实现方法</span><br><span class="line">FileSplit inputSplit = (FileSplit)context.getInputSplit(); // 强制转换，从大的类转到小的子类</span><br><span class="line">String fileName = inputSplit.getPath().getName(); </span><br><span class="line"></span><br><span class="line">可以用于倒排索引，获取文件的信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9-分组排序-WritableComparator"><a href="#1-9-分组排序-WritableComparator" class="headerlink" title="1.9 分组排序 WritableComparator"></a>1.9 分组排序 WritableComparator</h3><p>比如两个 key 是否一样，会调用 GroupComparator 类下的 compare(o1, o2) 方法</p>
+<p>用bean来做key，包括orderid，amounfee两个属性，相同的orderid排在一起，id小的在前面<br>重写分发规则 partitioner，让orderid相同的分到同一个reduce<br>重写 groupComparator，由于传递的key是对象，所以要指出来只要orderid相同，就会被看成同一组进行一次reduce聚合（跟上一步不一样的地方在于，有可能存在不同的key取hashcode再取模后分发到同一个reduce上，这时候需要通过groupComparator类下的compare()方法来保证同一类orderid进行聚合）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class OrderIdGroupingComparator extends WritableComparator &#123;</span><br><span class="line">    public OrderIdGroupingComparator()&#123;</span><br><span class="line">        super(OrderBean.class, true); // 调用父类的构造函数，将 OrderBean.class 序列化，要不然下面的方法无法识别 OrderBean，true代表是执行序列化</span><br><span class="line">    &#125;</span><br><span class="line">    @Overwrite</span><br><span class="line">    public int compare(WritableComparable a, WritableComparable b)&#123;</span><br><span class="line">        OrderBean o1 = (OrderBean)a;</span><br><span class="line">        OrderBean o2 = (OrderBean)b;</span><br><span class="line">        return o1.getOrderId().compareTo(o2.getOrderId());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://images.weserv.nl/?url=https://img-blog.csdn.net/20180722005722553?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lneWJsdWUy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="pic2"></p>
+<h3 id="1-10-合合"><a href="#1-10-合合" class="headerlink" title="1.10 合合"></a>1.10 合合</h3><p>配置类读取所有的库表以及字段关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">final HiveConf hiveconf = new HiveConf(conf, HHDriver.class);</span><br><span class="line">HiveMetaStoreClient client = new HiveMetaStoreClient(hiveconf);</span><br></pre></td></tr></table></figure>
+<p>通过HiveMetaStoreClient连接Hive，先要拿到库表的分区信息，client.listPartitionNames，如果存在就添加，如果没有就新建</p>
+<p>优化：<br>map 中 context(库.表，kafka中的data)<br>extends Partitioner 库.表+rand() 重写 int getPartition()<br>extends WritableComparator 重写 int compare()<br>reduce 中 保证是同一类库.表，输出 mos</p>
+<p>MultipleOutputs mos 结果输出到多个文件或多个文件夹，用 <code>mos.write(String nameOutput, Key key,Value value,String baseOutputPath)代替context.write(key, value) // nameOutput 用来指定是哪一种输出，通过别称，可以设置输出的不同地址、数据格式等</code></p>
+<p>增量表是 text，最终表是 parquet。基于列式存储，由于每一列的数据类型都是一样的，因此可以针对每一列的数据类型使用更高效的压缩算法；在查询时只要扫描需要查询的列数据，不用进行全表扫描</p>
+<p>String newStr &#x3D; new String(str.getBytes(“UTF-8”),”UTF-8”); 将字符串按照 UTF-8 放入到bytes[]数组里，再按照 UTF-8 的方式读取</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
+              <a href="/tags/MapReduce/" rel="tag"><i class="fa fa-tag"></i> MapReduce</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/21/Hadoop/Hive/%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C/" rel="prev" title="DataSkew 数据倾斜">
+      <i class="fa fa-chevron-left"></i> DataSkew 数据倾斜
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/23/Java/HashMap/HashMap-1/" rel="next" title="HashMap 源码解析">
+      HashMap 源码解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce"><span class="nav-number">1.</span> <span class="nav-text">MapReduce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 输入输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-combiner"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 combiner</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%90%AF%E5%8A%A8%E7%B1%BB%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 启动类配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-yarn"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 yarn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 自定义类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-%E4%BB%A5%E6%B1%82%E6%9C%80%E5%A4%A7%E5%80%BC%E4%B8%BA%E4%BE%8B%EF%BC%8C%E5%9C%A8reduce%E4%B9%8B%E5%90%8E%E8%BF%98%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%E7%9A%84%E7%AD%9B%E9%80%89"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 以求最大值为例，在reduce之后还要进行最终结果的筛选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-Partitioner-%E4%BF%AE%E6%94%B9%E5%88%86%E5%8F%91%E8%A7%84%E5%88%99"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 Partitioner 修改分发规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-map%E7%AB%AF%E8%BE%93%E5%85%A5%E7%9A%84%E5%88%86%E5%8C%BA%E5%88%87%E7%89%87%E5%8E%9F%E7%90%86"><span class="nav-number">1.8.</span> <span class="nav-text">1.8 map端输入的分区切片原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-%E5%88%86%E7%BB%84%E6%8E%92%E5%BA%8F-WritableComparator"><span class="nav-number">1.9.</span> <span class="nav-text">1.9 分组排序 WritableComparator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-%E5%90%88%E5%90%88"><span class="nav-number">1.10.</span> <span class="nav-text">1.10 合合</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

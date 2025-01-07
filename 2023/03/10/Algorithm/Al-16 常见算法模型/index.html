@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="14种常见算法模型 1. 滑动窗口1.1 下面是一些你可以用来确定给定问题可能需要滑动窗口的方法： 问题的输入是一种线性数据结构，比如链表、数组或字符串 你被要求查找最长&#x2F;最短的子字符串、子数组或所需的值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14种常见算法模型">
+<meta property="og:url" content="https://mxxct4git.github.io/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="14种常见算法模型 1. 滑动窗口1.1 下面是一些你可以用来确定给定问题可能需要滑动窗口的方法： 问题的输入是一种线性数据结构，比如链表、数组或字符串 你被要求查找最长&#x2F;最短的子字符串、子数组或所需的值">
+<meta property="og:locale">
+<meta property="og:image" content="https://mp.weixin.qq.com/s/xehuweBjdaf03PVL5UDNlQ">
+<meta property="article:published_time" content="2023-03-10T04:25:00.000Z">
+<meta property="article:modified_time" content="2023-03-10T04:25:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mp.weixin.qq.com/s/xehuweBjdaf03PVL5UDNlQ">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>14种常见算法模型 | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          14种常见算法模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-03-10 12:25:00" itemprop="dateCreated datePublished" datetime="2023-03-10T12:25:00+08:00">2023-03-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="14种常见算法模型" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="14种常见算法模型"><a href="#14种常见算法模型" class="headerlink" title="14种常见算法模型"></a>14种常见算法模型</h2><p><img src="https://mp.weixin.qq.com/s/xehuweBjdaf03PVL5UDNlQ"></p>
+<h3 id="1-滑动窗口"><a href="#1-滑动窗口" class="headerlink" title="1. 滑动窗口"></a>1. 滑动窗口</h3><h4 id="1-1-下面是一些你可以用来确定给定问题可能需要滑动窗口的方法："><a href="#1-1-下面是一些你可以用来确定给定问题可能需要滑动窗口的方法：" class="headerlink" title="1.1 下面是一些你可以用来确定给定问题可能需要滑动窗口的方法："></a>1.1 下面是一些你可以用来确定给定问题可能需要滑动窗口的方法：</h4><ol>
+<li>问题的输入是一种线性数据结构，比如链表、数组或字符串</li>
+<li>你被要求查找最长&#x2F;最短的子字符串、子数组或所需的值</li>
+</ol>
+<span id="more"></span>
+<h4 id="1-2-你可以使用滑动窗口模式处理的常见问题："><a href="#1-2-你可以使用滑动窗口模式处理的常见问题：" class="headerlink" title="1.2 你可以使用滑动窗口模式处理的常见问题："></a>1.2 你可以使用滑动窗口模式处理的常见问题：</h4><ol>
+<li>长度为 K 的子数组的最大和（简单）</li>
+</ol>
+<blockquote>
+<p>可能会要求子数组不包含重复数字，可以用 hashmap 的方式来计数，如果 size &#x3D;&#x3D; k 说明满足长度，反之存在重复数据</p>
+</blockquote>
+<ol start="2">
+<li><p>带有 K 个不同字符的最长子字符串（中等）</p>
+</li>
+<li><p>寻找字符相同但排序不一样的字符串（困难）</p>
+</li>
+</ol>
+<h3 id="2-二指针或迭代器"><a href="#2-二指针或迭代器" class="headerlink" title="2. 二指针或迭代器"></a>2. 二指针或迭代器</h3><h4 id="2-1-用于识别使用二指针的时机的方法："><a href="#2-1-用于识别使用二指针的时机的方法：" class="headerlink" title="2.1 用于识别使用二指针的时机的方法："></a>2.1 用于识别使用二指针的时机的方法：</h4><ol>
+<li>可用于你要处理排序数组（或链接列表）并需要查找满足某些约束的一组元素的问题</li>
+<li>数组中的元素集是配对、三元组甚至子数组</li>
+</ol>
+<h4 id="2-2-下面是一些满足二指针模式的问题："><a href="#2-2-下面是一些满足二指针模式的问题：" class="headerlink" title="2.2 下面是一些满足二指针模式的问题："></a>2.2 下面是一些满足二指针模式的问题：</h4><ol>
+<li>求一个排序数组的平方（简单）</li>
+<li>求总和为零的三元组（中等）</li>
+<li>比较包含回退（backspace）的字符串（中等）</li>
+</ol>
+<h3 id="3-快速和慢速指针"><a href="#3-快速和慢速指针" class="headerlink" title="3. 快速和慢速指针"></a>3. 快速和慢速指针</h3><h4 id="3-1-如何判别使用快速和慢速模式的时机？"><a href="#3-1-如何判别使用快速和慢速模式的时机？" class="headerlink" title="3.1 如何判别使用快速和慢速模式的时机？"></a>3.1 如何判别使用快速和慢速模式的时机？</h4><ol>
+<li>处理链表或数组中的循环的问题</li>
+<li>当你需要知道特定元素的位置或链表的总长度时</li>
+</ol>
+<h4 id="3-2-何时应该优先选择这种方法，而不是上面提到的二指针方法？"><a href="#3-2-何时应该优先选择这种方法，而不是上面提到的二指针方法？" class="headerlink" title="3.2 何时应该优先选择这种方法，而不是上面提到的二指针方法？"></a>3.2 何时应该优先选择这种方法，而不是上面提到的二指针方法？</h4><p>有些情况不适合使用二指针方法，比如在不能反向移动的单链接链表中。使用快速和慢速模式的一个案例是当你想要确定一个链表是否为回文（palindrome）时。</p>
+<h4 id="3-3-下面是一些满足快速和慢速指针模式的问题："><a href="#3-3-下面是一些满足快速和慢速指针模式的问题：" class="headerlink" title="3.3 下面是一些满足快速和慢速指针模式的问题："></a>3.3 下面是一些满足快速和慢速指针模式的问题：</h4><ol>
+<li>链表循环（简单）</li>
+<li>回文链表（中等）</li>
+<li>环形数组中的循环（困难）</li>
+</ol>
+<h3 id="4-合并区间"><a href="#4-合并区间" class="headerlink" title="4. 合并区间"></a>4. 合并区间</h3><h4 id="4-1-那么如何确定何时该使用合并区间模式呢？"><a href="#4-1-那么如何确定何时该使用合并区间模式呢？" class="headerlink" title="4.1 那么如何确定何时该使用合并区间模式呢？"></a>4.1 那么如何确定何时该使用合并区间模式呢？</h4><ol>
+<li>如果你被要求得到一个仅含互斥区间的列表</li>
+<li>如果你听到了术语「重叠区间（overlapping intervals）」</li>
+</ol>
+<h4 id="4-2-合并区间模式的问题："><a href="#4-2-合并区间模式的问题：" class="headerlink" title="4.2 合并区间模式的问题："></a>4.2 合并区间模式的问题：</h4><ol>
+<li>区间交叉（中等）</li>
+<li>最大 CPU 负载（困难）</li>
+</ol>
+<h3 id="5-循环排序"><a href="#5-循环排序" class="headerlink" title="5. 循环排序"></a>5. 循环排序</h3><h4 id="5-1-如何识别这种模式？"><a href="#5-1-如何识别这种模式？" class="headerlink" title="5.1 如何识别这种模式？"></a>5.1 如何识别这种模式？</h4><ol>
+<li>涉及数值在给定范围内的排序数组的问题</li>
+<li>如果问题要求你在一个排序&#x2F;旋转的数组中找到缺失值&#x2F;重复值&#x2F;最小值</li>
+</ol>
+<h4 id="5-2-循环排序模式的问题："><a href="#5-2-循环排序模式的问题：" class="headerlink" title="5.2 循环排序模式的问题："></a>5.2 循环排序模式的问题：</h4><ol>
+<li>找到缺失值（简单）</li>
+<li>找到最小的缺失的正数值（中等）</li>
+</ol>
+<h3 id="6-原地反转链表"><a href="#6-原地反转链表" class="headerlink" title="6. 原地反转链表"></a>6. 原地反转链表</h3><h4 id="6-1-如何识别使用该模式的时机："><a href="#6-1-如何识别使用该模式的时机：" class="headerlink" title="6.1 如何识别使用该模式的时机："></a>6.1 如何识别使用该模式的时机：</h4><p>如果你被要求在不使用额外内存的前提下反转一个链表</p>
+<h4 id="6-2-原地反转链表模式的问题："><a href="#6-2-原地反转链表模式的问题：" class="headerlink" title="6.2 原地反转链表模式的问题："></a>6.2 原地反转链表模式的问题：</h4><ol>
+<li>反转一个子列表（中等）</li>
+<li>反转每个 K 个元素的子列表（中等）</li>
+</ol>
+<h3 id="7-树的宽度优先搜索（Tree-BFS）"><a href="#7-树的宽度优先搜索（Tree-BFS）" class="headerlink" title="7. 树的宽度优先搜索（Tree BFS）"></a>7. 树的宽度优先搜索（Tree BFS）</h3><p>该模式基于宽度优先搜索（BFS）技术，可遍历一个树并使用一个队列来跟踪一个层级的所有节点，之后再跳转到下一个层级。</p>
+<h4 id="7-1-如何识别-Tree-BFS-模式："><a href="#7-1-如何识别-Tree-BFS-模式：" class="headerlink" title="7.1 如何识别 Tree BFS 模式："></a>7.1 如何识别 Tree BFS 模式：</h4><p>如果你被要求以逐层级方式遍历（或按层级顺序遍历）一个树</p>
+<h4 id="7-2-Tree-BFS-模式的问题："><a href="#7-2-Tree-BFS-模式的问题：" class="headerlink" title="7.2 Tree BFS 模式的问题："></a>7.2 Tree BFS 模式的问题：</h4><ol>
+<li>二叉树层级顺序遍历（简单）</li>
+<li>之字型遍历（Zigzag Traversal）（中等）</li>
+</ol>
+<h3 id="8-树的深度优先搜索（Tree-DFS）"><a href="#8-树的深度优先搜索（Tree-DFS）" class="headerlink" title="8. 树的深度优先搜索（Tree DFS）"></a>8. 树的深度优先搜索（Tree DFS）</h3><p>你可以使用递归（或该迭代方法的技术栈）来在遍历期间保持对所有之前的（父）节点的跟踪。</p>
+<h4 id="8-1-Tree-DFS-模式的工作方式是从树的根部开始，如果这个节点不是一个叶节点，则需要做两件事："><a href="#8-1-Tree-DFS-模式的工作方式是从树的根部开始，如果这个节点不是一个叶节点，则需要做两件事：" class="headerlink" title="8.1 Tree DFS 模式的工作方式是从树的根部开始，如果这个节点不是一个叶节点，则需要做两件事："></a>8.1 Tree DFS 模式的工作方式是从树的根部开始，如果这个节点不是一个叶节点，则需要做两件事：</h4><p>1．决定现在是处理当前的节点（pre-order），或是在处理两个子节点之间（in-order），还是在处理两个子节点之后（post-order）<br>2．为当前节点的两个子节点执行两次递归调用以处理它们</p>
+<h4 id="8-2-如何识别-Tree-DFS-模式："><a href="#8-2-如何识别-Tree-DFS-模式：" class="headerlink" title="8.2 如何识别 Tree DFS 模式："></a>8.2 如何识别 Tree DFS 模式：</h4><ol>
+<li>如果你被要求用 in-order、pre-order 或 post-order DFS 来遍历一个树</li>
+<li>如果问题需要搜索其中节点更接近叶节点的东西</li>
+</ol>
+<h4 id="8-3-Tree-DFS-模式的问题："><a href="#8-3-Tree-DFS-模式的问题：" class="headerlink" title="8.3 Tree DFS 模式的问题："></a>8.3 Tree DFS 模式的问题：</h4><ol>
+<li>路径数量之和（中等）</li>
+<li>一个和的所有路径（中等)</li>
+</ol>
+<h3 id="9-Two-Heaps"><a href="#9-Two-Heaps" class="headerlink" title="9. Two Heaps"></a>9. Two Heaps</h3><p>先将前一半的数值存储到 Max Heap，这是由于你要寻找前一半中的最大数值。然后再将另一半存储到 Min Heap，因为你要寻找第二半的最小数值。在任何时候，当前数值列表的中间值都可以根据这两个 heap 的顶部元素计算得到。</p>
+<h4 id="9-1-识别-Two-Heaps-模式的方法："><a href="#9-1-识别-Two-Heaps-模式的方法：" class="headerlink" title="9.1 识别 Two Heaps 模式的方法："></a>9.1 识别 Two Heaps 模式的方法：</h4><ol>
+<li>在优先级队列、调度等场景中有用</li>
+<li>如果问题说你需要找到一个集合的最小&#x2F;最大&#x2F;中间元素</li>
+<li>有时候可用于具有二叉树数据结构的问题</li>
+</ol>
+<h4 id="9-2-Two-Heaps-模式的问题："><a href="#9-2-Two-Heaps-模式的问题：" class="headerlink" title="9.2 Two Heaps 模式的问题："></a>9.2 Two Heaps 模式的问题：</h4><p>查找一个数值流的中间值（中等）</p>
+<h3 id="10-子集"><a href="#10-子集" class="headerlink" title="10. 子集"></a>10. 子集</h3><p>很多编程面试问题都涉及到处理给定元素集合的排列和组合。</p>
+<p>子集（Subsets）模式描述了一种用于有效处理所有这些问题的宽度优先搜索（BFS）方法。</p>
+<h4 id="10-1-如何识别子集模式："><a href="#10-1-如何识别子集模式：" class="headerlink" title="10.1 如何识别子集模式："></a>10.1 如何识别子集模式：</h4><p>你需要找到给定集合的组合或排列的问题</p>
+<h4 id="10-2-子集模式的问题："><a href="#10-2-子集模式的问题：" class="headerlink" title="10.2 子集模式的问题："></a>10.2 子集模式的问题：</h4><ol>
+<li>带有重复项的子集（简单）</li>
+<li>通过改变大小写的字符串排列（中等）</li>
+</ol>
+<h3 id="11-经过修改的二叉搜索"><a href="#11-经过修改的二叉搜索" class="headerlink" title="11. 经过修改的二叉搜索"></a>11. 经过修改的二叉搜索</h3><p>只要给定了排序数组、链表或矩阵，并要求寻找一个特定元素，你可以使用的最佳算法就是二叉搜索。</p>
+<p>这一模式描述了一种用于处理所有涉及二叉搜索的问题的有效方法。</p>
+<h4 id="11-1-经过修改的二叉搜索模式的问题："><a href="#11-1-经过修改的二叉搜索模式的问题：" class="headerlink" title="11.1 经过修改的二叉搜索模式的问题："></a>11.1 经过修改的二叉搜索模式的问题：</h4><ol>
+<li>与顺序无关的二叉搜索（简单）</li>
+<li>在经过排序的无限数组中搜索（中等）</li>
+</ol>
+<h3 id="12-前-K-个元素"><a href="#12-前-K-个元素" class="headerlink" title="12. 前 K 个元素"></a>12. 前 K 个元素</h3><p>任何要求我们找到一个给定集合中前面的&#x2F;最小的&#x2F;最常出现的 K 的元素的问题都在这一模式的范围内。</p>
+<p>跟踪 K 个元素的最佳的数据结构是 Heap。</p>
+<p>这一模式会使用 Heap 来求解多个一次性处理一个给定元素集中 K 个元素的问题。</p>
+<h4 id="12-1-该模式是这样工作的："><a href="#12-1-该模式是这样工作的：" class="headerlink" title="12.1 该模式是这样工作的："></a>12.1 该模式是这样工作的：</h4><ol>
+<li>根据问题的不同，将 K 个元素插入到 min-heap 或 max-heap 中<br>2．迭代处理剩余的数，如果你找到一个比 heap 中数更大的数，那么就移除那个数并插入这个更大的数</li>
+</ol>
+<h4 id="12-2-如何识别前-K-个元素模式："><a href="#12-2-如何识别前-K-个元素模式：" class="headerlink" title="12.2 如何识别前 K 个元素模式："></a>12.2 如何识别前 K 个元素模式：</h4><ol>
+<li>如果你被要求寻找一个给定集合中前面的&#x2F;最小的&#x2F;最常出现的 K 的元素</li>
+<li>如果你被要求对一个数值进行排序以找到一个确定元素</li>
+</ol>
+<h4 id="12-3-前-K-个元素模式的问题："><a href="#12-3-前-K-个元素模式的问题：" class="headerlink" title="12.3 前 K 个元素模式的问题："></a>12.3 前 K 个元素模式的问题：</h4><ol>
+<li>前面的 K 个数（简单）</li>
+<li>最常出现的 K 个数（中等</li>
+</ol>
+<h3 id="13-K-路合并"><a href="#13-K-路合并" class="headerlink" title="13. K 路合并"></a>13. K 路合并</h3><h4 id="13-1-如何识别-K-路合并模式："><a href="#13-1-如何识别-K-路合并模式：" class="headerlink" title="13.1 如何识别 K 路合并模式："></a>13.1 如何识别 K 路合并模式：</h4><ol>
+<li>具有排序数组、列表或矩阵的问题</li>
+<li>如果问题要求你合并排序的列表，找到一个排序列表中的最小元素</li>
+</ol>
+<h4 id="13-2-K-路合并模式的问题："><a href="#13-2-K-路合并模式的问题：" class="headerlink" title="13.2 K 路合并模式的问题："></a>13.2 K 路合并模式的问题：</h4><ol>
+<li>合并 K 个排序的列表（中等）</li>
+<li>找到和最大的 K 个配对（困难）</li>
+</ol>
+<h3 id="14-拓扑排序"><a href="#14-拓扑排序" class="headerlink" title="14. 拓扑排序"></a>14. 拓扑排序</h3><h4 id="14-1-如何识别拓扑排序模式："><a href="#14-1-如何识别拓扑排序模式：" class="headerlink" title="14.1 如何识别拓扑排序模式："></a>14.1 如何识别拓扑排序模式：</h4><ol>
+<li>处理无向有环图的问题</li>
+<li>如果你被要求以排序顺序更新所有对象</li>
+<li>如果你有一类遵循特定顺序的对象</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" rel="prev" title="Flink内核原理与实现">
+      <i class="fa fa-chevron-left"></i> Flink内核原理与实现
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" rel="next" title="HBase连接">
+      HBase连接 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#14%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">14种常见算法模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">1. 滑动窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E4%B8%8B%E9%9D%A2%E6%98%AF%E4%B8%80%E4%BA%9B%E4%BD%A0%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E7%A1%AE%E5%AE%9A%E7%BB%99%E5%AE%9A%E9%97%AE%E9%A2%98%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 下面是一些你可以用来确定给定问题可能需要滑动窗口的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E4%BD%A0%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%A8%A1%E5%BC%8F%E5%A4%84%E7%90%86%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 你可以使用滑动窗口模式处理的常见问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BA%8C%E6%8C%87%E9%92%88%E6%88%96%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">2. 二指针或迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E7%94%A8%E4%BA%8E%E8%AF%86%E5%88%AB%E4%BD%BF%E7%94%A8%E4%BA%8C%E6%8C%87%E9%92%88%E7%9A%84%E6%97%B6%E6%9C%BA%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 用于识别使用二指针的时机的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E4%B8%8B%E9%9D%A2%E6%98%AF%E4%B8%80%E4%BA%9B%E6%BB%A1%E8%B6%B3%E4%BA%8C%E6%8C%87%E9%92%88%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 下面是一些满足二指针模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BF%AB%E9%80%9F%E5%92%8C%E6%85%A2%E9%80%9F%E6%8C%87%E9%92%88"><span class="nav-number">1.3.</span> <span class="nav-text">3. 快速和慢速指针</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E5%A6%82%E4%BD%95%E5%88%A4%E5%88%AB%E4%BD%BF%E7%94%A8%E5%BF%AB%E9%80%9F%E5%92%8C%E6%85%A2%E9%80%9F%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%97%B6%E6%9C%BA%EF%BC%9F"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 如何判别使用快速和慢速模式的时机？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E4%BD%95%E6%97%B6%E5%BA%94%E8%AF%A5%E4%BC%98%E5%85%88%E9%80%89%E6%8B%A9%E8%BF%99%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%8A%E9%9D%A2%E6%8F%90%E5%88%B0%E7%9A%84%E4%BA%8C%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 何时应该优先选择这种方法，而不是上面提到的二指针方法？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E4%B8%8B%E9%9D%A2%E6%98%AF%E4%B8%80%E4%BA%9B%E6%BB%A1%E8%B6%B3%E5%BF%AB%E9%80%9F%E5%92%8C%E6%85%A2%E9%80%9F%E6%8C%87%E9%92%88%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 下面是一些满足快速和慢速指针模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4"><span class="nav-number">1.4.</span> <span class="nav-text">4. 合并区间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E9%82%A3%E4%B9%88%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E4%BD%95%E6%97%B6%E8%AF%A5%E4%BD%BF%E7%94%A8%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4%E6%A8%A1%E5%BC%8F%E5%91%A2%EF%BC%9F"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 那么如何确定何时该使用合并区间模式呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 合并区间模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%BE%AA%E7%8E%AF%E6%8E%92%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">5. 循环排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB%E8%BF%99%E7%A7%8D%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 如何识别这种模式？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-%E5%BE%AA%E7%8E%AF%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 循环排序模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%8E%9F%E5%9C%B0%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8"><span class="nav-number">1.6.</span> <span class="nav-text">6. 原地反转链表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB%E4%BD%BF%E7%94%A8%E8%AF%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%97%B6%E6%9C%BA%EF%BC%9A"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 如何识别使用该模式的时机：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-%E5%8E%9F%E5%9C%B0%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 原地反转链表模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%A0%91%E7%9A%84%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88Tree-BFS%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">7. 树的宽度优先搜索（Tree BFS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB-Tree-BFS-%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 如何识别 Tree BFS 模式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-Tree-BFS-%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.7.2.</span> <span class="nav-text">7.2 Tree BFS 模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88Tree-DFS%EF%BC%89"><span class="nav-number">1.8.</span> <span class="nav-text">8. 树的深度优先搜索（Tree DFS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-Tree-DFS-%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F%E6%98%AF%E4%BB%8E%E6%A0%91%E7%9A%84%E6%A0%B9%E9%83%A8%E5%BC%80%E5%A7%8B%EF%BC%8C%E5%A6%82%E6%9E%9C%E8%BF%99%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%B6%E8%8A%82%E7%82%B9%EF%BC%8C%E5%88%99%E9%9C%80%E8%A6%81%E5%81%9A%E4%B8%A4%E4%BB%B6%E4%BA%8B%EF%BC%9A"><span class="nav-number">1.8.1.</span> <span class="nav-text">8.1 Tree DFS 模式的工作方式是从树的根部开始，如果这个节点不是一个叶节点，则需要做两件事：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB-Tree-DFS-%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.8.2.</span> <span class="nav-text">8.2 如何识别 Tree DFS 模式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-Tree-DFS-%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.8.3.</span> <span class="nav-text">8.3 Tree DFS 模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Two-Heaps"><span class="nav-number">1.9.</span> <span class="nav-text">9. Two Heaps</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1-%E8%AF%86%E5%88%AB-Two-Heaps-%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.9.1.</span> <span class="nav-text">9.1 识别 Two Heaps 模式的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2-Two-Heaps-%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.9.2.</span> <span class="nav-text">9.2 Two Heaps 模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E5%AD%90%E9%9B%86"><span class="nav-number">1.10.</span> <span class="nav-text">10. 子集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-1-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB%E5%AD%90%E9%9B%86%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.10.1.</span> <span class="nav-text">10.1 如何识别子集模式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-2-%E5%AD%90%E9%9B%86%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.10.2.</span> <span class="nav-text">10.2 子集模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E7%BB%8F%E8%BF%87%E4%BF%AE%E6%94%B9%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2"><span class="nav-number">1.11.</span> <span class="nav-text">11. 经过修改的二叉搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-1-%E7%BB%8F%E8%BF%87%E4%BF%AE%E6%94%B9%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.11.1.</span> <span class="nav-text">11.1 经过修改的二叉搜索模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%89%8D-K-%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">1.12.</span> <span class="nav-text">12. 前 K 个元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-1-%E8%AF%A5%E6%A8%A1%E5%BC%8F%E6%98%AF%E8%BF%99%E6%A0%B7%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9A"><span class="nav-number">1.12.1.</span> <span class="nav-text">12.1 该模式是这样工作的：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-2-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB%E5%89%8D-K-%E4%B8%AA%E5%85%83%E7%B4%A0%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.12.2.</span> <span class="nav-text">12.2 如何识别前 K 个元素模式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-%E5%89%8D-K-%E4%B8%AA%E5%85%83%E7%B4%A0%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.12.3.</span> <span class="nav-text">12.3 前 K 个元素模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-K-%E8%B7%AF%E5%90%88%E5%B9%B6"><span class="nav-number">1.13.</span> <span class="nav-text">13. K 路合并</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#13-1-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB-K-%E8%B7%AF%E5%90%88%E5%B9%B6%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.13.1.</span> <span class="nav-text">13.1 如何识别 K 路合并模式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-K-%E8%B7%AF%E5%90%88%E5%B9%B6%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.13.2.</span> <span class="nav-text">13.2 K 路合并模式的问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="nav-number">1.14.</span> <span class="nav-text">14. 拓扑排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#14-1-%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.14.1.</span> <span class="nav-text">14.1 如何识别拓扑排序模式：</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

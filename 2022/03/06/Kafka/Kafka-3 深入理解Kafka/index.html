@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="深入理解Kafka 分区中所有副本统称为 AR(Assigned Replicas)。所有与 leader 副本保持一定程度同步的副本（包括 leader 副本在内）组成 ISR(In-Sync Replicas)，ISR 集合是 AR 集合中对应一个子集。    一定程度同步指 follower 副本在从 leader 副本中拉取数据进行同步时，同步期间相对于 leader 副本会有一定程度的滞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解 Kafka">
+<meta property="og:url" content="https://mxxct4git.github.io/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="深入理解Kafka 分区中所有副本统称为 AR(Assigned Replicas)。所有与 leader 副本保持一定程度同步的副本（包括 leader 副本在内）组成 ISR(In-Sync Replicas)，ISR 集合是 AR 集合中对应一个子集。    一定程度同步指 follower 副本在从 leader 副本中拉取数据进行同步时，同步期间相对于 leader 副本会有一定程度的滞">
+<meta property="og:locale">
+<meta property="og:image" content="https://secure2.wostatic.cn/static/5zJ83r3moDjFnBWTZsG6ne/image.png?auth_key=1736241779-ji4xKqfgHcd4r8tyu8NSD7-0-dd81ba597375105bf5549abbe1b9b52b">
+<meta property="og:image" content="https://secure2.wostatic.cn/static/kAMaUgxsLyv82GuA4fM66N/image.png?auth_key=1736241779-7oeKcaiezW4FZBPfY1CvsB-0-f23d61f63bb973b02b5e562e3c9eea29">
+<meta property="og:image" content="https://secure2.wostatic.cn/static/6FG3dnE9BTaXfQLJrpR4Kw/image.png?auth_key=1736241779-anKc3nUvpRqf9zjy9uavCd-0-a08b618f3a9bc6b561b4f69ceb403d2b">
+<meta property="article:published_time" content="2022-03-06T11:17:00.000Z">
+<meta property="article:modified_time" content="2022-07-09T12:38:19.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Kafka">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://secure2.wostatic.cn/static/5zJ83r3moDjFnBWTZsG6ne/image.png?auth_key=1736241779-ji4xKqfgHcd4r8tyu8NSD7-0-dd81ba597375105bf5549abbe1b9b52b">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>深入理解 Kafka | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入理解 Kafka
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-06 19:17:00" itemprop="dateCreated datePublished" datetime="2022-03-06T19:17:00+08:00">2022-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-09 20:38:19" itemprop="dateModified" datetime="2022-07-09T20:38:19+08:00">2022-07-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Kafka/" itemprop="url" rel="index"><span itemprop="name">Kafka</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" class="post-meta-item leancloud_visitors" data-flag-title="深入理解 Kafka" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="深入理解Kafka"><a href="#深入理解Kafka" class="headerlink" title="深入理解Kafka"></a>深入理解Kafka</h2><ol>
+<li><p>分区中所有副本统称为 AR(Assigned Replicas)。所有与 leader 副本保持一定程度同步的副本（包括 leader 副本在内）组成 ISR(In-Sync Replicas)，ISR 集合是 AR 集合中对应一个子集。</p>
+<blockquote>
+<p>  一定程度同步指 follower 副本在从 leader 副本中拉取数据进行同步时，同步期间相对于 leader 副本会有一定程度的滞后。</p>
+</blockquote>
+<blockquote>
+<p>  这个一定程度的同步是指可忍受的滞后范围，这个范围可以通过参数进行调整。与 leader 副本同步滞后过多的副本（不包括 leader 副本）组成 OSR(Out-Sync Replicas)，因此 AR &#x3D; ISR + OSR。正常情况下 OSR 为空，AR &#x3D; ISR。</p>
+</blockquote>
+</li>
+</ol>
+<span id="more"></span>
+<ol start="2">
+<li><p>HW: High Watermark高水位，标识了一个特定的消息偏移量，消费者只能拉取到这个 offset 之前的消息</p>
+<blockquote>
+<p>  消息 offset 从 0 开始，有 9 条消息，那么最后一条消息的 offset &#x3D; 8。HW &#x3D; 6，则表示消费者只能拿到 0 - 5 的消息，offset&#x3D;6 的消息获取不到</p>
+</blockquote>
+</li>
+<li><p>LEO: Log End Offset，标识当前日志文件在下一条待写入消息的 offset。在上面的例子中，LEO &#x3D; 9，即下一条消息写入的 offset 应该是 9</p>
+</li>
+<li><p>分区 ISR 集合中的每个副本都会维护自身的 LEO，而 ISR集合中最小的 LEO 就是分区的 HW。</p>
+</li>
+<li><p>每一个分区只能被一个消费组中的一个消费者所消费</p>
+</li>
+<li><p>消息中间件两种消息投递方式：点对点、发布订阅。当所有消费者都都属于同一个消费组，则每条消息都会被每一个消费者处理，相当于前者；当所有消费者属于不同消费组，相当于后者</p>
+</li>
+<li><p>消费者消费 topic 三种订阅方式：集合订阅的方式 <code>subscribe(Collection)</code>、正则表达式订阅的方式<code>subscribe(Pattern)</code>和指定分区的订阅方式<code>assign(Collection)</code>。在一个消费者中只能使用其中一种</p>
+<blockquote>
+<p>  <code>subscribe</code> 订阅具有消费者自动均衡功能，即当消费组内的消费者增加或减少时，会自动调整分区分配关系，是因为 <code>subscribe</code> 具有 <code>ConsumerRebalanceListener</code> 类型的参数，而 <code>assign</code> 没有</p>
+</blockquote>
+</li>
+<li><p>消费到的 ConsumerRecord 包含的信息更丰富</p>
+<p><img src="https://secure2.wostatic.cn/static/5zJ83r3moDjFnBWTZsG6ne/image.png?auth_key=1736241779-ji4xKqfgHcd4r8tyu8NSD7-0-dd81ba597375105bf5549abbe1b9b52b" alt="img"></p>
+<p>timestampType 有两种类型：CreateTime 和 LogAppendTime，分别表示消息创建的时间戳和消息追加到日志的时间戳</p>
+</li>
+<li><p>对于消息在分区中的位置，称 offset 为 <strong>偏移量</strong>；对于消费者消费到的位置，称 offset 为 <strong>消费位移</strong></p>
+</li>
+<li><p>offset 在之前是保存在 zk 中，现在是保存在kafka 内部的主题 &#96;__consumer_offset&#96;&#96; 中</p>
+</li>
+<li><p><code>KafkaConsumer</code> 类提供了 <code>position(TopicPartition)</code> 和 <code>committed(TopicPartition)</code> 两个方法</p>
+<blockquote>
+<p>  如果当前消费者已经消费了 x 位置的消息，那么提交消费位移的时候是 x + 1，即下一次需要拉取数据的位置</p>
+</blockquote>
+<blockquote>
+<p>  postion &#x3D; committed offset &#x3D; lastConsumedOffset + 1，但是 position 和 committed offset 并不会一直相同</p>
+</blockquote>
+</li>
+<li><p>在 <code>poll() </code>方法向服务端发起拉取请求之前都会检查是否可以进行消费位移提交，即位移提交是在下一次拉取的时候操作的</p>
+</li>
+<li><p><code>offsetsForTimes()</code> 方法返回时间戳大于等于查询时间的第一条消息对应的位置和时间戳</p>
+</li>
+<li><p><code>KafkaProducer</code> 线程安全；<code>KafkaConsumer</code>非线程安全，在<code>KafkaConsumer</code>中定义了一个 <code>acquire()</code>方法，用来检测当前是否只有一个线程在操作，若有其他线程正在操作，则会抛出 <code>ConcurrentModificationException</code>，在<code>KafkaConsumer</code>中除了 <code>wakeup()</code> 其他每个公用方法在执行前都会调用 <code>acquire()</code>方法</p>
+<blockquote>
+<p>  <code>acquire()</code> 不会造成阻塞等待，可以看做一个轻量级锁，仅通过线程操作计数标记的方式来检测线程是否发生了并发操作</p>
+</blockquote>
+</li>
+<li><p>主题和分区都是逻辑上的概念，分区有一至多个副本，每个副本对应一个日志文件夹，每个日志文件夹下面有一至多个日志分段（LogSegment），每个日志分段还可以细分为索引文件、日志存储文件和快照文件等。</p>
+</li>
+<li><p>创建topic 名称会自动检测 <strong>.</strong>  和 <strong>_</strong> 字符，因为 Kafka 内部做埋点时会根据主题名称来命名 metrics 的名称， 并且会将 <strong>.</strong> 替换为 <strong>_</strong></p>
+<p>先创建一个 <code>topic.1_2</code> 的主题，会提示 warning；再创建一个 <code>topic_1.2</code> 的主题时，会因为 metrics 都是 <code>topic_1_2</code> 名称冲突而报错</p>
+</li>
+<li><p>分区重分配：先通过控制器为每个分区添加新副本，新的副本将从分区的 leader 副本复制所有的数据，数据是通过网络复制到新副本，所以会花一些时间。复制完成之后，控制器将旧副本从副本清单里移除。触发时机：某个节点下线或宕机，则该节点上的分区副本都已经处于失效的状态，需要重新分配；增加 broker 节点，只有新创建的主题分区才有可能会被分配到新的节点上，之前的主题分区不会自动分配到新加入的节点，这样新旧节点的负载就会不均衡，此时也需要重新分配。</p>
+</li>
+<li><p>复制限流：分区重分配本质是数据复制，先增加新副本，再进行数据同步，最后删除旧的副本。分区量大的话会影响业务，所以有一个限流的机制，可以对副本间的复制流量加以限制来保证不影响服务。两种方式：<code>kafka-config.sh</code> 和 <code>kafka-reassign-partiton.sh</code> 脚本，推荐后者简单，配合 <code>throttle</code> 参数即可</p>
+</li>
+<li><p>【主题、分区、副本之间的关系】</p>
+<p><img src="https://secure2.wostatic.cn/static/kAMaUgxsLyv82GuA4fM66N/image.png?auth_key=1736241779-7oeKcaiezW4FZBPfY1CvsB-0-f23d61f63bb973b02b5e562e3c9eea29" alt="img"></p>
+<ol>
+<li>Log 在物理上是以文件夹的形式存储，LogSegment 在物理上对应了磁盘上的一个日志文件和两个索引文件，以及可能的其他文件</li>
+<li>只有最后一个 LogSegment 才能执行写入操作，即顺序追加日志，往.log文件里写入，同时也需要写入偏移量索引文件（.index文件）和时间戳索引文件（.timeindex文件）</li>
+</ol>
+</li>
+<li><p>日志索引</p>
+<ol>
+<li>偏移量索引文件用来建立消息偏移量 offset 到物理地址之间的映射关系，方便快速定位消息所在的物理文件位置</li>
+<li>时间戳索引文件则根据指定的时间戳来查找对应的偏移量信息</li>
+<li>索引文件以稀疏索引方式构造消息的索引，默认写入 4KB 之后增加新的索引项</li>
+<li>稀疏索引通过 <code>MappedByteBuffer</code>将索引文件映射到内存中，加快索引的查询速度</li>
+</ol>
+</li>
+<li><p>Kafka 速度快的原因</p>
+<ol>
+<li>顺序写磁盘<ol>
+<li>理论上读写速度 寄存器 &gt;&gt; 缓存 &gt;&gt; 主存 &gt;&gt; 磁盘 &gt;&gt; 磁带。实际上顺序写磁盘的速度要大于随机写内存。原因是操作系统针对顺序写磁盘做了更深层次的优化，比如预读（提前将一个较大的磁盘块写入内存）和后写（批量写）。</li>
+</ol>
+</li>
+<li>页缓存</li>
+<li>零拷贝<ol>
+<li>数据直接从磁盘文件复制到网卡设备，依赖于底层的 sendfile() 方法实现，减少 cpu 在内核态与用户态的切换以及文件的复制粘贴</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>累加器<code>RecordAccumulator</code> 中的 消息是以 <code>&lt;分区， Deque&lt; ProducerBatch&gt;&gt;</code> 的形式进行缓存的</p>
+</li>
+<li><p>时间轮(<code>TimingWheel</code>)：一个存储定时任务的环形队列，底层采用数组实现，长度固定，数组中的每个元素都对应一个定时任务列表（<code>TimerTaskList</code>)，这个列表是一个环形的双向链表，链表中的每一项 表示的都是定时任务项(<code>TimerTaskEntry</code>)，其中封装了真正的定时任务 (<code>TimerTask</code>)</p>
+<p><img src="https://secure2.wostatic.cn/static/6FG3dnE9BTaXfQLJrpR4Kw/image.png?auth_key=1736241779-anKc3nUvpRqf9zjy9uavCd-0-a08b618f3a9bc6b561b4f69ceb403d2b" alt="img"></p>
+<p>按照上图所示时间轮只能保存 20ms 内的任务，如果一个任务定时时间在 350ms，只用一个时间轮就不够了，所以有 <strong>层级时间轮</strong> 的概念，即第一层时间轮 <code>tickMs=1,wheelSize=20,interval=20ms</code>，第二层tickMs是第一层时间轮的 interval，则第二层的 <code>interval=400ms</code>，第三层的 <code>interval=8000ms</code></p>
+<p>会根据定时任务执行剩余时间来自动把定时任务移动到上层或下层时间轮</p>
+<p>延时操作比如说延迟读取（即攒批读取）、延迟同步（即由 follower 拉取 leader 数据，acks ≠ -1）</p>
+</li>
+<li><p>控制器：broker 被选举为控制器，负责管理集群中所有分区和副本的状态。</p>
+<p>eg：当某个分区的 leader 副本出现故障时，由控制器负责为该分区选举新的 leader 副本；当某个分区的 ISR 集合发生变化时，由控制器负责通知所有 broker 更新元数据信息</p>
+</li>
+<li><p>优雅关闭 Kafka：通过 <code>kill -s TERM $PIDS</code> 或者 <code>kill -15 $PIDS</code> ，不要用 <code>kill -9</code> 原因是有一个关闭钩子，会在关系 Kafka 的时候做一些操作，比如让信息完全同步到磁盘</p>
+</li>
+<li><p>RangeAssignor  分配策略按照[分区总数%消费者总数]作为跨度来进行平均分配；RoundRobinAssignor 分配策略通过轮询方式将同一个主题的分区依次分配个每个消费者；StickyAssignor 分配策略在分区重分配时尽可能让前后两次分配相同，即减少不必要的分区移动。</p>
+</li>
+<li><p>通过配置生产者客服端参数 <code>enable.idempotence=true</code> 可以实现单个生产者会话中单分区的幂等。这里的幂等不针对消息内容的幂等，即 send 两条相同的消息，对 kafka 而言是两条不同的消息，会分配不同的序列号</p>
+</li>
+<li><p>幂等针对单个分区，事务可以保证多个分区写入操作的原子性。通过客户端参数 <code>transactional.id</code>显示设置</p>
+</li>
+<li><p>一般有两种情况导致副本失效，即 ISR 集合减少：</p>
+<ol>
+<li>follower 副本进行卡主，在一段时间内没有向 leader 副本发起同步请求，比如频繁 Full GC</li>
+<li>follower 副本进程同步过慢，在一段时间内都无法追赶上 leader 副本，比如 IO 开销过大</li>
+</ol>
+<blockquote>
+<p>  当 follower 副本的 LEO 不小于 leader 副本的 HW，就可以添加进 ISR 集合</p>
+</blockquote>
+</li>
+<li><p>Kafka 为什么不支持读写分离？</p>
+<ol>
+<li>数据一致性问题。数据从主节点转到从节点会有一个延迟的时间窗口</li>
+<li>延时问题。数据主从同步要比 Redis 的主从同步更加耗时，因为走磁盘</li>
+</ol>
+</li>
+<li><p>读写分离可以分摊一定的负载但不能做到完全的负载均衡。Kafka 通过 broker 也可以实现负载均衡，即 N个分区分布在 N个 broker 上，可以保证每个 broker 的读写是均衡的。也存在情况是不均衡的：</p>
+<ol>
+<li>broker 端的分区分配不均匀</li>
+<li>生产者写入消息不均匀</li>
+<li>消防者消费消息不均匀</li>
+<li>leader 副本的切换不均匀，比如 broker 宕机导致的主从副本切换或者分区副本重分配，导致各个 broker 中的 leader 副本分配不均</li>
+</ol>
+</li>
+<li><p>数据可靠性</p>
+<ol>
+<li>理论上副本为 3 可以应对绝大多数场景，设置为 5 则可靠性会更高，但是副本越多，对网络、磁盘的浪费以及性能也会有影响</li>
+<li>acks 参数设置为-1，可以最大程度保证消息的可靠性，但是如果 leader 副本的消息流入很快，follower 副本的同步速度很慢，在某个时间点所有的 follower 副本都被剔除 ISR 集合，此时集合里只有 leader 副本，acks&#x3D;-1 就变成 acks&#x3D;1 的情况，也会加大消息丢失的风险<ol>
+<li>基于这一点kafka 提供了 <code>min.insync.replicas</code> 参数，指定了 ISR 集合中最小的副本数。通常副本为 3，参数设置为 2。这个参数会提高可靠性的同时侧面影响可用性。如果 ISR 只有一个 leader 副本，集群还可用，但是参数设置为 2，则会导致消息无法写入</li>
+</ol>
+</li>
+<li>可以重新回溯消费某个时间点开始的数据，这一点可以提高可靠性</li>
+</ol>
+</li>
+<li><p>类比于 RabbitMQ的一些拓展功能，需自行开发：</p>
+<ol>
+<li>延时队列：队列是存储消息的载体，延时队列存储的对象是延时消息，达到目标延时时间后才能消费。对于延时队列的封装实现，如果要求延时精度不是那么高，则建议使用延时等级的实现方案，毕竟实现起来简单明了。反之，如果要求高精度或自定义延时时间，那么可以选择单层文件时间轮的方案。</li>
+<li>死信队列：由于某些原因消息无法被正确投递，为了确保消息不会丢失，将其放到一个特殊的队列，后续分析程序可以通过消费这个队列的数据来分析当时的异常情况，对系统进行优化。<ol>
+<li>死信：可以看作是消费者不能处理收到的消息，也可以看作消费者不想处理收到的消息，还可以看作是不符合处理要求的消息。</li>
+</ol>
+</li>
+<li>重试队列：由消费端触发，如果消费失败，又不想消息丢失，可以重新写入到kafka 中，比如第一次消费失败，设置 5s 后写入到kafka；第二次消费失败，社会 10s 后写入到 kafka；以此类推。当超过一定投递次数后就写入死信队列。</li>
+</ol>
+</li>
+<li><p>消息轨迹、消息审计</p>
+</li>
+<li></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
+              <a href="/tags/Kafka/" rel="tag"><i class="fa fa-tag"></i> Kafka</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/18/ClickHouse/ck-1%20%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7/" rel="prev" title="ClickHouse笔记-尚硅谷">
+      <i class="fa fa-chevron-left"></i> ClickHouse笔记-尚硅谷
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/15/ClickHouse/ck-2%20%E7%AC%94%E8%AE%B0/" rel="next" title="ClickHouse笔记">
+      ClickHouse笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka"><span class="nav-number">1.</span> <span class="nav-text">深入理解Kafka</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="数据治理《一本书讲透数据治理》 笔记 1. 定义 国际数据管理协会DAMA  数据治理是对数据资产管理行使权力和控制的活动集合  国际数据治理研究所DGI  数据治理是一个通过一系列与信息相关的过程来实现决策权和职责分工的系统，这些过程按照达成共识的模型来执行，该模型描述了谁（who）能根据什么信息，在什么时间（when）和情况（where）下，用什么方法（how），采取什么行动（what）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据治理 （《一本书讲透数据治理》笔记）">
+<meta property="og:url" content="https://mxxct4git.github.io/2023/05/20/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="数据治理《一本书讲透数据治理》 笔记 1. 定义 国际数据管理协会DAMA  数据治理是对数据资产管理行使权力和控制的活动集合  国际数据治理研究所DGI  数据治理是一个通过一系列与信息相关的过程来实现决策权和职责分工的系统，这些过程按照达成共识的模型来执行，该模型描述了谁（who）能根据什么信息，在什么时间（when）和情况（where）下，用什么方法（how），采取什么行动（what）">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-05-20T03:47:09.000Z">
+<meta property="article:modified_time" content="2019-11-25T12:00:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="数据治理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2023/05/20/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>数据治理 （《一本书讲透数据治理》笔记） | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2023/05/20/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据治理 （《一本书讲透数据治理》笔记）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-05-20 11:47:09" itemprop="dateCreated datePublished" datetime="2023-05-20T11:47:09+08:00">2023-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 20:00:00" itemprop="dateModified" datetime="2019-11-25T20:00:00+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">数据治理</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/05/20/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="数据治理 （《一本书讲透数据治理》笔记）" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/05/20/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/20/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数据治理"><a href="#数据治理" class="headerlink" title="数据治理"></a>数据治理</h2><p>《一本书讲透数据治理》 笔记</p>
+<h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h3><ol>
+<li>国际数据管理协会DAMA</li>
+</ol>
+<p>数据治理是对数据资产管理行使权力和控制的活动集合</p>
+<ol start="2">
+<li>国际数据治理研究所DGI</li>
+</ol>
+<p>数据治理是一个通过一系列与信息相关的过程来实现决策权和职责分工的系统，这些过程按照达成共识的模型来执行，该模型描述了谁（who）能根据什么信息，在什么时间（when）和情况（where）下，用什么方法（how），采取什么行动（what）</p>
+<span id="more"></span>
+<ol start="3">
+<li>笔者认为</li>
+</ol>
+<p>所有为提高数据质量而展开的技术、业务和管理活动都属于数据治理范畴。数据治理的最终目标是提升数据利用率和数据价值，通过有效的数据资源管控手段，实现数据的看得见、找得到、管得住、用得好，提升数据质量和数据价值。</p>
+<h3 id="2-相关术语"><a href="#2-相关术语" class="headerlink" title="2. 相关术语"></a>2. 相关术语</h3><h4 id="2-1-数据元"><a href="#2-1-数据元" class="headerlink" title="2.1 数据元"></a>2.1 数据元</h4><ol>
+<li>名词解释</li>
+</ol>
+<p>用一组属性描述定义、标识、标识和允许值的数据单元。</p>
+<p>由三部分组成：对象、特性和表示。数据元是组成实体数据的最小单元，或称原子数据。</p>
+<p>比如：性别是数据元，男和女是数据元的值</p>
+<ol start="2">
+<li>主要作用</li>
+</ol>
+<p>数据元是对数据进行标准化定义的基础。一个数据元对象有且只有一个数据特性，每个数据特性对应一个数据表示。</p>
+<p>比如：性别中的男是一个数据元对象，用数字1来表示</p>
+<h4 id="2-2-元数据"><a href="#2-2-元数据" class="headerlink" title="2.2 元数据"></a>2.2 元数据</h4><ol>
+<li>名词解释</li>
+</ol>
+<p>元数据是描述数据的数据或关于数据的结构化数据。</p>
+<p>比如：一本书的封面和目录就包含了书的元数据信息：名称、作者姓名、出版商、标题、页码等</p>
+<ol start="2">
+<li>主要作用</li>
+</ol>
+<p>元数据是对数据的描述，存储着数据的描述信息，使数据更容易理解、查找、管理和使用</p>
+<p>元数据是数据治理中的核心要素，是构建数据仓库的基础，是搭建企业数据资源全景视图的基础。</p>
+<h4 id="2-3-主数据"><a href="#2-3-主数据" class="headerlink" title="2.3 主数据"></a>2.3 主数据</h4><ol>
+<li>名词解释</li>
+</ol>
+<p>主数据是企业内需要在多个部门、多个信息系统之间共享的数据，如客户、供应商、组织、人员、项目等。与记录业务活动、波动较大的交易数据相比，主数据（也称为“基准数据”）变化较慢。主数据是企业开展业务的基础，只有得到正确维护，才能保证业务系统的参照完整性。</p>
+<p>主数据有3大特性，</p>
+<pre><code>- 高价值性
+- 高共享性
+- 相对稳定性
+</code></pre>
+<p>4个超越</p>
+<pre><code>- 超越业务
+- 超越部门
+- 超越系统
+- 超越技术
+</code></pre>
+<ol start="2">
+<li>主要作用</li>
+</ol>
+<p>在数据治理中，主数据用来解决企业异构系统之间核心数据不一致、不正确、不完整等问题。主数据是信息系统建设和大数据分析的基础，被认为是企业数字化转型的基石。</p>
+<h4 id="2-4-业务数据"><a href="#2-4-业务数据" class="headerlink" title="2.4 业务数据"></a>2.4 业务数据</h4><ol>
+<li>名词解释</li>
+</ol>
+<p>业务数据是业务活动过程或系统自动产生的既定事实的数据，也称交易数据。</p>
+<p>特点：时效性强，数据量大</p>
+<ol start="2">
+<li>主要作用</li>
+</ol>
+<p>业务数据主要面向应用，为业务应用提供服务，例如生产、销售、采购等</p>
+<h4 id="2-5-主题数据"><a href="#2-5-主题数据" class="headerlink" title="2.5 主题数据"></a>2.5 主题数据</h4><ol>
+<li>名词解释</li>
+</ol>
+<p>主题数据是根据数据分析的需要，按照业务主体对数据所做的一种组织和管理方式，其本质是为了进行面向主题的分析或加速主题应用的数据。</p>
+<p>主题数据一般是汇总的、不可更新的、用于读的数据。</p>
+<ol start="2">
+<li>主要作用</li>
+</ol>
+<p>主题数据是按照一定的业务主题域组织的，服务于各种数据分析或应用开发。</p>
+<h4 id="2-6-数据仓库"><a href="#2-6-数据仓库" class="headerlink" title="2.6 数据仓库"></a>2.6 数据仓库</h4><ol>
+<li>名词解释</li>
+</ol>
+<p>数据仓库是一个面向主题的、集成的、相对稳定的、反映历史变化的数据集合，用于支持管理决策。</p>
+<ol start="2">
+<li>主要作用</li>
+</ol>
+<p>数据仓库是对企业数据的汇聚和集成，数据仓库内的数据来源于不同的业务处理系统，包含主数据和业务数据。</p>
+<p>数据仓库支持多为分析。</p>
+<p>数据仓库是数据挖掘技术的关键和基础。</p>
+<h4 id="2-7-数据湖"><a href="#2-7-数据湖" class="headerlink" title="2.7 数据湖"></a>2.7 数据湖</h4><ol>
+<li>名词解释</li>
+</ol>
+<p>根据维基百科的定义，数据湖是一个以原始格式存储数据的存储库或系统。它按照原样存储数据，无须事先对数据进行结构化处理。可以存储结构化、半结构化（csv、json etc）、非结构化（邮件、pdf etc）、二进制数据。</p>
+<p>数据湖可以更方便、以更低的成本解决不同数据结构的统一存储问题，同时还能够为机器学习提供全局数据。可以把数据湖理解为一个融合了大数据集成、存储、处理、机器学习、数据挖掘的解决方案。</p>
+<ol start="2">
+<li>主要作用</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">特性</th>
+<th align="center">数据仓库</th>
+<th align="center">数据湖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">数据</td>
+<td align="center">来自事务系统、运营数据库和业务线应用程序的关系数据</td>
+<td align="center">来自IoT设备、网络、移动应用程序、社交媒体和企业应用程序的非关系和关系数据</td>
+</tr>
+<tr>
+<td align="center">Schema</td>
+<td align="center">设计在数据仓库实施之前（写入型Schema）</td>
+<td align="center">写入在分析时（读取型Schema）</td>
+</tr>
+<tr>
+<td align="center">性价比</td>
+<td align="center">更快查询结果会带来较高存储成本</td>
+<td align="center">更快查询结果只需较低存储成本</td>
+</tr>
+<tr>
+<td align="center">数据质量</td>
+<td align="center">可作为重要事实依据的高度监管数据</td>
+<td align="center">任何可以或无法进行监管的数据（原始数据）</td>
+</tr>
+<tr>
+<td align="center">用户</td>
+<td align="center">业务分析师</td>
+<td align="center">数据科学家、数据开发人员和业务分析师</td>
+</tr>
+<tr>
+<td align="center">分析</td>
+<td align="center">批处理报告、BI和可视化</td>
+<td align="center">机器学习、预测分析、数据发现和分析</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 数据治理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" rel="prev" title="HBase连接">
+      <i class="fa fa-chevron-left"></i> HBase连接
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">数据治理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%9B%B8%E5%85%B3%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.2.</span> <span class="nav-text">2. 相关术语</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%85%83"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 数据元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 元数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E4%B8%BB%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 主数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E4%B8%9A%E5%8A%A1%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 业务数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-%E4%B8%BB%E9%A2%98%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 主题数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 数据仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-%E6%95%B0%E6%8D%AE%E6%B9%96"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 数据湖</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Flink总结1. 状态一致性 at most once at least once exactly once  2. 端到端的状态一致性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flink总结">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/10/20/Flink/Flink-2%20%E7%B2%BE%E5%8D%8E/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Flink总结1. 状态一致性 at most once at least once exactly once  2. 端到端的状态一致性">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-10-20T08:20:00.000Z">
+<meta property="article:modified_time" content="2021-01-12T09:57:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Flink">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/10/20/Flink/Flink-2%20%E7%B2%BE%E5%8D%8E/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Flink总结 | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/10/20/Flink/Flink-2%20%E7%B2%BE%E5%8D%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flink总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-20 16:20:00" itemprop="dateCreated datePublished" datetime="2020-10-20T16:20:00+08:00">2020-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-12 17:57:00" itemprop="dateModified" datetime="2021-01-12T17:57:00+08:00">2021-01-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flink/" itemprop="url" rel="index"><span itemprop="name">Flink</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/10/20/Flink/Flink-2%20%E7%B2%BE%E5%8D%8E/" class="post-meta-item leancloud_visitors" data-flag-title="Flink总结" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/10/20/Flink/Flink-2%20%E7%B2%BE%E5%8D%8E/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/20/Flink/Flink-2%20%E7%B2%BE%E5%8D%8E/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Flink总结"><a href="#Flink总结" class="headerlink" title="Flink总结"></a>Flink总结</h2><h3 id="1-状态一致性"><a href="#1-状态一致性" class="headerlink" title="1. 状态一致性"></a>1. 状态一致性</h3><ul>
+<li>at most once</li>
+<li>at least once</li>
+<li>exactly once</li>
+</ul>
+<h3 id="2-端到端的状态一致性"><a href="#2-端到端的状态一致性" class="headerlink" title="2. 端到端的状态一致性"></a>2. 端到端的状态一致性</h3><span id="more"></span>
+<ul>
+<li>source端（可重设数据的读取位置）<ul>
+<li>kafka 可以根据offset回放数据</li>
+</ul>
+</li>
+<li>内部保证（checkpoint）<ul>
+<li>每隔一段时间去做一次ck，jobManager会在数据流中加入一个barrier，上游的计算可能有快有慢，如果是精确一次，计算快的算子会把数据先缓存下来，如果是最少一次，那就会加入到计算当中。barrier会广播到下游，所有的task遇到barrier之后都会对自己的状态进行保存，下游收到所有的上游过来的barrier之后，才会进行ck。</li>
+<li>同时设置的还有两次ck的时间间隔、允许几个ck存在、超时时间等</li>
+<li>ck的保存位置有三种：memory、filesystem、rocksDB。内存中主要是开发测试用，速度快，但是不稳定；放到文件中访问速度快，状态信息不会丢失，但是大小会受到 TaskManager 内存限制（默认是5M），生产可用；rocksDB会先放到数据库，类似于key-value数据存储，当最终ck的时候会放到文件中，缺点是访问的速度下降，但是可以存储大量的状态信息</li>
+</ul>
+</li>
+<li>sink端（从故障恢复时数据不会重复写入外部系统，比如幂等写入，事务写入）<ul>
+<li>如果是redis、hbase，通过幂等性，可以保证至少一次 &#x3D;&gt; 精确一次</li>
+<li>如果是kafka通过二阶段提交，在sink的时候会先预提交，然后去做ck状态保存，ck失败没关系，因为预提交用户看不到数据；ck成功之后再真正提交，如果这时候提交失败，当flink去做下一次计算的时候会发现commit失败了，会先去进行commit，然后再做计算。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-kafka"><a href="#3-kafka" class="headerlink" title="3. kafka"></a>3. kafka</h3><p>0.8版本kafka：offset是保存在zookeeper中的，但是由于zk不支持高并发，当consumer多了之后，可能会出现问题<br>&#x3D;&gt; 0.10版本kafka：在kafka中有一个 _consumer_offset 的 topic，可以自己去保存</p>
+<p>在 FlinkKafkaConsumerBase 类里，有一个 ListState ，即 flink 本身就保存了kafka的offset，然后kafka又有一个topic里保存offset。那么flink默认是使用自己的 ListState，当ck成功之后会去同步到kafka，通过 setCommitOffsetsOnCheckpoints 这个配置来设置是否当ck成功后offset会同步kafka</p>
+<h3 id="4-watermark"><a href="#4-watermark" class="headerlink" title="4. watermark"></a>4. watermark</h3><p>通过 assignTimestampsAndWatermarks 方法来设置如何提取事件时间，以及允许的最大乱序时间。默认是周期性每200毫秒生成一次。也可以不要周期性，每来一条数据就尝试获取一次。</p>
+<p>当watermark时间大于窗口时间，那么窗口就会被激活，然后进行计算，输出结果。通过 allowLateness() 可以延长窗口被销毁的时间，如果有延迟很久的数据的话，可以再更新窗口</p>
+<p>只有当watermark更新了之后，才会去触发 onTimer 定时器</p>
+<h3 id="5-savepoint"><a href="#5-savepoint" class="headerlink" title="5. savepoint"></a>5. savepoint</h3><p>相当于重量级的checkpoint，需要用户手动触发，主要用于 作业升级、代码修改等，需要针对每一个算子来设置uid，flink默认的uid生成是根据代码结构，如果uid不一样了就无法获得之前的状态。</p>
+<h3 id="6-QueryableState"><a href="#6-QueryableState" class="headerlink" title="6. QueryableState"></a>6. QueryableState</h3><p>每一个状态都保存下来了，然后还需要写入到sink端，如果state是可查询的，那么直接就可以不用写，而把state去当成一个类似数据库一样的东西去使用</p>
+<h3 id="7-state类型"><a href="#7-state类型" class="headerlink" title="7. state类型"></a>7. state类型</h3><ul>
+<li>Operator State：state是task级别的state，说白了就是每个task对应一个state<ul>
+<li>ListState等，一般不使用，比如kafkaconsumer里有一个liststate保存offset partition等信息</li>
+</ul>
+</li>
+<li>KeyedState：主要用前三个<ul>
+<li>ValueState</li>
+<li>ListState</li>
+<li>MapState</li>
+<li>ReducingState</li>
+<li>AggregatingState</li>
+</ul>
+</li>
+</ul>
+<p>使用思路就是</p>
+<ol>
+<li>不管是open() 方法也好，还是哪个位置，需要先注册，通过 <code>getRuntimeContext().get...(stateDescriptor)</code> 来注册，标明name和其中的类型</li>
+<li>在使用的时候，先进行初始化的判断，然后更新，如果是通过定时器的方式来实现的，比如是继承了 processFunction 的方式来实现，那么就需要在 onTimer() 方法中去清空所有的状态</li>
+</ol>
+<h3 id="8-案例"><a href="#8-案例" class="headerlink" title="8. 案例"></a>8. 案例</h3><h4 id="8-1-热门商品的统计-TopN"><a href="#8-1-热门商品的统计-TopN" class="headerlink" title="8.1 热门商品的统计 TopN"></a>8.1 热门商品的统计 TopN</h4><ol>
+<li>设置时间语义和最大乱序时间即watermark</li>
+<li>数据进行过滤，然后按照 keyBy(“itemId”).timeWindow(窗口大小，滑动距离).aggerate(窗口增量函数，全窗口函数) 分组后，开滑动窗口，然后去自定义实现 aggerate 方法，增量函数就是一个点击量的累加，即每当来一条数据的时候就会去计算一次，全窗口函数就是对当前窗口内的所有数据去进行一个封装</li>
+<li>根据同一窗口的所有数据，再根据窗口时间进行分组，即 keyBy(“windowEnd”).process(new topN(N的大小)) 实现对同一个窗口中的数据进行排序去topN的功能。在 open 方法中去注册一个state，保存窗口内所有输出的数据；在 processElement 方法中每来一条数据，就add进state中，并且去更新定时器，这里的定时器就用当前的窗口时间+1即可 ctx.timeService().registerEventTimer(windowEnd + 1)。flink底层去注册时间戳，是按照时间戳来区分的，如果时间戳一样，那么不管注册多少次，都是一个定时器。在 onTimer() 方法中拿到所有的数据，转换成 arrayList，通过list.sort 方法排序，然后去封装数据</li>
+</ol>
+<p>保存在listState会存在一定的问题，在处理延迟数据的时候，可能会导致重复数据的输出<br>换成mapState</p>
+<h4 id="8-2-dau-uv"><a href="#8-2-dau-uv" class="headerlink" title="8.2 dau&#x2F;uv"></a>8.2 dau&#x2F;uv</h4><p>思路</p>
+<ol>
+<li><p>按人进行keyby</p>
+</li>
+<li><p>自定义实现继承 processFunction 方法，在open方法里去初始化两个state，一个是负责浏览次数累加，一个是定时器</p>
+</li>
+<li><p>在 processElement 方法中初始化定时器，设置为当天的零点，在 onTimer 方法中每当激活了定时器就需要输出</p>
+</li>
+<li><p>设置时间语义和最大乱序时间即watermark</p>
+</li>
+<li><p>timewindow定义在1小时，然后实现自定义trigger，每来一条数据处理一次或每20s处理一次，通过布隆过滤器来实现去重。去重不使用set是因为如果数据量很大，会导致内存溢出；然后去实现processFunction，每当一条数据来的时候就会触发process方法，可以去连续redis或者去保存中间的状态</p>
+</li>
+</ol>
+<h3 id="9-定时器"><a href="#9-定时器" class="headerlink" title="9. 定时器"></a>9. 定时器</h3><p>如果要用到延迟处理，一般都需要用到 KeyedProcessFunction。定时器的分类是根据注册的时间戳不同来分类，同一个时间戳，不管注册几次，都是一个定时器。底层通过小顶堆，获取到当前所有时间戳最小的那一个，然后去触发，触发结束后删除，再进行排序</p>
+<h3 id="10-窗口"><a href="#10-窗口" class="headerlink" title="10. 窗口"></a>10. 窗口</h3><p>window的属性只有两个，start和end，当数据来了之后，跟wm进行比较，判断在哪一个区间内，然后去激活窗口的process方法做处理。</p>
+<p>对于窗口来说，window本身没有意义（两个字段只是划分区间），window里面的中间计算结果才是有意义的（中间的状态保存最重要）</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flink/" rel="tag"><i class="fa fa-tag"></i> Flink</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/20/Redis/Redis-5%20%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="prev" title="缓存穿透、缓存击穿、缓存雪崩">
+      <i class="fa fa-chevron-left"></i> 缓存穿透、缓存击穿、缓存雪崩
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/20/Flink/Flink-1%20%E6%80%BB%E8%A7%88/" rel="next" title="Flink（暂时）">
+      Flink（暂时） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flink%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">Flink总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%8A%B6%E6%80%81%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">1. 状态一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">2. 端到端的状态一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-kafka"><span class="nav-number">1.3.</span> <span class="nav-text">3. kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-watermark"><span class="nav-number">1.4.</span> <span class="nav-text">4. watermark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-savepoint"><span class="nav-number">1.5.</span> <span class="nav-text">5. savepoint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-QueryableState"><span class="nav-number">1.6.</span> <span class="nav-text">6. QueryableState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-state%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.</span> <span class="nav-text">7. state类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E6%A1%88%E4%BE%8B"><span class="nav-number">1.8.</span> <span class="nav-text">8. 案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-%E7%83%AD%E9%97%A8%E5%95%86%E5%93%81%E7%9A%84%E7%BB%9F%E8%AE%A1-TopN"><span class="nav-number">1.8.1.</span> <span class="nav-text">8.1 热门商品的统计 TopN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-dau-uv"><span class="nav-number">1.8.2.</span> <span class="nav-text">8.2 dau&#x2F;uv</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="nav-number">1.9.</span> <span class="nav-text">9. 定时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E7%AA%97%E5%8F%A3"><span class="nav-number">1.10.</span> <span class="nav-text">10. 窗口</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

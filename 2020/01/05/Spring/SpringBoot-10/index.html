@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Spring Boot 学习摘要–关于日志框架学习教程来自：B站 尚硅谷 1. 关于日志框架市面上有 N 多个日志工具包，为了能通用，会有专门的抽象类，所以需要用的时候，要先选择一个抽象类的包，然后选择对应的一个实现类的包 抽象类：JCL 、 SLF4J 实现类：Log4J 、 JUL 、 Log4J2 、 Logback Spring Boot 选择是的 SLF4J 和 Logback  抽象类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot 学习摘要--关于日志框架">
+<meta property="og:url" content="https://mxxct4git.github.io/2020/01/05/Spring/SpringBoot-10/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Spring Boot 学习摘要–关于日志框架学习教程来自：B站 尚硅谷 1. 关于日志框架市面上有 N 多个日志工具包，为了能通用，会有专门的抽象类，所以需要用的时候，要先选择一个抽象类的包，然后选择对应的一个实现类的包 抽象类：JCL 、 SLF4J 实现类：Log4J 、 JUL 、 Log4J2 、 Logback Spring Boot 选择是的 SLF4J 和 Logback  抽象类">
+<meta property="og:locale">
+<meta property="og:image" content="http://www.slf4j.org/images/concrete-bindings.png">
+<meta property="og:image" content="http://www.slf4j.org/images/legacy.png">
+<meta property="article:published_time" content="2020-01-05T08:20:00.000Z">
+<meta property="article:modified_time" content="2020-01-08T07:50:00.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Spring Boot">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.slf4j.org/images/concrete-bindings.png">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2020/01/05/Spring/SpringBoot-10/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Spring Boot 学习摘要--关于日志框架 | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2020/01/05/Spring/SpringBoot-10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring Boot 学习摘要--关于日志框架
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-05 16:20:00" itemprop="dateCreated datePublished" datetime="2020-01-05T16:20:00+08:00">2020-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-08 15:50:00" itemprop="dateModified" datetime="2020-01-08T15:50:00+08:00">2020-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/01/05/Spring/SpringBoot-10/" class="post-meta-item leancloud_visitors" data-flag-title="Spring Boot 学习摘要--关于日志框架" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/05/Spring/SpringBoot-10/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/05/Spring/SpringBoot-10/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Spring-Boot-学习摘要–关于日志框架"><a href="#Spring-Boot-学习摘要–关于日志框架" class="headerlink" title="Spring Boot 学习摘要–关于日志框架"></a>Spring Boot 学习摘要–关于日志框架</h2><p>学习教程来自：B站 尚硅谷</p>
+<h3 id="1-关于日志框架"><a href="#1-关于日志框架" class="headerlink" title="1. 关于日志框架"></a>1. 关于日志框架</h3><p>市面上有 N 多个日志工具包，为了能通用，会有专门的抽象类，所以需要用的时候，要先选择一个抽象类的包，然后选择对应的一个实现类的包</p>
+<p>抽象类：JCL 、 SLF4J</p>
+<p>实现类：Log4J 、 JUL 、 Log4J2 、 Logback</p>
+<p>Spring Boot 选择是的 SLF4J 和 Logback</p>
+<blockquote>
+<p>抽象类也就是门面，只是在.java文件中调用的类（包），底层实现还是用的 Logback</p>
+</blockquote>
+<span id="more"></span>
+<h4 id="1-SLF4J-的使用"><a href="#1-SLF4J-的使用" class="headerlink" title="1. SLF4J 的使用"></a>1. SLF4J 的使用</h4><p>在开发的时候，应该调用日志抽象层中的方法，会自动适配到实现层的方法</p>
+<p>在系统里导入 slf4j 和 logback 的 jar 包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line">public class HelloWorld &#123;</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    Logger logger = LoggerFactory.getLogger(HelloWorld.class); // 参数为当前类</span><br><span class="line">    logger.info(&quot;Hello World&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://www.slf4j.org/images/concrete-bindings.png"></p>
+<p>PS：如果 slf4j 要调用 log4j 的实现方法，因为 slf4j 出现的早，没有做 log4j 的适配，所以需要再导入一个 slf4j-log412.jar，来自动匹配到 log4j 的方法</p>
+<p>每一个日志框架都有自己的配置文件。如果要是用slf4j的话，<strong>配置文件还是需要用日志实现框架自己本身的配置文件</strong>。</p>
+<h4 id="2-如果有多个系统，每个系统用的日志框架都不一致，如何统一修改为-slf4j-？"><a href="#2-如果有多个系统，每个系统用的日志框架都不一致，如何统一修改为-slf4j-？" class="headerlink" title="2. 如果有多个系统，每个系统用的日志框架都不一致，如何统一修改为 slf4j ？"></a>2. 如果有多个系统，每个系统用的日志框架都不一致，如何统一修改为 slf4j ？</h4><p>将系统中不同的日志框架包按照下图来替换</p>
+<p><img src="http://www.slf4j.org/images/legacy.png"></p>
+<h4 id="3-slf4j-的使用"><a href="#3-slf4j-的使用" class="headerlink" title="3. slf4j 的使用"></a>3. slf4j 的使用</h4><ol>
+<li>日志的级别 由低到高<br>可以调整日志的级别，只打印大于等于该级别的日志</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">logger.trace(&quot;...&quot;)</span><br><span class="line">logger.debug(&quot;...&quot;)</span><br><span class="line">logger.info(&quot;...&quot;)</span><br><span class="line">logger.warn(&quot;...&quot;)</span><br><span class="line">logger.error(&quot;...&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>Springboot 默认输出的是 info 级别的日志，即只输出 info、warn、error 这三个级别的日志。可以在 <code>application.properties</code> 文件里修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logging.level.具体的某一个包或类=trace/debug/info/warn/error</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>指定输出日志文件 在 application.properties 文件中配置</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logging.file=</span><br><span class="line">logging.path=</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果没有配置这两项，日志只在控制台输出</li>
+<li>只配置 <code>logging.file</code>：会在当前项目下生成日志文件</li>
+<li>只配置 <code>logging.path</code>：会在磁盘根路径下创建文件夹，并且使用 <code>spring.log</code> 作为默认文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 在控制台输出的日志的格式</span><br><span class="line">logging.pattern.console=%d&#123;yyyy-MM-dd HH:mm:ss&#125; [%thread] %-5level %logging&#123;50&#125; - %msg%n</span><br><span class="line"># 指定文件中日志的输出的格式</span><br><span class="line">logging.pattern.file=%d&#123;yyyy-MM-dd HH:mm:ss&#125; -- [%thread] -- %-5level -- %logging&#123;50&#125; -- %msg%n</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>其他配置 添加新的配置文件</li>
+</ol>
+<p>如果是使用 <code>Logback</code> 日志框架，添加 <code>logback.xml</code> 来指定配置，但是更推荐使用 <code>logback-spring.xml</code> 文件来指定配置，这时候日志框架不会直接加载配置文件，而是由 SpringBoot 解析日志配置，这样就可以使用 springProfile 功能，通过指定运行环境（dev&#x2F;prod）来实现切换输出日志形式。</p>
+<p>如何切换运行环境：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># application.properties 文件中添加</span><br><span class="line">spring.profile.active=dev/prod</span><br></pre></td></tr></table></figure>
+
+
+<p>附：logback.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%i索引【从数字0开始递增】,,, --&gt;</span><br><span class="line">    &lt;!-- appender是configuration的子节点，是负责写日志的组件。 --&gt;</span><br><span class="line">    &lt;!-- ConsoleAppender：把日志输出到控制台 --&gt;</span><br><span class="line">    &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;</span><br><span class="line">        &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;</span><br><span class="line">            &lt;level&gt;TRACE&lt;/level&gt;</span><br><span class="line">        &lt;/filter&gt;</span><br><span class="line">        &lt;encoder&gt;</span><br><span class="line">            &lt;pattern&gt;%d %p (%file:%line\)- %m%n&lt;/pattern&gt;</span><br><span class="line">            &lt;!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 --&gt;</span><br><span class="line">            &lt;charset&gt;UTF-8&lt;/charset&gt;</span><br><span class="line">        &lt;/encoder&gt;</span><br><span class="line">    &lt;/appender&gt;</span><br><span class="line">    &lt;!-- RollingFileAppender：滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 --&gt;</span><br><span class="line">    &lt;!-- 以下的大概意思是：1.先按日期存日志，日期变了，将前一天的日志文件名重命名为XXX%日期%索引，新的日志仍然是sys.log --&gt;</span><br><span class="line">    &lt;!--             2.如果日期没有发生变化，但是当前日志的文件大小超过1KB时，对当前日志进行分割 重命名--&gt;</span><br><span class="line">    &lt;appender name=&quot;syslogInfo&quot;</span><br><span class="line">              class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;</span><br><span class="line">        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;</span><br><span class="line">            &lt;level&gt;info&lt;/level&gt;</span><br><span class="line">            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;</span><br><span class="line">            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;</span><br><span class="line">        &lt;/filter&gt;</span><br><span class="line">        &lt;File&gt;/Users/mxxct/Desktop/log/info/info.log&lt;/File&gt;</span><br><span class="line">        &lt;!-- rollingPolicy:当发生滚动时，决定 RollingFileAppender 的行为，涉及文件移动和重命名。 --&gt;</span><br><span class="line">        &lt;!-- TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动 --&gt;</span><br><span class="line">        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;</span><br><span class="line">            &lt;!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 --&gt;</span><br><span class="line">            &lt;!-- 文件名：log/sys.2017-12-05.0.log --&gt;</span><br><span class="line">            &lt;fileNamePattern&gt;/Users/mxxct/Desktop/log/info/%d/credit.%d.%i.log&lt;/fileNamePattern&gt;</span><br><span class="line">            &lt;!-- 每产生一个日志文件，该日志文件的保存期限为30天 --&gt;</span><br><span class="line">            &lt;maxHistory&gt;30&lt;/maxHistory&gt;</span><br><span class="line">            &lt;timeBasedFileNamingAndTriggeringPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;&gt;</span><br><span class="line">                &lt;!-- maxFileSize:用于判断日志切割的文件大小，默认值是10MB --&gt;</span><br><span class="line">                &lt;maxFileSize&gt;10MB&lt;/maxFileSize&gt;</span><br><span class="line">            &lt;/timeBasedFileNamingAndTriggeringPolicy&gt;</span><br><span class="line">        &lt;/rollingPolicy&gt;</span><br><span class="line">        &lt;encoder&gt;</span><br><span class="line">            &lt;!-- pattern节点，用来设置日志的输入格式 --&gt;</span><br><span class="line">            &lt;pattern&gt;</span><br><span class="line">                %d %p (%file:%line\)- %m%n</span><br><span class="line">            &lt;/pattern&gt;</span><br><span class="line">            &lt;!-- 记录日志的编码 --&gt;</span><br><span class="line">            &lt;charset&gt;UTF-8&lt;/charset&gt; &lt;!-- 此处设置字符集 --&gt;</span><br><span class="line">        &lt;/encoder&gt;</span><br><span class="line">    &lt;/appender&gt;</span><br><span class="line">    &lt;appender name=&quot;syslogError&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;</span><br><span class="line">        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;</span><br><span class="line">            &lt;level&gt;error&lt;/level&gt;</span><br><span class="line">            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;</span><br><span class="line">            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;</span><br><span class="line">        &lt;/filter&gt;</span><br><span class="line">        &lt;File&gt;/Users/mxxct/Desktop/log/error/error.log&lt;/File&gt;</span><br><span class="line">        &lt;!-- rollingPolicy:当发生滚动时，决定 RollingFileAppender 的行为，涉及文件移动和重命名。 --&gt;</span><br><span class="line">        &lt;!-- TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动 --&gt;</span><br><span class="line">        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;</span><br><span class="line">            &lt;!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 --&gt;</span><br><span class="line">            &lt;!-- 文件名：log/sys.2017-12-05.0.log --&gt;</span><br><span class="line">            &lt;fileNamePattern&gt;/Users/mxxct/Desktop/log/error/%d/error.%d.%i.log&lt;/fileNamePattern&gt;</span><br><span class="line">            &lt;!-- 每产生一个日志文件，该日志文件的保存期限为30天 --&gt;</span><br><span class="line">            &lt;maxHistory&gt;30&lt;/maxHistory&gt;</span><br><span class="line">            &lt;timeBasedFileNamingAndTriggeringPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;&gt;</span><br><span class="line">                &lt;!-- maxFileSize:用于判断日志切割的文件大小，默认值是10MB --&gt;</span><br><span class="line">                &lt;maxFileSize&gt;10MB&lt;/maxFileSize&gt;</span><br><span class="line">            &lt;/timeBasedFileNamingAndTriggeringPolicy&gt;</span><br><span class="line">        &lt;/rollingPolicy&gt;</span><br><span class="line">        &lt;encoder&gt;</span><br><span class="line">            &lt;!-- pattern节点，用来设置日志的输入格式 --&gt;</span><br><span class="line">            &lt;pattern&gt;</span><br><span class="line">                %d %p (%file:%line\)- %m%n</span><br><span class="line">            &lt;/pattern&gt;</span><br><span class="line">            &lt;!-- 记录日志的编码 --&gt;</span><br><span class="line">            &lt;charset&gt;UTF-8&lt;/charset&gt; &lt;!-- 此处设置字符集 --&gt;</span><br><span class="line">        &lt;/encoder&gt;</span><br><span class="line">    &lt;/appender&gt;</span><br><span class="line">    &lt;!-- 控制台输出日志级别 --&gt;</span><br><span class="line">    &lt;root level=&quot;INFO&quot;&gt;</span><br><span class="line">        &lt;appender-ref ref=&quot;STDOUT&quot;/&gt;</span><br><span class="line">    &lt;/root&gt;</span><br><span class="line">    &lt;!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 --&gt;</span><br><span class="line">    &lt;!-- shop.bangke.credit为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG --&gt;</span><br><span class="line">    &lt;!-- 级别依次为【从高到低】：FATAL &gt; ERROR &gt; WARN &gt; INFO &gt; DEBUG &gt; TRACE  --&gt;</span><br><span class="line">    &lt;logger name=&quot;com.bigdata&quot; level=&quot;DEBUG&quot;&gt;</span><br><span class="line">        &lt;appender-ref ref=&quot;syslogInfo&quot;/&gt;</span><br><span class="line">        &lt;appender-ref ref=&quot;syslogError&quot;/&gt;</span><br><span class="line">    &lt;/logger&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+              <a href="/tags/Spring-Boot/" rel="tag"><i class="fa fa-tag"></i> Spring Boot</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/27/DNS/DNS/" rel="prev" title="DNS">
+      <i class="fa fa-chevron-left"></i> DNS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/10/Python/Flask/Flask-1/" rel="next" title="Python之Flask框架">
+      Python之Flask框架 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot-%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81%E2%80%93%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">Spring Boot 学习摘要–关于日志框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1. 关于日志框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SLF4J-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. SLF4J 的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%A6%82%E6%9E%9C%E6%9C%89%E5%A4%9A%E4%B8%AA%E7%B3%BB%E7%BB%9F%EF%BC%8C%E6%AF%8F%E4%B8%AA%E7%B3%BB%E7%BB%9F%E7%94%A8%E7%9A%84%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E9%83%BD%E4%B8%8D%E4%B8%80%E8%87%B4%EF%BC%8C%E5%A6%82%E4%BD%95%E7%BB%9F%E4%B8%80%E4%BF%AE%E6%94%B9%E4%B8%BA-slf4j-%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 如果有多个系统，每个系统用的日志框架都不一致，如何统一修改为 slf4j ？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-slf4j-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. slf4j 的使用</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

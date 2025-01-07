@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="LeetCode刷题Type：Mediumhttps:&#x2F;&#x2F;leetcode-cn.com&#x2F;problemset&#x2F;all&#x2F; #8 字符串转换整数需要注意几个测试用例 &quot;  +0 123&quot; &quot; 0012&quot; &quot;3.14&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode刷题（Medium）">
+<meta property="og:url" content="https://mxxct4git.github.io/2018/12/05/Algorithm/LeetCode-2%20Medium/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="LeetCode刷题Type：Mediumhttps:&#x2F;&#x2F;leetcode-cn.com&#x2F;problemset&#x2F;all&#x2F; #8 字符串转换整数需要注意几个测试用例 &quot;  +0 123&quot; &quot; 0012&quot; &quot;3.14&quot;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-12-05T09:02:37.000Z">
+<meta property="article:modified_time" content="2019-04-22T02:45:34.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2018/12/05/Algorithm/LeetCode-2%20Medium/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>LeetCode刷题（Medium） | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/05/Algorithm/LeetCode-2%20Medium/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode刷题（Medium）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-05 17:02:37" itemprop="dateCreated datePublished" datetime="2018-12-05T17:02:37+08:00">2018-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-04-22 10:45:34" itemprop="dateModified" datetime="2019-04-22T10:45:34+08:00">2019-04-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/05/Algorithm/LeetCode-2%20Medium/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode刷题（Medium）" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/05/Algorithm/LeetCode-2%20Medium/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/05/Algorithm/LeetCode-2%20Medium/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="LeetCode刷题"><a href="#LeetCode刷题" class="headerlink" title="LeetCode刷题"></a>LeetCode刷题</h2><h3 id="Type：Medium"><a href="#Type：Medium" class="headerlink" title="Type：Medium"></a>Type：Medium</h3><p><a href="https://leetcode-cn.com/problemset/all/" title="LeetCode">https://leetcode-cn.com/problemset/all/</a></p>
+<h5 id="8-字符串转换整数"><a href="#8-字符串转换整数" class="headerlink" title="#8 字符串转换整数"></a>#8 字符串转换整数</h5><p>需要注意几个测试用例</p>
+<pre><code>&quot;  +0 123&quot;
+&quot; 0012&quot;
+&quot;3.14&quot;
+</code></pre>
+<span id="more"></span>
+<p>先判断是否有正负号，然后循环数组，需要记得把 <code>Character.isDigit(sc[i])</code> 加在循环条件里，保证只有当下一个字符是数字的时候才会把数值加起来。</p>
+<pre><code>class Solution &#123;
+public int myAtoi(String str) &#123;
+    boolean isPos = true;
+    char[] sc = (str.trim() + &quot; &quot;).toCharArray();
+    int i = 0;
+    
+    if (sc[0] == &#39;-&#39;) &#123;
+        isPos = false;
+        i++;
+    &#125; else if (sc[0] == &#39;+&#39;) &#123;
+        isPos = true;
+        i++;
+    &#125;
+    
+    long value = 0;
+    while (i &lt; sc.length &amp;&amp; Character.isDigit(sc[i])) &#123;
+        value = value * 10 + (sc[i] - &#39;0&#39;);
+        i++;
+        
+        if (value &gt; Integer.MAX_VALUE) &#123;
+            return isPos ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        &#125;
+    &#125;
+    value = isPos ? value : -value;
+    return (int) value;
+&#125;
+&#125;
+</code></pre>
+<h5 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="#15 三数之和"></a>#15 三数之和</h5><p>首先对原数组进行排序。<br>最先想到的是三重循环，优化：<br>要满足 a + b + c &#x3D; 0 ，则 a 一定是非正数，即 i 对应的数一定要小于等于 0 的，等于0的时候 a b c 都为 0 。同时 i 的循环应该是从 0 到 length - 3 的，即 0 &lt;&#x3D; i &lt; length - 2 , 因为 j 要大于 i ，同理 k 要大于 j 。  </p>
+<p>实现如下：</p>
+<pre><code>class Solution &#123;
+public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123;
+    List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+    Arrays.sort(nums);
+    int v1;
+    int v2;
+    int v3;
+    for(int i = 0; i &lt; nums.length-1 &amp;&amp; nums[i] &lt;= 0; ++i)&#123;
+        v1 = nums[i];
+        int j = i + 1;
+        int k = nums.length - 1;
+        while(k &gt; j)&#123;
+            v2 = nums[j];
+            v3 = nums[k];
+            if(v1 + v2 + v3 &gt; 0)&#123;
+                k--;
+            &#125;else if(v1 + v2 + v3 &lt; 0)&#123;
+                j++;
+            &#125;
+            else if(v1 + v2 + v3 == 0)&#123;
+                List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;();
+                tmp.add(v1);
+                tmp.add(v2);
+                tmp.add(v3);
+                if(!res.contains(tmp))&#123;a
+                    res.add(tmp);
+                &#125;
+                j++;
+                k--;
+                
+            &#125;
+        &#125;
+    &#125;
+    return res;
+&#125;
+&#125;
+</code></pre>
+<p>上面这种写法虽然能满足题目，但是会超时，时间主要会消耗在 res.add() 之前的去重上。所以想通过 HashSet 来辅助去重（Hash表的查询时间O（1）因为查询的是每个元素的hashcode）。</p>
+<blockquote>
+<p>想要可以自动拓展的数组 &#x3D;&gt; List<br>想要元素不重复的数组 &#x3D;&gt; Set<br>set内部排序由每个元素的hashcode决定</p>
+</blockquote>
+<p>双重循环，v3 &#x3D; -(v1 + v2) , 借助 HashMap 来判断原数组是否有 v3 这个值同时下标必须在 v2 之后，满足的话就可以放进 Set 中。</p>
+<pre><code>class Solution &#123;
+public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123;
+    Set&lt;List&lt;Integer&gt;&gt; res = new HashSet&lt;&gt;();
+    Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();
+    Arrays.sort(nums);
+    for(int i = 0;i &lt; nums.length;++i)&#123;
+        map.put(nums[i],i);
+    &#125;
+    int v1;
+    int v2;
+    int v3;
+    for(int i = 0; i &lt; nums.length - 2 &amp;&amp; nums[i] &lt;= 0; ++i)&#123;
+        for(int j = i + 1; j &lt; nums.length - 1 &amp;&amp; j &gt; i; ++j)&#123;
+            v1 = nums[i];
+            v2 = nums[j];
+            v3 = -(v1 + v2);
+            if(map.containsKey(v3) &amp;&amp; map.get(v3) &gt; j)&#123;
+                res.add(Arrays.asList(v1,v2,v3));
+            &#125;
+        &#125;
+    &#125;
+    return new ArrayList&lt;&gt;(res);
+&#125;
+&#125;
+</code></pre>
+<h5 id="701-二叉搜索树中的插入操作"><a href="#701-二叉搜索树中的插入操作" class="headerlink" title="#701 二叉搜索树中的插入操作"></a>#701 二叉搜索树中的插入操作</h5><p>current 为当前结点，如果当前结点为 null ，那么就记录下 current 对应的 parent 结点，插入值小于 parent 结点的值，插入在左子树，反之插入在右子树</p>
+<pre><code>/**
+	* Definition for a binary tree node.
+	* public class TreeNode &#123;
+	*     int val;
+	*     TreeNode left;
+	*     TreeNode right;
+	*     TreeNode(int x) &#123; val = x; &#125;
+	* &#125;
+	*/
+class Solution &#123;
+public TreeNode insertIntoBST(TreeNode root, int val) &#123;
+    if(root == null)&#123;
+        root = new TreeNode(val);
+        return root;
+    &#125;
+    
+    boolean isLeft = false;
+    
+    TreeNode current = root;
+    TreeNode parent = root;
+    
+    while(current != null)&#123;
+        parent = current;
+        if(val &lt; current.val)&#123;
+            current = current.left;
+            isLeft = true;
+        &#125;else&#123;
+            current = current.right;
+            isLeft = false;
+        &#125;
+    &#125;
+    
+    TreeNode vNode = new TreeNode(val);
+    if(isLeft == true)&#123;
+        parent.left = vNode;
+    &#125;else&#123;
+        parent.right = vNode;
+    &#125;
+    
+    return root;
+&#125;
+&#125;
+</code></pre>
+<h5 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="#2 两数相加"></a>#2 两数相加</h5><p>不能将链表中的每个元素一次性全部取出然后相加，然后把计算后的数值每一位都插入到链表中，因为可能会超出int整数范围。所以只能同时遍历两个链表对每一个元素依次相加。<br>需要用到的是一个进位符号，如果当前位置加和大于等于10，进位置为1；还需要一个curNode，作为辅助指针，指向当前应该插入的位置。<br>需要注意的测试用例是：  </p>
+<pre><code>[9],[9]
+</code></pre>
+<p>输出的结果应该是[8,1]，首先当两数相加大于等于10的时候，sum应该等于对10取余。同时如果 l1 和 l2 如果都计算完了，但是进位标识是1的话还需要再添加一个元素进去。</p>
+<pre><code>/**
+	* Definition for singly-linked list.
+	* public class ListNode &#123;
+	*     int val;
+	*     ListNode next;
+	*     ListNode(int x) &#123; val = x; &#125;
+	* &#125;
+	*/
+class Solution &#123;
+public ListNode addTwoNumbers(ListNode l1, ListNode l2) &#123;
+    int carry = 0; // 进位
+    ListNode head = new ListNode(0);
+    ListNode curNode = head; // 辅助指针
+    while(l1 != null || l2 != null)&#123;
+        int sum = tmp;
+        if(l1 != null)&#123;
+            sum += l1.val;
+        &#125;
+        if(l2 != null)&#123;
+            sum += l2.val;
+        &#125;
+        ListNode tmpNode;
+        if(sum &gt;= 10)&#123;
+            carry = 1;
+            tmpNode = new ListNode(sum % 10);
+        &#125;else&#123;
+            carry = 0;
+            tmpNode = new ListNode(sum);
+        &#125;
+        curNode.next = tmpNode;
+        curNode = curNode.next;
+        if(l1 != null)&#123;
+            l1 = l1.next;
+        &#125;
+        if(l2 != null)&#123;
+            l2 = l2.next;
+        &#125;
+    &#125;
+    if(carry == 1)&#123;
+        ListNode tmpNode = new ListNode(1);
+        curNode.next = tmpNode;
+    &#125;
+    
+    return head.next;
+&#125;
+&#125;
+</code></pre>
+<h5 id="120-三角形最小路径和"><a href="#120-三角形最小路径和" class="headerlink" title="#120 三角形最小路径和"></a>#120 三角形最小路径和</h5><p>从最后一层往上计算，当前一层的值等于下一层相邻的两个数取最小再加上当前一层的数，不断网上，一直到第一层。<br>第一种方式：借助一个 n + 1 大小的数组，记录每一层的值，（最后一层是初始化的过程），然后输出数组第一个值就是最小路径和。</p>
+<pre><code>class Solution &#123;
+public int minimumTotal(List&lt;List&lt;Integer&gt;&gt; triangle) &#123;
+    if(triangle == null || triangle.size() == 0)&#123;
+        return 0;
+    &#125;
+    int[] res = new int[triangle.size()+1];
+    for(int i = triangle.size() - 1; i &gt;= 0; --i)&#123;
+        for(int j = 0; j &lt; triangle.get(i).size(); ++j)&#123;
+            res[j] = Math.min(res[j],res[j+1]) + triangle.get(i).get(j);
+        &#125;
+    &#125;
+    return res[0];
+&#125;
+&#125;
+</code></pre>
+<p>第二种方式：从倒数第二层开始计算，计算出当前位置的最小值后，直接重新赋值，不需要新的空间</p>
+<pre><code>class Solution &#123;
+public int minimumTotal(List&lt;List&lt;Integer&gt;&gt; triangle) &#123;
+    if(triangle == null || triangle.size() == 0)&#123;
+        return 0;
+    &#125;
+    for(int i = triangle.size() - 2; i &gt;= 0; --i)&#123;
+        for(int j = 0; j &lt; triangle.get(i).size(); ++j)&#123;
+            Integer re = Math.min(triangle.get(i+1).get(j),triangle.get(i+1).get(j+1)) + triangle.get(i).get(j);
+            triangle.get(i).set(j,re);
+        &#125;
+    &#125;
+    return triangle.get(0).get(0);
+&#125;
+&#125;
+</code></pre>
+<h5 id="220-存在重复元素Ⅲ"><a href="#220-存在重复元素Ⅲ" class="headerlink" title="#220 存在重复元素Ⅲ"></a>#220 存在重复元素Ⅲ</h5><p>跟 #217 #219 关联性不大，#217 是找到重复元素，#219是找到重复元素并且是在一定范围内。这道题是要保证在一定的范围内（k），两个值的差的绝对值要不大于某个数（t）。<br>前面的 #217 可以使用双重循环运行完所有的测试用例，但是 #220 使用双重循环就会超时，所以使用 treeset 来辅助计算，二叉树的插入、删除、搜索都是O（logN）。总的时间复杂度降为O（N * logN）。</p>
+<p>修改前：</p>
+<pre><code>class Solution &#123;
+public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) &#123;
+    if(nums.length == 0 || k &lt;= 0)
+        return false;
+    for(int i = 0; i &lt; nums.length; ++i)&#123;
+        for(int j = i+1; j &lt;= i + k; ++j)&#123;
+            if(j &gt;= nums.length)
+                break;
+			long val = 0; // 用 long 是为了避免 int 超出范围
+            val = Math.abs((long)nums[i] - (long)nums[j]) &gt; val ? Math.abs((long)nums[i] - (long)nums[j]) : val;
+            if(val &lt;= t)
+                return true;
+        &#125;
+    &#125;
+    return false;
+&#125;
+&#125;
+</code></pre>
+<p>修改后：</p>
+<pre><code>class Solution &#123;
+public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) &#123;
+    if(nums.length &lt; 2 || k &lt; 1 || t &lt; 0)
+        return false;
+    TreeSet &lt;Long&gt; set = new TreeSet&lt;Long&gt;();
+    for(int i = 0; i &lt; nums.length; ++i)&#123;
+		// set.subSet() 返回的类型是 SortedSet，返回值的范围是 [(long)nums[i]-t,(long)nums[i]+t+1))
+        SortedSet &lt;Long&gt; subSet = set.subSet((long)nums[i]-t,(long)nums[i]+t+1);
+        if(!subSet.isEmpty())
+            return true;
+        if(i &gt;= k)
+            set.remove((long)nums[i-k]);
+        set.add((long)nums[i]);
+    &#125;
+    return false;
+&#125;
+&#125;
+</code></pre>
+<h5 id="881-救生艇"><a href="#881-救生艇" class="headerlink" title="#881 救生艇"></a>#881 救生艇</h5><p>贪心（双指针）  </p>
+<p>思路</p>
+<p>如果最重的人可以与最轻的人共用一艘船，那么就这样安排。否则，最重的人无法与任何人配对，那么他们将自己独自乘一艘船。</p>
+<p>这么做的原因是，如果最轻的人可以与任何人配对，那么他们也可以与最重的人配对。</p>
+<p>算法</p>
+<p>令 people[i] 指向当前最轻的人，而 people[j] 指向最重的那位。</p>
+<p>然后，如上所述，如果最重的人可以与最轻的人共用一条船（即 people[j] + people[i] &lt;&#x3D; limit），那么就这样做；否则，最重的人自己独自坐在船上</p>
+<pre><code>class Solution &#123;
+    public int numRescueBoats(int[] people, int limit) &#123;
+        Arrays.sort(people);
+        int i = 0;
+        int j = people.length - 1;
+        int boat = 0;
+        while(i &lt;= j)&#123;
+            boat++;
+            if(people[i] + people[j] &lt;= limit)&#123;
+                i++;
+            &#125;
+            j--;
+        &#125;
+        return boat;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="35-搜索插入位置"><a href="#35-搜索插入位置" class="headerlink" title="#35 搜索插入位置"></a>#35 搜索插入位置</h5><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+<p>你可以假设数组中无重复元素。</p>
+<p>二分查找</p>
+<pre><code>class Solution &#123;
+    public int searchInsert(int[] nums, int target) &#123;
+        if(target &lt; nums[0])&#123;
+            return 0;
+        &#125;else if(target &gt; nums[nums.length - 1])&#123;
+            return nums.length;
+        &#125;else &#123;
+            int low = 0;
+            int high = nums.length - 1;
+            while(low &lt;= high)&#123;
+                int mid = (low + high) / 2;
+                if(target &lt; nums[mid])&#123;
+                    high = mid - 1;
+                &#125;else if(target == nums[mid])&#123;
+                    return mid;
+                &#125;else &#123;
+                    low = mid + 1;
+                &#125;
+            &#125;
+            return low;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="74-搜索二维矩阵"><a href="#74-搜索二维矩阵" class="headerlink" title="#74 搜索二维矩阵"></a>#74 搜索二维矩阵</h5><p>先查找符合的行，然后下标从 1 … matrix[0].length - 2 通过二分查找来查找元素</p>
+<pre><code> class Solution &#123;
+    public boolean searchMatrix(int[][] matrix, int target) &#123;
+        if(matrix.length == 0 || matrix[0].length == 0)&#123;
+            return false;
+        &#125;
+        int low = 0;
+        int high = matrix.length - 1;
+        while(low &lt;= high)&#123;
+            int mid = (low + high) / 2;
+            if(target &lt; matrix[mid][0])&#123;
+                // 在 1 3 5 7 中查询
+                high = mid - 1;
+            &#125;else if(target == matrix[mid][0] || target == matrix[mid][matrix[0].length - 1])&#123;
+                return true;
+            &#125;else if(target &gt; matrix[mid][matrix[0].length - 1])&#123;
+                // 在 23 30 34 50 中查询
+                low = mid + 1;
+            &#125;else &#123;
+                // 在 10 11 16 20 中查询
+                int l = 1; // 已经排除 10 和 20 不可能了
+                int h = matrix[0].length - 2;
+                while(l &lt;= h)&#123;
+                    int m = (l + h) / 2;
+                    if(target &lt; matrix[mid][m])&#123;
+                        h = m - 1;
+                    &#125;else if(target == matrix[mid][m])&#123;
+                        return true;
+                    &#125;else &#123;
+                        l = m + 1;
+                    &#125;
+                &#125;
+				// 缺少这个 return 的话，会一直死循环
+                return false;
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="240-搜索二维矩阵Ⅱ"><a href="#240-搜索二维矩阵Ⅱ" class="headerlink" title="#240 搜索二维矩阵Ⅱ"></a>#240 搜索二维矩阵Ⅱ</h5><p>矩阵具有以下特性：<br>1.每行的元素从左到右升序排列。<br>2.每列的元素从上到下升序排列。</p>
+<p>从左下或者右上开始判断都可以，按台阶形状进行判断</p>
+<pre><code>class Solution &#123;
+    public boolean searchMatrix(int[][] matrix, int target) &#123;
+        if(matrix.length == 0 || matrix[0].length == 0)&#123;
+            return false;
+        &#125;
+        // 从左下开始判断
+        // int i = matrix.length - 1;
+        // int j = 0;
+        // while(i &gt;= 0 &amp;&amp; j &lt; matrix[0].length)&#123;
+        //     if(matrix[i][j] == target)&#123;
+        //         return true;
+        //     &#125;else if(matrix[i][j] &lt; target)&#123;
+        //         j = j + 1;
+        //     &#125;else &#123;
+        //         i = i - 1;
+        //     &#125;
+        // &#125;
+
+        // 从右上开始判断
+        int i = 0;
+        int j = matrix[0].length - 1;
+        while(i &lt; matrix.length &amp;&amp; j &gt;= 0)&#123;
+            if(matrix[i][j] == target)&#123;
+                return true;
+            &#125;else if(matrix[i][j] &gt; target)&#123;
+                j = j - 1;
+            &#125;else &#123;
+                i = i + 1;
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="11-盛最多水的容器"><a href="#11-盛最多水的容器" class="headerlink" title="#11 盛最多水的容器"></a>#11 盛最多水的容器</h5><p>Area &#x3D; Max ( min ( height[i], height[j] ) * ( j-i ) ) { 其中 0 &lt;&#x3D; i &lt; j &lt; height.size() }<br>使用两个指针，值小的指针向内移动，这样就减小了搜索空间。因为面积取决于指针的距离与值小的值乘积，如果值大的值向内移动，距离一定减小，而求面积的另外一个乘数一定小于等于值小的值，因此面积一定减小，而我们要求最大的面积，因此值大的指针不动，而值小的指针向内移动遍历。</p>
+<pre><code>class Solution &#123;
+    public int maxArea(int[] height) &#123;
+        int i = 0;
+        int j = height.length - 1;
+        int area = 0;
+        while(i &lt; j)&#123;
+            int h = Math.min(height[i], height[j]);
+            area = Math.max(area, (j - i) * h);
+            if(h == height[i])
+                i++;
+            else
+                j--;
+        &#125;
+        return area;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
+              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/05/Algorithm/LeetCode-3%20%E7%AB%9E%E8%B5%9B/" rel="prev" title="LeetCode 竞赛">
+      <i class="fa fa-chevron-left"></i> LeetCode 竞赛
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="关系型和非关系型数据库对比">
+      关系型和非关系型数据库对比 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode%E5%88%B7%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">LeetCode刷题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Type%EF%BC%9AMedium"><span class="nav-number">1.1.</span> <span class="nav-text">Type：Medium</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">#8 字符串转换整数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">#15 三数之和</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#701-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">#701 二叉搜索树中的插入操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">#2 两数相加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#120-%E4%B8%89%E8%A7%92%E5%BD%A2%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">#120 三角形最小路径和</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#220-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E2%85%A2"><span class="nav-number">1.1.0.6.</span> <span class="nav-text">#220 存在重复元素Ⅲ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#881-%E6%95%91%E7%94%9F%E8%89%87"><span class="nav-number">1.1.0.7.</span> <span class="nav-text">#881 救生艇</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#35-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.1.0.8.</span> <span class="nav-text">#35 搜索插入位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#74-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5"><span class="nav-number">1.1.0.9.</span> <span class="nav-text">#74 搜索二维矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#240-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E2%85%A1"><span class="nav-number">1.1.0.10.</span> <span class="nav-text">#240 搜索二维矩阵Ⅱ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.0.11.</span> <span class="nav-text">#11 盛最多水的容器</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

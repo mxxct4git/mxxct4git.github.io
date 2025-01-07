@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/panda-180-3.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/panda-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/panda-16.png">
+  <link rel="mask-icon" href="/images/panda.svg" color="#222">
+  <meta name="baidu-site-verification" content="m1ei8mEvXD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Python爬虫  以爬取豆瓣电影评价为例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫">
+<meta property="og:url" content="https://mxxct4git.github.io/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/index.html">
+<meta property="og:site_name" content="猫熊小才天の书院">
+<meta property="og:description" content="Python爬虫  以爬取豆瓣电影评价为例">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-12-14T00:45:29.000Z">
+<meta property="article:modified_time" content="2018-12-14T00:45:29.000Z">
+<meta property="article:author" content="Mxxct">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Spider">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://mxxct4git.github.io/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Python爬虫 | 猫熊小才天の书院</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">猫熊小才天の书院</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://mxxct4git.github.io/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/panda-180.png">
+      <meta itemprop="name" content="Mxxct">
+      <meta itemprop="description" content="君子不器">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="猫熊小才天の书院">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python爬虫
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-14 08:45:29" itemprop="dateCreated datePublished" datetime="2018-12-14T08:45:29+08:00">2018-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/" class="post-meta-item leancloud_visitors" data-flag-title="Python爬虫" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/14/Python/Python/Python-1%20%E7%88%AC%E8%99%AB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>8.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Python爬虫"><a href="#Python爬虫" class="headerlink" title="Python爬虫"></a>Python爬虫</h2><blockquote>
+<p> 以爬取豆瓣电影评价为例 </p>
+</blockquote>
+<span id="more"></span>
+<h3 id="1-准备header"><a href="#1-准备header" class="headerlink" title="1.准备header"></a>1.准备header</h3><pre><code>def get_header(movie_id):
+	UserAgent_List = [
+        &quot;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2226.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2224.3 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 4.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2117.157 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36&quot;,
+        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1866.237 Safari/537.36&quot;,
+	]
+	header = &#123;
+        &#39;User-agent&#39;: random.choice(UserAgent_List),
+        &#39;Host&#39;: &#39;movie.douban.com&#39;,
+        &#39;Referer&#39;: &#39;https://movie.douban.com/subject/&#39; + movie_id + &#39;/?from=showing&#39;,
+	&#125;
+    &#39;&#39;&#39;
+    HTTP来源地址（referer，或 HTTP referer）是HTTP表头的一个字段，用来表示从哪儿链接到目前的网页，采用的格式是URL。
+    换句话说，借着HTTP来源地址，目前的网页可以检查访客从哪里而来，这也常被用来对付伪造的跨网站请求。
+    &#39;&#39;&#39;
+    time.sleep(random.randint(5, 15))  # 增加随机等待时间，防止速度太快被封
+    return header
+</code></pre>
+<h3 id="2-初始化url"><a href="#2-初始化url" class="headerlink" title="2.初始化url"></a>2.初始化url</h3><pre><code>def get_url(movie_id):
+    base_url = &#39;https://movie.douban.com/subject/&#39;
+    url = base_url + movie_id + &#39;/comments?status=P&#39;
+    return url
+</code></pre>
+<h3 id="3-开始爬取页面"><a href="#3-开始爬取页面" class="headerlink" title="3.开始爬取页面"></a>3.开始爬取页面</h3><pre><code>def start_spider(movie_id, url, header):
+    print(url)
+    cur_page = requests.get(url, header, timeout=8)
+    if cur_page.status_code == 200:  # 当成功获取到网页连接时
+        soup = BeautifulSoup(cur_page.text, &#39;html5lib&#39;,
+                             from_encoding=&#39;utf-8&#39;)  # 指定使用哪种解析器: 目前支持, lxml, html5lib, 和 html.parser
+        comment_block = soup.find_all(&#39;div&#39;, class_=&#39;comment-item&#39;)  # 找到所有的评论模块 包括头像和文本内容，头像用于获取用户主页，以便于查询用户信息
+        for comment in comment_block:
+            result_list = []
+            nick_name = comment.find(&#39;div&#39;, class_=&#39;avatar&#39;).a[&#39;title&#39;]
+            result_list.append(nick_name)
+            user_url = comment.find(&#39;div&#39;, class_=&#39;avatar&#39;).a[&#39;href&#39;]
+            result_list.append(user_url)
+            # print(nick_name)
+            # print(user_url)
+            user_list = spider_for_user(user_url, header) # 去获取评价对应的用户基本信息
+            result_list.extend(user_list)  # 在 result_list 之后续接 user_list
+            # print(user_list)
+            star_level = comment.find(&#39;span&#39;, class_=&#39;rating&#39;)
+            if star_level:
+                star_level = star_level[&#39;title&#39;]
+                if star_level == &#39;力荐&#39;:
+                    star = &#39;五星&#39;
+                elif star_level == &#39;推荐&#39;:
+                    star = &#39;四星&#39;
+                elif star_level == &#39;还行&#39;:
+                    star = &#39;三星&#39;
+                elif star_level == &#39;较差&#39;:
+                    star = &#39;二星&#39;
+                elif star_level == &#39;很差&#39;:
+                    star = &#39;一星&#39;
+                else:
+                    star = &#39;&#39;
+            else:
+                star = &#39;&#39;
+            result_list.append(star)
+            # print(star)
+            comment_time = comment.find(&#39;span&#39;, class_=&#39;comment-time &#39;).text.strip()
+            result_list.append(comment_time)
+            # print(comment_time)
+            comment_vote = comment.find(&#39;span&#39;, class_=&#39;votes&#39;)
+            if comment_vote:
+                comment_vote = comment_vote.text
+            else:
+                comment_vote = &#39;&#39;
+            result_list.append(comment_vote)
+            # print(comment_vote)
+            comment_content = comment.find(&#39;span&#39;, class_=&#39;short&#39;).text
+            result_list.append(comment_content)
+            # 清除标点符号，方便之后分词和词频统计
+            pattern = re.compile(r&#39;[\u4e00-\u9fa5]+&#39;)
+            filterdata = re.findall(pattern, comment_content)
+            cleaned_comment = &#39;&#39;.join(filterdata)
+            result_list.append(cleaned_comment)
+            # print(cleaned_comment)
+            # print(comment_content)
+            print(result_list)
+            # 创建并打开文件
+            with open(&quot;G:/movie.csv&quot;, mode=&quot;a+&quot;, encoding=&quot;utf-8-sig&quot;, newline=&#39;&#39;) as csvFile:
+				# encoding=&quot;utf-8-sig&quot; python3 中文编码
+                # 获得 writer对象 delimiter是分隔符 默认为 &quot;,&quot;
+                writer = csv.writer(csvFile)
+                # 调用 writer的 writerow方法将 test_writer_data写入 test_writer.csv文件
+                writer.writerow(result_list)
+        next_page = soup.find(&#39;a&#39;, class_=&#39;next&#39;)
+        if next_page:
+            tmp = next_page[&#39;href&#39;].strip().replace(&quot;&amp;amp;&quot;, &quot;&quot;).split(&quot;&amp;&quot;)[0].split(&quot;?&quot;)[
+                1]  # 先移除前后空格，再去除 &amp;amp;，再通过 &amp; 删除多余参数，再通过？只保留下start参数
+            # tmp = start=20
+            next_url = &#39;&#39;.join(tmp)
+        if next_url:
+            header = get_header(movie_id)
+            # print(url + &#39;&amp;&#39; + next_url)
+            start_spider(movie_id, url.split(&quot;&amp;&quot;)[0] + &#39;&amp;&#39; + next_url, header)
+</code></pre>
+<h3 id="4-爬取用户基本信息"><a href="#4-爬取用户基本信息" class="headerlink" title="4.爬取用户基本信息"></a>4.爬取用户基本信息</h3><pre><code>def spider_for_user(url, header):
+    user_list = []
+    user_page = requests.get(url, header, timeout=8)
+    if user_page.status_code == 200:  # 当成功获取到网页连接时
+        soup = BeautifulSoup(user_page.text, &#39;html5lib&#39;,
+                             from_encoding=&#39;utf-8&#39;)  # 指定使用哪种解析器: 目前支持, lxml, html5lib, 和 html.parser
+        user_info = soup.find(&#39;div&#39;, class_=&#39;basic-info&#39;)  # 找到用户基本信息模块
+        if user_info:
+            user_img = user_info.find(&#39;img&#39;, class_=&#39;userface&#39;)[&#39;src&#39;]
+            if user_img:
+                user_list.append(user_img)
+            else:
+                user_list.append(&quot;&quot;)
+            # print(user_img)
+            location = user_info.find(&#39;div&#39;, class_=&#39;user-info&#39;).a
+            if location:
+                location = location.text.strip()
+                user_list.append(location)
+            else:
+                user_list.append(&quot;&quot;)
+            # print(location.strip())
+            tmp_info = user_info.find(&#39;div&#39;, class_=&#39;pl&#39;)
+            if tmp_info:
+                user_name = tmp_info.text.split(&quot; &quot;)[0]
+                create_time = tmp_info.text.split(&quot; &quot;)[2].split(&quot;加入&quot;)[0]
+                if user_name:
+                    user_list.append(user_name)
+                else:
+                    user_list.append(&quot;&quot;)
+                if create_time:
+                    user_list.append(create_time)
+                else:
+                    user_list.append(&quot;&quot;)
+            else:
+                user_list.append(&quot;&quot;)
+                user_list.append(&quot;&quot;)
+                # tmp_info.text : lingrui1995  2012-08-07加入
+                # tmp_info.text.split(&quot; &quot;) : [&#39;lingrui1995&#39;, &#39;&#39;, &#39;2012-08-07加入&#39;]
+
+                # print(user_name)
+                # print(create_time)
+        else:
+            user_list.append(&quot;&quot;)
+            user_list.append(&quot;&quot;)
+            user_list.append(&quot;&quot;)
+            user_list.append(&quot;&quot;)
+    return user_list
+</code></pre>
+<h3 id="5-写入csv文件"><a href="#5-写入csv文件" class="headerlink" title="5.写入csv文件"></a>5.写入csv文件</h3><pre><code>if __name__ == &#39;__main__&#39;:
+
+    &#39;&#39;&#39;
+    movie_id = &#39;3878007&#39;
+    url = get_url(movie_id)
+    header = get_header(movie_id)
+    cookie = get_cookie()
+	# 先写入 csv 文件的第一行，也就是 head_list 信息
+    head_list = [&#39;昵称&#39;, &#39;用户首页&#39;, &#39;用户头像&#39;, &#39;地点&#39;, &#39;用户名称&#39;, &#39;注册时间&#39;, &#39;评分&#39;, &#39;评论时间&#39;, &#39;评论喜欢人数&#39;, &#39;评论内容&#39;, &#39;评论纯文本&#39;]
+    with open(&quot;G:/movie.csv&quot;, mode=&quot;w&quot;, encoding=&#39;utf-8-sig&#39;, newline=&#39;&#39;) as csvFile:
+        # encoding = &#39;utf-8-sig&#39; 是因为对于UTF-8编码，Excel要求BOM(字节顺序标记)写在文件的开始，否则它会假设这是ANSI编码
+        # newline = &#39;&#39; 保证文件在写入一行之后下一行不会有多余的空行
+        # mode
+        # r : 以只读模式打开（缺省模式）（必须保证文件存在）
+        # w : 以只写模式打开。若文件存在，则会自动清空文件，然后重新创建；若文件不存在，则新建文件。使用这个模式必须要保证文件所在目录存在，文件可以不存在。该模式下不能使用read*()方法。
+        # a : 以追加模式打开。若文件存在，则会追加到文件的末尾；若文件不存在，则新建文件。该模式不能使用read*()方法。
+        # 下面四个模式要和上面的模式组合使用
+        # &#39;b&#39;：以二进制模式打开
+        # &#39;t&#39;： 以文本模式打开（缺省模式）
+        # &#39;+&#39;：以读写模式打开
+        # &#39;U&#39;：以通用换行符模式打开
+        # 常见的mode组合
+        # &#39;r&#39; 或 &#39;rt&#39;： 默认模式，文本读模式
+        # &#39;w&#39; 或 &#39;wt&#39;： 以文本写模式打开（打开前文件会被清空）
+        # &#39;rb&#39;：以二进制读模式打开
+        # &#39;ab&#39;：以二进制追加模式打开
+        # &#39;wb&#39;：以二进制写模式打开（打开前文件会被清空）
+        # &#39;r+&#39;：以文本读写模式打开，可以写到文件任何位置；默认写的指针开始指在文件开头, 因此会覆写文件
+        # &#39;w+&#39;：以文本读写模式打开（打开前文件会被清空）。可以使用read * ()
+        # &#39;a+&#39;：以文本读写模式打开（写只能写在文件末尾）。可以使用read * ()
+        # &#39;rb+&#39;：以二进制读写模式打开
+        # &#39;wb+&#39;：以二进制读写模式打开（打开前文件会被清空）
+        # &#39;ab+&#39;：以二进制读写模式打开
+
+        # 获得 writer对象
+        writer = csv.writer(csvFile)
+        # 调用 writer的 writerow方法将 test_writer_data写入 test_writer.csv文件
+        writer.writerow(head_list)
+    start_spider(movie_id, url, header)
+    &#39;&#39;&#39;
+
+    with open(&quot;F:\PythonProjects\movie.csv&quot;, mode=&quot;r&quot;, encoding=&#39;utf-8-sig&#39;, newline=&#39;&#39;) as csvFile:
+        csv_reader = csv.reader(csvFile)
+        for row in csv_reader:
+            print(row)
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/Spider/" rel="tag"><i class="fa fa-tag"></i> Spider</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/11/DataBase/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="关系型和非关系型数据库对比">
+      <i class="fa fa-chevron-left"></i> 关系型和非关系型数据库对比
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/14/Python/Python/Python-2%20Selenium/" rel="next" title="Selenium">
+      Selenium <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python%E7%88%AC%E8%99%AB"><span class="nav-number">1.</span> <span class="nav-text">Python爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%87%86%E5%A4%87header"><span class="nav-number">1.1.</span> <span class="nav-text">1.准备header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96url"><span class="nav-number">1.2.</span> <span class="nav-text">2.初始化url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BC%80%E5%A7%8B%E7%88%AC%E5%8F%96%E9%A1%B5%E9%9D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">3.开始爬取页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%88%AC%E5%8F%96%E7%94%A8%E6%88%B7%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">1.4.</span> <span class="nav-text">4.爬取用户基本信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%99%E5%85%A5csv%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">5.写入csv文件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mxxct"
+      src="/images/panda-180.png">
+  <p class="site-author-name" itemprop="name">Mxxct</p>
+  <div class="site-description" itemprop="description">君子不器</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2022/03/15/ck-2%20%E7%AC%94%E8%AE%B0/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2022&#x2F;03&#x2F;15&#x2F;ck-2%20%E7%AC%94%E8%AE%B0&#x2F;">ClickHouse笔记</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mxxct4git.github.io/2020/10/20/Flink2/" title="https:&#x2F;&#x2F;mxxct4git.github.io&#x2F;2020&#x2F;10&#x2F;20&#x2F;Flink2&#x2F;">Flink总结</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!-- recent posts -->
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title recent-posts-title">
+            <i class="fa fa-history " aria-hidden="true"></i>
+                  近期文章
+        </div>
+        <ul class="links-of-blogroll-list recent-posts-list">
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/31/Hadoop/HBase/HBase-4%20%E8%BF%9E%E6%8E%A5/" title="HBase连接" target="">
+              HBase连接
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/01/17/%E6%9E%B6%E6%9E%84/%E6%9E%B6%E6%9E%84%E4%BA%8C%E4%B8%89%E4%BA%8B/" title="架构二三事" target="">
+              架构二三事
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2023/03/10/Algorithm/Al-16%20%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" title="14种常见算法模型" target="">
+              14种常见算法模型
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/07/27/Flink/Flink-3%20Flink%E5%86%85%E6%A0%B8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="Flink内核原理与实现" target="">
+              Flink内核原理与实现
+              </a>
+          </li>
+                <li class="my-links-of-blogroll-item">
+              <a href="/2022/03/06/Kafka/Kafka-3%20%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Kafka/" title="深入理解 Kafka" target="">
+              深入理解 Kafka
+              </a>
+          </li>
+        </ul>
+          </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxxct</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">648k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9:49</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'FeVPpNOBXhL1P240cNkmAKc3-gzGzoHsz',
+      appKey     : 'TJ9vKn2xQ16geSxRr80seK0S',
+      placeholder: "来说点什么吧~~~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

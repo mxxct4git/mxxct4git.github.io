@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -244,33 +272,15 @@
           <h2 id="Redis-和-MySQL-数据不一致性"><a href="#Redis-和-MySQL-数据不一致性" class="headerlink" title="Redis 和 MySQL 数据不一致性"></a>Redis 和 MySQL 数据不一致性</h2><p><a href="https://zhuanlan.zhihu.com/p/91770135">参考地址</a></p>
 <p>具体如何去解决还得结合业务去综合考虑。</p>
 <p>下面几个方式可能比较通用</p>
-<h3 id="1-双删法"><a href="#1-双删法" class="headerlink" title="1. 双删法"></a>1. 双删法</h3><p>写流程</p>
-<ol>
-<li>先删除缓存</li>
-<li>写更新数据库</li>
-<li>再次删除缓存 &#x3D;&gt; 避免在第二步的时候有读请求访问数据库，然后把旧的值写入到缓存中</li>
-</ol>
-<p>读流程</p>
-<ol>
-<li>先读缓存</li>
-<li>缓存没有就读数据库</li>
-<li>更新缓存</li>
-</ol>
-<p>这其实是一种懒加载，即只有当读的时候才会从数据库把最新的值加载到缓存里，是读流程激活的加载，而不是写流程在写入新值的时候自动刷新加载</p>
-<p>主动加载的话，万一多个并行操作同时对一个key进行更新，需要考虑操作的幂等性，采用MQ的分区机制来保证同一分区内的操作都是顺序串行化执行</p>
-<p>双删失败如何处理？</p>
-<ol>
-<li>设置缓存过期时间，从理论上来说，给缓存设置过期时间，是保证<strong>最终一致性</strong>的解决方案</li>
-<li>重试 &#x3D;&gt; 重试有业务通过mq重试以及组件消费mysql的binlog再写入mq重试两种方式</li>
-</ol>
-<h3 id="2-异步延迟删除"><a href="#2-异步延迟删除" class="headerlink" title="2. 异步延迟删除"></a>2. 异步延迟删除</h3><p>在双删的基础上，采用 异步延迟删除</p>
-<ol>
-<li>先删除缓存</li>
-<li>写更新数据库</li>
-<li>触发异步写入串行化MQ（也可以采取一种key+version的分布式锁</li>
-<li>MQ接受再次删除缓存</li>
-</ol>
-
+<h3 id="1-双删法"><a href="#1-双删法" class="headerlink" title="1. 双删法"></a>1. 双删法</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/25/Redis-6/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -388,127 +398,15 @@
 <li>异步创建索引只支持全局索引</li>
 <li>执行async语句只是第一步，还需要通过执行jar包来保证索引真正的建立</li>
 </ol>
-<h3 id="1-为什么只支持全局索引？"><a href="#1-为什么只支持全局索引？" class="headerlink" title="1. 为什么只支持全局索引？"></a>1. 为什么只支持全局索引？</h3><p>首先是本地索引和全局索引的一些概念和区别</p>
-<ul>
-<li>本地索引<ul>
-<li>适合写多读少的情况</li>
-<li>索引数据直接写在原表里，<strong>不会新建一张表</strong>。在 <code>phoenix-sqlline</code> 里执行 <code>!tables</code> 的确会发现创建的本地索引表，但是那个只是一个映射，并不是单独存在的。由于索引数据直接写在表里，所以原表的数据量&#x3D;原始数据+索引数据。</li>
-<li>本地索引rowkey的设计规则: 原数据region的start key+”\x00”+二级索引字段1+”\x00”+二级索引字段2(复合索引)…+”\x00”+原rowkey。</li>
-<li>索引数据和真实数据存放在同一台机器上，减少了网络传输的开销。同理，创建索引后的rowkey的最开始的部分是 <em>原数据region的start key</em>，这样在通过二级索引定位到数据后，可以在当前的region中直接找到数据，减少网络开销。减少网络开销，也意味着写入的速度会变快。但是多了一步通过rowkey查找数据的过程，所以读的过程就不如直接读取列族里的数据的速度快。</li>
-</ul>
-</li>
-<li>全局索引<ul>
-<li><p>适合读多写少的情况</p>
-</li>
-<li><p>索引数据会单独存在一张表里。</p>
-</li>
-<li><p>全局索引必须是查询语句中所有列都包含在全局索引中，它才会生效。</p>
-<blockquote>
-<p>Select * 不会命中索引<br>select 具体的字段 from table where col …<br>col 必须是第一个主键或者是索引里包含的字段才会命中索引<br>如果索引表包含 a、b 三个字段，where 里有 a 和 c 两个字段，那么也不会走索引，因为c不在索引里，发现索引走不通，只能走全表</p>
-</blockquote>
-</li>
-<li><p>为了命中索引，要把需要查询的字段通过 include 关键字来一起写入索引表里，也就是覆盖索引。</p>
-<blockquote>
-<p>Phoenix 不能保证主表和索引表对应Region的本地化，所以也就无法根据索引表的结果再去查主表</p>
-</blockquote>
-</li>
-<li><p>写入数据的同时需要往索引表同步写数据，而索引表是分布在不同的数据节点上的，跨节点的数据传输带来了较大的性能消耗，所以写慢；但是查询的时候，如果命中了索引表，那就直接把数据带出来了，读会快。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>综上，本地索引不是表，全局索引才是表，而async是针对表的一种方式，所以只能作用于全局索引</p>
-<h3 id="2-如何执行async"><a href="#2-如何执行async" class="headerlink" title="2. 如何执行async"></a>2. 如何执行async</h3><ol>
-<li>首先是需要创建一个全局索引，同时使用 async</li>
-</ol>
-<p><code>create index XXX on database.tablename(col1, col2) include(col3, col4) async</code></p>
-<p>此时去看这个表，会发现 <code>index_state</code> 字段的值是 building，说明索引表还没创建好，这是因为 async 关键字会初始化一个mr作业，只是把创建索引的数据文件准备好，还没有正式开始</p>
-<ol start="2">
-<li>执行mr作业</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.phoenix.mapreduce.index.IndexTool \</span><br><span class="line">--schema 库名 --data-table 表名 --index-table 索引表名 \</span><br><span class="line">--output-path hdfs路径指向一个文件件即可</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>库名、表名、索引表名尽量都不要小写</p>
-</blockquote>
-<p>这个命令执行后可能会报错，遇到 org.apache.phoenix.mapreduce.index.IndexTool 依赖的jar没法加载，那就可以换一个方式执行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ./本地文件夹路径:/data1/cloudera/parcels/PHOENIX/lib/phoenix/phoenix-5.0.0-cdh6.2.0-client.jar  org.apache.phoenix.mapreduce.index.IndexTool   --schema 库名 --data-table 表名 --index-table 索引表名     --output-path hdfs路径指向一个文件件即可</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>本地文件夹里需要包含 hbase yarn hdfs 的配置文件 </p>
-</blockquote>
-<p>如果遇到 <code>java.io.IOException: Can&#39;t get Master Kerberos principal for use as renewer</code> 说明缺少yarn的配置文件</p>
-<p>如果遇到 <code>org.apache.hadoop.security.AccessControlException: Permission denied: user=phoenix, access=WRITE, inode=&quot;/user&quot;:hdfs:supergroup:drwxr-xr-x</code> 需要在 <code>hbase-site.xml</code> 文件里添加 <code>hbase.fs.tmp.dir</code> 配置项，值是hdfs上一个有读写权限的目录路径。<br>原因：从 org.apache.phoenix.mapreduce.index.IndexTool 开始追代码，会找到 org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2，在配置mr作业的时候，<code>configurePartitioner()</code> 方法里 <code>String hbaseTmpFsDir = conf.get(&quot;hbase.fs.tmp.dir&quot;, HConstants.DEFAULT_TEMPORARY_HDFS_DIRECTORY);</code> 会去读取配置文件里的这个值，默认是 <code>&quot;/user/&quot; + System.getProperty(&quot;user.name&quot;) + &quot;/hbase-staging&quot;</code></p>
-<h3 id="3-附"><a href="#3-附" class="headerlink" title="3. 附"></a>3. 附</h3><ol>
-<li>查询执行计划，判断是否命中索引表</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="center">内容</th>
-<th align="center">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">CLIENT</td>
-<td align="center">表明操作在客户端执行还是服务端执行，客户端尽量返回少的数据。若为 SERVER 表示在服务端执行。</td>
-</tr>
-<tr>
-<td align="center">FILTER BY expression</td>
-<td align="center">返回和过滤条件匹配的结果。</td>
-</tr>
-<tr>
-<td align="center">FULL SCAN OVER tableName</td>
-<td align="center">表明全表扫描某张业务表。</td>
-</tr>
-<tr>
-<td align="center">RANGE SCAN OVER tableName [ … ]</td>
-<td align="center">表明代表范围扫描某张表，括号内代表 rowkey 的开始和结束。</td>
-</tr>
-<tr>
-<td align="center">ROUND ROBIN</td>
-<td align="center">无 ORDER BY 操作时, ROUND ROBIN 代表最大化客户端的并行化。</td>
-</tr>
-<tr>
-<td align="center">x-CHUNK</td>
-<td align="center">执行此操作的线程数。</td>
-</tr>
-<tr>
-<td align="center">PARALLEL x-WAY</td>
-<td align="center">表明合并多少并行的扫描。</td>
-</tr>
-<tr>
-<td align="center">EST_BYTES_READ</td>
-<td align="center">执行查询时预计扫描的总字节数。</td>
-</tr>
-<tr>
-<td align="center">EST_ROWS_READ</td>
-<td align="center">执行查询时预计扫描多少行。</td>
-</tr>
-<tr>
-<td align="center">EST_INFO_TS</td>
-<td align="center">收集查询信息的 epoch time</td>
-</tr>
-</tbody></table>
-<ol start="2">
-<li>在创建索引的过程中，发现了一个可能是版本bug的地方，已提官网issue，链接如下</li>
-</ol>
-<p><a href="https://issues.apache.org/jira/projects/PHOENIX/issues/PHOENIX-6215?filter=updatedrecently">官网issue地址</a></p>
-<p>问题：如果在创建本地索引时，有一个字段设置了default value，在生成的索引表里就只会显示默认值，不管是什么类型；如果这个类型是tinyint的话，还可能会造成之后主键的数据，原表的数据是对的，但是索引表是错的，如果命中了索引表，那么就返回的是错误的数据。</p>
-<p>可能的解：<code>RowKeyColumnExpression</code> 和 <code>RowKeyValueAccessor</code> 两个类。</p>
-<blockquote>
-<p>对表字段的修改，只能修改 char、varchar、decimal 等类型的长度，不可以直接修改类型，比如修改integer到bigint，会导致修改之后出现乱码，应该也是因为phoenix在对column index下标进行切分的时候，每个类型有自己的长度，随便修改类型，会导致数据转换错误</p>
-</blockquote>
-<ol start="3">
-<li>union all 在使用时遇到问题</li>
-</ol>
-<p>类似问题在 <a href="https://stackoverflow.com/questions/40100813/apache-phoenix-join-fails-encountered-exception-in-sub-plan-0-execution">Encountered exception in sub plan [0] execution</a></p>
-<p>描述：<code>select user_id from (select user_id from table union all select user_id from table) where user_id in (select user_id from table)</code> 这个sql执行后报 NullPointerException；换成 <code>select t1.user_id from (select user_id from table union all select user_id from table)t1 inner join (select user_id from table)t2 on t1.user_id = t2.user_id</code> 也会报错，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Error: Encountered exception in sub plan [0] execution. (state=,code=0)</span><br><span class="line">java.sql.SQLException: Encountered exception in sub plan [0] execution.</span><br><span class="line">        at org.apache.phoenix.execute.HashJoinPlan.iterator(HashJoinPlan.java:209)</span><br><span class="line">        at org.apache.phoenix.execute.DelegateQueryPlan.iterator(DelegateQueryPlan.java:139)</span><br><span class="line">        at org.apache.phoenix.jdbc.PhoenixStatement$1.call(PhoenixStatement.java:291)</span><br><span class="line">        at org.apache.phoenix.jdbc.PhoenixStatement.execute(PhoenixStatement.java:1830)</span><br><span class="line">        ...</span><br><span class="line">Caused by: org.apache.phoenix.schema.TableNotFoundException: ERROR 1012 (42M03): Table undefined. tableName=unionSchemaName.unionTableName</span><br><span class="line">        at org.apache.phoenix.query.ConnectionQueryServicesImpl.getAllTableRegions(ConnectionQueryServicesImpl.java:604)</span><br><span class="line">        ....</span><br></pre></td></tr></table></figure>
-
-<p>参考链接写的那个方式，改成 <code>select /*+ USE_SORT_MERGE_JOIN */ t1.user_id from (select user_id from table union all select user_id from table)t1 inner join (select user_id from table)t2 on t1.user_id = t2.user_id</code> 就可以了，从官方文档上看，是将广播哈希连接替换成了排序合并连接。但是官网给的前提是<strong>当连接的两端都大于服务器端内存的容量时</strong>使用这一个hint，具体底层实现还不清楚。</p>
-<p>附：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHOENIX_OPTS=&quot;-Dsun.security.krb5.principal=phoenix&quot;</span><br><span class="line">/usr/java/jdk1.8.0_121/bin/java $PHOENIX_OPTS  -cp &quot;/etc/hbase/conf:/etc/hbase/conf:/data/cloudera/parcels/PHOENIX-5.0.0-cdh6.2.0.p0.1308267/lib/phoenix/bin/../phoenix-5.0.0-cdh6.2.0-client.jar:::/etc/hadoop/conf:/etc/hadoop/conf:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop/lib/*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop/.//*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-hdfs/./:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-hdfs/lib/*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-hdfs/.//*:/data/cloudera/parcels/CDH/lib/hadoop-mapreduce/.//*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-yarn/lib/*:/data/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hadoop/libexec/../../hadoop-yarn/.//*&quot; -Dlog4j.configuration=file:/data/penglin/log4j.properties sqlline.SqlLine -d org.apache.phoenix.jdbc.PhoenixDriver -u jdbc:phoenix:host241.slave.dev.cluster.enn.cn:2181:/hbase -n none -p none --color=true --fastConnect=false --verbose=true --incremental=false --isolation=TRANSACTION_READ_COMMITTED </span><br></pre></td></tr></table></figure>
+<h3 id="1-为什么只支持全局索引？"><a href="#1-为什么只支持全局索引？" class="headerlink" title="1. 为什么只支持全局索引？"></a>1. 为什么只支持全局索引？</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/07/Phoenix-4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -620,45 +518,14 @@
 <p>redis 数据类型 zset 实现有序集合，底层使用的数据结构是跳表。</p>
 <p>源码在 <code>src/t_zset.c</code> 文件中，相关数据结构的定义在 <code>src/server.h</code> 文件中。(4.0版本)</p>
 <p>元素有序的时候，如果是数组，可以通过二分查找来提速；如果是链表，如何提速？ &#x3D;&gt; 跳表，插入&#x2F;删除&#x2F;搜索 都是O(logn)</p>
-<blockquote>
-<p>第一层索引 n&#x2F;2 个节点，第二层 n&#x2F;4 个节点，第三层 n&#x2F;8，第K层 n&#x2F;(2^k)<br>假设第K层有2个节点，即 n&#x2F;(2^k) &#x3D; 2 &#x3D;&gt; k &#x3D; log2(n) - 1</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">typedef struct zskiplist &#123;</span><br><span class="line">    <span class="comment">// 头节点，尾节点</span></span><br><span class="line">    struct zskiplistNode *header, *tail;</span><br><span class="line">    <span class="comment">// 节点数量</span></span><br><span class="line">    unsigned <span class="type">long</span> length;</span><br><span class="line">    <span class="comment">// 目前表内节点的最大层数</span></span><br><span class="line">    <span class="type">int</span> level;</span><br><span class="line">&#125; zskiplist;</span><br><span class="line"></span><br><span class="line">typedef struct zskiplistNode &#123;</span><br><span class="line">    <span class="comment">// member 对象</span></span><br><span class="line">    robj *obj;</span><br><span class="line">    <span class="comment">// 分值</span></span><br><span class="line">    <span class="type">double</span> score;</span><br><span class="line">    <span class="comment">// 后退指针</span></span><br><span class="line">    struct zskiplistNode *backward;</span><br><span class="line">    <span class="comment">// 层</span></span><br><span class="line">    struct zskiplistLevel &#123;</span><br><span class="line">        <span class="comment">// 前进指针</span></span><br><span class="line">        struct zskiplistNode *forward;</span><br><span class="line">        <span class="comment">// 这个层跨越的节点数量</span></span><br><span class="line">        unsigned <span class="type">int</span> span;</span><br><span class="line">    &#125; level[];</span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-跳表-SkipList"><a href="#1-跳表-SkipList" class="headerlink" title="1. 跳表 SkipList"></a>1. 跳表 SkipList</h3><p>在 <code>java.util.concurrent.ConcurrentSkipListMap/ConcurrentSkipListSet</code> 类中也有实现</p>
-<p>查询链表时会从头到尾的遍历链表，最坏的时间复杂度是O(N)，这是一次比较一个值，如果跳着1个元素来进行比较（比较下标为2n+1的元素），那么就相当于一次性比较2个元素，效率就会提高 &#x3D;&gt; 跳表</p>
-<p><img src="https://images.weserv.nl/?url=https://img2018.cnblogs.com/blog/1365470/201811/1365470-20181120213521027-836921723.png" alt="查询"></p>
-<blockquote>
-<p>跳表是牺牲空间来换取时间，除了最底层是最原始的数据外，其他的每一层，其实都相当于是一个索引，最理想的是按照第一层1级跳，第二层2级跳，第三层4级跳，第四层8级跳。。。但是考虑到有插入，如果插入的时候还要保证这个递增关系，那么就要调整当前的数据结构，时间太长，所以是否插入会有一个25%概率比较</p>
-</blockquote>
-<p><img src="https://images.weserv.nl/?url=https://img2018.cnblogs.com/blog/1365470/201811/1365470-20181120213055029-767111953.png" alt="插入"></p>
-<blockquote>
-<p>插入有一个地方需要注意，最底层肯定是要插入数据的，然后产生一个随机数，根据幂次定律，越大的值生成的几率越小。</p>
-</blockquote>
-<h3 id="2-如何确定层数"><a href="#2-如何确定层数" class="headerlink" title="2. 如何确定层数"></a>2. 如何确定层数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int zslRandomLevel(void)&#123;</span><br><span class="line">    int level = 1;</span><br><span class="line">    while((random()&amp;0xFFFF) &lt; (ZSKIPLIST_P * 0xFFFF))</span><br><span class="line">        level += 1;</span><br><span class="line">    retrun (level &lt; ZSKIPLST_MAXLAVEL) ? level : ZSKIPLST_MAXLAVEL;</span><br><span class="line">&#125;</span><br><span class="line">// 0xFFFF 65535</span><br><span class="line">// ZSKIPLIST_P 默认为 0.25</span><br><span class="line">// define ZSKIPLST_MAXLAVEL 64 常量值为64</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-为什么使用跳跃表，而不是平衡树等用来做有序元素的查找"><a href="#3-为什么使用跳跃表，而不是平衡树等用来做有序元素的查找" class="headerlink" title="3. 为什么使用跳跃表，而不是平衡树等用来做有序元素的查找"></a>3. 为什么使用跳跃表，而不是平衡树等用来做有序元素的查找</h3><ol>
-<li>跳跃表的时间复杂度和红黑树是一样的，而且实现简单</li>
-<li>在并发的情况下，红黑树在插入删除的时候可能需要做rebalance的操作，这样的操作可能会涉及到整个树的其他部分；而链表的操作就会相对局部，只需要关注插入删除的位置即可，只要多个线程操作的地方不一样，就不会产生冲突</li>
-</ol>
-<blockquote>
-<p>开发者的解释:<br>There are a few reasons:</p>
-<ol>
-<li>They are not very memory intensive. It’s up to you basically. Changing parameters about the probability of a node to have a given number of levels will make then less memory intensive than btrees. &#x3D;&gt; 并不是非常耗费内存。控制好ZSKIPLIST_P的值，内存消耗和平衡树差不多</li>
-<li>A sorted set is often target of many ZRANGE or ZREVRANGE operations, that is, traversing the skip list as a linked list. With this operation the cache locality of skip lists is at least as good as with other kind of balanced trees. &#x3D;&gt; 有序集合经常会进行 zrange 或 zrevrange 这样的范围查找，跳表里的双向链表可以十分方便的进行这操作</li>
-<li>They are simpler to implement, debug, and so forth. For instance thanks to the skip list simplicity I received a patch (already in Redis master) with augmented skip lists implementing ZRANK in O(log(N)). It required little changes to the code.<br>About the Append Only durability &amp; speed, I don’t think it is a good idea to optimize Redis at cost of more code and more complexity for a use case that IMHO should be rare for the Redis target (fsync() at every command). Almost no one is using this feature even with ACID SQL databases, as the performance hint is big anyway. &#x3D;&gt; 实现简单，zrank 还能达到O(logn)的时间复杂度</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>About threads: our experience shows that Redis is mostly I&#x2F;O bound. I’m using threads to serve things from Virtual Memory. The long term solution to exploit all the cores, assuming your link is so fast that you can saturate a single core, is running multiple instances of Redis (no locks, almost fully scalable linearly with number of cores), and using the “Redis Cluster” solution that I plan to develop in the future.</p>
-</blockquote>
-<p>在 src&#x2F;t_zset.c 文件中，主要有两个结构，zskiplist 和 zskiplistNode，前者保存跳跃表信息（如表头节点、表尾节点、长度），而 zskiplistNode 用于保存节点<br>另外，跳跃表中的节点按照分值大小进行排序， 当分值相同时， 节点按照成员对象的大小进行排序。这一点也是redis针对跳表这个结构做出的优化之一。具体的优化点为：</p>
-<ul>
-<li>允许重复分值，即多个节点允许相同的分值，但是每个节点的成员对象必须是唯一的</li>
-<li>比较的时候不仅仅是分值，还有整个对象，即分值相同，按照成员对象大小排序</li>
-<li>在第一层有一个back指针，适用于 ZREVRANGE 方法，允许从尾部到头部来遍历列表</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/15/Redis-4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -768,43 +635,14 @@
 <p><strong>每一个region servser维护一个或多个Hlog（1.X版本可以开启multiwal），而不是每一个region一个日志</strong>。这样不同 region(可能来自来自不同 table) 的日志会混在一起，这样做的目的是不断追加单个文件相对于同时写多个文件而言，可以减少磁盘寻址次数，因此可以提高对 table 的写性能。带来的麻烦是，如果一台 region server 下线，为了恢复其上的 region，需要将 region server 上的 log 进行拆分，然后分发到其它 region server 上进行恢复。</p>
 <p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/11.png" alt="HLog文件基本结构"></p>
 <p>HLog中日志单元WALEntry表示一次行级更新的最小追加单元（图中红色&#x2F;黄色小方框）。它由两部分组成：HLogKey和WALEdit，HLogKey中包含多个属性信息，包含table name、region name、sequenceid等；WALEdit用来表示一个事务中的更新集合，一次行级事务可以原子操作同一行中的多个列。上图中WALEdit包含多个KeyValue。</p>
-<h3 id="1-sequenceID"><a href="#1-sequenceID" class="headerlink" title="1. sequenceID"></a>1. sequenceID</h3><p>问题：</p>
-<ol>
-<li>memstore中的数据flush到hdfs中后，HLog对应的数据是不是可以删除了？不然HLog会无限增长</li>
-<li>HBase中单个HLog都有固定大小，日志文件最大个数也有设置，默认最大文件数量是8。如果文件数量超过了这个值，就必须删除最老的日志。那么如何知道HLog日志对应的所有数据都已经flush到磁盘？（如果知道哪些数据没有罗盘，就可以强制进行flush，然后删除HLog）</li>
-<li>regionserver宕机之后memstore中的数据会丢失，可以通过HLog进行恢复，哪些数据需要恢复？哪些不需要恢复？</li>
-</ol>
-<p>&#x3D;&gt; 都需要一种介质来表示Memstore中数据Flush的那个点对应HLog哪个位置 &#x3D;&gt; sequenceId 自增序号，每个region维护属于自己的id，不同region的id相互独立</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/12.png" alt="sequenceID"></p>
-<h4 id="1-HLog-什么时候可以过期回收"><a href="#1-HLog-什么时候可以过期回收" class="headerlink" title="1. HLog 什么时候可以过期回收"></a>1. HLog 什么时候可以过期回收</h4><p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/13.png" alt="回收HLog"></p>
-<p>虚线右侧部分为超过单个HLog大小阈值后切分形成的一个HLog文件，问题是这个文件什么时候可以被系统回收删除。理论上来说只需要这个文件上所有Region对应的最大sequenceid已经落盘就可以删除，比如下图中如果RegionA对应的最大sequenceid(5)已经落盘，同时RegionB对应的最大sequenceid(5)也落盘，那该HLog就可以被删除。</p>
-<p>RegionServer会为每个Region维护了一个变量oldestUnflushedSequenceId（<strong>实际上是和每个Store一一对应</strong>，为了方便讲解，此处暂且认为是Region，不影响原理），表示这个Region最早的还未落盘的seqid，即这个seqid之前的所有数据都已经落盘。</p>
-<p>下图是flush过程中oldestUnflushedSequenceId变量变化的示意图，初始时为null，假设在某一时刻阶段二RegionA(红色方框)要执行flush，中间HLog中sequenceId为1~4对应的数据将会落盘，在执行flush之前，HBase会append一个空的Entry到HLog，仅为获取下一个sequenceId(5)，并将这个sequenceId赋给OldestUnflushedSequenceId-RegionA。如图中第三阶段OldestUnflushedSequenceId-RegionA指向sequenceId为5的Entry。</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/14.png"></p>
-<p>可见，每次flush之后这个变量就会往前移动一段距离。</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/15.png"></p>
-<p>场景一中右侧HLog还有未落盘的数据（sequenceid&#x3D;5还未落盘），因此不能删除；而场景二中右侧HLog的所有数据都已经落盘，所以这个HLog理论上就已经可以被删除回收。</p>
-<blockquote>
-<p>如果在当前HLog中存在一个regionA的oldestUnflushedSequenceId小于当前HLog文件中regionA最大的sequenceId，那么就不能删除这个HLog文件；如果到达了HLog的最大文件数量，必须要删除这个文件，那么就对regionA中执行flush操作，将数据落盘</p>
-</blockquote>
-<h3 id="2-RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip"><a href="#2-RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip" class="headerlink" title="2. RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip"></a>2. RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip</h3><p>理论上来说只需要回放Memstore中没有落地的数据对应的WALEntry，已经落地数据对应的WALEntry可以skip。可问题是RegionServer已经宕机了，<code>&lt;region, oldestUnflushedSequenceId&gt;</code> 对应信息肯定没有了。如何是好？想办法持久化呗，上文分析oldestUnflushedSequenceId变量是flush时产生的一个变量，这个变量完全可以<strong>以flush的时候以元数据的形式写到HFile中</strong></p>
-<p><code>org.apache.hadoop.hbase.regionserver.StoreFlusher</code> 类</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/17.png"></p>
-<p>这样Region在宕机迁移重新打开之后加载HFile元数据就可以恢复出这个核心变量oldestUnflushedSequenceId（本次flush所生成的所有HFlie中都存储同一个sequenceId），这个sequenceId在恢复出来之后就可以用来在回放WALEntry的时候过滤哪些Entry需要被回放，哪些会被skip。</p>
-<h4 id="2-1-附加问题"><a href="#2-1-附加问题" class="headerlink" title="2.1 附加问题"></a>2.1 附加问题</h4><p>Q: 有没有可能一次flush所生成的所有HFile中存储的sequenceId出现不一致，比如：region中所有store（store1、store2）都执行flush，其中store1执行flush成功，此时oldestUnflushedSequenceId变量成功追加到对应的HFile中；但在store2执行flush之前RegionServer发生宕机异常，store2对应的oldestUnflushedSequenceId变量还是上个文件对应的sequenceId，这种情况下回放数据会不会有影响？如果有，为什么？如果没有，是什么机制保证的？</p>
-<p>A: 到目前为止，上面所有分析都基于一个事实：hbase中flush操作是region级别操作，即每次执行flush都需要整个region中的所有store全都执行flush。接下来作为延伸阅读内容，对Per-CF Flush比较感兴趣的可以继续阅读，Per-CF Flush允许系统对某个或某些列组单独执行flush。实现原理与上文所分析内容基本相似。不同的是上文中oldestUnflushedSequenceId是与region一一对应的，Per-CF Flush中这个参数需要细化到store，与store一一对应。</p>
-<h3 id="3-Per-CF-Flush"><a href="#3-Per-CF-Flush" class="headerlink" title="3. Per-CF Flush"></a>3. Per-CF Flush</h3><p>region级别flush确实存在不少问题，在多个列族的情况下其中一个store大小超过了阈值（128M），不论其他store多大多小都会强制落盘，有些很小的列族（几兆）落盘后形成很多特别小的文件，对hbase的读并不是一件好事。</p>
-<p><strong>per-cf flush允许单个store执行flush，该feature在1.0.0以上版本已经存在，在1.2.0版本设置为默认策略。</strong> 实现这个功能有两个必要的工作，其一是提出一种新的flush策略能够在多个列族中选择一个或者多个单独进行进行flush，目前新策略称为FlushLargerStoresPolicy，即选择当前最大的一个store进行flush。其二是必须将oldestUnflushedSequenceId的粒度从region细化到store，即从<code>map&lt;region, oldestUnflushedSequenceId&gt;</code>改为<code>map&lt;region, map&lt;store, oldestUnflushedSequenceId&gt;&gt;</code>，上文所述三个问题的判断逻辑也需要修改为store级别判断逻辑。这里使用store级别判断逻辑简单对问题一和问题三进行复盘。</p>
-<p><strong>Per-CF Flush策略下，HLog在什么时候可以过期回收？</strong><br>region级别的判断逻辑主要依赖于<code>map&lt;region, oldestUnflushedSequenceId&gt;</code>，详见上文。store级别的数据结构改为了<code>map&lt;region, map&lt;store, oldestUnflushedSequenceId&gt;&gt;</code>，其实很容易经过简单的转化又变回region级别，<code>map&lt;store, oldestUnflushedSequenceId&gt;</code>找到最小的oldestUnflushedSequenceId称为minSeqNum，这样region级别的数据结构就变出来了 – <code>map&lt;region, minSeqNum&gt;</code>，其他逻辑都不用变。</p>
-<p>&#x3D;&gt; 根据每个store的id，可以取到region的最小id，然后按照这个最小id来进行flush</p>
-<p><strong>Per-CF Flush策略下，RegionServer宕机恢复replay日志时哪些数据需要被回放，哪些会被skip？</strong><br>这个问题稍微复杂一点，第一个关注的问题是回放粒度的问题。需要回过头来看看HLog中Entry的组成，如图可以知道一个Entry由WALKey和WAKEdit两部分构成，WALKey包含一些基本信息，本文重点关注sequenceId这个变量；WALEdit包含插入\更新的KeyValue集合，这里需要重点注意，<strong>这些KeyValue可能包含一行中多个列族（列），因此可以说WALEdit会包含多个store更新的KeyValue。</strong></p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/18.png"></p>
-<p>在All-CF Flush策略下，我们以HLog-Entry为粒度进行数据回放没有任何问题，但是在Per-CF Flush策略下就不再行得通。因为一个HLog-Entry中多个CF的KeyValue是混在一起的，可能部分KV已经落盘，其他部分还没有。因此需要将回放粒度减小到KeyValue级别，一个一个KeyValue分别进行检查回放。</p>
-<p>回放粒度问题摸清了，再来关注哪些KeyValue需要被回放，哪些会被skip。上文说过，每次flush的时候对应的oldestUnflushedSequenceId会被持久化到HFile的元数据中。在All-CF Flush策略下，一次flush操作中整个region所有store所持久化的oldestUnflushedSequenceId都相同，因此回放的时候HLog-Entry的sequenceId只需要与这一个oldestUnflushedSequenceId比较就可以，大的话就需要回放，小的话就skip。但在Per-CF的场景下又不再行得通，一个region中不同store都有自己独立的oldestUnflushedSequenceId，因此回放的时候需要根据KeyValue找到对应store，在与该store中的oldestUnflushedSequenceId比较，大的话需要回放，小的话skip。</p>
-<blockquote>
-<p>hbase shell 中查看原始数据<br>scan ‘MODEL_GROUP_STRUCTURE:STRUCTURE_COMPLAINT_LABEL_H’, {FORMATTER &#x3D;&gt; ‘toString’, LIMIT &#x3D;&gt; 10}</p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/16/HBase-3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -923,22 +761,14 @@
 </ol>
 <p>∴ JVM 是在 SafePoint 点时才进行回收，所谓 SafePoint 即Java线程执行到某个位置时，JVM能够安全可控地回收对象</p>
 <p>如何到达 SafePoint</p>
-<p>说到这里就要提到如何使线程中断，一般有两种方式：主动式和被动式。主动式JVM设置一个全局变量，线程去按照某种策略检查这个变量一旦发现是Safe Point就主动挂起，被动式就是发个信号，例如关机、Control+C，带来的问题就是不可控，发信号的时候不知道线程处于什么状态。这里HostSop虚拟机采用的是主动式使线程中断。</p>
-<p>既然JVM使用的是主动性主动到达安全点，那么应该在什么地方设置全局变量呢？显然不能随意设置全局变量，进入安全点有个默认策略那就是：“避免程序长时间运行而不进入Safe Point”，程序要GC了必须要等线程进入安全点，如果线程长时间不进入安全点这样就比较糟糕了，因此安全点主要咋以下位置设置：</p>
-<ol>
-<li><p>循环的末尾</p>
-</li>
-<li><p>方法返回前</p>
-</li>
-<li><p>调用方法的call之后</p>
-</li>
-<li><p>抛出异常的位置</p>
-</li>
-</ol>
-<p>安全区域</p>
-<p>安全点完美的解决了如何进入GC问题，实际情况可能比这个更复杂，但是如果程序长时间不执行，比如线程调用的sleep方法，这时候程序无法响应JVM中断请求这时候线程无法到达安全点，显然JVM也不可能等待程序唤醒，这时候就需要安全区域了。</p>
-<p>安全区域是指一段代码片中，引用关系不会发生变化，在这个区域任何地方GC都是安全的，安全区域可以看做是安全点的一个扩展。线程执行到安全区域的代码时，首先标识自己进入了安全区域，这样GC时就不用管进入安全区域的线层了，线层要离开安全区域时就检查JVM是否完成了GC Roots枚举，如果完成就继续执行，如果没有完成就等待直到收到可以安全离开的信号。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/12/JVM-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1044,10 +874,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -1074,7 +904,7 @@
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -1090,6 +920,9 @@
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -1148,6 +981,10 @@
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

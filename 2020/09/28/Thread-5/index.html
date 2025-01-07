@@ -18,15 +18,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="线程一些问题1. 概述单线程和多线程 表象化的一种理解：线程就是程序执行的路径，单线程就是只有一条路径，多线程就是多条路径 进程：一个程序装载到内存里，分配好资源如网络等等。是分配资源的最基本单位 线程：程序开始运行，将一条条指令放到cpu里执行。是调度执行的最基本单位 CPU：ALU（算术逻辑单元，负责计算） + Registers（寄存器，存储数据） + PC（计数器，记录执行到哪一条指令，记">
+  <meta name="description" content="线程一些问题1. 概述单线程和多线程 表象化的一种理解：线程就是程序执行的路径，单线程就是只有一条路径，多线程就是多条路径 进程：一个程序装载到内存里，分配好资源如网络等等。是分配资源的最基本单位 线程：程序开始运行，将一条条指令放到cpu里执行。是调度执行的最基本单位">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线程一些问题">
 <meta property="og:url" content="https://mxxct4git.github.io/2020/09/28/Thread-5/index.html">
 <meta property="og:site_name" content="猫熊小才天の书院">
-<meta property="og:description" content="线程一些问题1. 概述单线程和多线程 表象化的一种理解：线程就是程序执行的路径，单线程就是只有一条路径，多线程就是多条路径 进程：一个程序装载到内存里，分配好资源如网络等等。是分配资源的最基本单位 线程：程序开始运行，将一条条指令放到cpu里执行。是调度执行的最基本单位 CPU：ALU（算术逻辑单元，负责计算） + Registers（寄存器，存储数据） + PC（计数器，记录执行到哪一条指令，记">
+<meta property="og:description" content="线程一些问题1. 概述单线程和多线程 表象化的一种理解：线程就是程序执行的路径，单线程就是只有一条路径，多线程就是多条路径 进程：一个程序装载到内存里，分配好资源如网络等等。是分配资源的最基本单位 线程：程序开始运行，将一条条指令放到cpu里执行。是调度执行的最基本单位">
 <meta property="og:locale">
 <meta property="og:image" content="https://images.weserv.nl/?url=https://img-blog.csdn.net/20180402191722152?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZnUxMjMxMjNmdQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="https://images.weserv.nl/?url=https://upload-images.jianshu.io/upload_images/9930763-bec61c919d66e2db.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/663/format/webp">
@@ -109,6 +109,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -138,11 +139,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -452,10 +480,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -482,7 +510,7 @@
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -498,6 +526,9 @@
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -556,6 +587,10 @@
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

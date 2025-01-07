@@ -1,38 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>红黑树</title>
-    <url>/2020/09/09/Algorithm-10/</url>
-    <content><![CDATA[<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><h3 id="1-红黑树"><a href="#1-红黑树" class="headerlink" title="1. 红黑树"></a>1. 红黑树</h3><p>数组查询快，链表插入删除快 &#x3D;&gt; 二叉树兼具两者优点 &#x3D;&gt; 但是二叉树可能存在特殊情况，即一侧子树非常长，另一侧很短，不平衡 &#x3D;&gt; 红黑树，即二叉平衡树，是一个去除二叉树顶端优势的解决方案，从而达到树的平衡。</p>
-<p>红黑树，Red-Black Tree 「RBT」是一个自平衡(不是绝对的平衡)的二叉查找树(BST)，树上的每个节点都遵循下面的规则:</p>
-<ol>
-<li>每个节点都有红色或黑色</li>
-<li>树的根始终是黑色的</li>
-<li>没有两个相邻的红色节点（红色节点不能有红色父节点或红色子节点，并没有说不能出现连续的黑色节点）</li>
-<li>从节点（包括根）到其任何后代NULL节点(叶子结点下方挂的两个空节点，并且认为他们是黑色的)的每条路径都具有相同数量的黑色节点</li>
-</ol>
-<p>红黑树两大操作:</p>
-<ol>
-<li>recolor (重新标记黑色或红色)</li>
-<li>rotation (旋转，这是树达到平衡的关键)</li>
-</ol>
-<p>红黑树插入节点过程:</p>
-<ol>
-<li>新插入的节点标记为红色</li>
-<li>如果 X 是根结点(root)，则标记为黑色</li>
-<li>如果 X 的 parent 不是黑色，同时 X 也不是 root:<br> 3.1 如果 X 的 uncle (叔叔) 是红色<br> 3.1.1 将 parent 和 uncle 标记为黑色<br> 3.1.2 将 grand parent (祖父) 标记为红色<br> 3.1.3 让 X 节点的颜色与 X 祖父的颜色相同，然后重复步骤 2、3</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-        <category>Tree</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>Tree</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>算法初步（julyedu网课整理）</title>
     <url>/2018/11/19/Algorithm-1/</url>
     <content><![CDATA[<h2 id="算法初步（julyedu网课整理）"><a href="#算法初步（julyedu网课整理）" class="headerlink" title="算法初步（julyedu网课整理）"></a>算法初步（julyedu网课整理）</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><h5 id="O-1"><a href="#O-1" class="headerlink" title="O(1)"></a>O(1)</h5><p>基本运算  </p>
@@ -304,6 +272,38 @@ for i ← 1 to n
       <tags>
         <tag>Algorithm</tag>
         <tag>julyedu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>红黑树</title>
+    <url>/2020/09/09/Algorithm-10/</url>
+    <content><![CDATA[<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><h3 id="1-红黑树"><a href="#1-红黑树" class="headerlink" title="1. 红黑树"></a>1. 红黑树</h3><p>数组查询快，链表插入删除快 &#x3D;&gt; 二叉树兼具两者优点 &#x3D;&gt; 但是二叉树可能存在特殊情况，即一侧子树非常长，另一侧很短，不平衡 &#x3D;&gt; 红黑树，即二叉平衡树，是一个去除二叉树顶端优势的解决方案，从而达到树的平衡。</p>
+<p>红黑树，Red-Black Tree 「RBT」是一个自平衡(不是绝对的平衡)的二叉查找树(BST)，树上的每个节点都遵循下面的规则:</p>
+<ol>
+<li>每个节点都有红色或黑色</li>
+<li>树的根始终是黑色的</li>
+<li>没有两个相邻的红色节点（红色节点不能有红色父节点或红色子节点，并没有说不能出现连续的黑色节点）</li>
+<li>从节点（包括根）到其任何后代NULL节点(叶子结点下方挂的两个空节点，并且认为他们是黑色的)的每条路径都具有相同数量的黑色节点</li>
+</ol>
+<p>红黑树两大操作:</p>
+<ol>
+<li>recolor (重新标记黑色或红色)</li>
+<li>rotation (旋转，这是树达到平衡的关键)</li>
+</ol>
+<p>红黑树插入节点过程:</p>
+<ol>
+<li>新插入的节点标记为红色</li>
+<li>如果 X 是根结点(root)，则标记为黑色</li>
+<li>如果 X 的 parent 不是黑色，同时 X 也不是 root:<br> 3.1 如果 X 的 uncle (叔叔) 是红色<br> 3.1.1 将 parent 和 uncle 标记为黑色<br> 3.1.2 将 grand parent (祖父) 标记为红色<br> 3.1.3 让 X 节点的颜色与 X 祖父的颜色相同，然后重复步骤 2、3</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>Tree</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -2131,51 +2131,6 @@ def send_email(request):
       </tags>
   </entry>
   <entry>
-    <title>Flume</title>
-    <url>/2020/03/31/Flume/</url>
-    <content><![CDATA[<h2 id="Flume"><a href="#Flume" class="headerlink" title="Flume"></a>Flume</h2><h3 id="1-Flume"><a href="#1-Flume" class="headerlink" title="1. Flume"></a>1. Flume</h3><p>日志采集</p>
-<ol>
-<li>读数据 组件是 resource</li>
-<li>缓存数据 channel 原因是读写速度的不一致，可以缓存在内存或本地文件，临时储存。看做一个数据的缓冲区（数据队列），它可以将事件暂存到内存中也可以持久化到本地磁盘上， 直到Sink处理完该事件</li>
-<li>写数据 组件是 sink</li>
-</ol>
-<ul>
-<li>source<ul>
-<li>Exec Source：实时搜集一个文件中新增的数据，不支持断点续传</li>
-<li>Spooling Directory Source：监控目录，新的文件，不支持断点续传</li>
-<li>TailDir Source：flume1.7 新加入的组件，支持断点续传</li>
-</ul>
-</li>
-<li>channel<ul>
-<li>memory channel：保存在内存，速度快，可能丢数据</li>
-<li>file channel：保存在磁盘的文件中，不会丢数据，速度慢</li>
-<li>kafka channel：省去sink，下一级必须是kafka，即直接传给kafka</li>
-</ul>
-</li>
-<li>sink</li>
-</ul>
-<p>拦截器</p>
-<ul>
-<li>ETL拦截器：清洗</li>
-<li>类型拦截器：分类</li>
-</ul>
-<p>flume 把内部的格式统一封装为 event，保存一些描述信息和具体数据</p>
-<p>拦截器的位置在Source和Channel之间，当我们为Source指定拦截器后，我们在拦截器中会得到event，根据需求我们可以对event进行保留还是抛弃，抛弃的数据不会进入Channel中。</p>
-<p><img src="https://images.weserv.nl/?url=https://images2017.cnblogs.com/blog/999804/201711/999804-20171108132026106-567951153.png"></p>
-<p>Flume可靠性在于Sink 必须在Event 被存入 Channel 后，或者，已经被传达到下一站agent里，又或者已经被存入外部数据目的地之后，才能把 Event 从 Channel 中 remove 掉。而Flume支持在本地保存一份文件 channel 作为备份，而memory channel 将event存在内存 queue 里，速度快，但丢失的话无法恢复。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">配置写到HDFS</span><br><span class="line">hdfs.rollCount = 10 // 相当于event采集到10条数据就写一次</span><br><span class="line">hdfs.batchSize = 100 // 相当于event在写数据的时候一批的数量</span><br><span class="line">hdfs.fileType = SequenceFile // 默认是SequenceFile，还有 DataStream（原始数据是什么，写完也是什么）</span><br><span class="line"></span><br><span class="line">tier1.sinks.hdfsSink_26.hdfs.path = hdfs://nameservice/user/flume/kafka/hehe/%&#123;topic&#125;/%Y%m%d</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Hadoop</category>
-        <category>Flume</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>Flume</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Flink总结</title>
     <url>/2020/10/20/Flink2/</url>
     <content><![CDATA[<h2 id="Flink总结"><a href="#Flink总结" class="headerlink" title="Flink总结"></a>Flink总结</h2><h3 id="1-状态一致性"><a href="#1-状态一致性" class="headerlink" title="1. 状态一致性"></a>1. 状态一致性</h3><ul>
@@ -2257,6 +2212,51 @@ def send_email(request):
       </tags>
   </entry>
   <entry>
+    <title>Flume</title>
+    <url>/2020/03/31/Flume/</url>
+    <content><![CDATA[<h2 id="Flume"><a href="#Flume" class="headerlink" title="Flume"></a>Flume</h2><h3 id="1-Flume"><a href="#1-Flume" class="headerlink" title="1. Flume"></a>1. Flume</h3><p>日志采集</p>
+<ol>
+<li>读数据 组件是 resource</li>
+<li>缓存数据 channel 原因是读写速度的不一致，可以缓存在内存或本地文件，临时储存。看做一个数据的缓冲区（数据队列），它可以将事件暂存到内存中也可以持久化到本地磁盘上， 直到Sink处理完该事件</li>
+<li>写数据 组件是 sink</li>
+</ol>
+<ul>
+<li>source<ul>
+<li>Exec Source：实时搜集一个文件中新增的数据，不支持断点续传</li>
+<li>Spooling Directory Source：监控目录，新的文件，不支持断点续传</li>
+<li>TailDir Source：flume1.7 新加入的组件，支持断点续传</li>
+</ul>
+</li>
+<li>channel<ul>
+<li>memory channel：保存在内存，速度快，可能丢数据</li>
+<li>file channel：保存在磁盘的文件中，不会丢数据，速度慢</li>
+<li>kafka channel：省去sink，下一级必须是kafka，即直接传给kafka</li>
+</ul>
+</li>
+<li>sink</li>
+</ul>
+<p>拦截器</p>
+<ul>
+<li>ETL拦截器：清洗</li>
+<li>类型拦截器：分类</li>
+</ul>
+<p>flume 把内部的格式统一封装为 event，保存一些描述信息和具体数据</p>
+<p>拦截器的位置在Source和Channel之间，当我们为Source指定拦截器后，我们在拦截器中会得到event，根据需求我们可以对event进行保留还是抛弃，抛弃的数据不会进入Channel中。</p>
+<p><img src="https://images.weserv.nl/?url=https://images2017.cnblogs.com/blog/999804/201711/999804-20171108132026106-567951153.png"></p>
+<p>Flume可靠性在于Sink 必须在Event 被存入 Channel 后，或者，已经被传达到下一站agent里，又或者已经被存入外部数据目的地之后，才能把 Event 从 Channel 中 remove 掉。而Flume支持在本地保存一份文件 channel 作为备份，而memory channel 将event存在内存 queue 里，速度快，但丢失的话无法恢复。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">配置写到HDFS</span><br><span class="line">hdfs.rollCount = 10 // 相当于event采集到10条数据就写一次</span><br><span class="line">hdfs.batchSize = 100 // 相当于event在写数据的时候一批的数量</span><br><span class="line">hdfs.fileType = SequenceFile // 默认是SequenceFile，还有 DataStream（原始数据是什么，写完也是什么）</span><br><span class="line"></span><br><span class="line">tier1.sinks.hdfsSink_26.hdfs.path = hdfs://nameservice/user/flume/kafka/hehe/%&#123;topic&#125;/%Y%m%d</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>Flume</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>Flume</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java.util.function 包</title>
     <url>/2020/09/21/Function-1/</url>
     <content><![CDATA[<h2 id="java-util-function-包"><a href="#java-util-function-包" class="headerlink" title="java.util.function 包"></a>java.util.function 包</h2><h3 id="1-Function"><a href="#1-Function" class="headerlink" title="1. Function"></a>1. Function</h3><p>接收一个参数，并返回一个结果</p>
@@ -2317,59 +2317,6 @@ def send_email(request):
 <p>［100，200，300，500，1000，2000，4000，10000，10000，10000，10000，20000，20000，…,20000］<br>默认情况下，客户端将在448s内重试30次，然后放弃连接到集群</p>
 <p>［50，100，150，250，500，1000，2000，5000，5000，5000，5000，10000，10000，…，10000］<br>客户端将会在2min内重试20次，然后放弃连接到集群</p>
 <p>在构造线程时，有一个默认关闭的特性：当hbase.client.backpressure.enabled(默认值为false，ServerStatisticTracker:63，AsyncProcess:629)为ture时，客户端会根据服务端压力和客户端配置的策略，生成带延时的Runnable对象，用以动态缓解服务端压力</p>
-]]></content>
-      <categories>
-        <category>Hadoop</category>
-        <category>HBase</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>HBase</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HBase WAL日志</title>
-    <url>/2020/11/16/HBase-3/</url>
-    <content><![CDATA[<h2 id="HBase-WAL日志"><a href="#HBase-WAL日志" class="headerlink" title="HBase WAL日志"></a>HBase WAL日志</h2><p><a href="https://www.cnblogs.com/frankdeng/p/9310278.html">参考网址1</a><br><a href="http://hbasefly.com/2017/07/02/hbase-sequenceid/">参考网址2</a></p>
-<p><strong>每一个region servser维护一个或多个Hlog（1.X版本可以开启multiwal），而不是每一个region一个日志</strong>。这样不同 region(可能来自来自不同 table) 的日志会混在一起，这样做的目的是不断追加单个文件相对于同时写多个文件而言，可以减少磁盘寻址次数，因此可以提高对 table 的写性能。带来的麻烦是，如果一台 region server 下线，为了恢复其上的 region，需要将 region server 上的 log 进行拆分，然后分发到其它 region server 上进行恢复。</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/11.png" alt="HLog文件基本结构"></p>
-<p>HLog中日志单元WALEntry表示一次行级更新的最小追加单元（图中红色&#x2F;黄色小方框）。它由两部分组成：HLogKey和WALEdit，HLogKey中包含多个属性信息，包含table name、region name、sequenceid等；WALEdit用来表示一个事务中的更新集合，一次行级事务可以原子操作同一行中的多个列。上图中WALEdit包含多个KeyValue。</p>
-<h3 id="1-sequenceID"><a href="#1-sequenceID" class="headerlink" title="1. sequenceID"></a>1. sequenceID</h3><p>问题：</p>
-<ol>
-<li>memstore中的数据flush到hdfs中后，HLog对应的数据是不是可以删除了？不然HLog会无限增长</li>
-<li>HBase中单个HLog都有固定大小，日志文件最大个数也有设置，默认最大文件数量是8。如果文件数量超过了这个值，就必须删除最老的日志。那么如何知道HLog日志对应的所有数据都已经flush到磁盘？（如果知道哪些数据没有罗盘，就可以强制进行flush，然后删除HLog）</li>
-<li>regionserver宕机之后memstore中的数据会丢失，可以通过HLog进行恢复，哪些数据需要恢复？哪些不需要恢复？</li>
-</ol>
-<p>&#x3D;&gt; 都需要一种介质来表示Memstore中数据Flush的那个点对应HLog哪个位置 &#x3D;&gt; sequenceId 自增序号，每个region维护属于自己的id，不同region的id相互独立</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/12.png" alt="sequenceID"></p>
-<h4 id="1-HLog-什么时候可以过期回收"><a href="#1-HLog-什么时候可以过期回收" class="headerlink" title="1. HLog 什么时候可以过期回收"></a>1. HLog 什么时候可以过期回收</h4><p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/13.png" alt="回收HLog"></p>
-<p>虚线右侧部分为超过单个HLog大小阈值后切分形成的一个HLog文件，问题是这个文件什么时候可以被系统回收删除。理论上来说只需要这个文件上所有Region对应的最大sequenceid已经落盘就可以删除，比如下图中如果RegionA对应的最大sequenceid(5)已经落盘，同时RegionB对应的最大sequenceid(5)也落盘，那该HLog就可以被删除。</p>
-<p>RegionServer会为每个Region维护了一个变量oldestUnflushedSequenceId（<strong>实际上是和每个Store一一对应</strong>，为了方便讲解，此处暂且认为是Region，不影响原理），表示这个Region最早的还未落盘的seqid，即这个seqid之前的所有数据都已经落盘。</p>
-<p>下图是flush过程中oldestUnflushedSequenceId变量变化的示意图，初始时为null，假设在某一时刻阶段二RegionA(红色方框)要执行flush，中间HLog中sequenceId为1~4对应的数据将会落盘，在执行flush之前，HBase会append一个空的Entry到HLog，仅为获取下一个sequenceId(5)，并将这个sequenceId赋给OldestUnflushedSequenceId-RegionA。如图中第三阶段OldestUnflushedSequenceId-RegionA指向sequenceId为5的Entry。</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/14.png"></p>
-<p>可见，每次flush之后这个变量就会往前移动一段距离。</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/15.png"></p>
-<p>场景一中右侧HLog还有未落盘的数据（sequenceid&#x3D;5还未落盘），因此不能删除；而场景二中右侧HLog的所有数据都已经落盘，所以这个HLog理论上就已经可以被删除回收。</p>
-<blockquote>
-<p>如果在当前HLog中存在一个regionA的oldestUnflushedSequenceId小于当前HLog文件中regionA最大的sequenceId，那么就不能删除这个HLog文件；如果到达了HLog的最大文件数量，必须要删除这个文件，那么就对regionA中执行flush操作，将数据落盘</p>
-</blockquote>
-<h3 id="2-RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip"><a href="#2-RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip" class="headerlink" title="2. RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip"></a>2. RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip</h3><p>理论上来说只需要回放Memstore中没有落地的数据对应的WALEntry，已经落地数据对应的WALEntry可以skip。可问题是RegionServer已经宕机了，<code>&lt;region, oldestUnflushedSequenceId&gt;</code> 对应信息肯定没有了。如何是好？想办法持久化呗，上文分析oldestUnflushedSequenceId变量是flush时产生的一个变量，这个变量完全可以<strong>以flush的时候以元数据的形式写到HFile中</strong></p>
-<p><code>org.apache.hadoop.hbase.regionserver.StoreFlusher</code> 类</p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/17.png"></p>
-<p>这样Region在宕机迁移重新打开之后加载HFile元数据就可以恢复出这个核心变量oldestUnflushedSequenceId（本次flush所生成的所有HFlie中都存储同一个sequenceId），这个sequenceId在恢复出来之后就可以用来在回放WALEntry的时候过滤哪些Entry需要被回放，哪些会被skip。</p>
-<h4 id="2-1-附加问题"><a href="#2-1-附加问题" class="headerlink" title="2.1 附加问题"></a>2.1 附加问题</h4><p>Q: 有没有可能一次flush所生成的所有HFile中存储的sequenceId出现不一致，比如：region中所有store（store1、store2）都执行flush，其中store1执行flush成功，此时oldestUnflushedSequenceId变量成功追加到对应的HFile中；但在store2执行flush之前RegionServer发生宕机异常，store2对应的oldestUnflushedSequenceId变量还是上个文件对应的sequenceId，这种情况下回放数据会不会有影响？如果有，为什么？如果没有，是什么机制保证的？</p>
-<p>A: 到目前为止，上面所有分析都基于一个事实：hbase中flush操作是region级别操作，即每次执行flush都需要整个region中的所有store全都执行flush。接下来作为延伸阅读内容，对Per-CF Flush比较感兴趣的可以继续阅读，Per-CF Flush允许系统对某个或某些列组单独执行flush。实现原理与上文所分析内容基本相似。不同的是上文中oldestUnflushedSequenceId是与region一一对应的，Per-CF Flush中这个参数需要细化到store，与store一一对应。</p>
-<h3 id="3-Per-CF-Flush"><a href="#3-Per-CF-Flush" class="headerlink" title="3. Per-CF Flush"></a>3. Per-CF Flush</h3><p>region级别flush确实存在不少问题，在多个列族的情况下其中一个store大小超过了阈值（128M），不论其他store多大多小都会强制落盘，有些很小的列族（几兆）落盘后形成很多特别小的文件，对hbase的读并不是一件好事。</p>
-<p><strong>per-cf flush允许单个store执行flush，该feature在1.0.0以上版本已经存在，在1.2.0版本设置为默认策略。</strong> 实现这个功能有两个必要的工作，其一是提出一种新的flush策略能够在多个列族中选择一个或者多个单独进行进行flush，目前新策略称为FlushLargerStoresPolicy，即选择当前最大的一个store进行flush。其二是必须将oldestUnflushedSequenceId的粒度从region细化到store，即从<code>map&lt;region, oldestUnflushedSequenceId&gt;</code>改为<code>map&lt;region, map&lt;store, oldestUnflushedSequenceId&gt;&gt;</code>，上文所述三个问题的判断逻辑也需要修改为store级别判断逻辑。这里使用store级别判断逻辑简单对问题一和问题三进行复盘。</p>
-<p><strong>Per-CF Flush策略下，HLog在什么时候可以过期回收？</strong><br>region级别的判断逻辑主要依赖于<code>map&lt;region, oldestUnflushedSequenceId&gt;</code>，详见上文。store级别的数据结构改为了<code>map&lt;region, map&lt;store, oldestUnflushedSequenceId&gt;&gt;</code>，其实很容易经过简单的转化又变回region级别，<code>map&lt;store, oldestUnflushedSequenceId&gt;</code>找到最小的oldestUnflushedSequenceId称为minSeqNum，这样region级别的数据结构就变出来了 – <code>map&lt;region, minSeqNum&gt;</code>，其他逻辑都不用变。</p>
-<p>&#x3D;&gt; 根据每个store的id，可以取到region的最小id，然后按照这个最小id来进行flush</p>
-<p><strong>Per-CF Flush策略下，RegionServer宕机恢复replay日志时哪些数据需要被回放，哪些会被skip？</strong><br>这个问题稍微复杂一点，第一个关注的问题是回放粒度的问题。需要回过头来看看HLog中Entry的组成，如图可以知道一个Entry由WALKey和WAKEdit两部分构成，WALKey包含一些基本信息，本文重点关注sequenceId这个变量；WALEdit包含插入\更新的KeyValue集合，这里需要重点注意，<strong>这些KeyValue可能包含一行中多个列族（列），因此可以说WALEdit会包含多个store更新的KeyValue。</strong></p>
-<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/18.png"></p>
-<p>在All-CF Flush策略下，我们以HLog-Entry为粒度进行数据回放没有任何问题，但是在Per-CF Flush策略下就不再行得通。因为一个HLog-Entry中多个CF的KeyValue是混在一起的，可能部分KV已经落盘，其他部分还没有。因此需要将回放粒度减小到KeyValue级别，一个一个KeyValue分别进行检查回放。</p>
-<p>回放粒度问题摸清了，再来关注哪些KeyValue需要被回放，哪些会被skip。上文说过，每次flush的时候对应的oldestUnflushedSequenceId会被持久化到HFile的元数据中。在All-CF Flush策略下，一次flush操作中整个region所有store所持久化的oldestUnflushedSequenceId都相同，因此回放的时候HLog-Entry的sequenceId只需要与这一个oldestUnflushedSequenceId比较就可以，大的话就需要回放，小的话就skip。但在Per-CF的场景下又不再行得通，一个region中不同store都有自己独立的oldestUnflushedSequenceId，因此回放的时候需要根据KeyValue找到对应store，在与该store中的oldestUnflushedSequenceId比较，大的话需要回放，小的话skip。</p>
-<blockquote>
-<p>hbase shell 中查看原始数据<br>scan ‘MODEL_GROUP_STRUCTURE:STRUCTURE_COMPLAINT_LABEL_H’, {FORMATTER &#x3D;&gt; ‘toString’, LIMIT &#x3D;&gt; 10}</p>
-</blockquote>
 ]]></content>
       <categories>
         <category>Hadoop</category>
@@ -2458,6 +2405,59 @@ def send_email(request):
 <li>rokwey的优化：长度不能太长；唯一；散列 &#x3D;&gt; 期望每个region的负载是一样的，具体体现在如果是扫描少量的数据，尽量在一个region里面，那么就需要是同一个rowkey或者相邻的rowkey；如果是大量的数据，就不能让一个region来处理请求</li>
 <li>防止数据倾斜：加盐；时间戳反转；反转部分数据做rowkey</li>
 </ol>
+]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>HBase</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>HBase</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HBase WAL日志</title>
+    <url>/2020/11/16/HBase-3/</url>
+    <content><![CDATA[<h2 id="HBase-WAL日志"><a href="#HBase-WAL日志" class="headerlink" title="HBase WAL日志"></a>HBase WAL日志</h2><p><a href="https://www.cnblogs.com/frankdeng/p/9310278.html">参考网址1</a><br><a href="http://hbasefly.com/2017/07/02/hbase-sequenceid/">参考网址2</a></p>
+<p><strong>每一个region servser维护一个或多个Hlog（1.X版本可以开启multiwal），而不是每一个region一个日志</strong>。这样不同 region(可能来自来自不同 table) 的日志会混在一起，这样做的目的是不断追加单个文件相对于同时写多个文件而言，可以减少磁盘寻址次数，因此可以提高对 table 的写性能。带来的麻烦是，如果一台 region server 下线，为了恢复其上的 region，需要将 region server 上的 log 进行拆分，然后分发到其它 region server 上进行恢复。</p>
+<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/11.png" alt="HLog文件基本结构"></p>
+<p>HLog中日志单元WALEntry表示一次行级更新的最小追加单元（图中红色&#x2F;黄色小方框）。它由两部分组成：HLogKey和WALEdit，HLogKey中包含多个属性信息，包含table name、region name、sequenceid等；WALEdit用来表示一个事务中的更新集合，一次行级事务可以原子操作同一行中的多个列。上图中WALEdit包含多个KeyValue。</p>
+<h3 id="1-sequenceID"><a href="#1-sequenceID" class="headerlink" title="1. sequenceID"></a>1. sequenceID</h3><p>问题：</p>
+<ol>
+<li>memstore中的数据flush到hdfs中后，HLog对应的数据是不是可以删除了？不然HLog会无限增长</li>
+<li>HBase中单个HLog都有固定大小，日志文件最大个数也有设置，默认最大文件数量是8。如果文件数量超过了这个值，就必须删除最老的日志。那么如何知道HLog日志对应的所有数据都已经flush到磁盘？（如果知道哪些数据没有罗盘，就可以强制进行flush，然后删除HLog）</li>
+<li>regionserver宕机之后memstore中的数据会丢失，可以通过HLog进行恢复，哪些数据需要恢复？哪些不需要恢复？</li>
+</ol>
+<p>&#x3D;&gt; 都需要一种介质来表示Memstore中数据Flush的那个点对应HLog哪个位置 &#x3D;&gt; sequenceId 自增序号，每个region维护属于自己的id，不同region的id相互独立</p>
+<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/12.png" alt="sequenceID"></p>
+<h4 id="1-HLog-什么时候可以过期回收"><a href="#1-HLog-什么时候可以过期回收" class="headerlink" title="1. HLog 什么时候可以过期回收"></a>1. HLog 什么时候可以过期回收</h4><p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/13.png" alt="回收HLog"></p>
+<p>虚线右侧部分为超过单个HLog大小阈值后切分形成的一个HLog文件，问题是这个文件什么时候可以被系统回收删除。理论上来说只需要这个文件上所有Region对应的最大sequenceid已经落盘就可以删除，比如下图中如果RegionA对应的最大sequenceid(5)已经落盘，同时RegionB对应的最大sequenceid(5)也落盘，那该HLog就可以被删除。</p>
+<p>RegionServer会为每个Region维护了一个变量oldestUnflushedSequenceId（<strong>实际上是和每个Store一一对应</strong>，为了方便讲解，此处暂且认为是Region，不影响原理），表示这个Region最早的还未落盘的seqid，即这个seqid之前的所有数据都已经落盘。</p>
+<p>下图是flush过程中oldestUnflushedSequenceId变量变化的示意图，初始时为null，假设在某一时刻阶段二RegionA(红色方框)要执行flush，中间HLog中sequenceId为1~4对应的数据将会落盘，在执行flush之前，HBase会append一个空的Entry到HLog，仅为获取下一个sequenceId(5)，并将这个sequenceId赋给OldestUnflushedSequenceId-RegionA。如图中第三阶段OldestUnflushedSequenceId-RegionA指向sequenceId为5的Entry。</p>
+<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/14.png"></p>
+<p>可见，每次flush之后这个变量就会往前移动一段距离。</p>
+<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/15.png"></p>
+<p>场景一中右侧HLog还有未落盘的数据（sequenceid&#x3D;5还未落盘），因此不能删除；而场景二中右侧HLog的所有数据都已经落盘，所以这个HLog理论上就已经可以被删除回收。</p>
+<blockquote>
+<p>如果在当前HLog中存在一个regionA的oldestUnflushedSequenceId小于当前HLog文件中regionA最大的sequenceId，那么就不能删除这个HLog文件；如果到达了HLog的最大文件数量，必须要删除这个文件，那么就对regionA中执行flush操作，将数据落盘</p>
+</blockquote>
+<h3 id="2-RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip"><a href="#2-RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip" class="headerlink" title="2. RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip"></a>2. RegionServer宕机恢复replay日志时哪些WALEntry需要被回放，哪些会被skip</h3><p>理论上来说只需要回放Memstore中没有落地的数据对应的WALEntry，已经落地数据对应的WALEntry可以skip。可问题是RegionServer已经宕机了，<code>&lt;region, oldestUnflushedSequenceId&gt;</code> 对应信息肯定没有了。如何是好？想办法持久化呗，上文分析oldestUnflushedSequenceId变量是flush时产生的一个变量，这个变量完全可以<strong>以flush的时候以元数据的形式写到HFile中</strong></p>
+<p><code>org.apache.hadoop.hbase.regionserver.StoreFlusher</code> 类</p>
+<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/17.png"></p>
+<p>这样Region在宕机迁移重新打开之后加载HFile元数据就可以恢复出这个核心变量oldestUnflushedSequenceId（本次flush所生成的所有HFlie中都存储同一个sequenceId），这个sequenceId在恢复出来之后就可以用来在回放WALEntry的时候过滤哪些Entry需要被回放，哪些会被skip。</p>
+<h4 id="2-1-附加问题"><a href="#2-1-附加问题" class="headerlink" title="2.1 附加问题"></a>2.1 附加问题</h4><p>Q: 有没有可能一次flush所生成的所有HFile中存储的sequenceId出现不一致，比如：region中所有store（store1、store2）都执行flush，其中store1执行flush成功，此时oldestUnflushedSequenceId变量成功追加到对应的HFile中；但在store2执行flush之前RegionServer发生宕机异常，store2对应的oldestUnflushedSequenceId变量还是上个文件对应的sequenceId，这种情况下回放数据会不会有影响？如果有，为什么？如果没有，是什么机制保证的？</p>
+<p>A: 到目前为止，上面所有分析都基于一个事实：hbase中flush操作是region级别操作，即每次执行flush都需要整个region中的所有store全都执行flush。接下来作为延伸阅读内容，对Per-CF Flush比较感兴趣的可以继续阅读，Per-CF Flush允许系统对某个或某些列组单独执行flush。实现原理与上文所分析内容基本相似。不同的是上文中oldestUnflushedSequenceId是与region一一对应的，Per-CF Flush中这个参数需要细化到store，与store一一对应。</p>
+<h3 id="3-Per-CF-Flush"><a href="#3-Per-CF-Flush" class="headerlink" title="3. Per-CF Flush"></a>3. Per-CF Flush</h3><p>region级别flush确实存在不少问题，在多个列族的情况下其中一个store大小超过了阈值（128M），不论其他store多大多小都会强制落盘，有些很小的列族（几兆）落盘后形成很多特别小的文件，对hbase的读并不是一件好事。</p>
+<p><strong>per-cf flush允许单个store执行flush，该feature在1.0.0以上版本已经存在，在1.2.0版本设置为默认策略。</strong> 实现这个功能有两个必要的工作，其一是提出一种新的flush策略能够在多个列族中选择一个或者多个单独进行进行flush，目前新策略称为FlushLargerStoresPolicy，即选择当前最大的一个store进行flush。其二是必须将oldestUnflushedSequenceId的粒度从region细化到store，即从<code>map&lt;region, oldestUnflushedSequenceId&gt;</code>改为<code>map&lt;region, map&lt;store, oldestUnflushedSequenceId&gt;&gt;</code>，上文所述三个问题的判断逻辑也需要修改为store级别判断逻辑。这里使用store级别判断逻辑简单对问题一和问题三进行复盘。</p>
+<p><strong>Per-CF Flush策略下，HLog在什么时候可以过期回收？</strong><br>region级别的判断逻辑主要依赖于<code>map&lt;region, oldestUnflushedSequenceId&gt;</code>，详见上文。store级别的数据结构改为了<code>map&lt;region, map&lt;store, oldestUnflushedSequenceId&gt;&gt;</code>，其实很容易经过简单的转化又变回region级别，<code>map&lt;store, oldestUnflushedSequenceId&gt;</code>找到最小的oldestUnflushedSequenceId称为minSeqNum，这样region级别的数据结构就变出来了 – <code>map&lt;region, minSeqNum&gt;</code>，其他逻辑都不用变。</p>
+<p>&#x3D;&gt; 根据每个store的id，可以取到region的最小id，然后按照这个最小id来进行flush</p>
+<p><strong>Per-CF Flush策略下，RegionServer宕机恢复replay日志时哪些数据需要被回放，哪些会被skip？</strong><br>这个问题稍微复杂一点，第一个关注的问题是回放粒度的问题。需要回过头来看看HLog中Entry的组成，如图可以知道一个Entry由WALKey和WAKEdit两部分构成，WALKey包含一些基本信息，本文重点关注sequenceId这个变量；WALEdit包含插入\更新的KeyValue集合，这里需要重点注意，<strong>这些KeyValue可能包含一行中多个列族（列），因此可以说WALEdit会包含多个store更新的KeyValue。</strong></p>
+<p><img src="https://images.weserv.nl/?url=http://hbasefly.com/wp-content/uploads/2017/07/18.png"></p>
+<p>在All-CF Flush策略下，我们以HLog-Entry为粒度进行数据回放没有任何问题，但是在Per-CF Flush策略下就不再行得通。因为一个HLog-Entry中多个CF的KeyValue是混在一起的，可能部分KV已经落盘，其他部分还没有。因此需要将回放粒度减小到KeyValue级别，一个一个KeyValue分别进行检查回放。</p>
+<p>回放粒度问题摸清了，再来关注哪些KeyValue需要被回放，哪些会被skip。上文说过，每次flush的时候对应的oldestUnflushedSequenceId会被持久化到HFile的元数据中。在All-CF Flush策略下，一次flush操作中整个region所有store所持久化的oldestUnflushedSequenceId都相同，因此回放的时候HLog-Entry的sequenceId只需要与这一个oldestUnflushedSequenceId比较就可以，大的话就需要回放，小的话就skip。但在Per-CF的场景下又不再行得通，一个region中不同store都有自己独立的oldestUnflushedSequenceId，因此回放的时候需要根据KeyValue找到对应store，在与该store中的oldestUnflushedSequenceId比较，大的话需要回放，小的话skip。</p>
+<blockquote>
+<p>hbase shell 中查看原始数据<br>scan ‘MODEL_GROUP_STRUCTURE:STRUCTURE_COMPLAINT_LABEL_H’, {FORMATTER &#x3D;&gt; ‘toString’, LIMIT &#x3D;&gt; 10}</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Hadoop</category>
@@ -3143,81 +3143,6 @@ count(column)：统计column所有非NULL行
 <p>如果数据量确实很大，也可以增加分组的个数。例如：CAST(RAND() * 1000 AS BIGINT) tag</p>
 </blockquote>
 ]]></content>
-      <categories>
-        <category>Hadoop</category>
-        <category>Hive</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>Hive</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hive Sql的窗口函数</title>
-    <url>/2019/08/30/Hive-4/</url>
-    <content><![CDATA[<h2 id="Hive-Sql的窗口函数"><a href="#Hive-Sql的窗口函数" class="headerlink" title="Hive Sql的窗口函数"></a>Hive Sql的窗口函数</h2><h3 id="1-count、sum、avg、max、min"><a href="#1-count、sum、avg、max、min" class="headerlink" title="1. count、sum、avg、max、min"></a>1. count、sum、avg、max、min</h3><p>以 <code>sum</code> 为例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 按照 year 来分组，统计每一年的总和</span><br><span class="line"># 结果：每个月的值都是本年的总和</span><br><span class="line">sum(val) over(partition by year)</span><br><span class="line"></span><br><span class="line"># 按照 year 来分组，按照 month 来排序</span><br><span class="line"># 结果：n 月的值是本年 1 - n 月的累计值</span><br><span class="line">sum(val) over(partition by year order by month)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>通过 <code>explain select ... </code> 来查看语句解析，可以简单理解为，在每一次 <code>order by</code> 之后，会执行一次 <code>sum</code> 的 <code>reduce</code> 过程，也就导致结果计算的是 1 - n 月的累计值</p>
-</blockquote>
-<h3 id="2-rows-between"><a href="#2-rows-between" class="headerlink" title="2. rows between"></a>2. rows between</h3><p>以 <code>sum</code> 为例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 按照 year 分组，按照 month 排序，计算前3行和后1行的总和</span><br><span class="line">sum(val) over(partition by year order by month rows between 3 preceding and 1 following)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>preceding：往前</li>
-<li>following：往后</li>
-<li>current row：当前行</li>
-<li>unbounded：起点<ul>
-<li>unbounded preceding：表示从前面的起点</li>
-<li>unbounded following：表示到后面的终点</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 以下两种方式是等效的</span><br><span class="line">sum(val) over(partition by year)</span><br><span class="line">sum(val) over(partition by year rows between unbounded preceding and unbounded following)</span><br><span class="line"></span><br><span class="line"># 以下两种方式是等效的</span><br><span class="line">sum(val) over(partition by year order by month)</span><br><span class="line">sum(val) over(partition by year order by month rows between unbounded preceding and current row)</span><br><span class="line"></span><br><span class="line"># 以下两种方式不等效</span><br><span class="line">sum(val) over(partition by year rows between unbounded preceding and current row)</span><br><span class="line">sum(val) over(partition by year order by month rows between unbounded preceding and current row)</span><br><span class="line"># current row 应该是和 order by 同时出现，要不然会导致数据错位</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-ntile"><a href="#3-ntile" class="headerlink" title="3. ntile"></a>3. ntile</h3><p>切片：用于将分组数据按照顺序切分成n片，返回当前切片值；不支持 rows between；如果切片不均匀，默认增加第一个切片的分布（比如有6条数据，分4组，数量依次为2 2 1 1）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 统计一个月内，val 最多的前 1/n </span><br><span class="line">ntile(n) over(partition by month order by val desc) as rn</span><br><span class="line">rn = 1 就是最终想要的结果，前提是数据可以被均匀分片</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-row-number、rank、dense-rank"><a href="#4-row-number、rank、dense-rank" class="headerlink" title="4. row_number、rank、dense_rank"></a>4. row_number、rank、dense_rank</h3><ul>
-<li>row_number：行号</li>
-<li>rank：排名——结果中可能有空位 eg：1 2 2 4</li>
-<li>dense_rank：排名——结果中无空位 eg：1 2 2 3</li>
-</ul>
-<h3 id="5-cume-dist"><a href="#5-cume-dist" class="headerlink" title="5. cume_dist"></a>5. cume_dist</h3><p>计算公式：(小于等于当前值的行数 &#x2F; 分组内的总行数)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 统计小于等于当前薪水的人占部门内总人数的比例</span><br><span class="line">cume_dist() over(partition by dept order by salary)</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-percent-rank"><a href="#6-percent-rank" class="headerlink" title="6. percent_rank"></a>6. percent_rank</h3><p>计算公式：(分组内当前行的rank值 - 1 &#x2F; 分组内总行数 - 1)</p>
-<h3 id="7-lag-col-n-DEFAULT"><a href="#7-lag-col-n-DEFAULT" class="headerlink" title="7. lag(col, n, DEFAULT)"></a>7. lag(col, n, DEFAULT)</h3><p>统计窗口内往上第 n 行值</p>
-<p>三个参数分别是：列名；往上第 n 行（可选，默认是1）；当往上第 n 行为 NULL 的时候，取默认值，如不指定，则为 NULL</p>
-<h3 id="8-lead-col-n-DEFAULT"><a href="#8-lead-col-n-DEFAULT" class="headerlink" title="8. lead(col, n, DEFAULT)"></a>8. lead(col, n, DEFAULT)</h3><p>统计窗口内往下第 n 行值</p>
-<p>三个参数分别是：列名；往下第 n 行（可选，默认是1）；当往下第 n 行为 NULL 的时候，取默认值，如不指定，则为 NULL</p>
-<h3 id="9-first-value-col"><a href="#9-first-value-col" class="headerlink" title="9. first_value(col)"></a>9. first_value(col)</h3><p>取分组内排序后，取第一个的 col </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">first_value(col) over(partition by ... order by ...)</span><br></pre></td></tr></table></figure>
-
-<h3 id="10-last-value-col"><a href="#10-last-value-col" class="headerlink" title="10. last_value(col)"></a>10. last_value(col)</h3><p>取分组内排序后，截止到当前行，最后一个的 col &#x3D;&gt; 相当于分组排序后，取当前这一行的 col</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">last_value(col) over(partition by ... order by ...)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如果不指定 order by，则默认按照记录在文件中的偏移量进行排序，会出现错误的结果</p>
-</blockquote>
-<blockquote>
-<p>如果要取分组内排序后最后一个 col，可以换成下面的形式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">first_value(col) over(partition by ... order by ... desc)</span><br></pre></td></tr></table></figure></blockquote>
-<h3 id="11-grouping-sets"><a href="#11-grouping-sets" class="headerlink" title="11. grouping sets"></a>11. grouping sets</h3><p>在一个 <code>group by</code> 查询中，根据不同的维度组合进行聚合，等价于将不同维度的 <code>group by</code> 结果集进行 <code>union all</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">grouping sets(year, month, (year, month))</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于</span><br><span class="line"></span><br><span class="line">select year, &#x27;null&#x27; as month, count(1)a, 1 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">union all</span><br><span class="line">select &#x27;null&#x27; as year, month, count(1)a, 2 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by month</span><br><span class="line">union all</span><br><span class="line">select year, month, count(1)a, 3 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>grouping sets (col1, col2 …) 使用前必须要先写 group by (col1, col2 …)， grouping sets 表示在 group by 括号内出现的字段组合的情况，所以 grouping sets 出现的字段肯定是在 group by 中出现过的</p>
-</blockquote>
-<blockquote>
-<p>grouping__id 表示结果属于哪一个分组集合，只能和 grouping sets 组合着用，单独使用报错。有两个下划线！！！</p>
-</blockquote>
-<h3 id="12-cube"><a href="#12-cube" class="headerlink" title="12. cube"></a>12. cube</h3><p>根据 group by 的维度的所有组合进行聚合。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">with cube</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于以下四种情况 union all</span><br><span class="line">1. 相当于直接 count(1)a</span><br><span class="line">2. 按照 year 来分组</span><br><span class="line">3. 按照 month 来分组</span><br><span class="line">4. 按照 year&amp;month 来分组</span><br></pre></td></tr></table></figure>
-
-<h3 id="13-rollup"><a href="#13-rollup" class="headerlink" title="13. rollup"></a>13. rollup</h3><p>是 cube 的子集，以最左侧的维度为主，从该维度进行层级聚合。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">with rollup</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于先进行 with cube操作，即以下四种情况 union all</span><br><span class="line">1. 相当于直接 count(1)a</span><br><span class="line">2. 按照 year 来分组</span><br><span class="line">3. 按照 month 来分组</span><br><span class="line">4. 按照 year&amp;month 来分组</span><br><span class="line"></span><br><span class="line">然后 year 是最左侧的维度，则按照 year 来进行层级聚合，过滤掉 year 为 NULL 的记录（但是第1中情况对所有数据进行count(1)的这一条数据会依旧保存）</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Hadoop</category>
         <category>Hive</category>
@@ -4217,6 +4142,81 @@ zhaoliu    [4,4]
       </tags>
   </entry>
   <entry>
+    <title>Hive Sql的窗口函数</title>
+    <url>/2019/08/30/Hive-4/</url>
+    <content><![CDATA[<h2 id="Hive-Sql的窗口函数"><a href="#Hive-Sql的窗口函数" class="headerlink" title="Hive Sql的窗口函数"></a>Hive Sql的窗口函数</h2><h3 id="1-count、sum、avg、max、min"><a href="#1-count、sum、avg、max、min" class="headerlink" title="1. count、sum、avg、max、min"></a>1. count、sum、avg、max、min</h3><p>以 <code>sum</code> 为例</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 按照 year 来分组，统计每一年的总和</span><br><span class="line"># 结果：每个月的值都是本年的总和</span><br><span class="line">sum(val) over(partition by year)</span><br><span class="line"></span><br><span class="line"># 按照 year 来分组，按照 month 来排序</span><br><span class="line"># 结果：n 月的值是本年 1 - n 月的累计值</span><br><span class="line">sum(val) over(partition by year order by month)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过 <code>explain select ... </code> 来查看语句解析，可以简单理解为，在每一次 <code>order by</code> 之后，会执行一次 <code>sum</code> 的 <code>reduce</code> 过程，也就导致结果计算的是 1 - n 月的累计值</p>
+</blockquote>
+<h3 id="2-rows-between"><a href="#2-rows-between" class="headerlink" title="2. rows between"></a>2. rows between</h3><p>以 <code>sum</code> 为例</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 按照 year 分组，按照 month 排序，计算前3行和后1行的总和</span><br><span class="line">sum(val) over(partition by year order by month rows between 3 preceding and 1 following)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>preceding：往前</li>
+<li>following：往后</li>
+<li>current row：当前行</li>
+<li>unbounded：起点<ul>
+<li>unbounded preceding：表示从前面的起点</li>
+<li>unbounded following：表示到后面的终点</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 以下两种方式是等效的</span><br><span class="line">sum(val) over(partition by year)</span><br><span class="line">sum(val) over(partition by year rows between unbounded preceding and unbounded following)</span><br><span class="line"></span><br><span class="line"># 以下两种方式是等效的</span><br><span class="line">sum(val) over(partition by year order by month)</span><br><span class="line">sum(val) over(partition by year order by month rows between unbounded preceding and current row)</span><br><span class="line"></span><br><span class="line"># 以下两种方式不等效</span><br><span class="line">sum(val) over(partition by year rows between unbounded preceding and current row)</span><br><span class="line">sum(val) over(partition by year order by month rows between unbounded preceding and current row)</span><br><span class="line"># current row 应该是和 order by 同时出现，要不然会导致数据错位</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-ntile"><a href="#3-ntile" class="headerlink" title="3. ntile"></a>3. ntile</h3><p>切片：用于将分组数据按照顺序切分成n片，返回当前切片值；不支持 rows between；如果切片不均匀，默认增加第一个切片的分布（比如有6条数据，分4组，数量依次为2 2 1 1）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 统计一个月内，val 最多的前 1/n </span><br><span class="line">ntile(n) over(partition by month order by val desc) as rn</span><br><span class="line">rn = 1 就是最终想要的结果，前提是数据可以被均匀分片</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-row-number、rank、dense-rank"><a href="#4-row-number、rank、dense-rank" class="headerlink" title="4. row_number、rank、dense_rank"></a>4. row_number、rank、dense_rank</h3><ul>
+<li>row_number：行号</li>
+<li>rank：排名——结果中可能有空位 eg：1 2 2 4</li>
+<li>dense_rank：排名——结果中无空位 eg：1 2 2 3</li>
+</ul>
+<h3 id="5-cume-dist"><a href="#5-cume-dist" class="headerlink" title="5. cume_dist"></a>5. cume_dist</h3><p>计算公式：(小于等于当前值的行数 &#x2F; 分组内的总行数)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 统计小于等于当前薪水的人占部门内总人数的比例</span><br><span class="line">cume_dist() over(partition by dept order by salary)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-percent-rank"><a href="#6-percent-rank" class="headerlink" title="6. percent_rank"></a>6. percent_rank</h3><p>计算公式：(分组内当前行的rank值 - 1 &#x2F; 分组内总行数 - 1)</p>
+<h3 id="7-lag-col-n-DEFAULT"><a href="#7-lag-col-n-DEFAULT" class="headerlink" title="7. lag(col, n, DEFAULT)"></a>7. lag(col, n, DEFAULT)</h3><p>统计窗口内往上第 n 行值</p>
+<p>三个参数分别是：列名；往上第 n 行（可选，默认是1）；当往上第 n 行为 NULL 的时候，取默认值，如不指定，则为 NULL</p>
+<h3 id="8-lead-col-n-DEFAULT"><a href="#8-lead-col-n-DEFAULT" class="headerlink" title="8. lead(col, n, DEFAULT)"></a>8. lead(col, n, DEFAULT)</h3><p>统计窗口内往下第 n 行值</p>
+<p>三个参数分别是：列名；往下第 n 行（可选，默认是1）；当往下第 n 行为 NULL 的时候，取默认值，如不指定，则为 NULL</p>
+<h3 id="9-first-value-col"><a href="#9-first-value-col" class="headerlink" title="9. first_value(col)"></a>9. first_value(col)</h3><p>取分组内排序后，取第一个的 col </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">first_value(col) over(partition by ... order by ...)</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-last-value-col"><a href="#10-last-value-col" class="headerlink" title="10. last_value(col)"></a>10. last_value(col)</h3><p>取分组内排序后，截止到当前行，最后一个的 col &#x3D;&gt; 相当于分组排序后，取当前这一行的 col</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">last_value(col) over(partition by ... order by ...)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果不指定 order by，则默认按照记录在文件中的偏移量进行排序，会出现错误的结果</p>
+</blockquote>
+<blockquote>
+<p>如果要取分组内排序后最后一个 col，可以换成下面的形式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">first_value(col) over(partition by ... order by ... desc)</span><br></pre></td></tr></table></figure></blockquote>
+<h3 id="11-grouping-sets"><a href="#11-grouping-sets" class="headerlink" title="11. grouping sets"></a>11. grouping sets</h3><p>在一个 <code>group by</code> 查询中，根据不同的维度组合进行聚合，等价于将不同维度的 <code>group by</code> 结果集进行 <code>union all</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">grouping sets(year, month, (year, month))</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于</span><br><span class="line"></span><br><span class="line">select year, &#x27;null&#x27; as month, count(1)a, 1 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">union all</span><br><span class="line">select &#x27;null&#x27; as year, month, count(1)a, 2 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by month</span><br><span class="line">union all</span><br><span class="line">select year, month, count(1)a, 3 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>grouping sets (col1, col2 …) 使用前必须要先写 group by (col1, col2 …)， grouping sets 表示在 group by 括号内出现的字段组合的情况，所以 grouping sets 出现的字段肯定是在 group by 中出现过的</p>
+</blockquote>
+<blockquote>
+<p>grouping__id 表示结果属于哪一个分组集合，只能和 grouping sets 组合着用，单独使用报错。有两个下划线！！！</p>
+</blockquote>
+<h3 id="12-cube"><a href="#12-cube" class="headerlink" title="12. cube"></a>12. cube</h3><p>根据 group by 的维度的所有组合进行聚合。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">with cube</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于以下四种情况 union all</span><br><span class="line">1. 相当于直接 count(1)a</span><br><span class="line">2. 按照 year 来分组</span><br><span class="line">3. 按照 month 来分组</span><br><span class="line">4. 按照 year&amp;month 来分组</span><br></pre></td></tr></table></figure>
+
+<h3 id="13-rollup"><a href="#13-rollup" class="headerlink" title="13. rollup"></a>13. rollup</h3><p>是 cube 的子集，以最左侧的维度为主，从该维度进行层级聚合。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">with rollup</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于先进行 with cube操作，即以下四种情况 union all</span><br><span class="line">1. 相当于直接 count(1)a</span><br><span class="line">2. 按照 year 来分组</span><br><span class="line">3. 按照 month 来分组</span><br><span class="line">4. 按照 year&amp;month 来分组</span><br><span class="line"></span><br><span class="line">然后 year 是最左侧的维度，则按照 year 来进行层级聚合，过滤掉 year 为 NULL 的记录（但是第1中情况对所有数据进行count(1)的这一条数据会依旧保存）</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>Hive</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>Hive</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hive源码解析</title>
     <url>/2020/07/08/Hive-5/</url>
     <content><![CDATA[<h2 id="Hive源码解析"><a href="#Hive源码解析" class="headerlink" title="Hive源码解析"></a>Hive源码解析</h2><p>入口：hive-cli-1.1.0-cdh5.14.4.jar!&#x2F;org&#x2F;apache&#x2F;hadoop&#x2F;hive&#x2F;cli&#x2F;CliDriver.class</p>
@@ -5128,6 +5128,240 @@ Editor → Hive 进入Hive，可以对Hive中的表单进行操作
       </categories>
       <tags>
         <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM 内存管理</title>
+    <url>/2020/10/29/JVM-1/</url>
+    <content><![CDATA[<h2 id="JVM-内存管理"><a href="#JVM-内存管理" class="headerlink" title="JVM 内存管理"></a>JVM 内存管理</h2><p><a href="https://www.cnblogs.com/alsf/p/9017447.html">参考文档</a></p>
+<h3 id="1-堆和栈"><a href="#1-堆和栈" class="headerlink" title="1. 堆和栈"></a>1. 堆和栈</h3><p>JVM内存划分：</p>
+<ol>
+<li>寄存器（程序计数器PC拿到指令地址，放入指令寄存器IR中，cpu执行指令）</li>
+<li>本地方法区（本地方法栈）：主要是调用native方法</li>
+<li>方法区：记录类的信息，常量等<blockquote>
+<p>这个方法区在jdk8之前是叫永久代，存储一些类的信息，方法的信息等类似元数据信息一样的东西，如果程序加载的类过多，也可能会导致OOM。JDK8 把这个区域挪出来，不再保存在虚拟机中，而是本地内存，叫做元空间，这样就不局域于jvm可使用的系统内存。</p>
+</blockquote>
+</li>
+<li>栈内存（stack）<ul>
+<li>由编译器自动分配，存放函数的参数值，局部变量的值（定义在方法中的都是局部变量，方法外的是全局变量，for循环内部也是局部变量）</li>
+<li>先加载函数才能进行局部变量的定义，所以方法先进栈，再定义变量，变量离开作用域后释放，生命周期都很短</li>
+</ul>
+</li>
+<li>堆内存（heap，不是数据结构中的堆）<ul>
+<li>由程序猿分配释放，如果程序猿不释放，程序结束时由GC回收</li>
+<li>存储的是数组和对象，凡是new的都在堆中，实体（对象）里面封装了多个数据，一个数据消失，实体不会消失，还可以用，所以堆不会随时释放，会由GC不定时回收</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>int[] arr &#x3D; new int[3];<br>主函数进栈 -&gt; 在栈中定义一个 arr 变量 -&gt; 在堆里通过new开辟一个空间，这个空间会产生一个地址，这个地址下的所有所有会进行初始化 -&gt; 把内存的地址赋值给 arr<br>int[] arr &#x3D; null; arr不做任何指向，null的作用就是取消引用数据类型的指向</p>
+</blockquote>
+<h4 id="1-1-堆"><a href="#1-1-堆" class="headerlink" title="1.1 堆"></a>1.1 堆</h4><p>堆又分为</p>
+<ul>
+<li>新生代<ul>
+<li>新生代又被进一步划分为Eden和Survivor区，最后Survivor由FromSpace和ToSpace组成</li>
+<li>新建的对象都是由新生代分配内存</li>
+<li>新生代大小可以由-Xmn来控制，也可以用-XX:SurvivorRatio来控制Eden和Survivor的比例</li>
+</ul>
+</li>
+<li>老年代<ul>
+<li>用于存放新生代中经过多次垃圾回收仍然存活的对象</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://images.weserv.nl/?url=https://images2018.cnblogs.com/blog/779030/201805/779030-20180510001611099-127788676.png" alt="堆结构"></p>
+<p><img src="https://images.weserv.nl/?url=https://images2018.cnblogs.com/blog/779030/201805/779030-20180510003027516-1618059091.png" alt="堆结构"></p>
+<h4 id="1-2-栈"><a href="#1-2-栈" class="headerlink" title="1.2 栈"></a>1.2 栈</h4><p>每个线程执行每个方法的时候都会在栈中申请一个栈帧，每个栈帧包括局部变量区和操作数栈，用于存放此次方法调用过程中的临时变量、参数和中间结果</p>
+<p>当一个方法执行结束的时候，方法会出栈，方法内部的变量也会跟着出栈，当局部变量出栈之后，堆中new出来的内存空间就会变的不可达，当GC回收的时候就会去回收那些不可达的区域</p>
+<h3 id="2-GC"><a href="#2-GC" class="headerlink" title="2. GC"></a>2. GC</h3><p><a href="https://mp.weixin.qq.com/s/8rj70QaU4ypZ0W5yqpkwvQ">文档1</a><br><a href="https://www.cnblogs.com/aspirant/p/8662690.html">文档2</a><br><a href="https://blog.csdn.net/shlgyzl/article/details/95041113">文档3</a></p>
+<p>怎么确定哪些对象应该回收？引用计数方法和可达性分析<br>什么时候回收？cpu空闲自动回收；堆内存满了；主动调用 system.gc()<br>如何回收？四种垃圾回收算法</p>
+<h4 id="2-1-垃圾回收算法"><a href="#2-1-垃圾回收算法" class="headerlink" title="2.1 垃圾回收算法"></a>2.1 垃圾回收算法</h4><ol>
+<li>引用计数法：有引用就+1，引用失效就-1，等于0的时候清除。缺点：很难解决对象之间互相循环引用的问题。</li>
+<li>标记清除法：先标记哪一些需要回收，再清除被标记的对象。缺点：容易产生内存碎片，碎片太多的话后续过程中为大对象分配空间时无法找到足够的空间从而会提前触发一次垃圾回收动作</li>
+<li>复制算法：两部分内存，每次只使用一块内存。回收时将a1内存中还存活的对象复制到a2，然后清空整个a1内存。优点：在复制过去的时候相当于有一次整理的动作，不会产生内存碎片，运行高效。缺点：会使可用内存缩减到原来的一半。</li>
+<li>标记整理法：先标记，然后把存货的对象移动到一端整理，最后清理掉端边界以外的内存。优点：不产生内存碎片。缺点：成本高</li>
+</ol>
+<h4 id="2-2-新生代和老年代的GC算法"><a href="#2-2-新生代和老年代的GC算法" class="headerlink" title="2.2 新生代和老年代的GC算法"></a>2.2 新生代和老年代的GC算法</h4><ol>
+<li>新生代GC<br> 新生代通常存活时间较短，因此基于<strong>复制算法</strong>来进行回收。新生代内存空间划分为 Eden + S1 + S2（8:1:1），当进行回收的时候，把Eden和S1存活的对象复制到S2上，然后清理掉Eden和S1。</li>
+<li>老年代GC<br> 老年代对象存活的时间比较长，比较稳定。因此采用<strong>标记（Mark）算法</strong>来进行回收，所谓标记就是扫描出存活的对象，然后再进行回收未被标记的对象，回收后对用空出的空间要么进行合并，要么标记出来便于下次进行分配，总之就是要减少内存碎片带来的效率损耗</li>
+</ol>
+<h4 id="2-3-如何是老年代？"><a href="#2-3-如何是老年代？" class="headerlink" title="2.3 如何是老年代？"></a>2.3 如何是老年代？</h4><ol>
+<li>大对象直接进入老年代（大对象是指需要大量连续内存空间的对象）。这样做的目的是避免在Eden和S1S2区产生大量的内存拷贝</li>
+<li>长期存活的对象进入老年代。对象每经过一次YGC年龄都会+1，默认阈值是15，达到阈值的对象进入老年代。阈值可以通过 -XX:MaxTenuringThreshold 设置</li>
+<li>动态判断对象的年龄。如果Survivor区中存在相同年龄的对象，年龄从小到大进行累加，当加入某个年龄的对象后，累加和超过了Survivor区域大小* TargetSurvivorRatio（默认50%）的时候，从这个年龄往上的所有对象都会挪到老年代。例：年龄1占了33%，年龄2占了33%，年龄3占了34%，因为年龄1+年龄2累加超过了50%，那么年龄2和年龄3都挪到老年代。</li>
+</ol>
+<h4 id="2-4-什么时候触发GC？"><a href="#2-4-什么时候触发GC？" class="headerlink" title="2.4 什么时候触发GC？"></a>2.4 什么时候触发GC？</h4><ol>
+<li>新对象生成，并在Eden申请空间失败时，会触发minorGC即YGC</li>
+<li>老年代被写满；持久代被写满；system.gc() 被显示调用；会触发full gc。</li>
+</ol>
+<h4 id="2-5-垃圾回收器"><a href="#2-5-垃圾回收器" class="headerlink" title="2.5 垃圾回收器"></a>2.5 垃圾回收器</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbudaM15Rw47UHovZzmRX7EqHu1cZME2niaJJR0Yf4toicqZvDGV4JIdLFwHRIMR20YwkSgu3omBP1fbA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="垃圾回收器"></p>
+<ol>
+<li>serial<br> <strong>采取复制算法</strong>，用于新生代，单线程收集器，所以在他工作时会产生StopTheWorld。单线程情况下效率更高，比如用于GUI小程序<br> 可以与CMS垃圾回收器一起搭配工作</li>
+<li>ParNew<br> <strong>采取复制算法</strong>，用于新生代，是Serial的多线程版本，多个GC线程同时工作，但是也会产生StopTheWorld，因此不能和工作线程并行。<br> 可以与CMS垃圾回收器一起搭配工作</li>
+<li>Parallel Scavenge<br> <strong>采取复制算法</strong>，用于新生代，和ParNew一样，所以也会产生STW，多线程收集器，他是吞吐量优先的收集器，提供了很多参数来调节吞吐量。<br> 可以与 Serial Old ， Parallel Old 垃圾回收器一起搭配工作</li>
+<li>Serial Old<br> <strong>采取标记整理算法</strong>，用于老年代，单线程收集器，所以在他工作时会产生StopTheWorld。单线程情况下效率更高，比如用于GUI小程序</li>
+<li>Parallel Old<br> <strong>采取标记整理算法</strong>，用于老年代，Parallel Scavenge收集器的老年代版本，吞吐量优先。</li>
+<li>CMS<br> <strong>采取标记清除算法</strong>，老年代并行收集器，号称以最短STW时间为目标的收集器，并发高、停顿低、STW时间短的优点。主流垃圾收集器之一。</li>
+<li>G1<br> <strong>采取标记整理算法</strong>，并行收集器。对比CMS的好处之一就是不会产生内存碎片，此外，G1收集器不同于之前的收集器的一个重要特点是：G1回收的范围是整个Java堆(包括新生代，老年代)，而前六种收集器回收的范围仅限于新生代或老年代。而且他的STW停顿时间是可以手动控制一个长度为M毫秒的时间片段（可以用JVM参数 -XX:MaxGCPauseMillis指定），设置完后垃圾收集的时长不得超过这个（近实时）。</li>
+</ol>
+<blockquote>
+<p>新生代都会产生 STW，老年代可能更倾向于 CMS</p>
+</blockquote>
+<h4 id="2-6-CMS-回收器"><a href="#2-6-CMS-回收器" class="headerlink" title="2.6 CMS 回收器"></a>2.6 CMS 回收器</h4><p>采用标记清除，老年代并行收集器。分为四个阶段</p>
+<ol>
+<li>初始标记：只是标记一下 GC Roots 能直接关联的对象，速度很快，仍然需要暂停所有的工作线程。所以此阶段会产生STW，但时间很短。</li>
+<li>并发标记：进行 GC Roots 跟踪的过程，和用户线程一起工作，不需要暂停工作线程。不会STW。</li>
+<li>重新标记：为了修正在并发标记期间，因用户程序继续运行而导致标记产生变动的那一部分对象的标记记录，仍然需要暂停所有的工作线程。STW时间会比第一阶段稍微长点，但是远比并发标记短，效率也很高。</li>
+<li>并发清除：清除GC Roots不可达对象，和用户线程一起工作，不需要暂停工作线程。<blockquote>
+<p>会产生两次 STW</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbudaM15Rw47UHovZzmRX7EqHK7474OjbTGA7w5tK8VAGI534XdwcSK8HfsnRsZ3Mw7XHCK5hPMrrsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="CMS"></p>
+<p>优点：</p>
+<ol>
+<li>并发高</li>
+<li>停顿短</li>
+<li>STW时间短</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>对cpu资源敏感，并发标记会和用户进程一起占用cpu资源，竞争激烈的话会导致程序变慢</li>
+<li>会产生浮动垃圾碎片，在最后一个阶段因为用户进程还在执行，这时候产生的垃圾只能下次再处理</li>
+<li>内存碎片问题（因为是标记清除算法）。当剩余内存不能满足程序运行要求时，系统将会出现 Concurrent Mode Failure，临时 CMS 会采用 Serial Old 回收器进行垃圾清除，此时的性能将会被降低。</li>
+</ol>
+<blockquote>
+<p>针对这个内存碎片，有这个开关参数 -XX:+UseCMSCompactAtFullCollection 作用是在full gc 后会做一次碎片整理，但是会导致停顿时间增长，此时就需要另一个参数 -XX:CMSFullGCsBeforeCompaction 这个参数用于设置在执行多少次不压缩的Full GC后,跟着来一次带压缩的</p>
+</blockquote>
+<blockquote>
+<p>CMS 不等于Full GC，我们可以看到CMS分为多个阶段，只有stop the world的阶段被计算到了Full GC的次数和时间，而和业务线程并发的GC的次数和时间则不被认为是Full GC。CMS主要可以分为initial mark(stop the world), concurrent mark, remark(stop the world), concurrent sweep几个阶段，其中initial mark和remark会stop the world。</p>
+</blockquote>
+<blockquote>
+<p>Full GC本身不会先进行Minor GC，我们可以配置，让Full GC之前先进行一次Minor GC，因为老年代很多对象都会引用到新生代的对象，先进行一次Minor GC可以提高老年代GC的速度。比如老年代使用CMS时，设置CMSScavengeBeforeRemark优化，让CMS remark之前先进行一次Minor GC。</p>
+</blockquote>
+<h4 id="2-7-G1-回收器"><a href="#2-7-G1-回收器" class="headerlink" title="2.7 G1 回收器"></a>2.7 G1 回收器</h4><p>采用标记整理，是针对整个堆的垃圾回收器。分为四个阶段</p>
+<ol>
+<li>初始标记：仅仅标记GCRoots能直接关联到的对象，且修改TAMS的值让下一阶段用户程序并发运行时能正确可用的Region中创建的新对象。速度很快，会STW。</li>
+<li>并发标记：进行 GC Roots 跟踪的过程，和用户线程一起工作，不需要暂停工作线程。不会STW。</li>
+<li>最终标记：为了修正在并发标记期间，因用户程序继续运行而导致标记产生变动的那一部分对象的标记记录，仍然需要暂停所有的工作线程。STW时间会比第一阶段稍微长点，但是远比并发标记短，效率也很高。</li>
+<li>筛选回收：首先对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间来制定回收计划。</li>
+</ol>
+<p>特点：</p>
+<ul>
+<li>并行与并发执行：利用多CPU的优势来缩短STW时间，在GC工作的时候，用户线程可以并行执行。</li>
+<li>分代收集：无需其他收集器配合，自己G1会进行分代收集。</li>
+<li>空间整合：不会像CMS那样产生内存碎片。</li>
+<li>可预测的停顿：可以手动控制一个长度为M毫秒的时间片段（可以用JVM参数 -XX:MaxGCPauseMillis指定），设置完后垃圾收集的时长不得超过这个（近实时）。</li>
+</ul>
+<p>原理：<br>G1并不是简单的把堆内存分为新生代和老年代两部分，而是把整个堆划分为多个大小相等的独立区域（Region），新生代和老年代也是一部分不需要连续Region的集合。G1跟踪各个Region里面的垃圾堆积的价值大小，在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region。</p>
+<h3 id="3-JVM-调优"><a href="#3-JVM-调优" class="headerlink" title="3. JVM 调优"></a>3. JVM 调优</h3><ol>
+<li><p>一个程序默认的最大堆大小是系统内存的1&#x2F;4，最小堆大小是系统内存的1&#x2F;64</p>
+<blockquote>
+<p>free -h 查看服务器内存大小<br>jcmd pid help 查看可选的option列表<br>jcmd pid VM.flags 查看当前进程的jvm参数信息<br>-XX:MaxHeapSize&#x3D;memory的四分之一</p>
+</blockquote>
+</li>
+<li><p>如果一个服务器内存32G，运行了100个程序，每一个程序的最大堆大小都是8G，最小堆</p>
+</li>
+<li><p>一般什么时候去调整 JVM 参数</p>
+</li>
+</ol>
+<ul>
+<li>需要大的吞吐量</li>
+<li>需要低时延<br>总结来说，原因就是需要快速的响应需求接口，但是如果 GC 的时间特别长，那么就需要去调整堆大小、年轻代大小、老年代大小</li>
+</ul>
+<ol start="4">
+<li><p>查看 GC 信息<br><code>jstat -gc pid</code> 查看进程在此刻的GC相关信息，主要看最后几个参数<br><code>YGC: 次数; YGCT: 时间(秒); FGC: 次数; FGCT: 时间(秒); GCT: 等于前面两个时间之和</code></p>
+</li>
+<li><p>默认空余堆内存小于40%时，JVM就会增大堆直到-Xmx的最大限制；空余堆内存大于70%时，JVM会减少堆直到 -Xms的最小限制<br>&#x3D;&gt; 所以，一般最小堆大小和最大堆大小设置为相等，避免每次GC后要去调整堆的大小</p>
+</li>
+</ol>
+<h4 id="3-1-一些JVM参数"><a href="#3-1-一些JVM参数" class="headerlink" title="3.1 一些JVM参数"></a>3.1 一些JVM参数</h4><ol>
+<li>堆设置</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-Xms:初始（最小）堆大小</span><br><span class="line">-Xmx:最大堆大小</span><br><span class="line">-Xmn:新生代大小 默认是最小堆的1/3，即年轻代和老年代的比例默认是 1:2</span><br><span class="line">-XX:NewRatio:设置新生代和老年代的比值。如：为3，表示年轻代与老年代比值为1：3</span><br><span class="line">-XX:SurvivorRatio:新生代中Eden区与两个Survivor区的比值。注意Survivor区有两个。如：为3，表示Eden：Survivor=3：2，一个Survivor区占整个新生代的1/5  </span><br><span class="line"></span><br><span class="line">-XX:MaxTenuringThreshold:设置转入老年代的存活次数。如果是0，则直接跳过新生代进入老年代</span><br><span class="line">-XX:PermSize、-XX:MaxPermSize:分别设置永久代最小大小与最大大小（Java8以前）</span><br><span class="line">-XX:MetaspaceSize、-XX:MaxMetaspaceSize:分别设置元空间最小大小与最大大小（Java8以后）</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>收集器设置</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:+UseSerialGC:设置串行收集器</span><br><span class="line">-XX:+UseParNewGC</span><br><span class="line"></span><br><span class="line">-XX:+UseParallelGC:设置并行收集器</span><br><span class="line">-XX:+UseParalledlOldGC:设置并行老年代收集器</span><br><span class="line">-XX:+UseConcMarkSweepGC:设置并发收集器</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>垃圾回收统计信息</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:+PrintGC</span><br><span class="line">-XX:+PrintGCDetails</span><br><span class="line">-XX:+PrintGCTimeStamps 打印从启动到发生gc这段时间的一个秒数</span><br><span class="line">-XX:+PrintGCDateStamps 会打印详细的时间信息</span><br><span class="line">-Xloggc:filename</span><br><span class="line">-XX:GCLogFileSize=256M</span><br><span class="line">-XX:+UseGCLogFileRotation</span><br><span class="line">-XX:NumberOfGCLogFiles=5</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>并行收集器设置</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:ParallelGCThreads=n:设置并行收集器收集时使用的CPU数。并行收集线程数。</span><br><span class="line">-XX:MaxGCPauseMillis=n:设置并行收集最大暂停时间</span><br><span class="line">-XX:GCTimeRatio=n:设置垃圾回收时间占程序运行时间的百分比。公式为1/(1+n)</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>并发收集器设置</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:+CMSIncrementalMode:设置为增量模式。适用于单CPU情况。</span><br><span class="line">-XX:ParallelGCThreads=n:设置并发收集器新生代收集方式为并行收集时，使用的CPU数。并行收集线程数。</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-栈溢出"><a href="#3-3-栈溢出" class="headerlink" title="3.3 栈溢出"></a>3.3 栈溢出</h4><p>栈溢出一般是因为存在循环递归的情况，有几种优化</p>
+<ol>
+<li><code>-Xss</code> 这是每个栈可使用的内存大小，即栈大小，如果这个值过小，可能导致栈溢出；如果过大，可能会影响到创建栈的数量，在多线程的情况下，依旧可能溢出</li>
+<li>递归的优化 &#x3D;&gt; 尾递归，参考斐波那契的写法。程序会自动优化尾递归，每次循环最后一个栈帧会被替换，而不会多开辟空间。需要有辅助记录的变量。相当于在执行到 base case 的时候，之前的答案也传递过来了，那么就直接 return 就行</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">F</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> n &lt; <span class="number">2</span> ? <span class="number">1</span> : F(n - <span class="number">1</span>) + F(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">优化后</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">F</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> a1,<span class="type">int</span> a2)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">0</span> ? a1 : F(n - <span class="number">1</span>, a2, a1 + a2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-HBase-JVM"><a href="#3-4-HBase-JVM" class="headerlink" title="3.4 HBase JVM"></a>3.4 HBase JVM</h4><p>regionServer 向 zk 发送心跳，zk有一个maxSessionTimeout，client自己也会传一个时间，不过zk本身会去做一个计算，来得到一个心跳时间，如果在心跳时间内 rs 没有发送心跳，那么就会认为 rs 下线了。</p>
+<p>rs 下线前是在 full gc，而时间过长，导致gc时间超过了心跳时间。</p>
+<p>24G<br>-Xmn配置6G， 4-5s一次 minor gc,  耗时300-400ms<br>-Xmn配置2G， 2s左右一次 minor gc,  耗时110ms左右<br>-Xmn配置1G， 1s左右一次或两次 minor gc,  耗时70ms左右</p>
+<p>还有一种情况，接口获取的大多是明细数据，会导致数据存放在blockcache中，在数据量大的时候，同时去访问，会导致内存不够。此时需要去调大堆大小。</p>
+<blockquote>
+<p>blockcache 有两种策略，堆内LruBlockCache和堆外BucketCache</p>
+</blockquote>
+<h4 id="3-5-Java-程序"><a href="#3-5-Java-程序" class="headerlink" title="3.5 Java 程序"></a>3.5 Java 程序</h4><p>memory 32G<br>程序 堆最大8g 最小512M<br>9521次  146.591秒  60次&#x2F;秒<br>-Xmn配置1G， 1s左右一次或两次 minor gc,  耗时70ms左右</p>
+<p>memory 16G<br>程序 堆最大4g 最小256M<br>1294次 9.388秒 138次&#x2F;秒 刚运行没多久就这么多次</p>
+<p>2g<br>357次 3.383秒 1天时间内回收了357次，full gc出现2次</p>
+<p>-Xmn6g -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction&#x3D;15 -XX:CMSInitiatingOccupancyFraction&#x3D;70 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:&#x2F;data1&#x2F;log&#x2F;hbase&#x2F;gc-hbase.log  -XX:ReservedCodeCacheSize&#x3D;256m -XX:GCLogFileSize&#x3D;256M -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles&#x3D;5</p>
+<p>nohup java -Xms2048m -Xmx2048m -Xmn712m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Xloggc:&#x2F;data&#x2F;label_engine&#x2F;logs&#x2F;gc.log -XX:GCLogFileSize&#x3D;256M -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles&#x3D;5 -jar label-0.0.1-SNAPSHOT.jar –server.port&#x3D;8082  &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM SafePoint</title>
+    <url>/2020/11/12/JVM-2/</url>
+    <content><![CDATA[<h2 id="JVM-SafePoint"><a href="#JVM-SafePoint" class="headerlink" title="JVM SafePoint"></a>JVM SafePoint</h2><p>在多线程环境下，为了能正确回收不再使用的内存，安全回收需要满足以下两个条件</p>
+<ol>
+<li>堆内存的变化是受控制的，最好所有的线程都停止</li>
+<li>堆中的对象是已知的，不再使用的对象都可以找到</li>
+</ol>
+<p>∴ JVM 是在 SafePoint 点时才进行回收，所谓 SafePoint 即Java线程执行到某个位置时，JVM能够安全可控地回收对象</p>
+<p>如何到达 SafePoint</p>
+<p>说到这里就要提到如何使线程中断，一般有两种方式：主动式和被动式。主动式JVM设置一个全局变量，线程去按照某种策略检查这个变量一旦发现是Safe Point就主动挂起，被动式就是发个信号，例如关机、Control+C，带来的问题就是不可控，发信号的时候不知道线程处于什么状态。这里HostSop虚拟机采用的是主动式使线程中断。</p>
+<p>既然JVM使用的是主动性主动到达安全点，那么应该在什么地方设置全局变量呢？显然不能随意设置全局变量，进入安全点有个默认策略那就是：“避免程序长时间运行而不进入Safe Point”，程序要GC了必须要等线程进入安全点，如果线程长时间不进入安全点这样就比较糟糕了，因此安全点主要咋以下位置设置：</p>
+<ol>
+<li><p>循环的末尾</p>
+</li>
+<li><p>方法返回前</p>
+</li>
+<li><p>调用方法的call之后</p>
+</li>
+<li><p>抛出异常的位置</p>
+</li>
+</ol>
+<p>安全区域</p>
+<p>安全点完美的解决了如何进入GC问题，实际情况可能比这个更复杂，但是如果程序长时间不执行，比如线程调用的sleep方法，这时候程序无法响应JVM中断请求这时候线程无法到达安全点，显然JVM也不可能等待程序唤醒，这时候就需要安全区域了。</p>
+<p>安全区域是指一段代码片中，引用关系不会发生变化，在这个区域任何地方GC都是安全的，安全区域可以看做是安全点的一个扩展。线程执行到安全区域的代码时，首先标识自己进入了安全区域，这样GC时就不用管进入安全区域的线层了，线层要离开安全区域时就检查JVM是否完成了GC Roots枚举，如果完成就继续执行，如果没有完成就等待直到收到可以安全离开的信号。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JVM</tag>
       </tags>
   </entry>
   <entry>
@@ -6860,240 +7094,6 @@ The code above will output `5` as output. When we used `delete` operator for del
       </tags>
   </entry>
   <entry>
-    <title>JVM SafePoint</title>
-    <url>/2020/11/12/JVM-2/</url>
-    <content><![CDATA[<h2 id="JVM-SafePoint"><a href="#JVM-SafePoint" class="headerlink" title="JVM SafePoint"></a>JVM SafePoint</h2><p>在多线程环境下，为了能正确回收不再使用的内存，安全回收需要满足以下两个条件</p>
-<ol>
-<li>堆内存的变化是受控制的，最好所有的线程都停止</li>
-<li>堆中的对象是已知的，不再使用的对象都可以找到</li>
-</ol>
-<p>∴ JVM 是在 SafePoint 点时才进行回收，所谓 SafePoint 即Java线程执行到某个位置时，JVM能够安全可控地回收对象</p>
-<p>如何到达 SafePoint</p>
-<p>说到这里就要提到如何使线程中断，一般有两种方式：主动式和被动式。主动式JVM设置一个全局变量，线程去按照某种策略检查这个变量一旦发现是Safe Point就主动挂起，被动式就是发个信号，例如关机、Control+C，带来的问题就是不可控，发信号的时候不知道线程处于什么状态。这里HostSop虚拟机采用的是主动式使线程中断。</p>
-<p>既然JVM使用的是主动性主动到达安全点，那么应该在什么地方设置全局变量呢？显然不能随意设置全局变量，进入安全点有个默认策略那就是：“避免程序长时间运行而不进入Safe Point”，程序要GC了必须要等线程进入安全点，如果线程长时间不进入安全点这样就比较糟糕了，因此安全点主要咋以下位置设置：</p>
-<ol>
-<li><p>循环的末尾</p>
-</li>
-<li><p>方法返回前</p>
-</li>
-<li><p>调用方法的call之后</p>
-</li>
-<li><p>抛出异常的位置</p>
-</li>
-</ol>
-<p>安全区域</p>
-<p>安全点完美的解决了如何进入GC问题，实际情况可能比这个更复杂，但是如果程序长时间不执行，比如线程调用的sleep方法，这时候程序无法响应JVM中断请求这时候线程无法到达安全点，显然JVM也不可能等待程序唤醒，这时候就需要安全区域了。</p>
-<p>安全区域是指一段代码片中，引用关系不会发生变化，在这个区域任何地方GC都是安全的，安全区域可以看做是安全点的一个扩展。线程执行到安全区域的代码时，首先标识自己进入了安全区域，这样GC时就不用管进入安全区域的线层了，线层要离开安全区域时就检查JVM是否完成了GC Roots枚举，如果完成就继续执行，如果没有完成就等待直到收到可以安全离开的信号。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>JVM</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JVM 内存管理</title>
-    <url>/2020/10/29/JVM-1/</url>
-    <content><![CDATA[<h2 id="JVM-内存管理"><a href="#JVM-内存管理" class="headerlink" title="JVM 内存管理"></a>JVM 内存管理</h2><p><a href="https://www.cnblogs.com/alsf/p/9017447.html">参考文档</a></p>
-<h3 id="1-堆和栈"><a href="#1-堆和栈" class="headerlink" title="1. 堆和栈"></a>1. 堆和栈</h3><p>JVM内存划分：</p>
-<ol>
-<li>寄存器（程序计数器PC拿到指令地址，放入指令寄存器IR中，cpu执行指令）</li>
-<li>本地方法区（本地方法栈）：主要是调用native方法</li>
-<li>方法区：记录类的信息，常量等<blockquote>
-<p>这个方法区在jdk8之前是叫永久代，存储一些类的信息，方法的信息等类似元数据信息一样的东西，如果程序加载的类过多，也可能会导致OOM。JDK8 把这个区域挪出来，不再保存在虚拟机中，而是本地内存，叫做元空间，这样就不局域于jvm可使用的系统内存。</p>
-</blockquote>
-</li>
-<li>栈内存（stack）<ul>
-<li>由编译器自动分配，存放函数的参数值，局部变量的值（定义在方法中的都是局部变量，方法外的是全局变量，for循环内部也是局部变量）</li>
-<li>先加载函数才能进行局部变量的定义，所以方法先进栈，再定义变量，变量离开作用域后释放，生命周期都很短</li>
-</ul>
-</li>
-<li>堆内存（heap，不是数据结构中的堆）<ul>
-<li>由程序猿分配释放，如果程序猿不释放，程序结束时由GC回收</li>
-<li>存储的是数组和对象，凡是new的都在堆中，实体（对象）里面封装了多个数据，一个数据消失，实体不会消失，还可以用，所以堆不会随时释放，会由GC不定时回收</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>int[] arr &#x3D; new int[3];<br>主函数进栈 -&gt; 在栈中定义一个 arr 变量 -&gt; 在堆里通过new开辟一个空间，这个空间会产生一个地址，这个地址下的所有所有会进行初始化 -&gt; 把内存的地址赋值给 arr<br>int[] arr &#x3D; null; arr不做任何指向，null的作用就是取消引用数据类型的指向</p>
-</blockquote>
-<h4 id="1-1-堆"><a href="#1-1-堆" class="headerlink" title="1.1 堆"></a>1.1 堆</h4><p>堆又分为</p>
-<ul>
-<li>新生代<ul>
-<li>新生代又被进一步划分为Eden和Survivor区，最后Survivor由FromSpace和ToSpace组成</li>
-<li>新建的对象都是由新生代分配内存</li>
-<li>新生代大小可以由-Xmn来控制，也可以用-XX:SurvivorRatio来控制Eden和Survivor的比例</li>
-</ul>
-</li>
-<li>老年代<ul>
-<li>用于存放新生代中经过多次垃圾回收仍然存活的对象</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://images.weserv.nl/?url=https://images2018.cnblogs.com/blog/779030/201805/779030-20180510001611099-127788676.png" alt="堆结构"></p>
-<p><img src="https://images.weserv.nl/?url=https://images2018.cnblogs.com/blog/779030/201805/779030-20180510003027516-1618059091.png" alt="堆结构"></p>
-<h4 id="1-2-栈"><a href="#1-2-栈" class="headerlink" title="1.2 栈"></a>1.2 栈</h4><p>每个线程执行每个方法的时候都会在栈中申请一个栈帧，每个栈帧包括局部变量区和操作数栈，用于存放此次方法调用过程中的临时变量、参数和中间结果</p>
-<p>当一个方法执行结束的时候，方法会出栈，方法内部的变量也会跟着出栈，当局部变量出栈之后，堆中new出来的内存空间就会变的不可达，当GC回收的时候就会去回收那些不可达的区域</p>
-<h3 id="2-GC"><a href="#2-GC" class="headerlink" title="2. GC"></a>2. GC</h3><p><a href="https://mp.weixin.qq.com/s/8rj70QaU4ypZ0W5yqpkwvQ">文档1</a><br><a href="https://www.cnblogs.com/aspirant/p/8662690.html">文档2</a><br><a href="https://blog.csdn.net/shlgyzl/article/details/95041113">文档3</a></p>
-<p>怎么确定哪些对象应该回收？引用计数方法和可达性分析<br>什么时候回收？cpu空闲自动回收；堆内存满了；主动调用 system.gc()<br>如何回收？四种垃圾回收算法</p>
-<h4 id="2-1-垃圾回收算法"><a href="#2-1-垃圾回收算法" class="headerlink" title="2.1 垃圾回收算法"></a>2.1 垃圾回收算法</h4><ol>
-<li>引用计数法：有引用就+1，引用失效就-1，等于0的时候清除。缺点：很难解决对象之间互相循环引用的问题。</li>
-<li>标记清除法：先标记哪一些需要回收，再清除被标记的对象。缺点：容易产生内存碎片，碎片太多的话后续过程中为大对象分配空间时无法找到足够的空间从而会提前触发一次垃圾回收动作</li>
-<li>复制算法：两部分内存，每次只使用一块内存。回收时将a1内存中还存活的对象复制到a2，然后清空整个a1内存。优点：在复制过去的时候相当于有一次整理的动作，不会产生内存碎片，运行高效。缺点：会使可用内存缩减到原来的一半。</li>
-<li>标记整理法：先标记，然后把存货的对象移动到一端整理，最后清理掉端边界以外的内存。优点：不产生内存碎片。缺点：成本高</li>
-</ol>
-<h4 id="2-2-新生代和老年代的GC算法"><a href="#2-2-新生代和老年代的GC算法" class="headerlink" title="2.2 新生代和老年代的GC算法"></a>2.2 新生代和老年代的GC算法</h4><ol>
-<li>新生代GC<br> 新生代通常存活时间较短，因此基于<strong>复制算法</strong>来进行回收。新生代内存空间划分为 Eden + S1 + S2（8:1:1），当进行回收的时候，把Eden和S1存活的对象复制到S2上，然后清理掉Eden和S1。</li>
-<li>老年代GC<br> 老年代对象存活的时间比较长，比较稳定。因此采用<strong>标记（Mark）算法</strong>来进行回收，所谓标记就是扫描出存活的对象，然后再进行回收未被标记的对象，回收后对用空出的空间要么进行合并，要么标记出来便于下次进行分配，总之就是要减少内存碎片带来的效率损耗</li>
-</ol>
-<h4 id="2-3-如何是老年代？"><a href="#2-3-如何是老年代？" class="headerlink" title="2.3 如何是老年代？"></a>2.3 如何是老年代？</h4><ol>
-<li>大对象直接进入老年代（大对象是指需要大量连续内存空间的对象）。这样做的目的是避免在Eden和S1S2区产生大量的内存拷贝</li>
-<li>长期存活的对象进入老年代。对象每经过一次YGC年龄都会+1，默认阈值是15，达到阈值的对象进入老年代。阈值可以通过 -XX:MaxTenuringThreshold 设置</li>
-<li>动态判断对象的年龄。如果Survivor区中存在相同年龄的对象，年龄从小到大进行累加，当加入某个年龄的对象后，累加和超过了Survivor区域大小* TargetSurvivorRatio（默认50%）的时候，从这个年龄往上的所有对象都会挪到老年代。例：年龄1占了33%，年龄2占了33%，年龄3占了34%，因为年龄1+年龄2累加超过了50%，那么年龄2和年龄3都挪到老年代。</li>
-</ol>
-<h4 id="2-4-什么时候触发GC？"><a href="#2-4-什么时候触发GC？" class="headerlink" title="2.4 什么时候触发GC？"></a>2.4 什么时候触发GC？</h4><ol>
-<li>新对象生成，并在Eden申请空间失败时，会触发minorGC即YGC</li>
-<li>老年代被写满；持久代被写满；system.gc() 被显示调用；会触发full gc。</li>
-</ol>
-<h4 id="2-5-垃圾回收器"><a href="#2-5-垃圾回收器" class="headerlink" title="2.5 垃圾回收器"></a>2.5 垃圾回收器</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbudaM15Rw47UHovZzmRX7EqHu1cZME2niaJJR0Yf4toicqZvDGV4JIdLFwHRIMR20YwkSgu3omBP1fbA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="垃圾回收器"></p>
-<ol>
-<li>serial<br> <strong>采取复制算法</strong>，用于新生代，单线程收集器，所以在他工作时会产生StopTheWorld。单线程情况下效率更高，比如用于GUI小程序<br> 可以与CMS垃圾回收器一起搭配工作</li>
-<li>ParNew<br> <strong>采取复制算法</strong>，用于新生代，是Serial的多线程版本，多个GC线程同时工作，但是也会产生StopTheWorld，因此不能和工作线程并行。<br> 可以与CMS垃圾回收器一起搭配工作</li>
-<li>Parallel Scavenge<br> <strong>采取复制算法</strong>，用于新生代，和ParNew一样，所以也会产生STW，多线程收集器，他是吞吐量优先的收集器，提供了很多参数来调节吞吐量。<br> 可以与 Serial Old ， Parallel Old 垃圾回收器一起搭配工作</li>
-<li>Serial Old<br> <strong>采取标记整理算法</strong>，用于老年代，单线程收集器，所以在他工作时会产生StopTheWorld。单线程情况下效率更高，比如用于GUI小程序</li>
-<li>Parallel Old<br> <strong>采取标记整理算法</strong>，用于老年代，Parallel Scavenge收集器的老年代版本，吞吐量优先。</li>
-<li>CMS<br> <strong>采取标记清除算法</strong>，老年代并行收集器，号称以最短STW时间为目标的收集器，并发高、停顿低、STW时间短的优点。主流垃圾收集器之一。</li>
-<li>G1<br> <strong>采取标记整理算法</strong>，并行收集器。对比CMS的好处之一就是不会产生内存碎片，此外，G1收集器不同于之前的收集器的一个重要特点是：G1回收的范围是整个Java堆(包括新生代，老年代)，而前六种收集器回收的范围仅限于新生代或老年代。而且他的STW停顿时间是可以手动控制一个长度为M毫秒的时间片段（可以用JVM参数 -XX:MaxGCPauseMillis指定），设置完后垃圾收集的时长不得超过这个（近实时）。</li>
-</ol>
-<blockquote>
-<p>新生代都会产生 STW，老年代可能更倾向于 CMS</p>
-</blockquote>
-<h4 id="2-6-CMS-回收器"><a href="#2-6-CMS-回收器" class="headerlink" title="2.6 CMS 回收器"></a>2.6 CMS 回收器</h4><p>采用标记清除，老年代并行收集器。分为四个阶段</p>
-<ol>
-<li>初始标记：只是标记一下 GC Roots 能直接关联的对象，速度很快，仍然需要暂停所有的工作线程。所以此阶段会产生STW，但时间很短。</li>
-<li>并发标记：进行 GC Roots 跟踪的过程，和用户线程一起工作，不需要暂停工作线程。不会STW。</li>
-<li>重新标记：为了修正在并发标记期间，因用户程序继续运行而导致标记产生变动的那一部分对象的标记记录，仍然需要暂停所有的工作线程。STW时间会比第一阶段稍微长点，但是远比并发标记短，效率也很高。</li>
-<li>并发清除：清除GC Roots不可达对象，和用户线程一起工作，不需要暂停工作线程。<blockquote>
-<p>会产生两次 STW</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbudaM15Rw47UHovZzmRX7EqHK7474OjbTGA7w5tK8VAGI534XdwcSK8HfsnRsZ3Mw7XHCK5hPMrrsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="CMS"></p>
-<p>优点：</p>
-<ol>
-<li>并发高</li>
-<li>停顿短</li>
-<li>STW时间短</li>
-</ol>
-<p>缺点：</p>
-<ol>
-<li>对cpu资源敏感，并发标记会和用户进程一起占用cpu资源，竞争激烈的话会导致程序变慢</li>
-<li>会产生浮动垃圾碎片，在最后一个阶段因为用户进程还在执行，这时候产生的垃圾只能下次再处理</li>
-<li>内存碎片问题（因为是标记清除算法）。当剩余内存不能满足程序运行要求时，系统将会出现 Concurrent Mode Failure，临时 CMS 会采用 Serial Old 回收器进行垃圾清除，此时的性能将会被降低。</li>
-</ol>
-<blockquote>
-<p>针对这个内存碎片，有这个开关参数 -XX:+UseCMSCompactAtFullCollection 作用是在full gc 后会做一次碎片整理，但是会导致停顿时间增长，此时就需要另一个参数 -XX:CMSFullGCsBeforeCompaction 这个参数用于设置在执行多少次不压缩的Full GC后,跟着来一次带压缩的</p>
-</blockquote>
-<blockquote>
-<p>CMS 不等于Full GC，我们可以看到CMS分为多个阶段，只有stop the world的阶段被计算到了Full GC的次数和时间，而和业务线程并发的GC的次数和时间则不被认为是Full GC。CMS主要可以分为initial mark(stop the world), concurrent mark, remark(stop the world), concurrent sweep几个阶段，其中initial mark和remark会stop the world。</p>
-</blockquote>
-<blockquote>
-<p>Full GC本身不会先进行Minor GC，我们可以配置，让Full GC之前先进行一次Minor GC，因为老年代很多对象都会引用到新生代的对象，先进行一次Minor GC可以提高老年代GC的速度。比如老年代使用CMS时，设置CMSScavengeBeforeRemark优化，让CMS remark之前先进行一次Minor GC。</p>
-</blockquote>
-<h4 id="2-7-G1-回收器"><a href="#2-7-G1-回收器" class="headerlink" title="2.7 G1 回收器"></a>2.7 G1 回收器</h4><p>采用标记整理，是针对整个堆的垃圾回收器。分为四个阶段</p>
-<ol>
-<li>初始标记：仅仅标记GCRoots能直接关联到的对象，且修改TAMS的值让下一阶段用户程序并发运行时能正确可用的Region中创建的新对象。速度很快，会STW。</li>
-<li>并发标记：进行 GC Roots 跟踪的过程，和用户线程一起工作，不需要暂停工作线程。不会STW。</li>
-<li>最终标记：为了修正在并发标记期间，因用户程序继续运行而导致标记产生变动的那一部分对象的标记记录，仍然需要暂停所有的工作线程。STW时间会比第一阶段稍微长点，但是远比并发标记短，效率也很高。</li>
-<li>筛选回收：首先对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间来制定回收计划。</li>
-</ol>
-<p>特点：</p>
-<ul>
-<li>并行与并发执行：利用多CPU的优势来缩短STW时间，在GC工作的时候，用户线程可以并行执行。</li>
-<li>分代收集：无需其他收集器配合，自己G1会进行分代收集。</li>
-<li>空间整合：不会像CMS那样产生内存碎片。</li>
-<li>可预测的停顿：可以手动控制一个长度为M毫秒的时间片段（可以用JVM参数 -XX:MaxGCPauseMillis指定），设置完后垃圾收集的时长不得超过这个（近实时）。</li>
-</ul>
-<p>原理：<br>G1并不是简单的把堆内存分为新生代和老年代两部分，而是把整个堆划分为多个大小相等的独立区域（Region），新生代和老年代也是一部分不需要连续Region的集合。G1跟踪各个Region里面的垃圾堆积的价值大小，在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region。</p>
-<h3 id="3-JVM-调优"><a href="#3-JVM-调优" class="headerlink" title="3. JVM 调优"></a>3. JVM 调优</h3><ol>
-<li><p>一个程序默认的最大堆大小是系统内存的1&#x2F;4，最小堆大小是系统内存的1&#x2F;64</p>
-<blockquote>
-<p>free -h 查看服务器内存大小<br>jcmd pid help 查看可选的option列表<br>jcmd pid VM.flags 查看当前进程的jvm参数信息<br>-XX:MaxHeapSize&#x3D;memory的四分之一</p>
-</blockquote>
-</li>
-<li><p>如果一个服务器内存32G，运行了100个程序，每一个程序的最大堆大小都是8G，最小堆</p>
-</li>
-<li><p>一般什么时候去调整 JVM 参数</p>
-</li>
-</ol>
-<ul>
-<li>需要大的吞吐量</li>
-<li>需要低时延<br>总结来说，原因就是需要快速的响应需求接口，但是如果 GC 的时间特别长，那么就需要去调整堆大小、年轻代大小、老年代大小</li>
-</ul>
-<ol start="4">
-<li><p>查看 GC 信息<br><code>jstat -gc pid</code> 查看进程在此刻的GC相关信息，主要看最后几个参数<br><code>YGC: 次数; YGCT: 时间(秒); FGC: 次数; FGCT: 时间(秒); GCT: 等于前面两个时间之和</code></p>
-</li>
-<li><p>默认空余堆内存小于40%时，JVM就会增大堆直到-Xmx的最大限制；空余堆内存大于70%时，JVM会减少堆直到 -Xms的最小限制<br>&#x3D;&gt; 所以，一般最小堆大小和最大堆大小设置为相等，避免每次GC后要去调整堆的大小</p>
-</li>
-</ol>
-<h4 id="3-1-一些JVM参数"><a href="#3-1-一些JVM参数" class="headerlink" title="3.1 一些JVM参数"></a>3.1 一些JVM参数</h4><ol>
-<li>堆设置</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-Xms:初始（最小）堆大小</span><br><span class="line">-Xmx:最大堆大小</span><br><span class="line">-Xmn:新生代大小 默认是最小堆的1/3，即年轻代和老年代的比例默认是 1:2</span><br><span class="line">-XX:NewRatio:设置新生代和老年代的比值。如：为3，表示年轻代与老年代比值为1：3</span><br><span class="line">-XX:SurvivorRatio:新生代中Eden区与两个Survivor区的比值。注意Survivor区有两个。如：为3，表示Eden：Survivor=3：2，一个Survivor区占整个新生代的1/5  </span><br><span class="line"></span><br><span class="line">-XX:MaxTenuringThreshold:设置转入老年代的存活次数。如果是0，则直接跳过新生代进入老年代</span><br><span class="line">-XX:PermSize、-XX:MaxPermSize:分别设置永久代最小大小与最大大小（Java8以前）</span><br><span class="line">-XX:MetaspaceSize、-XX:MaxMetaspaceSize:分别设置元空间最小大小与最大大小（Java8以后）</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>收集器设置</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:+UseSerialGC:设置串行收集器</span><br><span class="line">-XX:+UseParNewGC</span><br><span class="line"></span><br><span class="line">-XX:+UseParallelGC:设置并行收集器</span><br><span class="line">-XX:+UseParalledlOldGC:设置并行老年代收集器</span><br><span class="line">-XX:+UseConcMarkSweepGC:设置并发收集器</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>垃圾回收统计信息</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:+PrintGC</span><br><span class="line">-XX:+PrintGCDetails</span><br><span class="line">-XX:+PrintGCTimeStamps 打印从启动到发生gc这段时间的一个秒数</span><br><span class="line">-XX:+PrintGCDateStamps 会打印详细的时间信息</span><br><span class="line">-Xloggc:filename</span><br><span class="line">-XX:GCLogFileSize=256M</span><br><span class="line">-XX:+UseGCLogFileRotation</span><br><span class="line">-XX:NumberOfGCLogFiles=5</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>并行收集器设置</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:ParallelGCThreads=n:设置并行收集器收集时使用的CPU数。并行收集线程数。</span><br><span class="line">-XX:MaxGCPauseMillis=n:设置并行收集最大暂停时间</span><br><span class="line">-XX:GCTimeRatio=n:设置垃圾回收时间占程序运行时间的百分比。公式为1/(1+n)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>并发收集器设置</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-XX:+CMSIncrementalMode:设置为增量模式。适用于单CPU情况。</span><br><span class="line">-XX:ParallelGCThreads=n:设置并发收集器新生代收集方式为并行收集时，使用的CPU数。并行收集线程数。</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-3-栈溢出"><a href="#3-3-栈溢出" class="headerlink" title="3.3 栈溢出"></a>3.3 栈溢出</h4><p>栈溢出一般是因为存在循环递归的情况，有几种优化</p>
-<ol>
-<li><code>-Xss</code> 这是每个栈可使用的内存大小，即栈大小，如果这个值过小，可能导致栈溢出；如果过大，可能会影响到创建栈的数量，在多线程的情况下，依旧可能溢出</li>
-<li>递归的优化 &#x3D;&gt; 尾递归，参考斐波那契的写法。程序会自动优化尾递归，每次循环最后一个栈帧会被替换，而不会多开辟空间。需要有辅助记录的变量。相当于在执行到 base case 的时候，之前的答案也传递过来了，那么就直接 return 就行</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">F</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> n &lt; <span class="number">2</span> ? <span class="number">1</span> : F(n - <span class="number">1</span>) + F(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">优化后</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">F</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> a1,<span class="type">int</span> a2)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">0</span> ? a1 : F(n - <span class="number">1</span>, a2, a1 + a2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-4-HBase-JVM"><a href="#3-4-HBase-JVM" class="headerlink" title="3.4 HBase JVM"></a>3.4 HBase JVM</h4><p>regionServer 向 zk 发送心跳，zk有一个maxSessionTimeout，client自己也会传一个时间，不过zk本身会去做一个计算，来得到一个心跳时间，如果在心跳时间内 rs 没有发送心跳，那么就会认为 rs 下线了。</p>
-<p>rs 下线前是在 full gc，而时间过长，导致gc时间超过了心跳时间。</p>
-<p>24G<br>-Xmn配置6G， 4-5s一次 minor gc,  耗时300-400ms<br>-Xmn配置2G， 2s左右一次 minor gc,  耗时110ms左右<br>-Xmn配置1G， 1s左右一次或两次 minor gc,  耗时70ms左右</p>
-<p>还有一种情况，接口获取的大多是明细数据，会导致数据存放在blockcache中，在数据量大的时候，同时去访问，会导致内存不够。此时需要去调大堆大小。</p>
-<blockquote>
-<p>blockcache 有两种策略，堆内LruBlockCache和堆外BucketCache</p>
-</blockquote>
-<h4 id="3-5-Java-程序"><a href="#3-5-Java-程序" class="headerlink" title="3.5 Java 程序"></a>3.5 Java 程序</h4><p>memory 32G<br>程序 堆最大8g 最小512M<br>9521次  146.591秒  60次&#x2F;秒<br>-Xmn配置1G， 1s左右一次或两次 minor gc,  耗时70ms左右</p>
-<p>memory 16G<br>程序 堆最大4g 最小256M<br>1294次 9.388秒 138次&#x2F;秒 刚运行没多久就这么多次</p>
-<p>2g<br>357次 3.383秒 1天时间内回收了357次，full gc出现2次</p>
-<p>-Xmn6g -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction&#x3D;15 -XX:CMSInitiatingOccupancyFraction&#x3D;70 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:&#x2F;data1&#x2F;log&#x2F;hbase&#x2F;gc-hbase.log  -XX:ReservedCodeCacheSize&#x3D;256m -XX:GCLogFileSize&#x3D;256M -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles&#x3D;5</p>
-<p>nohup java -Xms2048m -Xmx2048m -Xmn712m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Xloggc:&#x2F;data&#x2F;label_engine&#x2F;logs&#x2F;gc.log -XX:GCLogFileSize&#x3D;256M -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles&#x3D;5 -jar label-0.0.1-SNAPSHOT.jar –server.port&#x3D;8082  &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>JVM</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>JVM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java8 新特性</title>
     <url>/2019/09/23/Java-2/</url>
     <content><![CDATA[<h2 id="Java8-新特性"><a href="#Java8-新特性" class="headerlink" title="Java8 新特性"></a>Java8 新特性</h2><h3 id="1-Lambda-表达式"><a href="#1-Lambda-表达式" class="headerlink" title="1. Lambda 表达式"></a>1. Lambda 表达式</h3><p>语法：</p>
@@ -7833,49 +7833,6 @@ The code above will output `5` as output. When we used `delete` operator for del
       </tags>
   </entry>
   <entry>
-    <title>Kafka进阶</title>
-    <url>/2020/04/21/Kafka-2/</url>
-    <content><![CDATA[<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><h4 id="1-1-Kafka不能保证消息的全局有序，只能保证消息在partition内有序"><a href="#1-1-Kafka不能保证消息的全局有序，只能保证消息在partition内有序" class="headerlink" title="1.1 Kafka不能保证消息的全局有序，只能保证消息在partition内有序"></a>1.1 Kafka不能保证消息的全局有序，只能保证消息在partition内有序</h4><h4 id="1-2-每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset"><a href="#1-2-每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset" class="headerlink" title="1.2 每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset"></a>1.2 每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset</h4><h4 id="1-3-kafka中的分片-索引"><a href="#1-3-kafka中的分片-索引" class="headerlink" title="1.3 kafka中的分片+索引"></a>1.3 kafka中的分片+索引</h4><p>由于生产者生产的消息会不断追加到log文件的末尾，为防止log文件过大导致数据定位效率低下，Kafka采用分片和索引的机制，将每个partition分为多个segment，每个segment对应2个文件—-index文件和log文件，这2个文件位于一个相同的文件夹下，文件夹的命名规则为topic名称+分区序号。也就是partition下有多个segment文件夹，里面都有两个文件–index和log文件。Index文件中存储的数据的索引信息，第一列是offset，第二列是这个数据所对应的log文件中的偏移量。如果要去消费offset为3的数据，首先通过二分法找到数据在哪个index文件中，然后在通过index中offset找到数据在log文件中的offset；这样就可以快速的定位到数据并消费。所以kakfa虽然把数据存储在磁盘中，但是他的读取速度还是非常快的（类似于hbase对于行键来划分region，然后做的索引一样）</p>
-<h4 id="1-4-kafka如何保证数据可靠性呢？通过ack来保证。"><a href="#1-4-kafka如何保证数据可靠性呢？通过ack来保证。" class="headerlink" title="1.4 kafka如何保证数据可靠性呢？通过ack来保证。"></a>1.4 kafka如何保证数据可靠性呢？通过ack来保证。</h4><p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_png/JfTPiahTHJhrm8TXCvosZOiccDGNicKmuQNY7luoaibgofCT7I03m40Ed4fVh0oQsGAJAYiaKERTkDOEVlibxc7LwW5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"><br>为保证生产者发送的数据，能可靠的发送到指定的topic，topic的每个partition收到生产者发送的数据后，都需要向生产者发送ack（确认收到），如果生产者收到ack，就会进行下一轮的发送，否则重新发送数据。</p>
-<p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_png/JfTPiahTHJhrm8TXCvosZOiccDGNicKmuQNDQeh5h2rA2hfY6mF9DVXxrjXvicSw7lRsRg5ZatpYoT9YH4hF3FT14g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"><br>那么kafka什么时候向生产者发送ack？<br>确保follower（就相当于是partition的leader的副本，避免partition的leader挂了，导致无法获取数据）和leader同步完成，leader再发送ack给生产者，这样才能确保leader挂掉之后，能在follower中选举出新的leader后，数据不会丢失。kafka采用的是全部follower都返回ack后由leader发送给生产者。为了避免其中一个follower因为某种故障一直无法同步，leader会维护一个动态的节点列表，对于那些超过一定时间（时间可以自定义）还未返回ack的follower就移除列表。leader故障后，也会从这个列表中来选举新的leader。节点的选择主要是满足两点，一是与leader的网络通信时间应该低时延，二是与leader数据差距，消息条数默认是10000条</p>
-<h4 id="1-5-Kafka如何保证消费数据的一致性？通过HW来保证。"><a href="#1-5-Kafka如何保证消费数据的一致性？通过HW来保证。" class="headerlink" title="1.5 Kafka如何保证消费数据的一致性？通过HW来保证。"></a>1.5 Kafka如何保证消费数据的一致性？通过HW来保证。</h4><p>LEO：指每个follower的最大的offset。HW（高水位）：指消费者能见到的最大的offset，LSR队列中最小的LEO，也就是说消费者只能看到1~6的数据，后面的数据看不到，也消费不了。避免leader挂掉后，比如当前消费者消费8这条数据后，leader挂了，此时比如f2成为leader，f2根本就没有9这条数据，那么消费者就会报错，所以设计了HW这个参数，只暴露最少的数据给消费者，避免上面的问题。</p>
-<h4 id="1-6-zookeeper在kafka中的作用。"><a href="#1-6-zookeeper在kafka中的作用。" class="headerlink" title="1.6 zookeeper在kafka中的作用。"></a>1.6 zookeeper在kafka中的作用。</h4><p>Kafka集群中有一个broker会被选举为controller，负责管理集群broker的上下线，所有的topic的分区副本分配和leader选举等工作。</p>
-<h4 id="1-7-增加分区"><a href="#1-7-增加分区" class="headerlink" title="1.7 增加分区"></a>1.7 增加分区</h4><p><code>./bin/kafka-topics.sh --alter  --zookeeper localhost:2181  --topic 主题名称  --partitions 分区数量 --replication-factor 2</code></p>
-<h4 id="1-8-kafka分布式的情况下，如何保证消息的顺序"><a href="#1-8-kafka分布式的情况下，如何保证消息的顺序" class="headerlink" title="1.8 kafka分布式的情况下，如何保证消息的顺序?"></a>1.8 kafka分布式的情况下，如何保证消息的顺序?</h4><p>Kafka 中发送1条消息的时候，可以指定(topic, partition, key) 3个参数。partiton 和 key 是可选的。如果你指定了 partition，那就是所有消息发往同1个 partition，就是有序的。并且在消费端，Kafka 保证，1个 partition 只能被1个 consumer 消费。或者你指定 key（比如 order id），具有同1个 key 的所有消息，会发往同1个 partition。也是有序的。</p>
-<h4 id="1-9-kafka-增加分区后，spark-怎么办"><a href="#1-9-kafka-增加分区后，spark-怎么办" class="headerlink" title="1.9 kafka 增加分区后，spark 怎么办"></a>1.9 kafka 增加分区后，spark 怎么办</h4><p>总的解决方案如下：</p>
-<ul>
-<li>MTDirectKafkaInputDStream继承DirectKafkaInputDStream，override compute方法，在每次生成KafkaRDD时，更新currentOffsets中的分区信息。</li>
-<li>在org.apache.spark.streaming.kafka路径下,新建一个KafkaUtils.scala文件，里面的代码直接将spark源码中的KafkaUtils源码复制过来。 修改新建的KafkaUtils.scala，将createDirectStream中new DirectKafkaInputDStream，替换为 new MTDirectKafkaInputDStream.</li>
-</ul>
-<h3 id="2-进阶"><a href="#2-进阶" class="headerlink" title="2. 进阶"></a>2. 进阶</h3><ol>
-<li><p>controller和follower<br>controller会主动去监听zk中的元数据变化，然后同步给follower。broker会尝试去zk中创建目录，谁创建了目录，谁就是controller，follower会监听目录，如果controller挂了，follower会去创建目录，谁创建成功谁就是新的controller &#x3D;&gt; 即所有broker中都存储了kafka集群元数据的信息</p>
-</li>
-<li><p>每个分区都有3个副本，副本分为leader和follower。leader会负责所有的读写，而follower只是用来同步leader的数据 &#x3D;&gt; 这里的follower可能叫replica更合适</p>
-</li>
-<li><p>controller kafka的主节点，只是用来同步元数据，副本的leader可以在任何一台broker上</p>
-</li>
-<li><p>每一个分区都有自己的log日志和index文件，111.log和111.index文件都是成对出现的，其中111指的是当前文件的第一条数据的offset。仿照的是跳表的设计，当查找offset&#x3D;x的数据时，可以快速定位到index文件，index文件内部通过稀松索引，其实也类似于跳表的方式，去定位到offset&#x3D;x的数据的偏移量位置，然后按照偏移量位置去log文件中去遍历去查找</p>
-</li>
-<li><p>producer端的设计1：消息会封装为 ProducerRecord &#x3D;&gt; 序列化 &#x3D;&gt; 确定partition &#x3D;&gt; 获取集群元数据 &#x3D;&gt; 把数据写到缓冲区，有线程监听缓冲区，然后把数据打包batch上传到broker（16K大小或每100ms）</p>
-</li>
-<li><p>每一个batch发送完之后都没用了，都在等待gc，如果上传的数据特别多特别快，会导致频繁的gc，最终可能引发full gc。full gc会导致所有的读写都不可用，只会进行gc，执行完gc之后才能继续读写，影响性能</p>
-</li>
-<li><p>producer端的设计2：将消息的batch仿照线程池的设计，设计一个内存池，将recordbatch每次上传成功后还给内存池。另外有好多batch要发送，如果有需要发送到同一个broker上面，会把这些batch再次封装成一个请求发送</p>
-</li>
-<li><p>p2p模型，即同一条消息只能被一个消费者消费；发布订阅模型，即允许消息被多个consumer消费。同一个消费组是p2p模型，一个消息只能被一个消费组里的一个消费者消费。不同消费组是订阅模型。一个分区同一时间只能被一个消费组里的一个消费者消费。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Hadoop</category>
-        <category>Kafka</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>Kafka</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java 容器</title>
     <url>/2020/12/09/Java-4/</url>
     <content><![CDATA[<h2 id="Java-容器"><a href="#Java-容器" class="headerlink" title="Java 容器"></a>Java 容器</h2><ul>
@@ -8037,38 +7994,46 @@ The code above will output `5` as output. When we used `delete` operator for del
       </tags>
   </entry>
   <entry>
-    <title>LinkedHashMap 实现LRU缓存</title>
-    <url>/2020/07/09/LRU/</url>
-    <content><![CDATA[<h2 id="LinkedHashMap-实现LRU缓存"><a href="#LinkedHashMap-实现LRU缓存" class="headerlink" title="LinkedHashMap 实现LRU缓存"></a>LinkedHashMap 实现LRU缓存</h2><p><a href="https://www.cnblogs.com/lzrabbit/p/3734850.html#f1">参考</a></p>
-<p>LinkedHashMap是HashMap的子类，但是内部还有一个双向链表维护键值对的顺序，每个键值对既位于哈希表中，也位于双向链表中。LinkedHashMap支持两种顺序插入顺序 、 访问顺序</p>
-<p>插入顺序：先添加的在前面，后添加的在后面。修改操作不影响顺序<br>访问顺序：所谓访问指的是get&#x2F;put操作，对一个键执行get&#x2F;put操作后，其对应的键值对会移动到链表末尾，<strong>所以最末尾的是最近访问的，最开始的是最久没有被访问的</strong>，这就是访问顺序。</p>
-<p><code>public LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)</code> 其中参数accessOrder就是用来指定是否按访问顺序，如果为true，就是访问顺序。</p>
-<p>LRU(Least Recently Used): 最近最少使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class LRUCache&lt;K, V&gt; extends LinkedHashMap&lt;K, V&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private int maxEntries;</span><br><span class="line"></span><br><span class="line">    public LRUCache(int maxEntries) &#123;</span><br><span class="line">        super(16, 0.75f, true);</span><br><span class="line">        this.maxEntries = maxEntries;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) &#123;</span><br><span class="line">        return size() &gt; maxEntries;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在LinkedHashMap添加元素后，会调用removeEldestEntry防范，传递的参数时最久没有被访问的键值对，如果方法返回true，这个最久的键值对就会被删除。LinkedHashMap中的实现总返回false，该子类重写后即可实现对容量的控制。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LRUCache&lt;String,Object&gt; cache = new LRUCache&lt;&gt;(3);</span><br><span class="line">cache.put(&quot;a&quot;,&quot;abstract&quot;);</span><br><span class="line">cache.put(&quot;b&quot;,&quot;basic&quot;);</span><br><span class="line">cache.put(&quot;c&quot;,&quot;call&quot;);</span><br><span class="line">cache.get(&quot;a&quot;);</span><br><span class="line">cache.put(&quot;d&quot;,&quot;滴滴滴&quot;);</span><br><span class="line">System.out.println(cache); // 输出为：&#123;c=call, a=abstract, d=滴滴滴&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>相比HashMap，LinkedHashMap还实现了三个方法，当且仅当 accessOrder&#x3D;True 时会被调用到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void afterNodeAccess(Node&lt;K,V&gt; p) &#123; &#125;  //访问节点之后调用的方法</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; &#125; //插入节点之后调用的方法</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; p) &#123; &#125;  //删除节点之后调用的方法</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在get()方法中调用afterNodeAccess()方法，具体作用是：在对节点进行访问之后，会更新链表，将节点移动到链表的尾部，表示最近被访问过。</span><br><span class="line">void afterNodeAccess(Node&lt;K,V&gt; e) &#123; // move node to last</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">    if (accessOrder &amp;&amp; (last = tail) != e) &#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">        p.after = null;</span><br><span class="line">        if (b == null)</span><br><span class="line">            head = a;</span><br><span class="line">        else</span><br><span class="line">            b.after = a;</span><br><span class="line">        if (a != null)</span><br><span class="line">            a.before = b;</span><br><span class="line">        else</span><br><span class="line">            last = b;</span><br><span class="line">        if (last == null)</span><br><span class="line">            head = p;</span><br><span class="line">        else &#123;</span><br><span class="line">            p.before = last;</span><br><span class="line">            last.after = p;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = p;</span><br><span class="line">        ++modCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LinkedHashMap的put()是调用的父类HashMap的put()方法</span><br><span class="line">这个方法是在HashMap中的put()方法中被调用，在LinkedHashMap中被实现，具体作用是：在插入新节点后，因为缓存不够，需要删除最近最少使用的节点。要成功调用这个方法，还需要用户覆写 removeEldestEntry(first) 方法</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; // possibly remove eldest</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; first;</span><br><span class="line">    if (evict &amp;&amp; (first = head) != null &amp;&amp; removeEldestEntry(first)) &#123;</span><br><span class="line">        K key = first.key;</span><br><span class="line">        removeNode(hash(key), key, null, false, true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当LinkedHashMap成功调用removeNode()方法，删除节点之后，会调用本方法</span><br><span class="line">具体作用是：在removeNode方法中，只是删除了HashMap中的节点，并没有在链表中删除。所以在removeNode中，回调了这个方法，将该节点从链表中删除（这里是删除的头结点，因为头结点是最早进入或者最近最久未使用的）。</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; e) &#123; // unlink</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">        (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">    p.before = p.after = null;</span><br><span class="line">    if (b == null)</span><br><span class="line">        head = a;</span><br><span class="line">    else</span><br><span class="line">        b.after = a;</span><br><span class="line">    if (a == null)</span><br><span class="line">        tail = b;</span><br><span class="line">    else</span><br><span class="line">        a.before = b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20190413205151890.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5tZW5neXVhbkNTRE4=,size_16,color_FFFFFF,t_70" alt="左HashMap右LinkedHashMap"></p>
+    <title>Kafka进阶</title>
+    <url>/2020/04/21/Kafka-2/</url>
+    <content><![CDATA[<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><h3 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1. 知识点"></a>1. 知识点</h3><h4 id="1-1-Kafka不能保证消息的全局有序，只能保证消息在partition内有序"><a href="#1-1-Kafka不能保证消息的全局有序，只能保证消息在partition内有序" class="headerlink" title="1.1 Kafka不能保证消息的全局有序，只能保证消息在partition内有序"></a>1.1 Kafka不能保证消息的全局有序，只能保证消息在partition内有序</h4><h4 id="1-2-每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset"><a href="#1-2-每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset" class="headerlink" title="1.2 每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset"></a>1.2 每个partition对应于一个log文件，该log文件中存储的就是生产者生成的数据，生产者生成的数据会不断的追加到该log的文件末端，且每条数据都有自己的offset</h4><h4 id="1-3-kafka中的分片-索引"><a href="#1-3-kafka中的分片-索引" class="headerlink" title="1.3 kafka中的分片+索引"></a>1.3 kafka中的分片+索引</h4><p>由于生产者生产的消息会不断追加到log文件的末尾，为防止log文件过大导致数据定位效率低下，Kafka采用分片和索引的机制，将每个partition分为多个segment，每个segment对应2个文件—-index文件和log文件，这2个文件位于一个相同的文件夹下，文件夹的命名规则为topic名称+分区序号。也就是partition下有多个segment文件夹，里面都有两个文件–index和log文件。Index文件中存储的数据的索引信息，第一列是offset，第二列是这个数据所对应的log文件中的偏移量。如果要去消费offset为3的数据，首先通过二分法找到数据在哪个index文件中，然后在通过index中offset找到数据在log文件中的offset；这样就可以快速的定位到数据并消费。所以kakfa虽然把数据存储在磁盘中，但是他的读取速度还是非常快的（类似于hbase对于行键来划分region，然后做的索引一样）</p>
+<h4 id="1-4-kafka如何保证数据可靠性呢？通过ack来保证。"><a href="#1-4-kafka如何保证数据可靠性呢？通过ack来保证。" class="headerlink" title="1.4 kafka如何保证数据可靠性呢？通过ack来保证。"></a>1.4 kafka如何保证数据可靠性呢？通过ack来保证。</h4><p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_png/JfTPiahTHJhrm8TXCvosZOiccDGNicKmuQNY7luoaibgofCT7I03m40Ed4fVh0oQsGAJAYiaKERTkDOEVlibxc7LwW5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"><br>为保证生产者发送的数据，能可靠的发送到指定的topic，topic的每个partition收到生产者发送的数据后，都需要向生产者发送ack（确认收到），如果生产者收到ack，就会进行下一轮的发送，否则重新发送数据。</p>
+<p><img src="https://images.weserv.nl/?url=https://mmbiz.qpic.cn/mmbiz_png/JfTPiahTHJhrm8TXCvosZOiccDGNicKmuQNDQeh5h2rA2hfY6mF9DVXxrjXvicSw7lRsRg5ZatpYoT9YH4hF3FT14g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"><br>那么kafka什么时候向生产者发送ack？<br>确保follower（就相当于是partition的leader的副本，避免partition的leader挂了，导致无法获取数据）和leader同步完成，leader再发送ack给生产者，这样才能确保leader挂掉之后，能在follower中选举出新的leader后，数据不会丢失。kafka采用的是全部follower都返回ack后由leader发送给生产者。为了避免其中一个follower因为某种故障一直无法同步，leader会维护一个动态的节点列表，对于那些超过一定时间（时间可以自定义）还未返回ack的follower就移除列表。leader故障后，也会从这个列表中来选举新的leader。节点的选择主要是满足两点，一是与leader的网络通信时间应该低时延，二是与leader数据差距，消息条数默认是10000条</p>
+<h4 id="1-5-Kafka如何保证消费数据的一致性？通过HW来保证。"><a href="#1-5-Kafka如何保证消费数据的一致性？通过HW来保证。" class="headerlink" title="1.5 Kafka如何保证消费数据的一致性？通过HW来保证。"></a>1.5 Kafka如何保证消费数据的一致性？通过HW来保证。</h4><p>LEO：指每个follower的最大的offset。HW（高水位）：指消费者能见到的最大的offset，LSR队列中最小的LEO，也就是说消费者只能看到1~6的数据，后面的数据看不到，也消费不了。避免leader挂掉后，比如当前消费者消费8这条数据后，leader挂了，此时比如f2成为leader，f2根本就没有9这条数据，那么消费者就会报错，所以设计了HW这个参数，只暴露最少的数据给消费者，避免上面的问题。</p>
+<h4 id="1-6-zookeeper在kafka中的作用。"><a href="#1-6-zookeeper在kafka中的作用。" class="headerlink" title="1.6 zookeeper在kafka中的作用。"></a>1.6 zookeeper在kafka中的作用。</h4><p>Kafka集群中有一个broker会被选举为controller，负责管理集群broker的上下线，所有的topic的分区副本分配和leader选举等工作。</p>
+<h4 id="1-7-增加分区"><a href="#1-7-增加分区" class="headerlink" title="1.7 增加分区"></a>1.7 增加分区</h4><p><code>./bin/kafka-topics.sh --alter  --zookeeper localhost:2181  --topic 主题名称  --partitions 分区数量 --replication-factor 2</code></p>
+<h4 id="1-8-kafka分布式的情况下，如何保证消息的顺序"><a href="#1-8-kafka分布式的情况下，如何保证消息的顺序" class="headerlink" title="1.8 kafka分布式的情况下，如何保证消息的顺序?"></a>1.8 kafka分布式的情况下，如何保证消息的顺序?</h4><p>Kafka 中发送1条消息的时候，可以指定(topic, partition, key) 3个参数。partiton 和 key 是可选的。如果你指定了 partition，那就是所有消息发往同1个 partition，就是有序的。并且在消费端，Kafka 保证，1个 partition 只能被1个 consumer 消费。或者你指定 key（比如 order id），具有同1个 key 的所有消息，会发往同1个 partition。也是有序的。</p>
+<h4 id="1-9-kafka-增加分区后，spark-怎么办"><a href="#1-9-kafka-增加分区后，spark-怎么办" class="headerlink" title="1.9 kafka 增加分区后，spark 怎么办"></a>1.9 kafka 增加分区后，spark 怎么办</h4><p>总的解决方案如下：</p>
+<ul>
+<li>MTDirectKafkaInputDStream继承DirectKafkaInputDStream，override compute方法，在每次生成KafkaRDD时，更新currentOffsets中的分区信息。</li>
+<li>在org.apache.spark.streaming.kafka路径下,新建一个KafkaUtils.scala文件，里面的代码直接将spark源码中的KafkaUtils源码复制过来。 修改新建的KafkaUtils.scala，将createDirectStream中new DirectKafkaInputDStream，替换为 new MTDirectKafkaInputDStream.</li>
+</ul>
+<h3 id="2-进阶"><a href="#2-进阶" class="headerlink" title="2. 进阶"></a>2. 进阶</h3><ol>
+<li><p>controller和follower<br>controller会主动去监听zk中的元数据变化，然后同步给follower。broker会尝试去zk中创建目录，谁创建了目录，谁就是controller，follower会监听目录，如果controller挂了，follower会去创建目录，谁创建成功谁就是新的controller &#x3D;&gt; 即所有broker中都存储了kafka集群元数据的信息</p>
+</li>
+<li><p>每个分区都有3个副本，副本分为leader和follower。leader会负责所有的读写，而follower只是用来同步leader的数据 &#x3D;&gt; 这里的follower可能叫replica更合适</p>
+</li>
+<li><p>controller kafka的主节点，只是用来同步元数据，副本的leader可以在任何一台broker上</p>
+</li>
+<li><p>每一个分区都有自己的log日志和index文件，111.log和111.index文件都是成对出现的，其中111指的是当前文件的第一条数据的offset。仿照的是跳表的设计，当查找offset&#x3D;x的数据时，可以快速定位到index文件，index文件内部通过稀松索引，其实也类似于跳表的方式，去定位到offset&#x3D;x的数据的偏移量位置，然后按照偏移量位置去log文件中去遍历去查找</p>
+</li>
+<li><p>producer端的设计1：消息会封装为 ProducerRecord &#x3D;&gt; 序列化 &#x3D;&gt; 确定partition &#x3D;&gt; 获取集群元数据 &#x3D;&gt; 把数据写到缓冲区，有线程监听缓冲区，然后把数据打包batch上传到broker（16K大小或每100ms）</p>
+</li>
+<li><p>每一个batch发送完之后都没用了，都在等待gc，如果上传的数据特别多特别快，会导致频繁的gc，最终可能引发full gc。full gc会导致所有的读写都不可用，只会进行gc，执行完gc之后才能继续读写，影响性能</p>
+</li>
+<li><p>producer端的设计2：将消息的batch仿照线程池的设计，设计一个内存池，将recordbatch每次上传成功后还给内存池。另外有好多batch要发送，如果有需要发送到同一个broker上面，会把这些batch再次封装成一个请求发送</p>
+</li>
+<li><p>p2p模型，即同一条消息只能被一个消费者消费；发布订阅模型，即允许消息被多个consumer消费。同一个消费组是p2p模型，一个消息只能被一个消费组里的一个消费者消费。不同消费组是订阅模型。一个分区同一时间只能被一个消费组里的一个消费者消费。</p>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>Java</category>
-        <category>LinkedHashMap</category>
+        <category>Hadoop</category>
+        <category>Kafka</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>LinkedHashMap</tag>
-        <tag>LRU</tag>
+        <tag>Hadoop</tag>
+        <tag>Kafka</tag>
       </tags>
   </entry>
   <entry>
@@ -8117,6 +8082,41 @@ The code above will output `5` as output. When we used `delete` operator for del
       <tags>
         <tag>Java</tag>
         <tag>LFU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LinkedHashMap 实现LRU缓存</title>
+    <url>/2020/07/09/LRU/</url>
+    <content><![CDATA[<h2 id="LinkedHashMap-实现LRU缓存"><a href="#LinkedHashMap-实现LRU缓存" class="headerlink" title="LinkedHashMap 实现LRU缓存"></a>LinkedHashMap 实现LRU缓存</h2><p><a href="https://www.cnblogs.com/lzrabbit/p/3734850.html#f1">参考</a></p>
+<p>LinkedHashMap是HashMap的子类，但是内部还有一个双向链表维护键值对的顺序，每个键值对既位于哈希表中，也位于双向链表中。LinkedHashMap支持两种顺序插入顺序 、 访问顺序</p>
+<p>插入顺序：先添加的在前面，后添加的在后面。修改操作不影响顺序<br>访问顺序：所谓访问指的是get&#x2F;put操作，对一个键执行get&#x2F;put操作后，其对应的键值对会移动到链表末尾，<strong>所以最末尾的是最近访问的，最开始的是最久没有被访问的</strong>，这就是访问顺序。</p>
+<p><code>public LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)</code> 其中参数accessOrder就是用来指定是否按访问顺序，如果为true，就是访问顺序。</p>
+<p>LRU(Least Recently Used): 最近最少使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class LRUCache&lt;K, V&gt; extends LinkedHashMap&lt;K, V&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private int maxEntries;</span><br><span class="line"></span><br><span class="line">    public LRUCache(int maxEntries) &#123;</span><br><span class="line">        super(16, 0.75f, true);</span><br><span class="line">        this.maxEntries = maxEntries;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) &#123;</span><br><span class="line">        return size() &gt; maxEntries;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在LinkedHashMap添加元素后，会调用removeEldestEntry防范，传递的参数时最久没有被访问的键值对，如果方法返回true，这个最久的键值对就会被删除。LinkedHashMap中的实现总返回false，该子类重写后即可实现对容量的控制。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LRUCache&lt;String,Object&gt; cache = new LRUCache&lt;&gt;(3);</span><br><span class="line">cache.put(&quot;a&quot;,&quot;abstract&quot;);</span><br><span class="line">cache.put(&quot;b&quot;,&quot;basic&quot;);</span><br><span class="line">cache.put(&quot;c&quot;,&quot;call&quot;);</span><br><span class="line">cache.get(&quot;a&quot;);</span><br><span class="line">cache.put(&quot;d&quot;,&quot;滴滴滴&quot;);</span><br><span class="line">System.out.println(cache); // 输出为：&#123;c=call, a=abstract, d=滴滴滴&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>相比HashMap，LinkedHashMap还实现了三个方法，当且仅当 accessOrder&#x3D;True 时会被调用到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void afterNodeAccess(Node&lt;K,V&gt; p) &#123; &#125;  //访问节点之后调用的方法</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; &#125; //插入节点之后调用的方法</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; p) &#123; &#125;  //删除节点之后调用的方法</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在get()方法中调用afterNodeAccess()方法，具体作用是：在对节点进行访问之后，会更新链表，将节点移动到链表的尾部，表示最近被访问过。</span><br><span class="line">void afterNodeAccess(Node&lt;K,V&gt; e) &#123; // move node to last</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">    if (accessOrder &amp;&amp; (last = tail) != e) &#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">        p.after = null;</span><br><span class="line">        if (b == null)</span><br><span class="line">            head = a;</span><br><span class="line">        else</span><br><span class="line">            b.after = a;</span><br><span class="line">        if (a != null)</span><br><span class="line">            a.before = b;</span><br><span class="line">        else</span><br><span class="line">            last = b;</span><br><span class="line">        if (last == null)</span><br><span class="line">            head = p;</span><br><span class="line">        else &#123;</span><br><span class="line">            p.before = last;</span><br><span class="line">            last.after = p;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = p;</span><br><span class="line">        ++modCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LinkedHashMap的put()是调用的父类HashMap的put()方法</span><br><span class="line">这个方法是在HashMap中的put()方法中被调用，在LinkedHashMap中被实现，具体作用是：在插入新节点后，因为缓存不够，需要删除最近最少使用的节点。要成功调用这个方法，还需要用户覆写 removeEldestEntry(first) 方法</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; // possibly remove eldest</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; first;</span><br><span class="line">    if (evict &amp;&amp; (first = head) != null &amp;&amp; removeEldestEntry(first)) &#123;</span><br><span class="line">        K key = first.key;</span><br><span class="line">        removeNode(hash(key), key, null, false, true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当LinkedHashMap成功调用removeNode()方法，删除节点之后，会调用本方法</span><br><span class="line">具体作用是：在removeNode方法中，只是删除了HashMap中的节点，并没有在链表中删除。所以在removeNode中，回调了这个方法，将该节点从链表中删除（这里是删除的头结点，因为头结点是最早进入或者最近最久未使用的）。</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; e) &#123; // unlink</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">        (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">    p.before = p.after = null;</span><br><span class="line">    if (b == null)</span><br><span class="line">        head = a;</span><br><span class="line">    else</span><br><span class="line">        b.after = a;</span><br><span class="line">    if (a == null)</span><br><span class="line">        tail = b;</span><br><span class="line">    else</span><br><span class="line">        a.before = b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190413205151890.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5tZW5neXVhbkNTRE4=,size_16,color_FFFFFF,t_70" alt="左HashMap右LinkedHashMap"></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>LinkedHashMap</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>LinkedHashMap</tag>
+        <tag>LRU</tag>
       </tags>
   </entry>
   <entry>
@@ -8329,6 +8329,58 @@ public int removeDuplicates(int[] nums) &#123;
       <tags>
         <tag>Algorithm</tag>
         <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux下安装Tomcat</title>
+    <url>/2018/11/18/Linux-2/</url>
+    <content><![CDATA[<h1 id="Linux下配置Tomcat"><a href="#Linux下配置Tomcat" class="headerlink" title="Linux下配置Tomcat"></a>Linux下配置Tomcat</h1><ol>
+<li><p>先去官网查看Tomcat版本和JDK版本匹配关系<br> <a href="http://http//tomcat.apache.org/whichversion.html">http://http://tomcat.apache.org/whichversion.html</a></p>
+</li>
+<li><p>下载Tomcat的Linux版本<br> 文件后缀是tar.gz</p>
+</li>
+<li><p>下载到Linux下解压<br> tar -zxvf apache-tomcat-8.0.46.tar.gz</p>
+</li>
+<li><p>进入到conf目录下修改server.xml文件的端口号  </p>
+<pre><code> &lt;Connector port=&quot;8081&quot; protocol=&quot;HTTP/1.1&quot;
+             connectionTimeout=&quot;20000&quot;
+             redirectPort=&quot;8443&quot; /&gt;
+</code></pre>
+</li>
+<li><p>进入到bin目录下输入.&#x2F;startup.sh启动Tomcat服务器<br> 进入到logs目录下查看catalina.out文件，查看Tomcat服务器是否正常启动    </p>
+</li>
+<li><p>进入到bin目录下输入.&#x2F;shutdown.sh关闭Tomcat服务器<br> 进入到logs目录下查看catalina.out文件，查看Tomcat服务器是否正常关闭</p>
+</li>
+<li><p>把Windows下的工程导出为war包，放入到Linux下的Tomcat安装目录下的webapps目录下，启动Tomcat服务器自动就会解压出一个同工程名的文件夹</p>
+</li>
+<li><p>进入到工程名文件夹&#x2F;MoviePlex&#x2F;WEB-INF&#x2F;classes下，修改conf.properties文件中的out_put路径<br> <code>output_file=/home/oracle/appdata/MoviePlex/activity</code></p>
+</li>
+<li><p>在Windows下浏览器地址栏输入<br> 虚拟机IP地址：Linux下的Tomcat端口号&#x2F;工程名&#x2F;login.jsp</p>
+</li>
+<li><p>报404错误</p>
+<ul>
+<li>Linux下的JDK版本与Tomcat版本和Windows下的JDK版本与Tomcat版本是否一致</li>
+<li>Linux下的JDK版本和Tomcat版本是否兼容</li>
+<li>在Linux下的Tomcat安装目录下输入 <code>chmod u+x *</code> 添加用户执行权限</li>
+</ul>
+</li>
+<li><p>删除之前的JDK  </p>
+<pre><code>输入su进入root
+输入rpm -qa|grep gcj查看所有Java版本信息
+输入rpm -e --nodeps 文件名 删除Java旧版本
+</code></pre>
+</li>
+<li><p>修改项目后先在本地运行一下，将编译好的.class文件覆盖掉Linux下项目的.class文件，重启Tomcat就可以了</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Tomcat</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Tomcat</tag>
       </tags>
   </entry>
   <entry>
@@ -8782,58 +8834,6 @@ public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) &#123;
       <tags>
         <tag>Linux</tag>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux下安装Tomcat</title>
-    <url>/2018/11/18/Linux-2/</url>
-    <content><![CDATA[<h1 id="Linux下配置Tomcat"><a href="#Linux下配置Tomcat" class="headerlink" title="Linux下配置Tomcat"></a>Linux下配置Tomcat</h1><ol>
-<li><p>先去官网查看Tomcat版本和JDK版本匹配关系<br> <a href="http://http//tomcat.apache.org/whichversion.html">http://http://tomcat.apache.org/whichversion.html</a></p>
-</li>
-<li><p>下载Tomcat的Linux版本<br> 文件后缀是tar.gz</p>
-</li>
-<li><p>下载到Linux下解压<br> tar -zxvf apache-tomcat-8.0.46.tar.gz</p>
-</li>
-<li><p>进入到conf目录下修改server.xml文件的端口号  </p>
-<pre><code> &lt;Connector port=&quot;8081&quot; protocol=&quot;HTTP/1.1&quot;
-             connectionTimeout=&quot;20000&quot;
-             redirectPort=&quot;8443&quot; /&gt;
-</code></pre>
-</li>
-<li><p>进入到bin目录下输入.&#x2F;startup.sh启动Tomcat服务器<br> 进入到logs目录下查看catalina.out文件，查看Tomcat服务器是否正常启动    </p>
-</li>
-<li><p>进入到bin目录下输入.&#x2F;shutdown.sh关闭Tomcat服务器<br> 进入到logs目录下查看catalina.out文件，查看Tomcat服务器是否正常关闭</p>
-</li>
-<li><p>把Windows下的工程导出为war包，放入到Linux下的Tomcat安装目录下的webapps目录下，启动Tomcat服务器自动就会解压出一个同工程名的文件夹</p>
-</li>
-<li><p>进入到工程名文件夹&#x2F;MoviePlex&#x2F;WEB-INF&#x2F;classes下，修改conf.properties文件中的out_put路径<br> <code>output_file=/home/oracle/appdata/MoviePlex/activity</code></p>
-</li>
-<li><p>在Windows下浏览器地址栏输入<br> 虚拟机IP地址：Linux下的Tomcat端口号&#x2F;工程名&#x2F;login.jsp</p>
-</li>
-<li><p>报404错误</p>
-<ul>
-<li>Linux下的JDK版本与Tomcat版本和Windows下的JDK版本与Tomcat版本是否一致</li>
-<li>Linux下的JDK版本和Tomcat版本是否兼容</li>
-<li>在Linux下的Tomcat安装目录下输入 <code>chmod u+x *</code> 添加用户执行权限</li>
-</ul>
-</li>
-<li><p>删除之前的JDK  </p>
-<pre><code>输入su进入root
-输入rpm -qa|grep gcj查看所有Java版本信息
-输入rpm -e --nodeps 文件名 删除Java旧版本
-</code></pre>
-</li>
-<li><p>修改项目后先在本地运行一下，将编译好的.class文件覆盖掉Linux下项目的.class文件，重启Tomcat就可以了</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>Tomcat</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Tomcat</tag>
       </tags>
   </entry>
   <entry>
@@ -9340,41 +9340,6 @@ public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) &#123;
       </tags>
   </entry>
   <entry>
-    <title>士不可以不弘毅</title>
-    <url>/2014/03/16/Novel-4/</url>
-    <content><![CDATA[<p>在月亮爬上山之前，他终于抢先一步，站到了那山巅之上。  </p>
-<p>剑山。帝国第一山。是当年剑圣柳白潜心铸剑的地方。那时的剑山还不叫剑山，仅仅只是人们口中的那山，但那山的命运在柳白决定入山静修的便注定不平凡。柳白铸剑三十三年，那些剑意在他铸剑成功的那一刻达到巅峰，那无上的剑意从抽象到具象，化作凌厉的风，也化作锋利的顽石，不断侵削，不断累积，于是那山的命运开始改变，由钝至利，由缓到陡，不过瞬间，却如天地造化般持久。从此那山有了自己的名字，剑山。因为它的陡，因为它的锋，更因为它是剑圣柳白倾尽三十三年所铸造的第一把也是最后一把剑。</p>
-<p>他回头望了一下那些已经距他不足二百米的银白色幽灵––帝国最骁勇的战士，以其不同于普通士兵的银白色铠甲、长矛而著称。幽灵们此时正努力地向上爬着，不足二百米的距离，在近乎垂直的剑山之上则近乎天距。不过他们已经很快了，比起逃亡多年身上早已伤痕累累的弘毅。  </p>
-<p>剑山之上是剑阁，或者说是曾经的剑阁。因为这里已经成了一片真正的冢地。四周散乱着一些或立着或倒着的残缺碑位，那是曾经的剑阁里最强大的代表。可惜剑阁破裂，早就没有人再来清扫。如今这些碑位在风雨中饱受侵蚀，就像旁边的破石屋，仿佛下一刻就会倒下。在最中央放着的是剑圣柳白的碑，或许是因为那碑是昔日剑圣的，无人敢动，于是那玉碑依旧保存着自己的完整，甚至在今夜的月光映衬下更显高大，但毕竟剑阁不在，在这破败环境之中，自然也会显得破败。  </p>
-<p>真是嘲讽啊。弘毅看着剑阁的废墟，仿佛看见了那日三师叔反叛剑阁，那日帝国士兵第一次闯进剑阁，那日剑阁被一把火烧个半死，只剩下现在的废墟。弘毅突然大笑起来，全然不顾每一次大笑使肌肉拉伸所带来的疼痛，也全然不顾临近的危险。当年我们如此保护帝国，如今却被帝国追杀，真是嘲讽啊。  </p>
-<p>弘毅抚过师父的墓碑，流下眼泪。墓碑是师兄弟偷偷回来立的，可惜他们没能活着下山。帝国想到了一切的可能，整个剑山布置了大量的兵力，其中还有一些曾经的剑阁弟子。如果不是念及旧情，弘毅可能还没上山就已经死了。  </p>
-<p>弘毅想起当日师父对自己说过的话：剑阁弟子，为帝国生，为帝国死。只要还有一口气，便要保帝国无恙。弘毅还清楚地记得师父说这话的时候的自豪，身为剑阁之首，怎能不自豪？只是那时的豪情从三年前便开始不复存在了。  </p>
-<p>三年前，帝国送走了最后一位明君也迎来了第一位暴君，在小人的怂恿下这位暴君下令将剑阁抹杀：顺者昌逆者亡。剑阁曾为帝国保驾护航数百年，再大的困难也没有让他们皱一下眉，但这次不一样。弘毅的二师叔于朝野上被上万名御林军围攻，通晓杀敌之术的二师叔却不懂如何向自己人拔剑，何况罪魁祸首也不是他们这些服从命令效忠帝国的士兵，而是高高在上的君王，只是君王不在场，如何拔剑？  </p>
-<p>半个月后三师叔归顺帝国，或者说是归顺于那位暴君，同时还有一大半剑阁弟子。师父带着还有跟着自己的弟子开始逃亡生活。一路上有不少弟子死了，有的人战死了，有的人因饥饿而死，有的人因生病而死，但不管怎样，比起那些屈服的弟子，他们是真正的剑阁弟子。半年后，剑阁依旧存在于世，只是再也不是曾经的剑阁了。两年前师父为保众弟子牺牲了，那天以后，剑阁便再无辉煌可言。  </p>
-<p>“师父，”弘毅对着师父的碑鞠了三躬，“我带着师兄弟们回来了。”弘毅身后是一块新的墓碑，上面用剑刻着这几年逃亡路上位剑阁荣誉牺牲的弟子的姓名。“我想他们有资格在这剑山之上拥有一块属于自己的地方，至于我，我终究只是您当年所收养的那个孤儿，不算是真正的剑阁弟子。得您厚爱是我莫大的荣幸，您的恩情弘毅来世再报。”  </p>
-<p>弘毅向山下望去，还有不足一百米的距离了。那些白色盔甲在夜里更显清冷，像逝去的人的面孔，毫无表情，毫无感情。  </p>
-<p>时间不多了。弘毅想起师父的嘱托，转身向剑圣柳白的墓碑走去，深深鞠了一躬，道了一声道歉，接着一剑劈下，用上好玉石制成的墓碑顿时裂开。一个用玉石做的剑盒落在地上，剑盒里装的自然是剑。  </p>
-<p>这把剑很普通，外表普通，剑柄普通，花纹也普通。但这把剑却散发出一种强大的剑意，仿佛有水从天上来，波涛汹涌，又仿佛有山自远方来，不可抗拒。这些剑意是剑圣柳白用了三十三年积累下的，是足以在一瞬间将一座山雕成一把剑的力量。昔日铸剑成功之后，柳白命人将剑山的母玉打造成剑盒封进自己的墓碑里，只有历代掌门才能知晓的秘密。如今这把剑已和这座山融为一体，剑便是山，山便是剑，剑意便是山意。  </p>
-<p>这把剑有个普通的名字，叫山剑。  </p>
-<p>这座山有个普通的名字，叫剑山。  </p>
-<p>不过他们都是剑圣柳白所创，如何普通？  </p>
-<p>弘毅看着手中的剑，感受着那磅礴的剑意，想着这几年剑阁的变化、亲人的离去，这些不幸全因一个人的决定，而那个人在东方，在那最大的宫殿之内。于是弘毅剑指东方，山剑便是剑山，剑意便是山意，一股未曾有过的磅礴之势向东方掠去，仿佛有一座山于天地间行走。  </p>
-<p>“君不见黄河之水天上来，奔流到海不复回。”百年前剑圣柳白于黄河前悟剑，创立了一个新的剑派––大河剑。摒弃传统剑法的繁多招式和无尽套路，大河剑只有一种形式，只是在那一剑中既有水的轻柔，又有水的刚强。一剑便是一种气势，一种排山倒海无可比拟的气势。如今剑意带着山意向东方掠去，有山的厚重，也有水的灵动。“醉翁之意不在酒，在乎山水之间也。”有山有水，便是天下，天下既来，如何抗拒？  </p>
-<p>两年逃亡路，两千里旅途。不过顷刻剑意便到了。然后那宫殿便崩塌了，将那位暴君深埋其下。那被压毁的地基的形状，正是剑山地基的形状。  </p>
-<p>起初弘毅并不认为自己有能力挥出这一剑，因为这是剑圣柳白的剑，里面的剑意是最强势的力量，而且此时已伤痕累累的似乎也承受不起那一剑带来的伤害。越是强大的剑，伤人的同时也一定会伤己。所以几乎同时，弘毅便倒下了。  </p>
-<p>但是他不后悔，甚至为此付出性命也不后悔。所以当那白色铠甲和白色长矛出现在他最后的视野里时，他留给人间的是一个微笑，一个心满意足的微笑。  </p>
-<p>因为他叫柳弘毅。  </p>
-<p>因为他是剑阁弟子。  </p>
-<p>因为师父曾说过：士不可以不弘毅。</p>
-]]></content>
-      <categories>
-        <category>Novel</category>
-      </categories>
-      <tags>
-        <tag>Novel</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>二月二，龙抬头</title>
     <url>/2013/08/17/Novel-5/</url>
     <content><![CDATA[<p>公元642年，武则天于泰山祭祀天地。  </p>
@@ -9468,55 +9433,32 @@ public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) &#123;
       </tags>
   </entry>
   <entry>
-    <title>将夜之武逆</title>
-    <url>/2013/01/31/Novel-6/</url>
-    <content><![CDATA[<p>当宁缺决定挥出那一刀的瞬间，他的逆天之路便再无回头之路。<br>——题记</p>
-<p>回头崖上。</p>
-<p>宁缺身上的衣服已由白色变成红黑色，先前的伤口还在向外渗着血。然而他似乎已经感受不到任何疼痛了。</p>
-<p>他用手拭去嘴角的血水，看着面前这个强大的敌人，右手握紧朴刀，想要出击却发现自己竟迈步过身前一尺之地。</p>
-<p>“这是？”</p>
-<p>“樊笼。虽不及神殿里那位的厉害，但要困住书院最弱的天下行走，想来也不是什么难事。”</p>
-<p>樊笼。他在心里念了一遍。继而大笑，笑得很大声，以至整个山崖都在回荡着他的笑声。</p>
-<p>这是一种痴迷于战斗的狂热，也是一种遇强则强的放肆。</p>
-<p>“不知十三先生为何而笑？”</p>
-<p>“笑我这个书院最弱的天下行走也会被施以天下最强的御敌之术。”</p>
-<p>或许这一种狂热与放肆对普通人有效，但这一次，毫无效果。</p>
-<p>耳边传来对方的大笑。“世人皆称十三先生为书院最弱，然而十三先生两个月连破三境，其速度仅次于昔日神座、当今夫子，就算是书院最弱，我二十三年蝉又如何敢轻敌？”</p>
-<p>“传闻你一朝入关便是二十三年不问世事，出关之时便是一片蝉鸣，恍若天乐奏响，不知传闻可是真的？”</p>
-<p>“都是后辈们无聊时的言语罢了。”</p>
-<p>“或许吧。不过我比较关心你出关之后的事，比如，”宁缺用手指了指二十三年蝉的身体，“你入魔一事。”</p>
-<p>二十三年蝉低头看了一眼正冒着白气的伤口。此时伤口正以缓慢而稳定的速度自我愈合。“十三先生好眼力。”他从怀中掏出一块肉塞入口中，细细咀嚼着。“修行界流传着十三先生打架时必定会闲聊，从心理上先胜一筹，今日所见，果然如此。”</p>
-<p>“不过只是为了恢复一下而已。”宁缺倒也实诚，趁着这个时机放松了一下手腕。</p>
-<p>“那我也满足一下你的好奇心。当年出关之后看到人事变迁，长生的愿望开始膨胀，越来越强烈。我以佛宗首座的身份阅读了三卷天书，试着找到一种可以维持肉身不坏的方法。幸运的是，我找到了。不幸的是，那个方法的前提是必须入魔。控制不住对长生的渴望，于是我入魔了。”</p>
-<p>宁缺想不到他入魔的原因竟如此简单，又被他如此平淡地说出来。</p>
-<p>“魔宗中有一秘法，名曰‘饕餮’，修行此法需要生食活人肉，将活人的生气转化为己用。后来我改进了一下，吃死人肉就行了。”说完，二十三年蝉从怀中又掏出一块肉塞入口中。此事他身上的伤口已愈合大半。</p>
-<p>“怪不得。”</p>
-<p>“说来你的‘浩然剑’也颇有长进，加上元十三箭，就连我的魔宗护体也要惧上三分，不过你终究不是轲疯子。况且我先入佛再入魔，如今已近乎圣体，而你想要逾境杀我，岂不是要逆天？”</p>
-<p>逆天？一个陌生而熟悉的字眼进入宁缺的耳中。他缓缓地闭上眼中。</p>
-<p>“看来你也知道这不可能了。那我就来结束你的噩梦吧。”说完，二十三年蝉一个箭步冲向宁缺。速度之快，竟挟着一股山风。</p>
-<p>然而他想错了，宁缺之所以闭眼，并不是想要放弃，而是想到了一件有趣的事。</p>
-<p>昔日踏上书院二层楼时，宁缺曾与夫子在咫尺峰上彻夜长谈。</p>
-<p>“我曾去渭城看过，知道你以前的警力，想你踏入书院的路也绝非常人所能做到的。”夫子躺在槐树下，品着酒。</p>
-<p>“如果有人经历过我的经历，那么他一定会很想改变。我不过只是更加渴望而已。”</p>
-<p>夫子看了他一眼，有些心喜，也有些担忧。“你以后便是书院的天下行走，便要接受天下所有修行之人的挑战。不过你如今如此低的境界，想要改变，岂不是要登天，不，比逆天还难？”夫子笑着品了一口酒，他对自己的用词很满意。</p>
-<p>宁缺看着夫子，一字一字地说道：“那我便要逆天。”</p>
-<p>夫子听到这句话，看着自己的弟子，笑了，“既在天中，何以逆天？”</p>
-<p>宁缺沉默了，因为他不知道如何回答。如今经过和二十三年蝉的对话，他似乎知道了答案。</p>
-<p>他慢慢向后退了一步，举起手中的朴刀，挥了下去。</p>
-<p>既然在天道之中便无法逆天，那我就站在天道之外！</p>
-<p>找到属于自己的答案之后，宁缺的脑中所有的招式便只剩下挥刀。简单地挥刀。</p>
-<p>有时候，因为简单，所以强大。</p>
-<p>上一刻，朴刀挥。</p>
-<p>这一刻，樊笼破。</p>
-<p>下一刻，剑气至。</p>
-<p>二十三年蝉还在好奇宁缺是如何挣脱樊笼的束缚的，突然间发现一股浩然气突破他的魔宗护体，紧接着一股滚热的液体从口中喷出。</p>
-<p>“想不到你竟又破镜了。”</p>
-<p>“那还要感谢你的帮助。”破镜后的宁缺突然感觉眼前的世界竟变得不一样了。甚至连二十三年蝉是伤口处外渗的魔宗元气也感受得到。</p>
-<p>“看来书院自你小师叔之后又出了一个奇迹。”再度被浩然气所重伤，二十三年蝉已无法再迅速用“饕餮”来恢复了。</p>
-<p>“我就当是赞美了。多谢。”话音落，朴刀挥，一股更加刚烈、醇厚的浩然气突破二十三年蝉的魔宗护体，将其生生斩成两半。</p>
-<p>一场恶战终于结束。</p>
-<p>宁缺拖着疲惫的身躯朝来时的路走去，突然感觉有些不妥，反手在空中比划几下，确认碑上的字已改，才放心地走下山崖。</p>
-<p>从此世间，回头崖逝，无头崖立。</p>
+    <title>士不可以不弘毅</title>
+    <url>/2014/03/16/Novel-4/</url>
+    <content><![CDATA[<p>在月亮爬上山之前，他终于抢先一步，站到了那山巅之上。  </p>
+<p>剑山。帝国第一山。是当年剑圣柳白潜心铸剑的地方。那时的剑山还不叫剑山，仅仅只是人们口中的那山，但那山的命运在柳白决定入山静修的便注定不平凡。柳白铸剑三十三年，那些剑意在他铸剑成功的那一刻达到巅峰，那无上的剑意从抽象到具象，化作凌厉的风，也化作锋利的顽石，不断侵削，不断累积，于是那山的命运开始改变，由钝至利，由缓到陡，不过瞬间，却如天地造化般持久。从此那山有了自己的名字，剑山。因为它的陡，因为它的锋，更因为它是剑圣柳白倾尽三十三年所铸造的第一把也是最后一把剑。</p>
+<p>他回头望了一下那些已经距他不足二百米的银白色幽灵––帝国最骁勇的战士，以其不同于普通士兵的银白色铠甲、长矛而著称。幽灵们此时正努力地向上爬着，不足二百米的距离，在近乎垂直的剑山之上则近乎天距。不过他们已经很快了，比起逃亡多年身上早已伤痕累累的弘毅。  </p>
+<p>剑山之上是剑阁，或者说是曾经的剑阁。因为这里已经成了一片真正的冢地。四周散乱着一些或立着或倒着的残缺碑位，那是曾经的剑阁里最强大的代表。可惜剑阁破裂，早就没有人再来清扫。如今这些碑位在风雨中饱受侵蚀，就像旁边的破石屋，仿佛下一刻就会倒下。在最中央放着的是剑圣柳白的碑，或许是因为那碑是昔日剑圣的，无人敢动，于是那玉碑依旧保存着自己的完整，甚至在今夜的月光映衬下更显高大，但毕竟剑阁不在，在这破败环境之中，自然也会显得破败。  </p>
+<p>真是嘲讽啊。弘毅看着剑阁的废墟，仿佛看见了那日三师叔反叛剑阁，那日帝国士兵第一次闯进剑阁，那日剑阁被一把火烧个半死，只剩下现在的废墟。弘毅突然大笑起来，全然不顾每一次大笑使肌肉拉伸所带来的疼痛，也全然不顾临近的危险。当年我们如此保护帝国，如今却被帝国追杀，真是嘲讽啊。  </p>
+<p>弘毅抚过师父的墓碑，流下眼泪。墓碑是师兄弟偷偷回来立的，可惜他们没能活着下山。帝国想到了一切的可能，整个剑山布置了大量的兵力，其中还有一些曾经的剑阁弟子。如果不是念及旧情，弘毅可能还没上山就已经死了。  </p>
+<p>弘毅想起当日师父对自己说过的话：剑阁弟子，为帝国生，为帝国死。只要还有一口气，便要保帝国无恙。弘毅还清楚地记得师父说这话的时候的自豪，身为剑阁之首，怎能不自豪？只是那时的豪情从三年前便开始不复存在了。  </p>
+<p>三年前，帝国送走了最后一位明君也迎来了第一位暴君，在小人的怂恿下这位暴君下令将剑阁抹杀：顺者昌逆者亡。剑阁曾为帝国保驾护航数百年，再大的困难也没有让他们皱一下眉，但这次不一样。弘毅的二师叔于朝野上被上万名御林军围攻，通晓杀敌之术的二师叔却不懂如何向自己人拔剑，何况罪魁祸首也不是他们这些服从命令效忠帝国的士兵，而是高高在上的君王，只是君王不在场，如何拔剑？  </p>
+<p>半个月后三师叔归顺帝国，或者说是归顺于那位暴君，同时还有一大半剑阁弟子。师父带着还有跟着自己的弟子开始逃亡生活。一路上有不少弟子死了，有的人战死了，有的人因饥饿而死，有的人因生病而死，但不管怎样，比起那些屈服的弟子，他们是真正的剑阁弟子。半年后，剑阁依旧存在于世，只是再也不是曾经的剑阁了。两年前师父为保众弟子牺牲了，那天以后，剑阁便再无辉煌可言。  </p>
+<p>“师父，”弘毅对着师父的碑鞠了三躬，“我带着师兄弟们回来了。”弘毅身后是一块新的墓碑，上面用剑刻着这几年逃亡路上位剑阁荣誉牺牲的弟子的姓名。“我想他们有资格在这剑山之上拥有一块属于自己的地方，至于我，我终究只是您当年所收养的那个孤儿，不算是真正的剑阁弟子。得您厚爱是我莫大的荣幸，您的恩情弘毅来世再报。”  </p>
+<p>弘毅向山下望去，还有不足一百米的距离了。那些白色盔甲在夜里更显清冷，像逝去的人的面孔，毫无表情，毫无感情。  </p>
+<p>时间不多了。弘毅想起师父的嘱托，转身向剑圣柳白的墓碑走去，深深鞠了一躬，道了一声道歉，接着一剑劈下，用上好玉石制成的墓碑顿时裂开。一个用玉石做的剑盒落在地上，剑盒里装的自然是剑。  </p>
+<p>这把剑很普通，外表普通，剑柄普通，花纹也普通。但这把剑却散发出一种强大的剑意，仿佛有水从天上来，波涛汹涌，又仿佛有山自远方来，不可抗拒。这些剑意是剑圣柳白用了三十三年积累下的，是足以在一瞬间将一座山雕成一把剑的力量。昔日铸剑成功之后，柳白命人将剑山的母玉打造成剑盒封进自己的墓碑里，只有历代掌门才能知晓的秘密。如今这把剑已和这座山融为一体，剑便是山，山便是剑，剑意便是山意。  </p>
+<p>这把剑有个普通的名字，叫山剑。  </p>
+<p>这座山有个普通的名字，叫剑山。  </p>
+<p>不过他们都是剑圣柳白所创，如何普通？  </p>
+<p>弘毅看着手中的剑，感受着那磅礴的剑意，想着这几年剑阁的变化、亲人的离去，这些不幸全因一个人的决定，而那个人在东方，在那最大的宫殿之内。于是弘毅剑指东方，山剑便是剑山，剑意便是山意，一股未曾有过的磅礴之势向东方掠去，仿佛有一座山于天地间行走。  </p>
+<p>“君不见黄河之水天上来，奔流到海不复回。”百年前剑圣柳白于黄河前悟剑，创立了一个新的剑派––大河剑。摒弃传统剑法的繁多招式和无尽套路，大河剑只有一种形式，只是在那一剑中既有水的轻柔，又有水的刚强。一剑便是一种气势，一种排山倒海无可比拟的气势。如今剑意带着山意向东方掠去，有山的厚重，也有水的灵动。“醉翁之意不在酒，在乎山水之间也。”有山有水，便是天下，天下既来，如何抗拒？  </p>
+<p>两年逃亡路，两千里旅途。不过顷刻剑意便到了。然后那宫殿便崩塌了，将那位暴君深埋其下。那被压毁的地基的形状，正是剑山地基的形状。  </p>
+<p>起初弘毅并不认为自己有能力挥出这一剑，因为这是剑圣柳白的剑，里面的剑意是最强势的力量，而且此时已伤痕累累的似乎也承受不起那一剑带来的伤害。越是强大的剑，伤人的同时也一定会伤己。所以几乎同时，弘毅便倒下了。  </p>
+<p>但是他不后悔，甚至为此付出性命也不后悔。所以当那白色铠甲和白色长矛出现在他最后的视野里时，他留给人间的是一个微笑，一个心满意足的微笑。  </p>
+<p>因为他叫柳弘毅。  </p>
+<p>因为他是剑阁弟子。  </p>
+<p>因为师父曾说过：士不可以不弘毅。</p>
 ]]></content>
       <categories>
         <category>Novel</category>
@@ -9662,97 +9604,61 @@ public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) &#123;
       </tags>
   </entry>
   <entry>
-    <title>Parquet 源码解析</title>
-    <url>/2020/07/20/Parquet/</url>
-    <content><![CDATA[<h2 id="Parquet-源码解析"><a href="#Parquet-源码解析" class="headerlink" title="Parquet 源码解析"></a>Parquet 源码解析</h2><p>Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。在HDFS文件系统和Parquet文件中存在如下几个概念。</p>
-<ul>
-<li>HDFS块(Block)：它是HDFS上的最小的副本单位，HDFS会把一个Block存储在本地的一个文件并且维护分散在不同的机器上的多个副本，通常情况下一个Block的大小为256M、512M等。</li>
-<li>HDFS文件(File)：一个HDFS的文件，包括数据和元数据，数据分散存储在多个Block中。</li>
-<li>行组(Row Group)：按照行将数据物理上划分为多个单元，每一个行组包含一定的行数，在一个HDFS文件中至少存储一个行组，Parquet读写的时候会将整个行组缓存在内存中，所以如果每一个行组的大小是由内存大的小决定的，例如记录占用空间比较小的Schema可以在每一个行组中存储更多的行。</li>
-<li>列块(Column Chunk)：在一个行组中每一列保存在一个列块中，行组中的所有列连续的存储在这个行组文件中。一个列块中的值都是相同类型的，不同的列块可能使用不同的算法进行压缩。</li>
-<li>页(Page)：每一个列块划分为多个页，一个页是最小的编码的单位，在同一个列块的不同页可能使用不同的编码方式。</li>
-</ul>
-<blockquote>
-<p>一般按照 Block 大小来设置行组的大小，每一个mapper处理数据的最小单位是一个 block，这样就可以把每一个行组由一个mapper处理，提高任务执行并行度</p>
-</blockquote>
-<p><img src="https://images2017.cnblogs.com/blog/400827/201710/400827-20171017112835787-354192287.png"></p>
-<blockquote>
-<p>MapredParquetOutputFormat.getHiveRecordWriter()<br>-&gt; DataWritableWriteSupport.setSchema(HiveSchemaConverter.convert((List)columnNames, columnTypes), jobConf) 根据列名和类型，生成schema<br>-&gt; ParquetRecordWriterWrapper.ParquetRecordWriterWrapper() 生成一个 ParquetOutputFormat 对象<br>-&gt; ParquetFileWriter<br>    创建一个文件写入对象，<br>    ParquetFileWriter(Configuration configuration, MessageType schema, Path file, ParquetFileWriter.Mode mode, long rowGroupSize, int maxPaddingSize)<br>    参数包括：conf配置，schema表结构，file文件路径，mode文件写入的模式（新建或覆写），blockSizeHDFS块大小，也就是一个行组的大小<br>    之后会先在这个文件的最开始的位置写入四个字节的 “PAR1” 表示该文件为 parquet 格式，”parquet.writer.max-padding”, 8388608<br>    根据这个文件写入对象，去创建一个<br>-&gt; InternalParquetRecordWriter<br>    创建一个 InternalParquetRecordWriter(fileWriter, writeSupport, schema, writeContext.getExtraMetaData(), (long)blockSize, compressor, validating, encodingProps); 对象，每读取一条数据，调用该对象的 write() 方法写入，底层实现是调用 DataWritableWriter.write(T value)</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">InternalParquetRecordWriter 类</span><br><span class="line">public void write(T value) throws IOException, InterruptedException &#123;</span><br><span class="line">    this.writeSupport.write(value);</span><br><span class="line">    ++this.recordCount; // 每写入一条数据，记录数+1</span><br><span class="line">    this.checkBlockSizeReached();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void checkBlockSizeReached() throws IOException &#123;</span><br><span class="line">    if (this.recordCount &gt;= this.recordCountForNextMemCheck) &#123; // 默认值 this.recordCountForNextMemCheck = 100L，每调用一次修改为新值</span><br><span class="line">        // this.pageStore = new ColumnChunkPageWriteStore(this.compressor, this.schema, this.props.getAllocator());</span><br><span class="line">        // this.columnStore = this.props.newColumnWriteStore(this.schema, this.pageStore);</span><br><span class="line">        // props 就是 ParquetProperties</span><br><span class="line">        // 已写入到内存中的记录的总大小，除以记录数，得到平均一条记录的大小</span><br><span class="line">        long memSize = this.columnStore.getBufferedSize();</span><br><span class="line">        long recordSize = memSize / this.recordCount; </span><br><span class="line">        if (memSize &gt; this.nextRowGroupSize - 2L * recordSize) &#123;</span><br><span class="line">            // 如果内存中的记录总大小 &gt; 行组大小 - 2*平均一条记录大小 ？？？</span><br><span class="line">            // 当 memSize &gt; GroupSize(约等于blocksize)，就可以刷到磁盘</span><br><span class="line">            LOG.debug(&quot;mem size &#123;&#125; &gt; &#123;&#125;: flushing &#123;&#125; records to disk.&quot;, new Object[]&#123;memSize, this.nextRowGroupSize, this.recordCount&#125;);</span><br><span class="line">            // 刷写内存的记录</span><br><span class="line">            this.flushRowGroupToStore();</span><br><span class="line">            this.initStore(); // 重置 pageStore、columnStore 等信息</span><br><span class="line">            this.recordCountForNextMemCheck = Math.min(Math.max(100L, this.recordCount / 2L), 10000L);</span><br><span class="line">            this.lastRowGroupEndPos = this.parquetFileWriter.getPos();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 当目前内存中的记录的总大小还不够大时，修改 recordCountForNextMemCheck 的值，每次会增大一点，差不多相当于之前增量的一半，如果recordsize变化不大的话</span><br><span class="line">            this.recordCountForNextMemCheck = Math.min(Math.max(100L, (this.recordCount + (long)((float)this.nextRowGroupSize / (float)recordSize)) / 2L), this.recordCount + 10000L);</span><br><span class="line">            LOG.debug(&quot;Checked mem at &#123;&#125; will check again at: &#123;&#125;&quot;, this.recordCount, this.recordCountForNextMemCheck);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void flushRowGroupToStore() throws IOException &#123;</span><br><span class="line">    // 先将null值刷写出去？？？</span><br><span class="line">    this.recordConsumer.flush();</span><br><span class="line">    LOG.debug(&quot;Flushing mem columnStore to file. allocated memory: &#123;&#125;&quot;, this.columnStore.getAllocatedSize());</span><br><span class="line">    if (this.columnStore.getAllocatedSize() &gt; 3L * this.rowGroupSizeThreshold) &#123;</span><br><span class="line">        LOG.warn(&quot;Too much memory used: &#123;&#125;&quot;, this.columnStore.memUsageString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (this.recordCount &gt; 0L) &#123;</span><br><span class="line">        // 获取block的元数据信息</span><br><span class="line">        this.parquetFileWriter.startBlock(this.recordCount);</span><br><span class="line">        // 把每一列的值写到文件</span><br><span class="line">        this.columnStore.flush();</span><br><span class="line">        this.pageStore.flushToFileWriter(this.parquetFileWriter);</span><br><span class="line">        this.recordCount = 0L;</span><br><span class="line">        this.parquetFileWriter.endBlock();</span><br><span class="line">        this.nextRowGroupSize = Math.min(this.parquetFileWriter.getNextRowGroupSize(), this.rowGroupSizeThreshold);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.columnStore = null;</span><br><span class="line">    this.pageStore = null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ColumnWriteStoreV1 类</span><br><span class="line">this.columnStore = ColumnWriteStoreV1 时，执行的方法</span><br><span class="line">public void flush() &#123;</span><br><span class="line">    // private final Map&lt;ColumnDescriptor, ColumnWriterV1&gt; columns = new TreeMap();</span><br><span class="line">    Collection&lt;ColumnWriterV1&gt; values = this.columns.values();</span><br><span class="line">    Iterator var2 = values.iterator();</span><br><span class="line"></span><br><span class="line">    while(var2.hasNext()) &#123;</span><br><span class="line">        ColumnWriterV1 memColumn = (ColumnWriterV1)var2.next();</span><br><span class="line">        memColumn.flush();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ColumnWriterV1 类</span><br><span class="line">public void flush() &#123;</span><br><span class="line">    if (this.valueCount &gt; 0) &#123;</span><br><span class="line">        this.writePage(); </span><br><span class="line">        // 将所有数据都转换成了Bytes</span><br><span class="line">        // this.pageWriter.writePage(BytesInput.concat(new BytesInput[]&#123;this.repetitionLevelColumn.getBytes(), this.definitionLevelColumn.getBytes(), this.dataColumn.getBytes()&#125;), this.valueCount, this.statistics, this.repetitionLevelColumn.getEncoding(), this.definitionLevelColumn.getEncoding(), this.dataColumn.getEncoding());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    DictionaryPage dictionaryPage = this.dataColumn.toDictPageAndClose();</span><br><span class="line">    if (dictionaryPage != null) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            this.pageWriter.writeDictionaryPage(dictionaryPage);</span><br><span class="line">        &#125; catch (IOException var3) &#123;</span><br><span class="line">            throw new ParquetEncodingException(&quot;could not write dictionary page for &quot; + this.path, var3);</span><br><span class="line">        &#125;</span><br><span class="line">        this.dataColumn.resetDictionary();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ParquetProperties 默认变量信息</span><br><span class="line">private Builder() &#123;</span><br><span class="line">    this.pageSize = 1048576;</span><br><span class="line">    this.dictPageSize = 1048576;</span><br><span class="line">    this.enableDict = true;</span><br><span class="line">    this.writerVersion = ParquetProperties.DEFAULT_WRITER_VERSION =&gt; &quot;v1&quot;;</span><br><span class="line">    this.minRowCountForPageSizeCheck = 100;</span><br><span class="line">    this.maxRowCountForPageSizeCheck = 10000;</span><br><span class="line">    this.estimateNextSizeCheck = true;</span><br><span class="line">    this.allocator = new HeapByteBufferAllocator();</span><br><span class="line">    this.valuesWriterFactory = ParquetProperties.DEFAULT_VALUES_WRITER_FACTORY;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>org.apache.parquet.hadoop.api 包下 </p>
-<ul>
-<li>ReadSupport<ul>
-<li>GroupReadSupport</li>
-<li>DataWritableReadSupport</li>
-</ul>
-</li>
-<li>WriteSupport<ul>
-<li>GroupWriteSupport</li>
-<li>DataWritableWriteSupport</li>
-</ul>
-</li>
-</ul>
-<p>映射下推(Project PushDown)<br>说到列式存储的优势，映射下推是最突出的，它意味着在获取表中原始数据时只需要扫描查询中需要的列，由于每一列的所有值都是连续存储的，所以分区取出每一列的所有值就可以实现TableScan算子，而避免扫描整个表文件内容。</p>
-<p>在Parquet中原生就支持映射下推，执行查询的时候可以通过Configuration传递需要读取的列的信息，这些列必须是Schema的子集，映射每次会扫描一个Row Group的数据，然后一次性得将该Row Group里所有需要的列的Cloumn Chunk都读取到内存中，每次读取一个Row Group的数据能够大大降低随机读的次数，除此之外，Parquet在读取的时候会考虑列是否连续，如果某些需要的列是存储位置是连续的，那么一次读操作就可以把多个列的数据读取到内存。</p>
-<p>谓词下推(Predicate PushDown)<br>在数据库之类的查询系统中最常用的优化手段就是谓词下推了，通过将一些过滤条件尽可能的在最底层执行可以减少每一层交互的数据量，从而提升性能，例如”select count(1) from A Join B on A.id &#x3D; B.id where A.a &gt;数据 10 and B.b &lt; 100”SQL查询中，在处理Join操作之前需要首先对A和B执行TableScan操作，然后再进行Join，再执行过滤，最后计算聚合函数返回，但是如果把过滤条件A.a &gt; 10和B.b &lt; 100分别移到A表的TableScan和B表的TableScan的时候执行，可以大大降低Join操作的输入数据。</p>
-<p>无论是行式存储还是列式存储，都可以在将过滤条件在读取一条记录之后执行以判断该记录是否需要返回给调用者，在Parquet做了更进一步的优化，优化的方法时对每一个Row Group的每一个Column Chunk在存储的时候都计算对应的统计信息，包括该Column Chunk的最大值、最小值和空值个数。通过这些统计值和该列的过滤条件可以判断该Row Group是否需要扫描。另外Parquet未来还会增加诸如Bloom Filter和Index等优化数据，更加有效的完成谓词下推。</p>
-<p>在使用Parquet的时候可以通过如下两种策略提升查询性能：1、类似于关系数据库的主键，对需要频繁过滤的列设置为有序的，这样在导入数据的时候会根据该列的顺序存储数据，这样可以最大化的利用最大值、最小值实现谓词下推。2、减小行组大小和页大小，这样增加跳过整个行组的可能性，但是此时需要权衡由于压缩和编码效率下降带来的I&#x2F;O负载。</p>
-<p><a href="https://www.cnblogs.com/windliu/p/10942252.html">参考地址</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4-byte magic number &quot;PAR1&quot;</span><br><span class="line">&lt;Column 1 Chunk 1 + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk 1 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk 1 + Column Metadata&gt;</span><br><span class="line">&lt;Column 1 Chunk 2 + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk 2 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk 2 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column 1 Chunk M + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk M + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk M + Column Metadata&gt;</span><br><span class="line">File Metadata</span><br><span class="line">4-byte length in bytes of file metadata</span><br><span class="line">4-byte magic number &quot;PAR1&quot;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Hadoop</category>
-        <category>Parquet</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>Parquet</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Phoenix</title>
-    <url>/2020/06/16/Phoenix-1/</url>
-    <content><![CDATA[<h2 id="Phoenix"><a href="#Phoenix" class="headerlink" title="Phoenix"></a>Phoenix</h2><h3 id="1-phoenix-sqlline"><a href="#1-phoenix-sqlline" class="headerlink" title="1. phoenix-sqlline"></a>1. phoenix-sqlline</h3><p>退出 <code>!quit</code> <code>!exit</code><br>列出metadata信息 <code>!dbinfo</code><br>查看当前库中存在的表 <code>!tables</code><br>phoenix中的表信息都存在SYSTEM.CATALOG表中，也可以通过下面的sql语句查看系统的表信息 <code>select * from SYSTEM.CATALOG;</code></p>
-<blockquote>
-<p>主键信息保存在元数据表的 key_seq 列。可以通过 <code>!set maxWidth 10000</code> 来显示所有的列</p>
-</blockquote>
-<blockquote>
-<p>如果不加双引号，会自动将小写转为大写<br>phoenix&#x2F;hbase对表名、字段名都是大小写敏感，如果直接写小写字母，不加双引号，则默认会被转换成大写字母</p>
-</blockquote>
-<p>删除表 <code>drop table 库.表;</code><br>查看表结构 <code>!describe &quot;METRIC_AGGREGATE&quot;</code><br>创建表 <code>create table if not exists 库.表(id integer primary key,name varchar(20));</code><br>插入&amp;更新 <code>upsert into 库.表(id,name) values(1,&#39;zhangsan&#39;);</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS TEST4PHOENIX.testdata (</span><br><span class="line">   tag_id char(10) NOT NULL,</span><br><span class="line">   user_id char(10) NOT NULL,</span><br><span class="line">   val char(10),</span><br><span class="line">   update_time char(30),</span><br><span class="line">   CONSTRAINT pk PRIMARY KEY (tag_id, user_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>添加字段 <code>alter table 库.表 add xxx 类型 (default 默认值);</code></p>
-<p>修改字段信息 <code>upsert into SYSTEM.CATALOG (TENANT_ID,TABLE_SCHEM,TABLE_NAME,COLUMN_NAME,COLUMN_FAMILY,DATA_TYPE,COLUMN_SIZE) values(&#39;&#39;,&#39;库&#39;,&#39;表&#39;,&#39;字段&#39;,&#39;列族&#39;,12,15);</code> </p>
-<blockquote>
-<p>data_type 12 字符串 4 int -6 tinyint 修改为数值类型的时候就不需要column_size了<br>COLUMN_FAMILY 列族，有可能是空有可能是0，这个最好修改之前先查看一下元数据表，尤其是修改已存在的字段信息</p>
-</blockquote>
-<p>查看元数据表 <code>select COLUMN_FAMILY, TENANT_ID, COLUMN_NAME, DATA_TYPE, COLUMN_SIZE from SYSTEM.CATALOG where TABLE_SCHEM = &#39;库&#39; and TABLE_NAME = &#39;表&#39;;</code></p>
-<p>设置字段默认值 <code>upsert into SYSTEM.CATALOG (TENANT_ID,TABLE_SCHEM,TABLE_NAME,COLUMN_NAME,COLUMN_FAMILY,COLUMN_DEF) values(&#39;&#39;,&#39;库&#39;,&#39;表&#39;,&#39;字段&#39;,&#39;&#39;,&#39;\&#39;xxx\&#39;&#39;);</code></p>
-<blockquote>
-<p>字段如果字符串类型，默认值应该填 ‘&#39;xxx&#39;‘，需要对’进行转义；如果是数值类型，可以直接写 ‘123’，默认值对应的是CATALOG表中的COLUMN_DEF字段<br>修改默认值有一个场景可以用，比如之前的主键做了修改，不想删表重建，那么就把之前的主键加默认值，这样sql里就不需要带着主键字段了<br>对元数据表的修改可能需要重启客户端甚至重启hbase才可以生效</p>
-</blockquote>
-<h3 id="2-预分区"><a href="#2-预分区" class="headerlink" title="2. 预分区"></a>2. 预分区</h3><p>HBase 默认分区规则<br>memstore.flush.size&#x3D;128MB<br>max.store.size&#x3D;10G</p>
-<p>分区规则：Min(R^2 * “hbase.hregion.memstore.flush.size”, “hbase.hregion.max.filesize”)</p>
-<p>第一次拆分大小为：min(10G，1<em>1</em>128M)&#x3D;128M &#x2F;&#x2F; 一开始的时候就一个region，当数据量达到128M时，会一分为二，变成2个region，然后会往第二个region里写数据，但是第一个不会写，处于半满状态 &#x3D;&gt; 之前分裂的region都不会再被写入数据，处于半满状态<br>第二次拆分大小为：min(10G，3<em>3</em>128M)&#x3D;1152M<br>第三次拆分大小为：min(10G，5<em>5</em>128M)&#x3D;3200M<br>第四次拆分大小为：min(10G，7<em>7</em>128M)&#x3D;6272M<br>第五次拆分大小为：min(10G，9<em>9</em>128M)&#x3D;10G<br>第五次拆分大小为：min(10G，11<em>11</em>128M)&#x3D;10G &#x2F;&#x2F; 最大是10G</p>
-<p>phoenix 自定义分区<br>如果指定了 SALT_BUCKETS&#x3D;N，那么就会通过 hash(rowkey) % SALT_BUCKETS 划分成 N 个region。SALT_BUCKETS 取值为1到256。实现原理是会在row_key的byte数组的第一个字节位置设定一个系统生成的byte值，byte值 &#x3D; hash(rowkey) % SALT_BUCKETS，这样就可以划分到不同region里。</p>
-<p>如果指定了 SPLIT ON(“a”,”b”,”c”)，就会将rowkey划分到 空——a、a——b、b——c、c——无穷 这四个分区里。</p>
-<p>如果同时指定了 SALT_BUCKETS&#x3D;N 和 SPLIT ON(“a”,”b”,”c”)，会根据N拿到散列值，然后同散列值去SPLIT ON指定的分区规则里查询，放入到对应的分区里。</p>
-<blockquote>
-<p>SALT_BUCKETS + SPLIT ON 通过散列+分区的方式，在 RowKey 的前面拼接通过 hash 生成的随机字符串，可以生成范围比较随机的 RowKey，可以比较均衡分散到不同的 Region 中。<br>但是可能会存在极限情况：加盐产生的散列数，都集中到某几个分区中，导致热点问题，所以如果要用到 split_on，需要对主键对散列有一个很好的规划</p>
-</blockquote>
+    <title>将夜之武逆</title>
+    <url>/2013/01/31/Novel-6/</url>
+    <content><![CDATA[<p>当宁缺决定挥出那一刀的瞬间，他的逆天之路便再无回头之路。<br>——题记</p>
+<p>回头崖上。</p>
+<p>宁缺身上的衣服已由白色变成红黑色，先前的伤口还在向外渗着血。然而他似乎已经感受不到任何疼痛了。</p>
+<p>他用手拭去嘴角的血水，看着面前这个强大的敌人，右手握紧朴刀，想要出击却发现自己竟迈步过身前一尺之地。</p>
+<p>“这是？”</p>
+<p>“樊笼。虽不及神殿里那位的厉害，但要困住书院最弱的天下行走，想来也不是什么难事。”</p>
+<p>樊笼。他在心里念了一遍。继而大笑，笑得很大声，以至整个山崖都在回荡着他的笑声。</p>
+<p>这是一种痴迷于战斗的狂热，也是一种遇强则强的放肆。</p>
+<p>“不知十三先生为何而笑？”</p>
+<p>“笑我这个书院最弱的天下行走也会被施以天下最强的御敌之术。”</p>
+<p>或许这一种狂热与放肆对普通人有效，但这一次，毫无效果。</p>
+<p>耳边传来对方的大笑。“世人皆称十三先生为书院最弱，然而十三先生两个月连破三境，其速度仅次于昔日神座、当今夫子，就算是书院最弱，我二十三年蝉又如何敢轻敌？”</p>
+<p>“传闻你一朝入关便是二十三年不问世事，出关之时便是一片蝉鸣，恍若天乐奏响，不知传闻可是真的？”</p>
+<p>“都是后辈们无聊时的言语罢了。”</p>
+<p>“或许吧。不过我比较关心你出关之后的事，比如，”宁缺用手指了指二十三年蝉的身体，“你入魔一事。”</p>
+<p>二十三年蝉低头看了一眼正冒着白气的伤口。此时伤口正以缓慢而稳定的速度自我愈合。“十三先生好眼力。”他从怀中掏出一块肉塞入口中，细细咀嚼着。“修行界流传着十三先生打架时必定会闲聊，从心理上先胜一筹，今日所见，果然如此。”</p>
+<p>“不过只是为了恢复一下而已。”宁缺倒也实诚，趁着这个时机放松了一下手腕。</p>
+<p>“那我也满足一下你的好奇心。当年出关之后看到人事变迁，长生的愿望开始膨胀，越来越强烈。我以佛宗首座的身份阅读了三卷天书，试着找到一种可以维持肉身不坏的方法。幸运的是，我找到了。不幸的是，那个方法的前提是必须入魔。控制不住对长生的渴望，于是我入魔了。”</p>
+<p>宁缺想不到他入魔的原因竟如此简单，又被他如此平淡地说出来。</p>
+<p>“魔宗中有一秘法，名曰‘饕餮’，修行此法需要生食活人肉，将活人的生气转化为己用。后来我改进了一下，吃死人肉就行了。”说完，二十三年蝉从怀中又掏出一块肉塞入口中。此事他身上的伤口已愈合大半。</p>
+<p>“怪不得。”</p>
+<p>“说来你的‘浩然剑’也颇有长进，加上元十三箭，就连我的魔宗护体也要惧上三分，不过你终究不是轲疯子。况且我先入佛再入魔，如今已近乎圣体，而你想要逾境杀我，岂不是要逆天？”</p>
+<p>逆天？一个陌生而熟悉的字眼进入宁缺的耳中。他缓缓地闭上眼中。</p>
+<p>“看来你也知道这不可能了。那我就来结束你的噩梦吧。”说完，二十三年蝉一个箭步冲向宁缺。速度之快，竟挟着一股山风。</p>
+<p>然而他想错了，宁缺之所以闭眼，并不是想要放弃，而是想到了一件有趣的事。</p>
+<p>昔日踏上书院二层楼时，宁缺曾与夫子在咫尺峰上彻夜长谈。</p>
+<p>“我曾去渭城看过，知道你以前的警力，想你踏入书院的路也绝非常人所能做到的。”夫子躺在槐树下，品着酒。</p>
+<p>“如果有人经历过我的经历，那么他一定会很想改变。我不过只是更加渴望而已。”</p>
+<p>夫子看了他一眼，有些心喜，也有些担忧。“你以后便是书院的天下行走，便要接受天下所有修行之人的挑战。不过你如今如此低的境界，想要改变，岂不是要登天，不，比逆天还难？”夫子笑着品了一口酒，他对自己的用词很满意。</p>
+<p>宁缺看着夫子，一字一字地说道：“那我便要逆天。”</p>
+<p>夫子听到这句话，看着自己的弟子，笑了，“既在天中，何以逆天？”</p>
+<p>宁缺沉默了，因为他不知道如何回答。如今经过和二十三年蝉的对话，他似乎知道了答案。</p>
+<p>他慢慢向后退了一步，举起手中的朴刀，挥了下去。</p>
+<p>既然在天道之中便无法逆天，那我就站在天道之外！</p>
+<p>找到属于自己的答案之后，宁缺的脑中所有的招式便只剩下挥刀。简单地挥刀。</p>
+<p>有时候，因为简单，所以强大。</p>
+<p>上一刻，朴刀挥。</p>
+<p>这一刻，樊笼破。</p>
+<p>下一刻，剑气至。</p>
+<p>二十三年蝉还在好奇宁缺是如何挣脱樊笼的束缚的，突然间发现一股浩然气突破他的魔宗护体，紧接着一股滚热的液体从口中喷出。</p>
+<p>“想不到你竟又破镜了。”</p>
+<p>“那还要感谢你的帮助。”破镜后的宁缺突然感觉眼前的世界竟变得不一样了。甚至连二十三年蝉是伤口处外渗的魔宗元气也感受得到。</p>
+<p>“看来书院自你小师叔之后又出了一个奇迹。”再度被浩然气所重伤，二十三年蝉已无法再迅速用“饕餮”来恢复了。</p>
+<p>“我就当是赞美了。多谢。”话音落，朴刀挥，一股更加刚烈、醇厚的浩然气突破二十三年蝉的魔宗护体，将其生生斩成两半。</p>
+<p>一场恶战终于结束。</p>
+<p>宁缺拖着疲惫的身躯朝来时的路走去，突然感觉有些不妥，反手在空中比划几下，确认碑上的字已改，才放心地走下山崖。</p>
+<p>从此世间，回头崖逝，无头崖立。</p>
 ]]></content>
       <categories>
-        <category>Hadoop</category>
-        <category>Phoenix</category>
+        <category>Novel</category>
       </categories>
       <tags>
-        <tag>Hadoop</tag>
-        <tag>Phoenix</tag>
+        <tag>Novel</tag>
       </tags>
   </entry>
   <entry>
@@ -10490,6 +10396,100 @@ public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) &#123;
       </categories>
       <tags>
         <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Parquet 源码解析</title>
+    <url>/2020/07/20/Parquet/</url>
+    <content><![CDATA[<h2 id="Parquet-源码解析"><a href="#Parquet-源码解析" class="headerlink" title="Parquet 源码解析"></a>Parquet 源码解析</h2><p>Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。在HDFS文件系统和Parquet文件中存在如下几个概念。</p>
+<ul>
+<li>HDFS块(Block)：它是HDFS上的最小的副本单位，HDFS会把一个Block存储在本地的一个文件并且维护分散在不同的机器上的多个副本，通常情况下一个Block的大小为256M、512M等。</li>
+<li>HDFS文件(File)：一个HDFS的文件，包括数据和元数据，数据分散存储在多个Block中。</li>
+<li>行组(Row Group)：按照行将数据物理上划分为多个单元，每一个行组包含一定的行数，在一个HDFS文件中至少存储一个行组，Parquet读写的时候会将整个行组缓存在内存中，所以如果每一个行组的大小是由内存大的小决定的，例如记录占用空间比较小的Schema可以在每一个行组中存储更多的行。</li>
+<li>列块(Column Chunk)：在一个行组中每一列保存在一个列块中，行组中的所有列连续的存储在这个行组文件中。一个列块中的值都是相同类型的，不同的列块可能使用不同的算法进行压缩。</li>
+<li>页(Page)：每一个列块划分为多个页，一个页是最小的编码的单位，在同一个列块的不同页可能使用不同的编码方式。</li>
+</ul>
+<blockquote>
+<p>一般按照 Block 大小来设置行组的大小，每一个mapper处理数据的最小单位是一个 block，这样就可以把每一个行组由一个mapper处理，提高任务执行并行度</p>
+</blockquote>
+<p><img src="https://images2017.cnblogs.com/blog/400827/201710/400827-20171017112835787-354192287.png"></p>
+<blockquote>
+<p>MapredParquetOutputFormat.getHiveRecordWriter()<br>-&gt; DataWritableWriteSupport.setSchema(HiveSchemaConverter.convert((List)columnNames, columnTypes), jobConf) 根据列名和类型，生成schema<br>-&gt; ParquetRecordWriterWrapper.ParquetRecordWriterWrapper() 生成一个 ParquetOutputFormat 对象<br>-&gt; ParquetFileWriter<br>    创建一个文件写入对象，<br>    ParquetFileWriter(Configuration configuration, MessageType schema, Path file, ParquetFileWriter.Mode mode, long rowGroupSize, int maxPaddingSize)<br>    参数包括：conf配置，schema表结构，file文件路径，mode文件写入的模式（新建或覆写），blockSizeHDFS块大小，也就是一个行组的大小<br>    之后会先在这个文件的最开始的位置写入四个字节的 “PAR1” 表示该文件为 parquet 格式，”parquet.writer.max-padding”, 8388608<br>    根据这个文件写入对象，去创建一个<br>-&gt; InternalParquetRecordWriter<br>    创建一个 InternalParquetRecordWriter(fileWriter, writeSupport, schema, writeContext.getExtraMetaData(), (long)blockSize, compressor, validating, encodingProps); 对象，每读取一条数据，调用该对象的 write() 方法写入，底层实现是调用 DataWritableWriter.write(T value)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">InternalParquetRecordWriter 类</span><br><span class="line">public void write(T value) throws IOException, InterruptedException &#123;</span><br><span class="line">    this.writeSupport.write(value);</span><br><span class="line">    ++this.recordCount; // 每写入一条数据，记录数+1</span><br><span class="line">    this.checkBlockSizeReached();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void checkBlockSizeReached() throws IOException &#123;</span><br><span class="line">    if (this.recordCount &gt;= this.recordCountForNextMemCheck) &#123; // 默认值 this.recordCountForNextMemCheck = 100L，每调用一次修改为新值</span><br><span class="line">        // this.pageStore = new ColumnChunkPageWriteStore(this.compressor, this.schema, this.props.getAllocator());</span><br><span class="line">        // this.columnStore = this.props.newColumnWriteStore(this.schema, this.pageStore);</span><br><span class="line">        // props 就是 ParquetProperties</span><br><span class="line">        // 已写入到内存中的记录的总大小，除以记录数，得到平均一条记录的大小</span><br><span class="line">        long memSize = this.columnStore.getBufferedSize();</span><br><span class="line">        long recordSize = memSize / this.recordCount; </span><br><span class="line">        if (memSize &gt; this.nextRowGroupSize - 2L * recordSize) &#123;</span><br><span class="line">            // 如果内存中的记录总大小 &gt; 行组大小 - 2*平均一条记录大小 ？？？</span><br><span class="line">            // 当 memSize &gt; GroupSize(约等于blocksize)，就可以刷到磁盘</span><br><span class="line">            LOG.debug(&quot;mem size &#123;&#125; &gt; &#123;&#125;: flushing &#123;&#125; records to disk.&quot;, new Object[]&#123;memSize, this.nextRowGroupSize, this.recordCount&#125;);</span><br><span class="line">            // 刷写内存的记录</span><br><span class="line">            this.flushRowGroupToStore();</span><br><span class="line">            this.initStore(); // 重置 pageStore、columnStore 等信息</span><br><span class="line">            this.recordCountForNextMemCheck = Math.min(Math.max(100L, this.recordCount / 2L), 10000L);</span><br><span class="line">            this.lastRowGroupEndPos = this.parquetFileWriter.getPos();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 当目前内存中的记录的总大小还不够大时，修改 recordCountForNextMemCheck 的值，每次会增大一点，差不多相当于之前增量的一半，如果recordsize变化不大的话</span><br><span class="line">            this.recordCountForNextMemCheck = Math.min(Math.max(100L, (this.recordCount + (long)((float)this.nextRowGroupSize / (float)recordSize)) / 2L), this.recordCount + 10000L);</span><br><span class="line">            LOG.debug(&quot;Checked mem at &#123;&#125; will check again at: &#123;&#125;&quot;, this.recordCount, this.recordCountForNextMemCheck);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void flushRowGroupToStore() throws IOException &#123;</span><br><span class="line">    // 先将null值刷写出去？？？</span><br><span class="line">    this.recordConsumer.flush();</span><br><span class="line">    LOG.debug(&quot;Flushing mem columnStore to file. allocated memory: &#123;&#125;&quot;, this.columnStore.getAllocatedSize());</span><br><span class="line">    if (this.columnStore.getAllocatedSize() &gt; 3L * this.rowGroupSizeThreshold) &#123;</span><br><span class="line">        LOG.warn(&quot;Too much memory used: &#123;&#125;&quot;, this.columnStore.memUsageString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (this.recordCount &gt; 0L) &#123;</span><br><span class="line">        // 获取block的元数据信息</span><br><span class="line">        this.parquetFileWriter.startBlock(this.recordCount);</span><br><span class="line">        // 把每一列的值写到文件</span><br><span class="line">        this.columnStore.flush();</span><br><span class="line">        this.pageStore.flushToFileWriter(this.parquetFileWriter);</span><br><span class="line">        this.recordCount = 0L;</span><br><span class="line">        this.parquetFileWriter.endBlock();</span><br><span class="line">        this.nextRowGroupSize = Math.min(this.parquetFileWriter.getNextRowGroupSize(), this.rowGroupSizeThreshold);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.columnStore = null;</span><br><span class="line">    this.pageStore = null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ColumnWriteStoreV1 类</span><br><span class="line">this.columnStore = ColumnWriteStoreV1 时，执行的方法</span><br><span class="line">public void flush() &#123;</span><br><span class="line">    // private final Map&lt;ColumnDescriptor, ColumnWriterV1&gt; columns = new TreeMap();</span><br><span class="line">    Collection&lt;ColumnWriterV1&gt; values = this.columns.values();</span><br><span class="line">    Iterator var2 = values.iterator();</span><br><span class="line"></span><br><span class="line">    while(var2.hasNext()) &#123;</span><br><span class="line">        ColumnWriterV1 memColumn = (ColumnWriterV1)var2.next();</span><br><span class="line">        memColumn.flush();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ColumnWriterV1 类</span><br><span class="line">public void flush() &#123;</span><br><span class="line">    if (this.valueCount &gt; 0) &#123;</span><br><span class="line">        this.writePage(); </span><br><span class="line">        // 将所有数据都转换成了Bytes</span><br><span class="line">        // this.pageWriter.writePage(BytesInput.concat(new BytesInput[]&#123;this.repetitionLevelColumn.getBytes(), this.definitionLevelColumn.getBytes(), this.dataColumn.getBytes()&#125;), this.valueCount, this.statistics, this.repetitionLevelColumn.getEncoding(), this.definitionLevelColumn.getEncoding(), this.dataColumn.getEncoding());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    DictionaryPage dictionaryPage = this.dataColumn.toDictPageAndClose();</span><br><span class="line">    if (dictionaryPage != null) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            this.pageWriter.writeDictionaryPage(dictionaryPage);</span><br><span class="line">        &#125; catch (IOException var3) &#123;</span><br><span class="line">            throw new ParquetEncodingException(&quot;could not write dictionary page for &quot; + this.path, var3);</span><br><span class="line">        &#125;</span><br><span class="line">        this.dataColumn.resetDictionary();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ParquetProperties 默认变量信息</span><br><span class="line">private Builder() &#123;</span><br><span class="line">    this.pageSize = 1048576;</span><br><span class="line">    this.dictPageSize = 1048576;</span><br><span class="line">    this.enableDict = true;</span><br><span class="line">    this.writerVersion = ParquetProperties.DEFAULT_WRITER_VERSION =&gt; &quot;v1&quot;;</span><br><span class="line">    this.minRowCountForPageSizeCheck = 100;</span><br><span class="line">    this.maxRowCountForPageSizeCheck = 10000;</span><br><span class="line">    this.estimateNextSizeCheck = true;</span><br><span class="line">    this.allocator = new HeapByteBufferAllocator();</span><br><span class="line">    this.valuesWriterFactory = ParquetProperties.DEFAULT_VALUES_WRITER_FACTORY;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>org.apache.parquet.hadoop.api 包下 </p>
+<ul>
+<li>ReadSupport<ul>
+<li>GroupReadSupport</li>
+<li>DataWritableReadSupport</li>
+</ul>
+</li>
+<li>WriteSupport<ul>
+<li>GroupWriteSupport</li>
+<li>DataWritableWriteSupport</li>
+</ul>
+</li>
+</ul>
+<p>映射下推(Project PushDown)<br>说到列式存储的优势，映射下推是最突出的，它意味着在获取表中原始数据时只需要扫描查询中需要的列，由于每一列的所有值都是连续存储的，所以分区取出每一列的所有值就可以实现TableScan算子，而避免扫描整个表文件内容。</p>
+<p>在Parquet中原生就支持映射下推，执行查询的时候可以通过Configuration传递需要读取的列的信息，这些列必须是Schema的子集，映射每次会扫描一个Row Group的数据，然后一次性得将该Row Group里所有需要的列的Cloumn Chunk都读取到内存中，每次读取一个Row Group的数据能够大大降低随机读的次数，除此之外，Parquet在读取的时候会考虑列是否连续，如果某些需要的列是存储位置是连续的，那么一次读操作就可以把多个列的数据读取到内存。</p>
+<p>谓词下推(Predicate PushDown)<br>在数据库之类的查询系统中最常用的优化手段就是谓词下推了，通过将一些过滤条件尽可能的在最底层执行可以减少每一层交互的数据量，从而提升性能，例如”select count(1) from A Join B on A.id &#x3D; B.id where A.a &gt;数据 10 and B.b &lt; 100”SQL查询中，在处理Join操作之前需要首先对A和B执行TableScan操作，然后再进行Join，再执行过滤，最后计算聚合函数返回，但是如果把过滤条件A.a &gt; 10和B.b &lt; 100分别移到A表的TableScan和B表的TableScan的时候执行，可以大大降低Join操作的输入数据。</p>
+<p>无论是行式存储还是列式存储，都可以在将过滤条件在读取一条记录之后执行以判断该记录是否需要返回给调用者，在Parquet做了更进一步的优化，优化的方法时对每一个Row Group的每一个Column Chunk在存储的时候都计算对应的统计信息，包括该Column Chunk的最大值、最小值和空值个数。通过这些统计值和该列的过滤条件可以判断该Row Group是否需要扫描。另外Parquet未来还会增加诸如Bloom Filter和Index等优化数据，更加有效的完成谓词下推。</p>
+<p>在使用Parquet的时候可以通过如下两种策略提升查询性能：1、类似于关系数据库的主键，对需要频繁过滤的列设置为有序的，这样在导入数据的时候会根据该列的顺序存储数据，这样可以最大化的利用最大值、最小值实现谓词下推。2、减小行组大小和页大小，这样增加跳过整个行组的可能性，但是此时需要权衡由于压缩和编码效率下降带来的I&#x2F;O负载。</p>
+<p><a href="https://www.cnblogs.com/windliu/p/10942252.html">参考地址</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4-byte magic number &quot;PAR1&quot;</span><br><span class="line">&lt;Column 1 Chunk 1 + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk 1 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk 1 + Column Metadata&gt;</span><br><span class="line">&lt;Column 1 Chunk 2 + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk 2 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk 2 + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column 1 Chunk M + Column Metadata&gt;</span><br><span class="line">&lt;Column 2 Chunk M + Column Metadata&gt;</span><br><span class="line">...</span><br><span class="line">&lt;Column N Chunk M + Column Metadata&gt;</span><br><span class="line">File Metadata</span><br><span class="line">4-byte length in bytes of file metadata</span><br><span class="line">4-byte magic number &quot;PAR1&quot;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>Parquet</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>Parquet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Phoenix</title>
+    <url>/2020/06/16/Phoenix-1/</url>
+    <content><![CDATA[<h2 id="Phoenix"><a href="#Phoenix" class="headerlink" title="Phoenix"></a>Phoenix</h2><h3 id="1-phoenix-sqlline"><a href="#1-phoenix-sqlline" class="headerlink" title="1. phoenix-sqlline"></a>1. phoenix-sqlline</h3><p>退出 <code>!quit</code> <code>!exit</code><br>列出metadata信息 <code>!dbinfo</code><br>查看当前库中存在的表 <code>!tables</code><br>phoenix中的表信息都存在SYSTEM.CATALOG表中，也可以通过下面的sql语句查看系统的表信息 <code>select * from SYSTEM.CATALOG;</code></p>
+<blockquote>
+<p>主键信息保存在元数据表的 key_seq 列。可以通过 <code>!set maxWidth 10000</code> 来显示所有的列</p>
+</blockquote>
+<blockquote>
+<p>如果不加双引号，会自动将小写转为大写<br>phoenix&#x2F;hbase对表名、字段名都是大小写敏感，如果直接写小写字母，不加双引号，则默认会被转换成大写字母</p>
+</blockquote>
+<p>删除表 <code>drop table 库.表;</code><br>查看表结构 <code>!describe &quot;METRIC_AGGREGATE&quot;</code><br>创建表 <code>create table if not exists 库.表(id integer primary key,name varchar(20));</code><br>插入&amp;更新 <code>upsert into 库.表(id,name) values(1,&#39;zhangsan&#39;);</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS TEST4PHOENIX.testdata (</span><br><span class="line">   tag_id char(10) NOT NULL,</span><br><span class="line">   user_id char(10) NOT NULL,</span><br><span class="line">   val char(10),</span><br><span class="line">   update_time char(30),</span><br><span class="line">   CONSTRAINT pk PRIMARY KEY (tag_id, user_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>添加字段 <code>alter table 库.表 add xxx 类型 (default 默认值);</code></p>
+<p>修改字段信息 <code>upsert into SYSTEM.CATALOG (TENANT_ID,TABLE_SCHEM,TABLE_NAME,COLUMN_NAME,COLUMN_FAMILY,DATA_TYPE,COLUMN_SIZE) values(&#39;&#39;,&#39;库&#39;,&#39;表&#39;,&#39;字段&#39;,&#39;列族&#39;,12,15);</code> </p>
+<blockquote>
+<p>data_type 12 字符串 4 int -6 tinyint 修改为数值类型的时候就不需要column_size了<br>COLUMN_FAMILY 列族，有可能是空有可能是0，这个最好修改之前先查看一下元数据表，尤其是修改已存在的字段信息</p>
+</blockquote>
+<p>查看元数据表 <code>select COLUMN_FAMILY, TENANT_ID, COLUMN_NAME, DATA_TYPE, COLUMN_SIZE from SYSTEM.CATALOG where TABLE_SCHEM = &#39;库&#39; and TABLE_NAME = &#39;表&#39;;</code></p>
+<p>设置字段默认值 <code>upsert into SYSTEM.CATALOG (TENANT_ID,TABLE_SCHEM,TABLE_NAME,COLUMN_NAME,COLUMN_FAMILY,COLUMN_DEF) values(&#39;&#39;,&#39;库&#39;,&#39;表&#39;,&#39;字段&#39;,&#39;&#39;,&#39;\&#39;xxx\&#39;&#39;);</code></p>
+<blockquote>
+<p>字段如果字符串类型，默认值应该填 ‘&#39;xxx&#39;‘，需要对’进行转义；如果是数值类型，可以直接写 ‘123’，默认值对应的是CATALOG表中的COLUMN_DEF字段<br>修改默认值有一个场景可以用，比如之前的主键做了修改，不想删表重建，那么就把之前的主键加默认值，这样sql里就不需要带着主键字段了<br>对元数据表的修改可能需要重启客户端甚至重启hbase才可以生效</p>
+</blockquote>
+<h3 id="2-预分区"><a href="#2-预分区" class="headerlink" title="2. 预分区"></a>2. 预分区</h3><p>HBase 默认分区规则<br>memstore.flush.size&#x3D;128MB<br>max.store.size&#x3D;10G</p>
+<p>分区规则：Min(R^2 * “hbase.hregion.memstore.flush.size”, “hbase.hregion.max.filesize”)</p>
+<p>第一次拆分大小为：min(10G，1<em>1</em>128M)&#x3D;128M &#x2F;&#x2F; 一开始的时候就一个region，当数据量达到128M时，会一分为二，变成2个region，然后会往第二个region里写数据，但是第一个不会写，处于半满状态 &#x3D;&gt; 之前分裂的region都不会再被写入数据，处于半满状态<br>第二次拆分大小为：min(10G，3<em>3</em>128M)&#x3D;1152M<br>第三次拆分大小为：min(10G，5<em>5</em>128M)&#x3D;3200M<br>第四次拆分大小为：min(10G，7<em>7</em>128M)&#x3D;6272M<br>第五次拆分大小为：min(10G，9<em>9</em>128M)&#x3D;10G<br>第五次拆分大小为：min(10G，11<em>11</em>128M)&#x3D;10G &#x2F;&#x2F; 最大是10G</p>
+<p>phoenix 自定义分区<br>如果指定了 SALT_BUCKETS&#x3D;N，那么就会通过 hash(rowkey) % SALT_BUCKETS 划分成 N 个region。SALT_BUCKETS 取值为1到256。实现原理是会在row_key的byte数组的第一个字节位置设定一个系统生成的byte值，byte值 &#x3D; hash(rowkey) % SALT_BUCKETS，这样就可以划分到不同region里。</p>
+<p>如果指定了 SPLIT ON(“a”,”b”,”c”)，就会将rowkey划分到 空——a、a——b、b——c、c——无穷 这四个分区里。</p>
+<p>如果同时指定了 SALT_BUCKETS&#x3D;N 和 SPLIT ON(“a”,”b”,”c”)，会根据N拿到散列值，然后同散列值去SPLIT ON指定的分区规则里查询，放入到对应的分区里。</p>
+<blockquote>
+<p>SALT_BUCKETS + SPLIT ON 通过散列+分区的方式，在 RowKey 的前面拼接通过 hash 生成的随机字符串，可以生成范围比较随机的 RowKey，可以比较均衡分散到不同的 Region 中。<br>但是可能会存在极限情况：加盐产生的散列数，都集中到某几个分区中，导致热点问题，所以如果要用到 split_on，需要对主键对散列有一个很好的规划</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>Phoenix</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>Phoenix</tag>
       </tags>
   </entry>
   <entry>
@@ -11790,6 +11790,46 @@ session_key = str(id) + &#39;_user&#39;
       </tags>
   </entry>
   <entry>
+    <title>Redis 和 MySQL 数据不一致性</title>
+    <url>/2020/11/25/Redis-6/</url>
+    <content><![CDATA[<h2 id="Redis-和-MySQL-数据不一致性"><a href="#Redis-和-MySQL-数据不一致性" class="headerlink" title="Redis 和 MySQL 数据不一致性"></a>Redis 和 MySQL 数据不一致性</h2><p><a href="https://zhuanlan.zhihu.com/p/91770135">参考地址</a></p>
+<p>具体如何去解决还得结合业务去综合考虑。</p>
+<p>下面几个方式可能比较通用</p>
+<h3 id="1-双删法"><a href="#1-双删法" class="headerlink" title="1. 双删法"></a>1. 双删法</h3><p>写流程</p>
+<ol>
+<li>先删除缓存</li>
+<li>写更新数据库</li>
+<li>再次删除缓存 &#x3D;&gt; 避免在第二步的时候有读请求访问数据库，然后把旧的值写入到缓存中</li>
+</ol>
+<p>读流程</p>
+<ol>
+<li>先读缓存</li>
+<li>缓存没有就读数据库</li>
+<li>更新缓存</li>
+</ol>
+<p>这其实是一种懒加载，即只有当读的时候才会从数据库把最新的值加载到缓存里，是读流程激活的加载，而不是写流程在写入新值的时候自动刷新加载</p>
+<p>主动加载的话，万一多个并行操作同时对一个key进行更新，需要考虑操作的幂等性，采用MQ的分区机制来保证同一分区内的操作都是顺序串行化执行</p>
+<p>双删失败如何处理？</p>
+<ol>
+<li>设置缓存过期时间，从理论上来说，给缓存设置过期时间，是保证<strong>最终一致性</strong>的解决方案</li>
+<li>重试 &#x3D;&gt; 重试有业务通过mq重试以及组件消费mysql的binlog再写入mq重试两种方式</li>
+</ol>
+<h3 id="2-异步延迟删除"><a href="#2-异步延迟删除" class="headerlink" title="2. 异步延迟删除"></a>2. 异步延迟删除</h3><p>在双删的基础上，采用 异步延迟删除</p>
+<ol>
+<li>先删除缓存</li>
+<li>写更新数据库</li>
+<li>触发异步写入串行化MQ（也可以采取一种key+version的分布式锁</li>
+<li>MQ接受再次删除缓存</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>缓存穿透、缓存击穿、缓存雪崩</title>
     <url>/2020/10/20/Redis-5/</url>
     <content><![CDATA[<h2 id="缓存穿透、缓存击穿、缓存雪崩"><a href="#缓存穿透、缓存击穿、缓存雪崩" class="headerlink" title="缓存穿透、缓存击穿、缓存雪崩"></a>缓存穿透、缓存击穿、缓存雪崩</h2><p><a href="https://www.cnblogs.com/xichji/p/11286443.html">参考网址1</a><br><a href="https://blog.csdn.net/kongtiao5/article/details/82771694">参考网址2</a><br><a href="https://blog.csdn.net/wsdc0521/article/details/106907436">参考网址3</a></p>
@@ -11906,46 +11946,6 @@ session_key = str(id) + &#39;_user&#39;
       </tags>
   </entry>
   <entry>
-    <title>Redis 和 MySQL 数据不一致性</title>
-    <url>/2020/11/25/Redis-6/</url>
-    <content><![CDATA[<h2 id="Redis-和-MySQL-数据不一致性"><a href="#Redis-和-MySQL-数据不一致性" class="headerlink" title="Redis 和 MySQL 数据不一致性"></a>Redis 和 MySQL 数据不一致性</h2><p><a href="https://zhuanlan.zhihu.com/p/91770135">参考地址</a></p>
-<p>具体如何去解决还得结合业务去综合考虑。</p>
-<p>下面几个方式可能比较通用</p>
-<h3 id="1-双删法"><a href="#1-双删法" class="headerlink" title="1. 双删法"></a>1. 双删法</h3><p>写流程</p>
-<ol>
-<li>先删除缓存</li>
-<li>写更新数据库</li>
-<li>再次删除缓存 &#x3D;&gt; 避免在第二步的时候有读请求访问数据库，然后把旧的值写入到缓存中</li>
-</ol>
-<p>读流程</p>
-<ol>
-<li>先读缓存</li>
-<li>缓存没有就读数据库</li>
-<li>更新缓存</li>
-</ol>
-<p>这其实是一种懒加载，即只有当读的时候才会从数据库把最新的值加载到缓存里，是读流程激活的加载，而不是写流程在写入新值的时候自动刷新加载</p>
-<p>主动加载的话，万一多个并行操作同时对一个key进行更新，需要考虑操作的幂等性，采用MQ的分区机制来保证同一分区内的操作都是顺序串行化执行</p>
-<p>双删失败如何处理？</p>
-<ol>
-<li>设置缓存过期时间，从理论上来说，给缓存设置过期时间，是保证<strong>最终一致性</strong>的解决方案</li>
-<li>重试 &#x3D;&gt; 重试有业务通过mq重试以及组件消费mysql的binlog再写入mq重试两种方式</li>
-</ol>
-<h3 id="2-异步延迟删除"><a href="#2-异步延迟删除" class="headerlink" title="2. 异步延迟删除"></a>2. 异步延迟删除</h3><p>在双删的基础上，采用 异步延迟删除</p>
-<ol>
-<li>先删除缓存</li>
-<li>写更新数据库</li>
-<li>触发异步写入串行化MQ（也可以采取一种key+version的分布式锁</li>
-<li>MQ接受再次删除缓存</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Scala 特殊符号含义</title>
     <url>/2019/08/01/Scala-1/</url>
     <content><![CDATA[<h2 id="Scala-特殊符号含义"><a href="#Scala-特殊符号含义" class="headerlink" title="Scala 特殊符号含义"></a>Scala 特殊符号含义</h2><p><a href="https://www.cnblogs.com/boothsun/p/8267250.html">参考地址</a></p>
@@ -12028,34 +12028,6 @@ session_key = str(id) + &#39;_user&#39;
       <tags>
         <tag>Spark</tag>
         <tag>Scala</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>查找</title>
-    <url>/2018/11/18/Search/</url>
-    <content><![CDATA[<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="1-顺序查找（线性查找）"><a href="#1-顺序查找（线性查找）" class="headerlink" title="1. 顺序查找（线性查找）"></a>1. 顺序查找（线性查找）</h3><p>时间复杂度为O(n)<br>说明：适合于存储结构为顺序存储或链式存储的线性表  </p>
-<h3 id="2-折半查找（二分查找）"><a href="#2-折半查找（二分查找）" class="headerlink" title="2. 折半查找（二分查找）"></a>2. 折半查找（二分查找）</h3><p>时间复杂度为O(logn)<br>说明：折半查找的前提条件是需要有序表顺序存储，对于静态查找表，一次排序后不再变化，折半查找能得到不错的效率。但对于需要频繁执行插入或删除操作的数据集来说，维护有序的排序会带来不小的工作量，那就不建议使用。  </p>
-<h3 id="3-插值查找-折半查找的优化"><a href="#3-插值查找-折半查找的优化" class="headerlink" title="3. 插值查找(折半查找的优化)"></a>3. 插值查找(折半查找的优化)</h3><p>时间复杂度O(log(logn))<br>折半查找这种查找方式，不是自适应的（也就是说是傻瓜式的）。二分查找中查找点计算如下：<br><code>mid=(low+high)/2, 即mid=low+1/2*(high-low);</code><br>通过类比，我们可以将查找的点改进为如下：<br><code>mid=low+(key-a[low])/(a[high]-a[low])*(high-low)</code><br>也就是将上述的比例参数1&#x2F;2改进为自适应的，根据关键字在整个有序表中所处的位置，让mid值的变化更靠近关键字key，这样也就间接地减少了比较次数。  </p>
-<h3 id="4-树表查找"><a href="#4-树表查找" class="headerlink" title="4. 树表查找"></a>4. 树表查找</h3><h4 id="4-1-二叉树查找算法"><a href="#4-1-二叉树查找算法" class="headerlink" title="4.1 二叉树查找算法"></a>4.1 二叉树查找算法</h4><p><strong>复杂度分析</strong>：插入和查找时间复杂度O(logn)，但在最坏的情况下【比如一棵斜线形状的树，查找最后一个节点】有O(n)的时间复杂度<br><strong>基本思想</strong>：二叉查找树是先对待查找的数据进行生成树，确保树的左分支的值小于右分支的值，然后和每个节点的父节点比较大小，查找最适合的范围。 这个算法的查找效率很高，但是如果使用这种查找方法要首先创建树。<br><strong>二叉查找树</strong>（BinarySearch Tree，也叫二叉搜索树，或称二叉排序树Binary Sort Tree）或者是一棵空树，或者是具有下列性质的二叉树：<br>1）若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；<br>2）若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；<br>3）任意节点的左、右子树也分别为二叉查找树。<br><strong>二叉查找树性质</strong>：对二叉查找树进行中序遍历，即可得到有序的数列。  </p>
-<p><strong>基于二叉查找树进行优化，进而可以得到其他的树表查找算法，如平衡树、红黑树等高效算法。</strong>  </p>
-<h4 id="4-2-平衡查找树之2-3查找树"><a href="#4-2-平衡查找树之2-3查找树" class="headerlink" title="4.2 平衡查找树之2-3查找树"></a>4.2 平衡查找树之2-3查找树</h4><p><strong>2-3查找树定义</strong>：和二叉树不一样，2-3树运行每个节点保存1个或者两个的值。对于普通的2节点(2-node)，他保存1个key和左右两个节点。对应3节点(3-node)，保存两个Key，2-3查找树的定义如下：<br>1）要么为空，要么：<br>2）对于2节点，该节点保存一个key及对应value，以及两个指向左右节点的节点，左节点也是一个2-3节点，所有的值都比key要小，右节点也是一个2-3节点，所有的值比key要大。<br>3）对于3节点，该节点保存两个key及对应value，以及三个指向左中右的节点。左节点也是一个2-3节点，所有的值均比两个key中的最小的key还要小；中间节点也是一个2-3节点，中间节点的key值在两个跟节点key值之间；右节点也是一个2-3节点，节点的所有key值比两个key中的最大的key还要大。<br><img src="http://images.cnitblog.com/blog/94031/201403/252248421868855.png">  </p>
-<p><strong>2-3查找树的性质</strong>：<br>1）如果中序遍历2-3查找树，就可以得到排好序的序列；<br>2）在一个完全平衡的2-3查找树中，根节点到每一个为空节点的距离都相同。（这也是平衡树中“平衡”一词的概念，根节点到叶节点的最长距离对应于查找算法的最坏情况，而平衡树中根节点到叶节点的距离都一样，最坏情况也具有对数复杂度。）<br>性质2）如下图所示：<br><img src="http://images.cnitblog.com/blog/94031/201403/252249082017906.png">  </p>
-<p><strong>复杂度分析</strong>：<br>2-3树的查找效率与树的高度是息息相关的。<br>在最坏的情况下，也就是所有的节点都是2-node节点，查找效率为lgN<br>在最好的情况下，所有的节点都是3-node节点，查找效率为log3N约等于0.631lgN<br>距离来说，对于1百万个节点的2-3树，树的高度为12-20之间，对于10亿个节点的2-3树，树的高度为18-30之间。<br>对于插入来说，只需要常数次操作即可完成，因为他只需要修改与该节点关联的节点即可，不需要检查其他节点，所以效率和查找类似。  </p>
-<h4 id="4-3-平衡查找树之红黑树"><a href="#4-3-平衡查找树之红黑树" class="headerlink" title="4.3 平衡查找树之红黑树"></a>4.3 平衡查找树之红黑树</h4><p>2-3查找树能保证在插入元素之后能保持树的平衡状态，最坏情况下即所有的子节点都是2-node，树的高度为lgn，从而保证了最坏情况下的时间复杂度。但是2-3树实现起来比较复杂，于是就有了一种简单实现2-3树的数据结构，即红黑树（Red-Black Tree）。 </p>
-<p><strong>基本思想</strong>：<br>红黑树的思想就是对2-3查找树进行编码，尤其是对2-3查找树中的3-nodes节点添加额外的信息。红黑树中将节点之间的链接分为两种不同类型，红色链接，他用来链接两个2-nodes节点来表示一个3-nodes节点。黑色链接用来链接普通的2-3节点。特别的，使用红色链接的两个2-nodes来表示一个3-nodes节点，并且向左倾斜，即一个2-node是另一个2-node的左子节点。这种做法的好处是查找的时候不用做任何修改，和普通的二叉查找树相同。<br><img src="http://images.cnitblog.com/blog/94031/201403/270024368439888.png"><br><strong>红黑树的定义</strong>：<br>红黑树是一种具有红色和黑色链接的平衡查找树，同时满足：<br>1）红色节点向左倾斜<br>2）一个节点不可能有两个红色链接<br>整个树完全黑色平衡，即从根节点到所以叶子结点的路径上，黑色链接的个数都相同。<br>下图可以看到红黑树其实是2-3树的另外一种表现形式：如果我们将红色的连线水平绘制，那么他链接的两个2-node节点就是2-3树中的一个3-node节点了。<br><img src="http://images.cnitblog.com/blog/94031/201403/270024386864059.png"><br><strong>红黑树的性质</strong>：整个树完全黑色平衡，即从根节点到所以叶子结点的路径上，黑色链接的个数都相同（2-3树的第2）性质，从根节点到叶子节点的距离都相等）。<br>复杂度分析：最坏的情况就是，红黑树中除了最左侧路径全部是由3-node节点组成，即红黑相间的路径长度是全黑路径长度的2倍。<br>下图是一个典型的红黑树，从中可以看到最长的路径(红黑相间的路径)是最短路径的2倍：<br><img src="http://images.cnitblog.com/blog/94031/201403/270027354528654.png"><br><strong>红黑树的平均高度大约为logn。</strong>  </p>
-<h4 id="4-4-B树和B-树（B-Tree-B-Tree）"><a href="#4-4-B树和B-树（B-Tree-B-Tree）" class="headerlink" title="4.4 B树和B+树（B Tree&#x2F;B+ Tree）"></a>4.4 B树和B+树（B Tree&#x2F;B+ Tree）</h4><p>平衡查找树中的2-3树以及其实现红黑树。2-3树种，一个节点最多有2个key，而红黑树则使用染色的方式来标识这两个key。<br>维基百科对B树的定义为“在计算机科学中，B树（B-tree）是一种树状数据结构，它能够存储数据、对其进行排序并允许以O(log n)的时间复杂度运行进行查找、顺序读取、插入和删除的数据结构。B树，概括来说是一个节点可以拥有多于2个子节点的二叉查找树。与自平衡二叉查找树不同，B树为系统最优化大块数据的读和写操作。B-tree算法减少定位记录时所经历的中间过程，从而加快存取速度。普遍运用在数据库和文件系统。<br><strong>B树定义</strong>：<br>B树可以看作是对2-3查找树的一种扩展，即他允许每个节点有M-1个子节点。<br>1）根节点至少有两个子节点<br>2）每个节点有M-1个key，并且以升序排列<br>3）位于M-1和M key的子节点的值位于M-1 和M key对应的Value之间<br>4）其它节点至少有M&#x2F;2个子节点<br>下图是一个M&#x3D;4 阶的B树:<br><img src="http://images.cnitblog.com/blog/94031/201403/290047034539184.png"><br>可以看到B树是2-3树的一种扩展，他允许一个节点有多于2个的元素。B树的插入及平衡化操作和2-3树很相似，这里就不介绍了。下面是往B树中依次插入<br>6 10 4 14 5 11 15 3 2 12 1 7 8 8 6 3 6 21 5 15 15 6 32 23 45 65 7 8 6 5 4<br>的演示动画：<br><img src="http://files.cnblogs.com/files/yangecnu/btreebuild.gif">  </p>
-<p><strong>B+树定义</strong>：<br>B+树是对B树的一种变形树，它与B树的差异在于：<br>有k个子结点的结点必然有k个关键码；<br>非叶结点仅具有索引作用，跟记录有关的信息均存放在叶结点中。<br>树的所有叶结点构成一个有序链表，可以按照关键码排序的次序遍历全部记录。<br>如下图，是一个B+树:<br><img src="http://images.cnitblog.com/blog/94031/201403/290050048129679.png"><br>下图是B+树的插入动画：<br><img src="http://files.cnblogs.com/files/yangecnu/Bplustreebuild.gif"><br><strong>B和B+树的区别在于，B+树的非叶子结点只包含导航信息，不包含实际的值，所有的叶子结点和相连的节点使用链表相连，便于区间查找和遍历。</strong><br><strong>B+ 树的优点在于</strong>：<br>1）由于B+树在内部节点上不好含数据信息，因此在内存页中能够存放更多的key。 数据存放的更加紧密，具有更好的空间局部性。因此访问叶子几点上关联的数据也具有更好的缓存命中率。<br>2）B+树的叶子结点都是相链的，因此对整棵树的便利只需要一次线性遍历叶子结点即可。而且由于数据顺序排列并且相连，所以便于区间查找和搜索。而B树则需要进行每一层的递归遍历。相邻的元素可能在内存中不相邻，所以缓存命中性没有B+树好。<br><strong>但是B树也有优点，其优点在于，由于B树的每一个节点都包含key和value，因此经常访问的元素可能离根节点更近，因此访问也更迅速。</strong><br>下面是B 树和B+树的区别图：<br><img src="http://images.cnitblog.com/blog/94031/201403/290050088914733.png">  </p>
-<h3 id="5-分块查找"><a href="#5-分块查找" class="headerlink" title="5. 分块查找"></a>5. 分块查找</h3><p><strong>分块查找又称索引顺序查找，它是顺序查找的一种改进方法</strong>。<br><strong>算法思想</strong>：将n个数据元素”按块有序”划分为m块（m ≤ n）。每一块中的结点不必有序，但块与块之间必须”按块有序”；即第1块中任一元素的关键字都必须小于第2块中任一元素的关键字；而第2块中任一元素又都必须小于第3块中的任一元素，……<br><strong>算法流程</strong>：<br>step1 先选取各块中的最大关键字构成一个索引表；<br>step2 查找分两个部分：先对索引表进行二分查找或顺序查找，以确定待查记录在哪一块中；<br>然后，在已确定的块中用顺序法进行查找。  </p>
-<h3 id="6-哈希查找"><a href="#6-哈希查找" class="headerlink" title="6. 哈希查找"></a>6. 哈希查找</h3><p><strong>哈希表的两大特点</strong>：”直接定址”与”解决冲突”。<br><strong>哈希函数的规则是</strong>：通过某种转换关系，使关键字适度的分散到指定大小的的顺序结构中，越分散，则以后查找的时间复杂度越小，空间复杂度越高。<br><strong>算法思想</strong>：哈希的思路很简单，如果所有的键都是整数，那么就可以使用一个简单的无序数组来实现：将键作为索引，值即为其对应的值，这样就可以快速访问任意键的值。这是对于简单的键的情况，我们将其扩展到可以处理更加复杂的类型的键。<br><strong>算法流程</strong>：<br>1）用给定的哈希函数构造哈希表；<br>2）根据选择的冲突处理方法解决地址冲突；<br>常见的解决冲突的方法：拉链法和线性探测法。<br>3）在哈希表的基础上执行哈希查找。<br><strong>哈希表是一个在时间和空间上做出权衡的经典例子。如果没有内存限制，那么可以直接将键作为数组的索引。那么所有的查找时间复杂度为O(1)；如果没有时间限制，那么我们可以使用无序数组并进行顺序查找，这样只需要很少的内存。哈希表使用了适度的时间和空间来在这两个极端之间找到了平衡。只需要调整哈希函数算法即可在时间和空间上做出取舍。</strong><br><strong>复杂度分析</strong>：<br>单纯论查找复杂度：对于无冲突的Hash表而言，查找复杂度为O(1)（注意，在查找之前我们需要构建相应的Hash表）。  </p>
-<p><img src="http://images.cnitblog.com/blog/94031/201410/312301180197071.png"></p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-        <category>Search</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>Search</tag>
       </tags>
   </entry>
   <entry>
@@ -12638,6 +12610,34 @@ session_key = str(id) + &#39;_user&#39;
       </tags>
   </entry>
   <entry>
+    <title>查找</title>
+    <url>/2018/11/18/Search/</url>
+    <content><![CDATA[<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="1-顺序查找（线性查找）"><a href="#1-顺序查找（线性查找）" class="headerlink" title="1. 顺序查找（线性查找）"></a>1. 顺序查找（线性查找）</h3><p>时间复杂度为O(n)<br>说明：适合于存储结构为顺序存储或链式存储的线性表  </p>
+<h3 id="2-折半查找（二分查找）"><a href="#2-折半查找（二分查找）" class="headerlink" title="2. 折半查找（二分查找）"></a>2. 折半查找（二分查找）</h3><p>时间复杂度为O(logn)<br>说明：折半查找的前提条件是需要有序表顺序存储，对于静态查找表，一次排序后不再变化，折半查找能得到不错的效率。但对于需要频繁执行插入或删除操作的数据集来说，维护有序的排序会带来不小的工作量，那就不建议使用。  </p>
+<h3 id="3-插值查找-折半查找的优化"><a href="#3-插值查找-折半查找的优化" class="headerlink" title="3. 插值查找(折半查找的优化)"></a>3. 插值查找(折半查找的优化)</h3><p>时间复杂度O(log(logn))<br>折半查找这种查找方式，不是自适应的（也就是说是傻瓜式的）。二分查找中查找点计算如下：<br><code>mid=(low+high)/2, 即mid=low+1/2*(high-low);</code><br>通过类比，我们可以将查找的点改进为如下：<br><code>mid=low+(key-a[low])/(a[high]-a[low])*(high-low)</code><br>也就是将上述的比例参数1&#x2F;2改进为自适应的，根据关键字在整个有序表中所处的位置，让mid值的变化更靠近关键字key，这样也就间接地减少了比较次数。  </p>
+<h3 id="4-树表查找"><a href="#4-树表查找" class="headerlink" title="4. 树表查找"></a>4. 树表查找</h3><h4 id="4-1-二叉树查找算法"><a href="#4-1-二叉树查找算法" class="headerlink" title="4.1 二叉树查找算法"></a>4.1 二叉树查找算法</h4><p><strong>复杂度分析</strong>：插入和查找时间复杂度O(logn)，但在最坏的情况下【比如一棵斜线形状的树，查找最后一个节点】有O(n)的时间复杂度<br><strong>基本思想</strong>：二叉查找树是先对待查找的数据进行生成树，确保树的左分支的值小于右分支的值，然后和每个节点的父节点比较大小，查找最适合的范围。 这个算法的查找效率很高，但是如果使用这种查找方法要首先创建树。<br><strong>二叉查找树</strong>（BinarySearch Tree，也叫二叉搜索树，或称二叉排序树Binary Sort Tree）或者是一棵空树，或者是具有下列性质的二叉树：<br>1）若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；<br>2）若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；<br>3）任意节点的左、右子树也分别为二叉查找树。<br><strong>二叉查找树性质</strong>：对二叉查找树进行中序遍历，即可得到有序的数列。  </p>
+<p><strong>基于二叉查找树进行优化，进而可以得到其他的树表查找算法，如平衡树、红黑树等高效算法。</strong>  </p>
+<h4 id="4-2-平衡查找树之2-3查找树"><a href="#4-2-平衡查找树之2-3查找树" class="headerlink" title="4.2 平衡查找树之2-3查找树"></a>4.2 平衡查找树之2-3查找树</h4><p><strong>2-3查找树定义</strong>：和二叉树不一样，2-3树运行每个节点保存1个或者两个的值。对于普通的2节点(2-node)，他保存1个key和左右两个节点。对应3节点(3-node)，保存两个Key，2-3查找树的定义如下：<br>1）要么为空，要么：<br>2）对于2节点，该节点保存一个key及对应value，以及两个指向左右节点的节点，左节点也是一个2-3节点，所有的值都比key要小，右节点也是一个2-3节点，所有的值比key要大。<br>3）对于3节点，该节点保存两个key及对应value，以及三个指向左中右的节点。左节点也是一个2-3节点，所有的值均比两个key中的最小的key还要小；中间节点也是一个2-3节点，中间节点的key值在两个跟节点key值之间；右节点也是一个2-3节点，节点的所有key值比两个key中的最大的key还要大。<br><img src="http://images.cnitblog.com/blog/94031/201403/252248421868855.png">  </p>
+<p><strong>2-3查找树的性质</strong>：<br>1）如果中序遍历2-3查找树，就可以得到排好序的序列；<br>2）在一个完全平衡的2-3查找树中，根节点到每一个为空节点的距离都相同。（这也是平衡树中“平衡”一词的概念，根节点到叶节点的最长距离对应于查找算法的最坏情况，而平衡树中根节点到叶节点的距离都一样，最坏情况也具有对数复杂度。）<br>性质2）如下图所示：<br><img src="http://images.cnitblog.com/blog/94031/201403/252249082017906.png">  </p>
+<p><strong>复杂度分析</strong>：<br>2-3树的查找效率与树的高度是息息相关的。<br>在最坏的情况下，也就是所有的节点都是2-node节点，查找效率为lgN<br>在最好的情况下，所有的节点都是3-node节点，查找效率为log3N约等于0.631lgN<br>距离来说，对于1百万个节点的2-3树，树的高度为12-20之间，对于10亿个节点的2-3树，树的高度为18-30之间。<br>对于插入来说，只需要常数次操作即可完成，因为他只需要修改与该节点关联的节点即可，不需要检查其他节点，所以效率和查找类似。  </p>
+<h4 id="4-3-平衡查找树之红黑树"><a href="#4-3-平衡查找树之红黑树" class="headerlink" title="4.3 平衡查找树之红黑树"></a>4.3 平衡查找树之红黑树</h4><p>2-3查找树能保证在插入元素之后能保持树的平衡状态，最坏情况下即所有的子节点都是2-node，树的高度为lgn，从而保证了最坏情况下的时间复杂度。但是2-3树实现起来比较复杂，于是就有了一种简单实现2-3树的数据结构，即红黑树（Red-Black Tree）。 </p>
+<p><strong>基本思想</strong>：<br>红黑树的思想就是对2-3查找树进行编码，尤其是对2-3查找树中的3-nodes节点添加额外的信息。红黑树中将节点之间的链接分为两种不同类型，红色链接，他用来链接两个2-nodes节点来表示一个3-nodes节点。黑色链接用来链接普通的2-3节点。特别的，使用红色链接的两个2-nodes来表示一个3-nodes节点，并且向左倾斜，即一个2-node是另一个2-node的左子节点。这种做法的好处是查找的时候不用做任何修改，和普通的二叉查找树相同。<br><img src="http://images.cnitblog.com/blog/94031/201403/270024368439888.png"><br><strong>红黑树的定义</strong>：<br>红黑树是一种具有红色和黑色链接的平衡查找树，同时满足：<br>1）红色节点向左倾斜<br>2）一个节点不可能有两个红色链接<br>整个树完全黑色平衡，即从根节点到所以叶子结点的路径上，黑色链接的个数都相同。<br>下图可以看到红黑树其实是2-3树的另外一种表现形式：如果我们将红色的连线水平绘制，那么他链接的两个2-node节点就是2-3树中的一个3-node节点了。<br><img src="http://images.cnitblog.com/blog/94031/201403/270024386864059.png"><br><strong>红黑树的性质</strong>：整个树完全黑色平衡，即从根节点到所以叶子结点的路径上，黑色链接的个数都相同（2-3树的第2）性质，从根节点到叶子节点的距离都相等）。<br>复杂度分析：最坏的情况就是，红黑树中除了最左侧路径全部是由3-node节点组成，即红黑相间的路径长度是全黑路径长度的2倍。<br>下图是一个典型的红黑树，从中可以看到最长的路径(红黑相间的路径)是最短路径的2倍：<br><img src="http://images.cnitblog.com/blog/94031/201403/270027354528654.png"><br><strong>红黑树的平均高度大约为logn。</strong>  </p>
+<h4 id="4-4-B树和B-树（B-Tree-B-Tree）"><a href="#4-4-B树和B-树（B-Tree-B-Tree）" class="headerlink" title="4.4 B树和B+树（B Tree&#x2F;B+ Tree）"></a>4.4 B树和B+树（B Tree&#x2F;B+ Tree）</h4><p>平衡查找树中的2-3树以及其实现红黑树。2-3树种，一个节点最多有2个key，而红黑树则使用染色的方式来标识这两个key。<br>维基百科对B树的定义为“在计算机科学中，B树（B-tree）是一种树状数据结构，它能够存储数据、对其进行排序并允许以O(log n)的时间复杂度运行进行查找、顺序读取、插入和删除的数据结构。B树，概括来说是一个节点可以拥有多于2个子节点的二叉查找树。与自平衡二叉查找树不同，B树为系统最优化大块数据的读和写操作。B-tree算法减少定位记录时所经历的中间过程，从而加快存取速度。普遍运用在数据库和文件系统。<br><strong>B树定义</strong>：<br>B树可以看作是对2-3查找树的一种扩展，即他允许每个节点有M-1个子节点。<br>1）根节点至少有两个子节点<br>2）每个节点有M-1个key，并且以升序排列<br>3）位于M-1和M key的子节点的值位于M-1 和M key对应的Value之间<br>4）其它节点至少有M&#x2F;2个子节点<br>下图是一个M&#x3D;4 阶的B树:<br><img src="http://images.cnitblog.com/blog/94031/201403/290047034539184.png"><br>可以看到B树是2-3树的一种扩展，他允许一个节点有多于2个的元素。B树的插入及平衡化操作和2-3树很相似，这里就不介绍了。下面是往B树中依次插入<br>6 10 4 14 5 11 15 3 2 12 1 7 8 8 6 3 6 21 5 15 15 6 32 23 45 65 7 8 6 5 4<br>的演示动画：<br><img src="http://files.cnblogs.com/files/yangecnu/btreebuild.gif">  </p>
+<p><strong>B+树定义</strong>：<br>B+树是对B树的一种变形树，它与B树的差异在于：<br>有k个子结点的结点必然有k个关键码；<br>非叶结点仅具有索引作用，跟记录有关的信息均存放在叶结点中。<br>树的所有叶结点构成一个有序链表，可以按照关键码排序的次序遍历全部记录。<br>如下图，是一个B+树:<br><img src="http://images.cnitblog.com/blog/94031/201403/290050048129679.png"><br>下图是B+树的插入动画：<br><img src="http://files.cnblogs.com/files/yangecnu/Bplustreebuild.gif"><br><strong>B和B+树的区别在于，B+树的非叶子结点只包含导航信息，不包含实际的值，所有的叶子结点和相连的节点使用链表相连，便于区间查找和遍历。</strong><br><strong>B+ 树的优点在于</strong>：<br>1）由于B+树在内部节点上不好含数据信息，因此在内存页中能够存放更多的key。 数据存放的更加紧密，具有更好的空间局部性。因此访问叶子几点上关联的数据也具有更好的缓存命中率。<br>2）B+树的叶子结点都是相链的，因此对整棵树的便利只需要一次线性遍历叶子结点即可。而且由于数据顺序排列并且相连，所以便于区间查找和搜索。而B树则需要进行每一层的递归遍历。相邻的元素可能在内存中不相邻，所以缓存命中性没有B+树好。<br><strong>但是B树也有优点，其优点在于，由于B树的每一个节点都包含key和value，因此经常访问的元素可能离根节点更近，因此访问也更迅速。</strong><br>下面是B 树和B+树的区别图：<br><img src="http://images.cnitblog.com/blog/94031/201403/290050088914733.png">  </p>
+<h3 id="5-分块查找"><a href="#5-分块查找" class="headerlink" title="5. 分块查找"></a>5. 分块查找</h3><p><strong>分块查找又称索引顺序查找，它是顺序查找的一种改进方法</strong>。<br><strong>算法思想</strong>：将n个数据元素”按块有序”划分为m块（m ≤ n）。每一块中的结点不必有序，但块与块之间必须”按块有序”；即第1块中任一元素的关键字都必须小于第2块中任一元素的关键字；而第2块中任一元素又都必须小于第3块中的任一元素，……<br><strong>算法流程</strong>：<br>step1 先选取各块中的最大关键字构成一个索引表；<br>step2 查找分两个部分：先对索引表进行二分查找或顺序查找，以确定待查记录在哪一块中；<br>然后，在已确定的块中用顺序法进行查找。  </p>
+<h3 id="6-哈希查找"><a href="#6-哈希查找" class="headerlink" title="6. 哈希查找"></a>6. 哈希查找</h3><p><strong>哈希表的两大特点</strong>：”直接定址”与”解决冲突”。<br><strong>哈希函数的规则是</strong>：通过某种转换关系，使关键字适度的分散到指定大小的的顺序结构中，越分散，则以后查找的时间复杂度越小，空间复杂度越高。<br><strong>算法思想</strong>：哈希的思路很简单，如果所有的键都是整数，那么就可以使用一个简单的无序数组来实现：将键作为索引，值即为其对应的值，这样就可以快速访问任意键的值。这是对于简单的键的情况，我们将其扩展到可以处理更加复杂的类型的键。<br><strong>算法流程</strong>：<br>1）用给定的哈希函数构造哈希表；<br>2）根据选择的冲突处理方法解决地址冲突；<br>常见的解决冲突的方法：拉链法和线性探测法。<br>3）在哈希表的基础上执行哈希查找。<br><strong>哈希表是一个在时间和空间上做出权衡的经典例子。如果没有内存限制，那么可以直接将键作为数组的索引。那么所有的查找时间复杂度为O(1)；如果没有时间限制，那么我们可以使用无序数组并进行顺序查找，这样只需要很少的内存。哈希表使用了适度的时间和空间来在这两个极端之间找到了平衡。只需要调整哈希函数算法即可在时间和空间上做出取舍。</strong><br><strong>复杂度分析</strong>：<br>单纯论查找复杂度：对于无冲突的Hash表而言，查找复杂度为O(1)（注意，在查找之前我们需要构建相应的Hash表）。  </p>
+<p><img src="http://images.cnitblog.com/blog/94031/201410/312301180197071.png"></p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>Search</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Search</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>排序</title>
     <url>/2018/11/18/Sort/</url>
     <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p><img src="http://upload-images.jianshu.io/upload_images/1156494-ab4cecff133d87b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><br><img src="http://upload-images.jianshu.io/upload_images/1156494-62f859c2ac6f95ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">  </p>
@@ -12677,88 +12677,6 @@ session_key = str(id) + &#39;_user&#39;
       <tags>
         <tag>Algorithm</tag>
         <tag>Sort</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring注解</title>
-    <url>/2020/06/18/Spring/</url>
-    <content><![CDATA[<h2 id="Spring注解"><a href="#Spring注解" class="headerlink" title="Spring注解"></a>Spring注解</h2><h3 id="1-组件类注解"><a href="#1-组件类注解" class="headerlink" title="1. 组件类注解"></a>1. 组件类注解</h3><ul>
-<li>@Component ：标准一个普通的spring Bean类</li>
-<li>@Repository：标注一个数据访问层DAO组件类</li>
-<li>@Service：标注一个业务逻辑组件类</li>
-<li>@Controller：标注一个控制器（用于和前端交互）组件类</li>
-</ul>
-<p>这些都是注解在平时的开发过程中出镜率极高，@Component、@Repository、@Service、@Controller实质上属于同一类注解，都在 org.springframework.stereotype 包下，用法相同，功能相同，区别在于标识组件的类型。@Component可以代替@Repository、@Service、@Controller，因为这三个注解是被@Component标注的。如下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Component</span><br><span class="line">public @interface Controller &#123;</span><br><span class="line">    String value() default &quot;&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-装配bean时常用的注解"><a href="#2-装配bean时常用的注解" class="headerlink" title="2. 装配bean时常用的注解"></a>2. 装配bean时常用的注解</h3><ul>
-<li>@Autowired：属于Spring 的org.springframework.beans.factory.annotation包下,可用于为类的属性、构造器、方法进行注值。默认情况下，其依赖的对象必须存在（Bean可用），如果要改变这种默认方式，可以设置其 required 属性为 false</li>
-<li>@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.METHOD, </span><br><span class="line">ElementType.ANNOTATION_TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">public @interface Autowired &#123;</span><br><span class="line">    boolean required() default true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class HappyController &#123;</span><br><span class="line">	@Autowired //默认依赖的ClubDao 对象（Bean）必须存在</span><br><span class="line">	//@Autowired(required = false) 改变默认方式</span><br><span class="line">	@Qualifier(&quot;goodClubService&quot;)</span><br><span class="line">    private ClubService clubService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@Autowired 注解默认按照类型装配，如果容器中包含多个同一类型的Bean，那么启动容器时会报找不到指定类型bean的异常，解决办法是结合 <strong>@Qualifier</strong> 注解进行限定，指定注入的bean名称。</p>
-<h3 id="3-Component-vs-Configuration-and-Bean"><a href="#3-Component-vs-Configuration-and-Bean" class="headerlink" title="3. @Component vs @Configuration and @Bean"></a>3. @Component vs @Configuration and @Bean</h3><p>@Component可以替代 @Configuration注解，但是依旧有区别</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Component  //看这里！！！</span><br><span class="line">public @interface Configuration &#123;</span><br><span class="line">    String value() default &quot;&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>Bean注解主要用于方法上，有点类似于工厂方法，当使用了@Bean注解，我们可以连续使用多种定义bean时用到的注解，譬如用@Qualifier注解定义工厂方法的名称，用@Scope注解定义该bean的作用域范围，譬如是singleton还是prototype等</p>
-<p>Spring 中新的 Java 配置支持的核心就是@Configuration 注解的类。这些类主要包括 @Bean 注解的方法来为 Spring 的 IoC 容器管理的对象定义实例，配置和初始化逻辑。</p>
-<p>使用@Configuration 来注解类表示类可以被 Spring 的 IoC 容器所使用，作为 bean 定义的资源。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public MyService myService() &#123;</span><br><span class="line">        return new MyServiceImpl();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#beans">Spring IoC</a></p>
-<h3 id="4-web模块常用到的注解"><a href="#4-web模块常用到的注解" class="headerlink" title="4. web模块常用到的注解"></a>4. web模块常用到的注解</h3><ul>
-<li>@Controller ：表明该类会作为与前端作交互的控制层组件，通过服务接口定义的提供访问应用程序的一种行为，解释用户的输入，将其转换成一个模型然后将试图呈献给用户。<ul>
-<li>@RequestMapping ： 这个注解用于将url映射到整个处理类或者特定的处理请求的方法。可以只用通配符！<ul>
-<li>既可以作用在类级别，也可以作用在方法级别。当它定义在类级别时，标明该控制器处理所有的请求都被映射到 &#x2F;xxx 路径下；定义在方法类型下，可以指定接收的方法类型，@RequestMapping(value&#x3D;”&#x2F;haha”,method&#x3D;RequestMethod.GET)</li>
-</ul>
-</li>
-<li>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required&#x3D;true，也就是改参数必须要传。如果改参数可以传可不传，可以配置required&#x3D;false  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public String sayHappy(</span><br><span class="line">@RequestParam(value = &quot;name&quot;, required = false) String name,</span><br><span class="line">@RequestParam(value = &quot;age&quot;, required = true) String age) &#123;</span><br><span class="line">//age参数必须传 ，name可传可不传</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>@PathVariable ： 该注解用于方法修饰方法参数，会将修饰的方法参数变为可供使用的uri变量（可用于动态绑定）。  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/happy/&#123;dayid&#125;&quot;,method=RequestMethod.GET)</span><br><span class="line">public String findPet(@PathVariable String dayid, Model mode) &#123;</span><br><span class="line">//使用@PathVariable注解绑定 &#123;dayid&#125; 到String dayid</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>@RequestBody ： @RequestBody是指方法参数应该被绑定到HTTP请求Body上。  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/something&quot;, method = RequestMethod.PUT)</span><br><span class="line">public void handle(@RequestBody String body，@RequestBody User user)&#123;</span><br><span class="line">//可以绑定自定义的对象类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>@ResponseBody ： @ResponseBody与@RequestBody类似，它的作用是将返回类型直接输入到HTTP response body中。@ResponseBody在输出JSON格式的数据时，会经常用到。  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/happy&quot;, method =RequestMethod.POST)</span><br><span class="line">@ResponseBody</span><br><span class="line">public String helloWorld() &#123;    </span><br><span class="line">return &quot;Hello World&quot;;//返回String类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring框架之间的比较</title>
-    <url>/2018/11/18/SpringBoot-1/</url>
-    <content><![CDATA[<h4 id="Spring-MVC开发的麻烦："><a href="#Spring-MVC开发的麻烦：" class="headerlink" title="Spring MVC开发的麻烦："></a>Spring MVC开发的麻烦：</h4><ol>
-<li>依赖太多，而且要注意版本兼容。spring的包，mybatis或hibernate的包，spring和其整合包，日志包，json包，还有版本兼容</li>
-<li>配置太多。要配置注解驱动，配置数据库连接池，配置mybatis或hibernate，配置事务管理器，配置资源映射，在web.xml中配置启动spring和spring mvc</li>
-<li>部署和运行麻烦。要部署到tomcat中，不能直接用java命令运行。</li>
-</ol>
-<h4 id="Spring-boot"><a href="#Spring-boot" class="headerlink" title="Spring boot"></a>Spring boot</h4><ol>
-<li>通过starter和依赖管理解决依赖问题</li>
-<li>通过自动配置，解决配置复杂问题</li>
-<li>通过内嵌web容器，由应用启动tomcat，而不是用tomcat启动应用</li>
-</ol>
-<h5 id="Spring-boot-和-Spring-Cloud的比较"><a href="#Spring-boot-和-Spring-Cloud的比较" class="headerlink" title="Spring boot 和 Spring Cloud的比较"></a>Spring boot 和 Spring Cloud的比较</h5><ol>
-<li>Spring boot专注于快速、方便集成的单个个体，Spring Cloud是关注全局的服务治理框架  </li>
-<li>Spring boot可以离开Spring Cloud独立使用开发项目，但是Spring Cloud离不开Spring boot，属于依赖的关系。</li>
-</ol>
-<h5 id="Spring-boot的优点"><a href="#Spring-boot的优点" class="headerlink" title="Spring boot的优点"></a>Spring boot的优点</h5><ol>
-<li>Spring 组件很多，需要一个个去配置，还有版本兼容问题，影响开发速度  </li>
-<li>Spring boot提供了一个方案，可以先不关心如何配置，快速启动开发，进行业务逻辑编写，各种需要的技术，加入starter就配置好了，直接使用。  </li>
-<li>Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Spring</category>
-        <category>Spring Boot</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-        <tag>Spring Boot</tag>
       </tags>
   </entry>
   <entry>
@@ -13034,6 +12952,88 @@ session_key = str(id) + &#39;_user&#39;
       </categories>
       <tags>
         <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring注解</title>
+    <url>/2020/06/18/Spring/</url>
+    <content><![CDATA[<h2 id="Spring注解"><a href="#Spring注解" class="headerlink" title="Spring注解"></a>Spring注解</h2><h3 id="1-组件类注解"><a href="#1-组件类注解" class="headerlink" title="1. 组件类注解"></a>1. 组件类注解</h3><ul>
+<li>@Component ：标准一个普通的spring Bean类</li>
+<li>@Repository：标注一个数据访问层DAO组件类</li>
+<li>@Service：标注一个业务逻辑组件类</li>
+<li>@Controller：标注一个控制器（用于和前端交互）组件类</li>
+</ul>
+<p>这些都是注解在平时的开发过程中出镜率极高，@Component、@Repository、@Service、@Controller实质上属于同一类注解，都在 org.springframework.stereotype 包下，用法相同，功能相同，区别在于标识组件的类型。@Component可以代替@Repository、@Service、@Controller，因为这三个注解是被@Component标注的。如下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Component</span><br><span class="line">public @interface Controller &#123;</span><br><span class="line">    String value() default &quot;&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-装配bean时常用的注解"><a href="#2-装配bean时常用的注解" class="headerlink" title="2. 装配bean时常用的注解"></a>2. 装配bean时常用的注解</h3><ul>
+<li>@Autowired：属于Spring 的org.springframework.beans.factory.annotation包下,可用于为类的属性、构造器、方法进行注值。默认情况下，其依赖的对象必须存在（Bean可用），如果要改变这种默认方式，可以设置其 required 属性为 false</li>
+<li>@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.METHOD, </span><br><span class="line">ElementType.ANNOTATION_TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">public @interface Autowired &#123;</span><br><span class="line">    boolean required() default true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class HappyController &#123;</span><br><span class="line">	@Autowired //默认依赖的ClubDao 对象（Bean）必须存在</span><br><span class="line">	//@Autowired(required = false) 改变默认方式</span><br><span class="line">	@Qualifier(&quot;goodClubService&quot;)</span><br><span class="line">    private ClubService clubService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Autowired 注解默认按照类型装配，如果容器中包含多个同一类型的Bean，那么启动容器时会报找不到指定类型bean的异常，解决办法是结合 <strong>@Qualifier</strong> 注解进行限定，指定注入的bean名称。</p>
+<h3 id="3-Component-vs-Configuration-and-Bean"><a href="#3-Component-vs-Configuration-and-Bean" class="headerlink" title="3. @Component vs @Configuration and @Bean"></a>3. @Component vs @Configuration and @Bean</h3><p>@Component可以替代 @Configuration注解，但是依旧有区别</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Component  //看这里！！！</span><br><span class="line">public @interface Configuration &#123;</span><br><span class="line">    String value() default &quot;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>Bean注解主要用于方法上，有点类似于工厂方法，当使用了@Bean注解，我们可以连续使用多种定义bean时用到的注解，譬如用@Qualifier注解定义工厂方法的名称，用@Scope注解定义该bean的作用域范围，譬如是singleton还是prototype等</p>
+<p>Spring 中新的 Java 配置支持的核心就是@Configuration 注解的类。这些类主要包括 @Bean 注解的方法来为 Spring 的 IoC 容器管理的对象定义实例，配置和初始化逻辑。</p>
+<p>使用@Configuration 来注解类表示类可以被 Spring 的 IoC 容器所使用，作为 bean 定义的资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public MyService myService() &#123;</span><br><span class="line">        return new MyServiceImpl();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#beans">Spring IoC</a></p>
+<h3 id="4-web模块常用到的注解"><a href="#4-web模块常用到的注解" class="headerlink" title="4. web模块常用到的注解"></a>4. web模块常用到的注解</h3><ul>
+<li>@Controller ：表明该类会作为与前端作交互的控制层组件，通过服务接口定义的提供访问应用程序的一种行为，解释用户的输入，将其转换成一个模型然后将试图呈献给用户。<ul>
+<li>@RequestMapping ： 这个注解用于将url映射到整个处理类或者特定的处理请求的方法。可以只用通配符！<ul>
+<li>既可以作用在类级别，也可以作用在方法级别。当它定义在类级别时，标明该控制器处理所有的请求都被映射到 &#x2F;xxx 路径下；定义在方法类型下，可以指定接收的方法类型，@RequestMapping(value&#x3D;”&#x2F;haha”,method&#x3D;RequestMethod.GET)</li>
+</ul>
+</li>
+<li>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required&#x3D;true，也就是改参数必须要传。如果改参数可以传可不传，可以配置required&#x3D;false  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public String sayHappy(</span><br><span class="line">@RequestParam(value = &quot;name&quot;, required = false) String name,</span><br><span class="line">@RequestParam(value = &quot;age&quot;, required = true) String age) &#123;</span><br><span class="line">//age参数必须传 ，name可传可不传</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@PathVariable ： 该注解用于方法修饰方法参数，会将修饰的方法参数变为可供使用的uri变量（可用于动态绑定）。  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/happy/&#123;dayid&#125;&quot;,method=RequestMethod.GET)</span><br><span class="line">public String findPet(@PathVariable String dayid, Model mode) &#123;</span><br><span class="line">//使用@PathVariable注解绑定 &#123;dayid&#125; 到String dayid</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@RequestBody ： @RequestBody是指方法参数应该被绑定到HTTP请求Body上。  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/something&quot;, method = RequestMethod.PUT)</span><br><span class="line">public void handle(@RequestBody String body，@RequestBody User user)&#123;</span><br><span class="line">//可以绑定自定义的对象类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@ResponseBody ： @ResponseBody与@RequestBody类似，它的作用是将返回类型直接输入到HTTP response body中。@ResponseBody在输出JSON格式的数据时，会经常用到。  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/happy&quot;, method =RequestMethod.POST)</span><br><span class="line">@ResponseBody</span><br><span class="line">public String helloWorld() &#123;    </span><br><span class="line">return &quot;Hello World&quot;;//返回String类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring框架之间的比较</title>
+    <url>/2018/11/18/SpringBoot-1/</url>
+    <content><![CDATA[<h4 id="Spring-MVC开发的麻烦："><a href="#Spring-MVC开发的麻烦：" class="headerlink" title="Spring MVC开发的麻烦："></a>Spring MVC开发的麻烦：</h4><ol>
+<li>依赖太多，而且要注意版本兼容。spring的包，mybatis或hibernate的包，spring和其整合包，日志包，json包，还有版本兼容</li>
+<li>配置太多。要配置注解驱动，配置数据库连接池，配置mybatis或hibernate，配置事务管理器，配置资源映射，在web.xml中配置启动spring和spring mvc</li>
+<li>部署和运行麻烦。要部署到tomcat中，不能直接用java命令运行。</li>
+</ol>
+<h4 id="Spring-boot"><a href="#Spring-boot" class="headerlink" title="Spring boot"></a>Spring boot</h4><ol>
+<li>通过starter和依赖管理解决依赖问题</li>
+<li>通过自动配置，解决配置复杂问题</li>
+<li>通过内嵌web容器，由应用启动tomcat，而不是用tomcat启动应用</li>
+</ol>
+<h5 id="Spring-boot-和-Spring-Cloud的比较"><a href="#Spring-boot-和-Spring-Cloud的比较" class="headerlink" title="Spring boot 和 Spring Cloud的比较"></a>Spring boot 和 Spring Cloud的比较</h5><ol>
+<li>Spring boot专注于快速、方便集成的单个个体，Spring Cloud是关注全局的服务治理框架  </li>
+<li>Spring boot可以离开Spring Cloud独立使用开发项目，但是Spring Cloud离不开Spring boot，属于依赖的关系。</li>
+</ol>
+<h5 id="Spring-boot的优点"><a href="#Spring-boot的优点" class="headerlink" title="Spring boot的优点"></a>Spring boot的优点</h5><ol>
+<li>Spring 组件很多，需要一个个去配置，还有版本兼容问题，影响开发速度  </li>
+<li>Spring boot提供了一个方案，可以先不关心如何配置，快速启动开发，进行业务逻辑编写，各种需要的技术，加入starter就配置好了，直接使用。  </li>
+<li>Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Spring</category>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+        <tag>Spring Boot</tag>
       </tags>
   </entry>
   <entry>

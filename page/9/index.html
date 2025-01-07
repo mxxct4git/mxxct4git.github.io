@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -254,26 +282,14 @@
           <h2 id="Hive源码解析"><a href="#Hive源码解析" class="headerlink" title="Hive源码解析"></a>Hive源码解析</h2><p>入口：hive-cli-1.1.0-cdh5.14.4.jar!&#x2F;org&#x2F;apache&#x2F;hadoop&#x2F;hive&#x2F;cli&#x2F;CliDriver.class</p>
 <p><a href="https://blog.csdn.net/zyzzxycj/article/details/102861166">参考文档</a></p>
 <h3 id="1-启动"><a href="#1-启动" class="headerlink" title="1. 启动"></a>1. 启动</h3><p>命令行输入 hive 后，启动log进程，建立一个客户端Session，获取到服务器的hive conf配置文件，启动客户端</p>
-<p>启动后 executeDriver(CliSessionState ss, HiveConf conf, OptionsProcessor oproc) 一直监听输入的 line; line 会按照 ; 来进行分割拼接成 command，对每一个 command 依次进行处理。command 一共分四种情况：① quit\exit ② source FilePath 指定执行某个文件里的语句 ③ 以 ! 开头的 shell 命令 ④ 本地客户端的各种命令(processLocalCmd(String cmd, CommandProcessor proc, CliSessionState ss))</p>
-<p>通过读取 conf 配置，拿到 Driver 信息，然后交给对应的 Driver 来执行命令：org.apache.hadoop.hive.ql.Driver.compile(String command, boolean resetTaskIds, boolean deferClose)</p>
-<h3 id="2-解析命令"><a href="#2-解析命令" class="headerlink" title="2. 解析命令"></a>2. 解析命令</h3><p><img src="https://img-blog.csdnimg.cn/20191205170415800.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p5enp4eWNq,size_46,color_FFFFFF,t_70"></p>
-<p><img src="https://img-blog.csdnimg.cn/20191217165145562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p5enp4eWNq,size_46,color_FFFFFF,t_70"></p>
-<p>在 Driver 拿到命令后，<code>runInternal(command, alreadyCompiled);</code> 判断是否已经编译过，如果没有的话，首先要进行语法解析，通过 org.apache.hadoop.hive.ql.parse.parseDriver.parse(String command, Context ctx) 生成 AST(AbstractSyntaxTree) 抽象语法树</p>
-<pre><code>在 parse 目录下存放5个文件
-- HiveLexer.g ：定义Hive关键字，及组成词组的合法字符
-    定义的规则如下：
-    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">KW_SELECT : &#x27;SELECT&#x27;;</span><br><span class="line">KW_WHERE : &#x27;WHERE&#x27;;</span><br><span class="line">KW_FROM : &#x27;FROM&#x27;;</span><br><span class="line">fragment</span><br><span class="line">Letter</span><br><span class="line">    : &#x27;a&#x27;..&#x27;z&#x27; | &#x27;A&#x27;..&#x27;Z&#x27;</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
-- SelectClauseParser.g ：定义select语句的语法规则
-- FromClauseParser.g ：定义from语句的语法规则
-- IdentifiersParser.g ：定义函数、group等的语法规则
-- HiveParser.g：定义语法规则文件，引入了其他语法规则文件
-</code></pre>
-<p>BaseSemanticAnalyzer sem &#x3D; SemanticAnalyzerFactory.get(this.conf, tree); 对拿到的AST进行解析<br>this.schema &#x3D; getSchema(sem, this.conf); 返回Hive表的字段信息<br>this.plan &#x3D; new QueryPlan(queryStr, sem, perfLogger.getStartTime(“Driver.run”), queryId, SessionState.get().getHiveOperation(), this.schema, this.queryDisplay); 生成执行计划<br>this.plan.getFetchTask().initialize(this.conf, this.plan, (DriverContext)null); 对执行计划中拉取数据的任务进行初始化</p>
-<p>针对 QueryPlan，调用 Driver.exexute() 执行job</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String queryId = this.conf.getVar(ConfVars.HIVEQUERYID);</span><br><span class="line">String queryStr = HiveConf.getVar(this.conf, ConfVars.HIVEQUERYSTRING);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-Hive-可使用的函数"><a href="#3-Hive-可使用的函数" class="headerlink" title="3. Hive 可使用的函数"></a>3. Hive 可使用的函数</h3><p>hive-exec 包下  org.apache.hadoop.hive.ql.exec.FunctionRegistry.java</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/08/Hive-5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -392,73 +408,14 @@
 <li>一个URI (统一资源标识符)：<code>File(URI uri)</code></li>
 </ul>
 <p>有文件时覆盖，无文件时创建。</p>
-<p>通过 <code>f.getAbsolutePath()</code> 和 <code>f.getCanonicalPath()</code> 可获取文件的绝对路径和规范路径</p>
-<p><code>f.delete()</code> 会立即删除文件，而 <code>f.deleteOnExit()</code> 会延迟删除，直到JVM调用该方法</p>
-<p>File 对象不可变，始终表示文件的路径名。文件经过创建、删除后，File 对象依旧是原始的路径名，并不代表实际的文件。</p>
-<h3 id="2-输入字节流"><a href="#2-输入字节流" class="headerlink" title="2. 输入字节流"></a>2. 输入字节流</h3><p><img src="http://img.blog.csdn.net/20160421004733383?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"></p>
-<p>抽象基类是 InputStream 类，结构关系如下：</p>
-<p>InputStream<br>|<br>+–FileInputStream<br>|<br>+–ByteArrayInputStream<br>|<br>+–PipedInputStream<br>|<br>+–FilterInputStream<br>|<br>+–BufferedInputStream<br>|<br>+–PushbackInputStream<br>|<br>+–DataInputStream<br>|<br>+–ObjectInputStream</p>
-<p>基类的基本方法如下：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">read()</td>
-<td align="center">读取一个字节并将读取的字节作为int返回。当到达输入流的结尾时，它返回-1。</td>
-</tr>
-<tr>
-<td align="center">read(byte[] buffer)</td>
-<td align="center">读取最大值直到指定缓冲区的长度。它返回在缓冲区中读取的字节数。如果到达输入流的结尾，则返回-1。</td>
-</tr>
-<tr>
-<td align="center">read(byte[] buffer,int offset, int length)</td>
-<td align="center">读取最大值到指定长度字节。数据从偏移索引开始写入缓冲区。它返回读取的字节数，如果到达输入流的结束它返回-1。</td>
-</tr>
-<tr>
-<td align="center">close()</td>
-<td align="center">关闭输入流</td>
-</tr>
-<tr>
-<td align="center">available()</td>
-<td align="center">返回可以从此输入流读取但不阻塞的估计字节数。</td>
-</tr>
-</tbody></table>
-<h4 id="2-1-BufferedInputStream"><a href="#2-1-BufferedInputStream" class="headerlink" title="2.1 BufferedInputStream"></a>2.1 BufferedInputStream</h4><p>通过缓冲数据向输入流添加功能。维护一个内部缓冲区以存储从底层输入流读取的字节。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) throws IOException &#123;</span><br><span class="line">    String filePath = &quot;/Users/mxxct/Desktop/md_meter.java&quot;;</span><br><span class="line">    BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath));</span><br><span class="line">    byte[] buffer = new byte[1024]; // 长度为1024个字节的缓冲区</span><br><span class="line">    int len = -1; // 偏移量，或本次读取的字节数</span><br><span class="line">    StringBuilder content = null;</span><br><span class="line">    // 此次读取的字节数赋值给 len，如果等于 -1 说明已经读完了</span><br><span class="line">    while((len = bis.read(buffer)) != -1)&#123;</span><br><span class="line">        content.append(new String(buffer, 0, len));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(content);</span><br><span class="line">    bis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-输出字节流"><a href="#3-输出字节流" class="headerlink" title="3. 输出字节流"></a>3. 输出字节流</h3><p><img src="http://img.blog.csdn.net/20160421004936555?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"></p>
-<p><code>FileOutputStream fos   = new FileOutputStream(destFile);</code> 创建一个 FileOutputStream 对象，如果文件不存在，会尝试创建文件，但必须处理异常 FileNotFoundException，需要放在 try-catch 里面。</p>
-<p>如果文件包含数据，数据会被覆盖。如果要追加，需要添加一个第二个参数，true 表示追加。</p>
-<p>fos.write(int b)<br>fos.write(byte[] b)<br>fos.write(byte[] b, int off, int len)<br>由于输出的是字节流，所以只能 write int 或 byte[]，如果是字符串的话，通过 getBytes() 方法可以返回字节数组</p>
-<p>通过 fos.flush() 方法刷新输出流：将 write 里的字节缓存清出，写入到目标处。</p>
-<h3 id="4-管道"><a href="#4-管道" class="headerlink" title="4. 管道"></a>4. 管道</h3><p>管道IO基于生产者–消费者模式，<code>PipedOutputStream</code> 负责把数据写入到管道里，相当于生产者， <code>PipedInputStream</code> 负责读取管道里的数据</p>
-<p>两种连接管道的方式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PipedInputStream pis  = new PipedInputStream(); </span><br><span class="line">PipedOutputStream pos  = new PipedOutputStream(); </span><br><span class="line">pis.connect(pos); /* Connect  the   two  ends */</span><br><span class="line"></span><br><span class="line">PipedInputStream pis  = new PipedInputStream(); </span><br><span class="line">PipedOutputStream pos  = new PipedOutputStream(pis, 2048); // 缓冲区容量为2048字节</span><br><span class="line">当创建管道时，可以设置管道容量。 如果管道的缓冲区已满，则尝试在管道上写入将会被阻止。</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-字符输入流"><a href="#5-字符输入流" class="headerlink" title="5. 字符输入流"></a>5. 字符输入流</h3><p><img src="http://img.blog.csdn.net/20160421005211916?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"></p>
-<p>Reader是所有的输入字符流的父类，它是一个抽象类<br>FilterReader是所有自定义具体装饰流的父类，其子类PushbackReader对Reader对象进行装饰，会增加一个行号<br>InputStreamReader是一个连接字节流和字符流的桥梁，它将字节流转变为字符流。FileReader可以说是一个达到此功能、常用的工具类，在其源代码中明显使用了将FileInputStream转变为Reader的方法。我们可以从这个类中得到一定的技巧。Reader中各个类的用途和使用方法基本和InputStream中的类使用一致。后面会有Reader与InputStream的对应关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader reader = new BufferedReader(new FileReader(filePath));</span><br><span class="line">String str;</span><br><span class="line">while((str=reader.readLine())!=null)&#123;</span><br><span class="line">    System.out.println(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-字符输出流"><a href="#6-字符输出流" class="headerlink" title="6. 字符输出流"></a>6. 字符输出流</h3><p><img src="http://img.blog.csdn.net/20160421005336445?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"></p>
-<p>问：字节流与字符流有什么区别？<br>答：计算机中的一切最终都是以二进制字节形式存在的，对于我们经常操作的字符串，在写入时其实都是先将字符转成对应的字节，然后将字节写入到输出流，在读取时其实都是先读到的是字节，然后将字节直接使用或者转换为字符给我们使用。由于对于字节和字符两种操作的需求比较广泛，所以 Java 专门提供了字符流与字节流相关IO类。</p>
-<p>对于程序运行的底层设备来说永远都只接受字节数据，所以当我们往设备写数据时无论是字节还是字符最终都是写的字节流。字符流是字节流的包装类，所以当我们将字符流向字节流转换时要注意编码问题（因为字符串转成字节数组的实质是转成该字符串的某种字节编码）。</p>
-<p>字符流和字节流的使用非常相似，但是实际上字节流的操作不会经过缓冲区（内存）而是直接操作文本本身的，而字符流的操作会先经过缓冲区（内存）然后通过缓冲区再操作文件。</p>
-<p>1、字节流在操作的时候本身是不会用到缓冲区（内存）的，是与文件本身直接操作的，而字符流在操作的时候是使用到缓冲区的</p>
-<p>2、字节流在操作文件时，即使不关闭资源（close方法），文件也能输出，但是如果字符流不使用close方法的话，则不会输出任何内容，说明字符流用的是缓冲区，并且可以使用flush方法强制进行刷新缓冲区，这时才能在不close的情况下输出内容</p>
-<p>3、Reader类的read()方法返回类型为int ：作为整数读取的字符（占两个字节共16位），范围在 0 到 65535 之间 (0x00-0xffff)，如果已到达流的末尾，则返回 -1<br>inputStream的read()虽然也返回int，但由于此类是面向字节流的，一个字节占8个位，所以返回 0 到 255 范围内的 int 字节值。如果因为已经到达流末尾而没有可用的字节，则返回值 -1。因此对于不能用0-255来表示的值就得用字符流来读取！比如说汉字.</p>
-<p>4、字节流与字符流主要的区别是他们的的处理方式</p>
-<p>字节流：处理字节和字节数组或二进制对象；</p>
-<p>字符流：处理字符、字符数组或字符串。</p>
-<p>问：什么是缓冲区？有什么作用？</p>
-<p>答：缓冲区就是一段特殊的内存区域，很多情况下当程序需要频繁地操作一个资源（如文件或数据库）则性能会很低，所以为了提升性能就可以将一部分数据暂时读写到缓存区，以后直接从此区域中读写数据即可，这样就显著提升了性能。<br>对于 Java 字符流的操作都是在缓冲区操作的，所以如果我们想在字符流操作中主动将缓冲区刷新到文件则可以使用 flush() 方法操作。</p>
-<p>问：如何选择字节流和字符流？<br>答：如果是文本文件通常使用字符流，而像视频，图片，音频等文件都是二进制数据使用字节流。当然文本文件也可以使用字节流来操作，字节流更通用。</p>
-<p>如果只是复制纯文本文件不做显示操作，哪个流都可以，如果要显示纯文本就用字符流。</p>
-<p>问：为什么对于字符流中都有flush方法，但是字节流中没有？<br>字节流的操作不会经过缓冲区（内存）而是直接操作文本本身的，而字符流的操作会先经过缓冲区（内存）然后通过缓冲区再操作文件。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/14/IO/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -609,10 +566,14 @@
 </ul>
 </li>
 </ul>
-<p>sqoopTool：sqoop具体的工具类</p>
-<p>Hive 用增量<br>采集、建模需要固定的时间段，昨天9点到今天9点，限制住时间，或者要先获取到上次执行时间，再算上这次的执行时间。建模无法获取上次的执行时间，如果固定时间间隔，如果报错后续处理，比如垮天了，或者白天执行作业的时候就会很麻烦。<br>Hive不支持删除数据，对于不要的数据只能全量执行，不管是采集还是建模。<br>如果业务那边有一个base_table，每天的一个增量表，可以做成拉链表。燃气设备是做成了拉链表，是在源头做的，不是在hive</p>
-<p>kpi 是增量插入一天一条，但是如果存在回补历史数据或者修正历史数据，比如某一天的数据就很麻烦</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/05/31/Sqoop/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -728,12 +689,14 @@
 <p>所谓守护线程是指在程序运行的时候在后台提供一种通用服务的线程，比如垃圾回收线程就是一个很称职的守护者，并且这种线程并不属于程序中不可或缺的部分。</p>
 <p>当用户进程结束后，程序终止，不管此时是否还有正在运行的守护线程。</p>
 <p>将线程转换为守护线程可以通过调用Thread对象的setDaemon(true)方法来实现。</p>
-<ul>
-<li>thread.setDaemon(true)必须在thread.start()之前设置，否则会跑出一个IllegalThreadStateException异常。你不能把正在运行的常规线程设置为守护线程。</li>
-<li>任何线程都会继承负责创建它的那个线程的daemon状态，∴在主线程main方法中创建的线程都是用户线程，在守护线程内创建的线程都是守护线程</li>
-<li>守护线程应该永远不去访问固有资源，如文件、数据库，因为它会在任何时候甚至在一个操作的中间发生中断</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/19/Thread-4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -843,15 +806,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://images.weserv.nl/?url=https://img2018.cnblogs.com/blog/984423/201907/984423-20190718113737330-625791541.png"></p>
-<p>右移16位相当于将高16位移入到低16位，再与原hashcode做异或计算（位相同为0，不同为1）可以将高低位二进制特征混合起来 &#x3D;&gt; 高16位没有发生变化，但是低16位改变了</p>
-<p>拿到的hash值会参与hashmap中数组槽位的计算，计算公式：(n - 1) &amp; hash，假设数组初始槽位16个，那么槽位计算如下：</p>
-<p><img src="https://images.weserv.nl/?url=https://img2018.cnblogs.com/blog/984423/201907/984423-20190718114255570-1053064897.png"></p>
-<p>高区的16位很有可能会被数组槽位数的二进制码锁屏蔽，<strong>如果我们不做刚才移位异或运算，那么在计算槽位时将丢失高区特征</strong></p>
-<p>虽然丢失了高区特征，不同hashcode也可以计算出不同的槽位来，但是如果两个hashcode很接近时，高区的特征差异可能会导致一次哈希碰撞。</p>
-<h3 id="2-使用异或运算的原因"><a href="#2-使用异或运算的原因" class="headerlink" title="2. 使用异或运算的原因"></a>2. 使用异或运算的原因</h3><p>异或运算能更好的保留各部分的特征，如果采用 &amp; 运算计算出来的值会向0靠拢，采用 | 运算计算出来的值会向1靠拢</p>
-<h3 id="3-为什么槽位数必须使用2-n-为什么要-length-1"><a href="#3-为什么槽位数必须使用2-n-为什么要-length-1" class="headerlink" title="3. 为什么槽位数必须使用2^n &#x2F; 为什么要 &amp;length-1"></a>3. 为什么槽位数必须使用2^n &#x2F; 为什么要 &amp;length-1</h3><p>为了让哈希后的结果更加均匀，减少hash碰撞</p>
-<h3 id="4-扩容后Hash值计算"><a href="#4-扩容后Hash值计算" class="headerlink" title="4. 扩容后Hash值计算"></a>4. 扩容后Hash值计算</h3><p>length * 2，即新增的bit位是1，在 (n - 1) &amp; hash 时，只需要判断新增加的这一个bit位，如果是0的话，说明索引不变，如果变成1了，索引变成 原索引+扩容前的容量大小</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/21/HashMap-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -957,10 +919,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -987,7 +949,7 @@
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -1003,6 +965,9 @@
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -1061,6 +1026,10 @@
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

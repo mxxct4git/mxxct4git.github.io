@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -248,14 +276,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 <p>镜像可以发布为不同的版本，这种机制我们称之为标签（Tag）。<br><img src="https://i.imgur.com/xoJvMtW.jpg"></p>
 <p>如上图所示，neo4j镜像有两个版本：lastest版本和2.1.5版本。<br>可以使用pull命令加上指定的标签：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu:14.04</span><br><span class="line">docker pull ubuntu:12.04</span><br></pre></td></tr></table></figure>
-<h3 id="2-Docker容器"><a href="#2-Docker容器" class="headerlink" title="2.Docker容器"></a>2.Docker容器</h3><p>Docker容器可以使用命令创建：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run imagename</span><br></pre></td></tr></table></figure>
-<p>它会在所有的镜像层之上增加一个可写层。这个可写层有运行在CPU上的进程，而且有两个不同的状态：运行态（Running）和退出态（Exited）。这就是Docker容器。当我们使用docker run启动容器，Docker容器就进入运行态，当我们停止Docker容器时，它就进入退出态。<br>当我们有一个正在运行的Docker容器时，从运行态到停止态，我们对它所做的一切变更都会永久地写到容器的文件系统中。要切记，对容器的变更是写入到容器的文件系统的，而不是写入到Docker镜像中的。<br>我们可以用同一个镜像启动多个Docker容器，这些容器启动后都是活动的，彼此还是相互隔离的。我们对其中一个容器所做的变更只会局限于那个容器本身。<br>如果对容器的底层镜像进行修改，那么当前正在运行的容器是不受影响的，不会发生自动更新现象。<br>如果想更新容器到其镜像的新版本，那么必须当心，确保我们是以正确的方式构建了数据结构，否则我们可能会导致损失容器中所有数据的后果。<br>64字符的十六进制的字符串来定义容器ID，它是容器的唯一标识符。容器之间的交互是依靠容器ID识别的，由于容器ID的字符太长，我们通常只需键入容器ID的前4个字符即可。当然，我们还可以使用容器名，但显然用4字符的容器ID更为简便。</p>
-<h3 id="3-镜像、容器和仓库"><a href="#3-镜像、容器和仓库" class="headerlink" title="3.镜像、容器和仓库"></a>3.镜像、容器和仓库</h3><h4 id="3-1-镜像"><a href="#3-1-镜像" class="headerlink" title="3.1 镜像"></a>3.1 镜像</h4><p>Docker运行容器前需要本地存在对应的镜像。<br>镜像可以用来创建Docker容器的。一个镜像可以包含一个完整的操作系统环境和用户需要的其它应用程序。在docker hub 里面有大量现成的镜像提供下载。docker的镜像是只可读的，一个镜像可以创建多个容器。</p>
-<h4 id="3-2-容器"><a href="#3-2-容器" class="headerlink" title="3.2 容器"></a>3.2 容器</h4><p>docker利用容器来开发、运行应用。<br>容器是镜像创建的实例。它可以被启动、开始、停止、删除。每个容器都是 相互隔离的、保证安全的平台。</p>
-<h4 id="3-3-仓库"><a href="#3-3-仓库" class="headerlink" title="3.3 仓库"></a>3.3 仓库</h4><p>仓库是集中存放镜像文件的场所。<br>每个仓库中又包含了多个镜像，每个镜像有不同的标签（tag）。<br>最大的公开仓库是DockerHub，存放了数量庞大的镜像供用户下载。国内的公开 仓库包括DockerPool等，可以提供大陆用户更稳定快速的访问。当然，用户也可以在本地网络内创建一个私有仓库。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/Docker-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -362,17 +390,14 @@
       
           <h4 id="1-输入-su-进入管理员权限"><a href="#1-输入-su-进入管理员权限" class="headerlink" title="1.输入 su 进入管理员权限"></a>1.输入 su 进入管理员权限</h4><h4 id="2-输入-rpm-qa-grep-jdk-查看当前系统有哪些java版本"><a href="#2-输入-rpm-qa-grep-jdk-查看当前系统有哪些java版本" class="headerlink" title="2.输入 rpm -qa | grep jdk 查看当前系统有哪些java版本"></a>2.输入 rpm -qa | grep jdk 查看当前系统有哪些java版本</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@docker /]# rpm -qa | grep jdk  </span><br><span class="line">java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el6_9.x86_64  </span><br><span class="line">java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64</span><br></pre></td></tr></table></figure>
 <h4 id="3-输入-rpm-e-–nodeps-java-1-6-0-openjdk-1-6-0-41-1-13-13-1-el6-8-x86-64-删除该版本"><a href="#3-输入-rpm-e-–nodeps-java-1-6-0-openjdk-1-6-0-41-1-13-13-1-el6-8-x86-64-删除该版本" class="headerlink" title="3.输入 rpm -e –nodeps java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64 删除该版本"></a>3.输入 rpm -e –nodeps java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64 删除该版本</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@docker /]# rpm -e --nodeps  </span><br><span class="line">java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64</span><br><span class="line">[root@docker /]# rpm -qa | grep jdk</span><br><span class="line">java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el6_9.x86_64</span><br></pre></td></tr></table></figure>
-
-<p>全部删除</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@docker /]# rpm -e --nodeps  </span><br><span class="line">java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el6_9.x86_64</span><br><span class="line">[root@docker /]# rpm -qa | grep jdk</span><br><span class="line">[root@docker /]# java -version</span><br><span class="line">bash: java: command not found</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-安装新的jdk"><a href="#4-安装新的jdk" class="headerlink" title="4.安装新的jdk"></a>4.安装新的jdk</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@docker /]# yum install java-1.8.0-openjdk</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-配置环境变量"><a href="#5-配置环境变量" class="headerlink" title="5.配置环境变量"></a>5.配置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@docker /]# vi /etc/profile</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-0.el6_10.x86_64</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-
-<h4 id="6-让环境变量生效"><a href="#6-让环境变量生效" class="headerlink" title="6.让环境变量生效"></a>6.让环境变量生效</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@docker /]# source /etc/profile</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/Linux-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -477,29 +502,14 @@
           <h3 id="1-配置Hexo基本信息"><a href="#1-配置Hexo基本信息" class="headerlink" title="1.配置Hexo基本信息"></a>1.配置Hexo基本信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">title: 猫熊小才天の书院  #博客标题</span><br><span class="line">subtitle:   #博客副标题</span><br><span class="line">description: 凡事都想试一试的某某  #博客描述</span><br><span class="line">author: Mxxct  #博客作者</span><br><span class="line">language: zh-Hans #语言</span><br><span class="line"></span><br><span class="line"># Pagination</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 5</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"># 可以添加以下内容</span><br><span class="line">archive_generator:</span><br><span class="line">  per_page: 10 ##归档页面默认10篇文章标题</span><br><span class="line">  yearly: true  ##生成年视图</span><br><span class="line">  monthly: true ##生成月视图</span><br><span class="line">  </span><br><span class="line">tag_generator:</span><br><span class="line">  per_page: 10 ##标签分类页面默认10篇文章</span><br><span class="line">  </span><br><span class="line">category_generator:</span><br><span class="line">   per_page: 10 ###分类页面默认10篇文章</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-更换主题Next"><a href="#2-更换主题Next" class="headerlink" title="2.更换主题Next"></a>2.更换主题Next</h3><h4 id="2-1-安装主题"><a href="#2-1-安装主题" class="headerlink" title="2.1 安装主题"></a>2.1 安装主题</h4><p>输入以下指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>下载完成后，修改根目录下_config.yml文件的theme字段为next即可启用NexT主题</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">## theme: landscape</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-<h4 id="2-2-配置主题"><a href="#2-2-配置主题" class="headerlink" title="2.2 配置主题"></a>2.2 配置主题</h4><p>在footer部分，可以将powered和theme全部只为false，就可以屏蔽掉尾注<br>menu部分只打开home、tags、categories、archives即可<br>scheme按照喜好选择<br>将enable置为true，避免首页一次显示文章全部</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto_excerpt:</span><br><span class="line">  enable: true</span><br><span class="line">  length: 150</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-添加分类和标签功能"><a href="#3-添加分类和标签功能" class="headerlink" title="3.添加分类和标签功能"></a>3.添加分类和标签功能</h3><p>进入到博客根目录，输入以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
-<p>成功后会提示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO  Created: ~/Documents/blog/source/categories/index.md</span><br></pre></td></tr></table></figure>
-<p>根据上面的路径，找到index.md这个文件，打开后默认内容是这样的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2018-11-16 17:00:00</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>添加type: “categories”到内容中，添加后文件如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2018-11-16 17:00:00</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>同理，如上操作创建标签功能</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2018-11-16 17:00:00</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>给文章添加分类和标签的样式如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: windows搭建hexo系统</span><br><span class="line">date: 2018-11-16 17:10:51</span><br><span class="line">categories:</span><br><span class="line">  - hexo</span><br><span class="line">tags:</span><br><span class="line">   - hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>可以打开scaffolds&#x2F;post.md文件，在tages:上面加入categories:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">categories:</span><br><span class="line">tags:</span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>保存后，之后执行hexo new 文章名命令生成的文件会自动加上categories</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/16/Hexo-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -603,42 +613,15 @@
       
           <h3 id="1-安装Git"><a href="#1-安装Git" class="headerlink" title="1.安装Git"></a>1.安装Git</h3><p>下载Windows下的<a href="https://git-scm.com/download/win">Git客户端</a>并安装，安装很简单，基本一路Next下去  </p>
 <h3 id="2-安装Node-js"><a href="#2-安装Node-js" class="headerlink" title="2.安装Node.js"></a>2.安装Node.js</h3><p>下载<a href="https://nodejs.org/en/">Node.js</a>，安装Node.js也是一路Next下去，打开命令行输入node如果出现一个向右的箭头就说明安装成功</p>
-<h3 id="3-配置Github"><a href="#3-配置Github" class="headerlink" title="3.配置Github"></a>3.配置Github</h3><h4 id="3-1-注册账户"><a href="#3-1-注册账户" class="headerlink" title="3.1 注册账户"></a>3.1 注册账户</h4><h4 id="3-2-新建repository"><a href="#3-2-新建repository" class="headerlink" title="3.2 新建repository"></a>3.2 新建repository</h4><p><strong>owner是ABC的话，那么Repository.name就必须是 ABC.github.io，与你的github账号的名称一致，否则在之后输入网址时会报404错误</strong></p>
-<p><img src="https://i.imgur.com/PyRjUmt.png"></p>
-<h4 id="3-3-配置Github-SSH密钥"><a href="#3-3-配置Github-SSH密钥" class="headerlink" title="3.3 配置Github SSH密钥"></a>3.3 配置Github SSH密钥</h4><p>打开Git Bash，输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your&#x27;s emaill address&quot; </span><br></pre></td></tr></table></figure>
-<p><strong>注意要加引号</strong><br>然后回车，会提示你文件保存的路径，这时候按回车键确认<br>然后会提示你输入密码，输入即可（输入密码是看不到的），然后会确认输入一次，就可以在刚刚的路径看到生成了两个文件，一个是id_rsa，另一个是id_rsa.pub，打开id_rsa.pub然后选中里面的全部内容，复制下来。  </p>
-<p>登录github，点击头像可以看到setting选项，点击进入<br>然后可以看到左边有一个SSH and GPG keys选项<br>点击就可以看到以下界面，点击New SSH</p>
-<p><img src="https://i.imgur.com/mpCNAXo.jpg"></p>
-<p>Title随便填写，主要是为了方便管理密钥，然后把刚刚拷贝的内容粘贴到Key里面去，然后点击Add SSH key。<br>Github上的配置就完成了</p>
-<h4 id="3-4-创建本地仓库与Github同步"><a href="#3-4-创建本地仓库与Github同步" class="headerlink" title="3.4 创建本地仓库与Github同步"></a>3.4 创建本地仓库与Github同步</h4><p>在本地任意一个分区的任意位置创建一个文件夹，路径及文件夹名不要有中文。打开Git Bash，cd 进入到刚创建的文件夹</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git config --global user.name &quot;Your&#x27;s name&quot;</span><br><span class="line">git config --global user.email &quot;Your&#x27;s email address&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>要带着引号</strong><br>其中的Your’s name替换成github账户的名称，Your’s email address替换成你的邮件地址即可<br>然后再当前的文件夹下面新建一个README.md文件，然后右键用notepad++打开，随便写入一点内容，做一次简单的提交，输入以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git remote add origin git@github.com:yourname/yourname.github.io.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-<p>运行成功之后，进入到git仓库中就可以看到有README.md文件</p>
-<h3 id="4-安装Hexo"><a href="#4-安装Hexo" class="headerlink" title="4.安装Hexo"></a>4.安装Hexo</h3><h4 id="4-1-安装"><a href="#4-1-安装" class="headerlink" title="4.1 安装"></a>4.1 安装</h4><p>打开Git Bash，输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<p>敲完回车可能没有任何提示，请一定要耐心等待<br>安装成功后，可以输入以下命令测试以下Hexo是否安装成功  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
-<p>如果能看到hexo的版本号信息，就表示安装成功了</p>
-<h4 id="4-2-初始化Hexo"><a href="#4-2-初始化Hexo" class="headerlink" title="4.2 初始化Hexo"></a>4.2 初始化Hexo</h4><p>在本地任意一个分区的任意位置创建一个文件夹，路径及文件夹名不要有中文。打开Git Bash，cd 进入到刚创建的文件夹，输入以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br><span class="line">npm install</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<p>这时候在浏览器中打开 localhost:4000 就可以看到hexo生成的博客</p>
-<blockquote>
-<p>hexo常用指令<br>hexo g 生成静态文件<br>hexo s 启动本地服务器进行预览<br>hexo d 部署到github上发布<br>hexo clean 清除缓存<br>hexo new “abc” 新建文章 在source_posts路径下<br>hexo new page “pageName” 新建页面</p>
-</blockquote>
-<h4 id="4-3-配置Hexo到Github上"><a href="#4-3-配置Hexo到Github上" class="headerlink" title="4.3 配置Hexo到Github上"></a>4.3 配置Hexo到Github上</h4><p>在hexo的文件夹中打开_config.yml文件，修改文件最后部分</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:  </span><br><span class="line">  type: git</span><br><span class="line">  repository: http://github.com/yourname/yourname.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p><strong>yourname是github的账户名</strong><br>保存，然后输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>如果出现以下异常</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR Deployer not found: git</span><br></pre></td></tr></table></figure>
-<p>尝试输入以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>然后再次输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>这时候会弹出一个对话框，输入github上的账号和密码，运行成功后，在浏览器中输入<a href="http://yourname.github.io查看博客首页/">http://yourname.github.io查看博客首页</a></p>
-
+<h3 id="3-配置Github"><a href="#3-配置Github" class="headerlink" title="3.配置Github"></a>3.配置Github</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/16/Hexo-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -758,218 +741,14 @@
 <li>支持对Metastore的浏览，可以访问Hive的元数据以及对应的HCatalog。  </li>
 <li>另外，还有对Job的支持，Sqoop，ZooKeeper以及DB（MySQL，SQLite，Oracle等）的支持。</li>
 </ul>
-<h3 id="二、安装配置"><a href="#二、安装配置" class="headerlink" title="二、安装配置"></a>二、安装配置</h3><ol>
-<li><p>打开hiveserver2</p>
-<pre><code> hive --service hiveserver2
- 否则通过Hue Web控制无法执行Hive查询
-</code></pre>
-</li>
-<li><p>配置Hadoop的配置文件core-site.xml，添加以下内容   </p>
-<pre><code> &lt;property&gt;
-     &lt;name&gt;hadoop.proxyuser.hue.hosts&lt;/name&gt;
-     &lt;value&gt;*&lt;/value&gt;
- &lt;/property&gt;
- &lt;property&gt;
-     &lt;name&gt;hadoop.proxyuser.hue.groups&lt;/name&gt;
-     &lt;value&gt;*&lt;/value&gt;
- &lt;/property&gt;
- //如果在pseudo-distributed.ini中配置的是root  
- //server_user=root
- //server_group=root
- //default_user=root
- //default_hdfs_superuser=root
- //就把hue改成root，给root权限
-
- &lt;property&gt;
- &lt;name&gt;hadoop.proxyuser. client.hosts&lt;/name&gt;
- &lt;value&gt;*&lt;/value&gt;
- &lt;/property&gt;
- &lt;property&gt;
- &lt;name&gt;hadoop.proxyuser. client.groups&lt;/name&gt;
- &lt;value&gt;*&lt;/value&gt;
- &lt;/property&gt;
-</code></pre>
-</li>
-<li><p>配置Hadoop的配置文件hdfs-site.xml，添加以下内容  </p>
-<pre><code> &lt;property&gt;
-     &lt;name&gt;dfs.webhdfs.enabled&lt;/name&gt;
-     &lt;value&gt;true&lt;/value&gt;
- &lt;/property&gt;
-</code></pre>
-</li>
-<li><p>使用yum工具来添加maven源<br> 进入root权限  </p>
-<p> <code>wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo</code></p>
-</li>
-<li><p>使用yum工具来安装依赖<br> 进入root权限</p>
-<p> <code>yum install ant asciidoc cyrus-sasl-devel cyrus-sasl-gssapi cyrus-sasl-plain gcc gcc-c++ krb5-devel libffi-devel libxml2-devel libxslt-devel make mysql mysql-devel openldap-devel python-devel sqlite-devel gmp-devel</code></p>
-</li>
-<li><p>使用yum工具来安装git<br> 进入root权限  </p>
-<pre><code> yum install git
- //默认安装路径在/usr/libexec/下
-</code></pre>
-</li>
-<li><p>下载源码<br> 进入root权限<br> <code>git clone https://github.com/cloudera/hue.git branch-3.9</code></p>
-</li>
-<li><p>安装python环境<br> 进入roor权限  </p>
-<p> <code>yum install python-devel</code></p>
-</li>
-<li><p>安装可能缺少的依赖<br> 进入root权限  </p>
-<pre><code> yum install libffi-devel
- yum install gcc openssl-devel
- yum install libxslt-devel
- yum install mysql-server mysql mysql-devel
- yum install gmp-devel
- yum install sqlite-devel
- yum install openldap-devel
-</code></pre>
-</li>
-<li><p>编译源码，编译完成后可以选择安装  </p>
-<pre><code>cd branch-3.9  
-make apps  
-//编译出错后 make clean之后再编译
-//可选 make install
-</code></pre>
-</li>
-<li><p>进入到安装目录branch-3.9下，访问Hue（此时只能进去，但是无法查看里面的各个组件信息）<br>进入root权限</p>
-<pre><code>build/env/bin/hue runserver //默认端口由Django服务器提供，端口号是127.0.0.1:8000
-build/env/bin/hue runserver 0.0.0.0:8000 //添加第三个参数 打开外网访问 linux ip地址：8000
-</code></pre>
-</li>
-<li><p>修改desktop&#x2F;conf&#x2F;pseudo-distributed.ini配置文件  </p>
-<pre><code>[desktop]  
-http_host=0.0.0.0
-http_port=8000
-server_user=root
-server_group=root
-default_user=root
-default_hdfs_superuser=root
-——————————————————————————————————————————————————————————————————————————————————
-[hadoop]
-# Enter the filesystem uri
-fs_defaultfs=hdfs://oracle:9000
-
-# Use WebHdfs/HttpFs as the communication mechanism.
-  # Domain should be the NameNode or HttpFs host.
-  # Default port is 14000 for HttpFs.
-webhdfs_url=http://oracle:50070/webhdfs/v1
-
-# Directory of the Hadoop configuration
-hadoop_hdfs_home=/home/oracle/hadoop-2.6.0
-  hadoop_bin=/home/oracle/hadoop-2.6.0/bin
-  hadoop_conf_dir=/home/oracle/hadoop-2.6.0/etc/hadoop
-——————————————————————————————————————————————————————————————————————————————————
-[[yarn_clusters]]
-# Enter the host on which you are running the ResourceManager
-resourcemanager_host=oracle
-
-# The port where the ResourceManager IPC listens on
-resourcemanager_port=8032
-
-# Whether to submit jobs to this cluster
-submit_to=True
-
-# Change this if your YARN cluster is Kerberos-secured
-security_enabled=true
-
-# URL of the ResourceManager API
-resourcemanager_api_url=http://oracle:8088
-
-# URL of the ProxyServer API
-proxy_api_url=http://oracle:8088
-
-# URL of the HistoryServer API
-history_server_api_url=http://oracle:19888
-——————————————————————————————————————————————————————————————————————————————————
-[[mapred_clusters]]
-# Enter the host on which you are running the Hadoop JobTracker
-jobtracker_host=oracle
-
-# The port where the JobTracker IPC listens on
-jobtracker_port=8021
-
-# Whether to submit jobs to this cluster
-submit_to=False
-
-# Change this if your MapReduce cluster is Kerberos-secured
-security_enabled=true
-——————————————————————————————————————————————————————————————————————————————————
-[beeswax]
-# Host where HiveServer2 is running.
-# If Kerberos security is enabled, use fully-qualified domain name (FQDN).
-hive_server_host=oracle
-
-# Port where HiveServer2 Thrift server runs on.
-hive_server_port=10000
-
-# Hive configuration directory, where hive-site.xml is located
-hive_conf_dir=/home/oracle/apache-hive-1.2.1-bin/conf
-——————————————————————————————————————————————————————————————————————————————————
-</code></pre>
-</li>
-<li><p>配置Hadoop的配置文件yarn-site.xml，添加以下内容</p>
-<pre><code>&lt;property&gt;
-&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
-&lt;value&gt;oracle&lt;/value&gt;
-&lt;/property&gt;
-&lt;!-- historyserver############ --&gt;
-&lt;property&gt;
-&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;
-&lt;value&gt;true&lt;/value&gt; 
-&lt;/property&gt; 
-&lt;property&gt; 
-&lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;
-&lt;value&gt;106800&lt;/value&gt;
-&lt;/property&gt;
-&lt;!-- historyserver############ --&gt;
-</code></pre>
-</li>
-<li><p>在打开网页时，先启动Hadoop，HBase，HBase Thrift，Hive  </p>
-<pre><code>hbase-daemon.sh start thrift -p 9090
-hive --service hiveserver2 // 不要关闭该选项卡
-</code></pre>
-</li>
-<li><p>在外网下访问端口号：8000</p>
-<pre><code>Browsers → Files 进入File Browser，可以查看HDFS文件  
-Browsers → JObs 进入Job Browser，可以查看MapReduce的Job信息  
-Browsers → HBases 进入Hbase Browser，可以查看Hbase中的表单信息  
-Editor → Hive 进入Hive，可以对Hive中的表单进行操作  
-</code></pre>
-</li>
-<li><p>修改权限  </p>
-<p><code>chown -R root:root branch-3.7.1/</code></p>
-</li>
-<li><p>出现database is locked错误</p>
-</li>
-</ol>
-<p>将hue自己的数据库迁移到mysql下</p>
-<pre><code>	//注意database不要找错了
-    [[database]]
-    # Database engine is typically one of:
-    # postgresql_psycopg2, mysql, sqlite3 or oracle.
-    #
-    # Note that for sqlite3, &#39;name&#39;, below is a path to the filename. For other backends, it is the database name.
-    # Note for Oracle, options=&#123;&quot;threaded&quot;:true&#125; must be set in order to avoid crashes.
-    # Note for Oracle, you can use the Oracle Service Name by setting &quot;host=&quot; and &quot;port=&quot; and then &quot;name=&lt;host&gt;:&lt;port&gt;/&lt;service_name&gt;&quot;.
-    # Note for MariaDB use the &#39;mysql&#39; engine.
-    engine=mysql
-    host=localhost
-    port=3306
-    user=root
-    password=root
-    # conn_max_age option to make database connection persistent value in seconds
-    # https://docs.djangoproject.com/en/1.9/ref/databases/#persistent-connections
-    ## conn_max_age=0
-    # Execute this script to produce the database password. This will be used when &#39;password&#39; is not set.
-    ## password_script=/path/script
-    name=hue
-    ## options=&#123;&#125;
-</code></pre>
-<p>进入root权限，进入hue安装目录下</p>
-<pre><code>    build/env/bin/hue syncdb
-    build/env/bin/hue migrate
-</code></pre>
-<p>再进入hue时需要使用在 syncdb 中设置的username和password<br>oracle 123456</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/16/Hue/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1075,10 +854,10 @@ Editor → Hive 进入Hive，可以对Hive中的表单进行操作
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -1105,7 +884,7 @@ Editor → Hive 进入Hive，可以对Hive中的表单进行操作
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -1121,6 +900,9 @@ Editor → Hive 进入Hive，可以对Hive中的表单进行操作
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -1179,6 +961,10 @@ Editor → Hive 进入Hive，可以对Hive中的表单进行操作
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -244,41 +272,15 @@
           <h3 id="1-新星"><a href="#1-新星" class="headerlink" title="1. 新星"></a>1. 新星</h3><p>“让我们掌声欢迎我们H国有史以来最闪耀的新星，罗兰小姐！”</p>
 <p>主持人话音刚落，一道白光打在了舞台中央，穿着一袭白衣的罗兰此时就像是一个公主。曼妙的歌声和观众的呼喊声混合在一起，竟让她有了一种不真实感，脑中想到的都是自己从练习生到出道这几年的艰辛历程，不知不觉竟流下泪来。观众不知罗兰所想，恰是一种抒情歌，看着大屏幕上偶像流了眼泪，眼角竟也有了一些湿润。</p>
 <p>自XXX节目成为冠军之后，罗兰在短短2个月的时间就占据了各大娱乐版块的封面，各个广告商纷纷递上橄榄枝，甚至也有富商子弟前来求婚，不过都被她拒绝了，一方面是她本身不喜欢那些纨绔子弟，另一方面她所在的社团的社长也是这样要求她的，在合同到期之前，她是不可以谈恋爱的。不过也无所谓，反正她现在也没有时间去想这些事情，毕竟每天的行程已经安排的非常满了。她现在只想在合同到期前，好好工作，多挣点钱，到时候才能更好的照顾家里人。</p>
-<h3 id="2-噩梦"><a href="#2-噩梦" class="headerlink" title="2. 噩梦"></a>2. 噩梦</h3><p>“这周五早上十点，你自己来XXX路XX号。”罗兰打开手机，看到了这样的一条短信，不禁皱起了眉头。</p>
-<p>这部手机是上次演出之后社长私下里交给她的，说是以后如果有紧急的事情，会单独通过这个手机来联系她，让她自己一个人保管好，甚至连她的经纪人都不能告诉。</p>
-<p>罗兰搜了一下短信上的地址，眉头皱得更深了。这是一个别墅区啊，叫我过去干嘛，难道是有新的广告商或者投资人？真是搞不懂他们这帮企业家。</p>
-<p>周五。</p>
-<p>“罗兰啊，你知道我对你这段时间很照顾吧，一直帮你找赞助，给你开拓市场，让你去演出，让你赚钱，还帮你妈把看病的钱给交了。”</p>
-<p>“是的，我知道，我一直都对社长心怀感激，所以我也一直拼命地工作，不敢懈怠。”</p>
-<p>“那么现在我需要你帮我一个忙，这个忙只有你能做，但是我需要征求你的意见。”社长转动着手中的茶杯，缓缓地说道。</p>
-<p>罗兰心中有了一丝疑惑，甚至有一点隐隐的不安，感觉自己今天过来或许是一个错误的决定。</p>
-<p>“我们最近在和S集团谈下一步的合作事宜，现在只差最后一句话了，S集团的董事长提了一个要求，他说只要能满足他的要求，就没有问题了。”</p>
-<p>“什么要求？”</p>
-<p>“他要你。”社长放下手中的茶杯，眼睛盯着罗兰的眼睛，眼神坚定。“一起吃顿饭，喝点酒什么的，具体的我也不知道，但是大概就是大家平常日一起做的，你知道的。”</p>
-<p>“我不去！”罗兰没有想到社长竟然会说出这种话，简直是不可理喻。</p>
-<p>“罗兰啊，你应该知道吧，公司培养你也花了不少钱，既然能把你培养起来，自然也可以把东西都收回来。你可以回去考虑一下，想想你现在的事业，还有，”社长顿了顿，继续说，“你的家人们。”</p>
-<h3 id="3-求助"><a href="#3-求助" class="headerlink" title="3. 求助"></a>3. 求助</h3><p>一年之后。</p>
-<p>“何叔，我知道你和我爸是旧交，我有些事想麻烦您一下。”</p>
-<p>老何不敢相信他眼前这个姑娘竟然是一年之前舞台上那个光鲜亮丽，看起来青春活泼的罗兰。此刻素颜的她黑眼圈很明显，整个人看起来憔悴很多，也消瘦很多。</p>
-<p>“这件事有点难以启齿，但是……我感觉我快撑不住了。”说着说着，罗兰竟控制不住地流下眼泪。</p>
-<p>“发生了什么事，慢慢说，我看我能帮上什么忙。”</p>
-<p>……</p>
-<h3 id="4-绝望"><a href="#4-绝望" class="headerlink" title="4. 绝望"></a>4. 绝望</h3><p>“根据本台最新报道，两年前出道的明星，罗兰，已于今天早上8点在家中逝世，警方在死者家中发现了大量的治疗抑郁症的药品，初步鉴定为自杀，具体原因正在进一步勘查中。”</p>
-<h3 id="5-缅怀"><a href="#5-缅怀" class="headerlink" title="5. 缅怀"></a>5. 缅怀</h3><p>“小王，是你跟局长说的我一直在帮罗兰的吧。”</p>
-<p>小王没有想到师傅会突然说起这个，一下子慌了，“师傅，你……你在说什么？”</p>
-<p>“上次员工晋升会谈的时候，局长先找的你，之后找的我，还把咱们警车的出勤位置都翻了出来，除非是有人说，要不然他才不会翻这东西，而且当了这么多年的警察，你的表情我看得出来，”</p>
-<p>“师傅，是那次谈话的时候局长跟我说，按照我的业绩如果没有什么突出的成绩出现，我可能就要被辞退了，你知道我母亲的身体，她一直希望我能当警察，我不敢失去这份工作，局长说如果能说说你一直在做什么，或许我还能……”</p>
-<p>老何抬起手打断了他的话，“没事的没事的，原本距离我退休还有两三年的时间，如今只不过提前到了下个星期而已。”老何深深地抽了一口烟，慢慢地吐了出来，看着那团烟逐渐散成虚无。“你知道为什么他会这么针对我吗？五年前，我是老局长的接班人，至少大多数人都是这么认为的，我也是，在晋升会谈的前一周，老局长找我聊了好久，他并不是不想让我接替他，只是他发现咱们国家正在向一个不好的方向发展，水开始变深变浑浊了，他不想让我进来，不过他说他也会尊重我的决定，当与不当全看我的想法。”</p>
-<p>“我回去想了好久，我去看了我父亲，我在墓碑前坐了3个小时，我就一直在说最近发生的事情，说着说着我发现我不是那样的人，我不喜欢现在的环境，但是我一个人却改变不了，我只能默默接受，并试图让自己离远一点，所以我回去告诉老局长，我拒绝接替他的岗位，出乎意料的是，他很开心，是一种发自肺腑的喜悦。后来就是现在的局长接替了那个位置。我家三代都是军人，祖辈有功勋，所以我才有现在的位置，局长他虽然看我不爽，却也不好直接对我怎样。这次被他逮到了把柄，自然会一直抓着不放。”</p>
-<p>“师傅，对不起，我不知道会这样。”小王没想到事情会朝着这个方向发展，然而如今说什么都晚了。</p>
-<p>“没事的没事的。对于我个人来说，我觉得倒是挺好的，我好久没有感觉这么轻松过了。我只是担心你。”老何顿了顿，继续说，“你是一个好孩子，心眼不坏。我知道你一直怪我不带你出任务，抓嫌犯，好不断晋升上去，就像当年的我，不知道即将趟的水的深浅。或许是我自私了，我希望你能晚点接触到人心，只不过如今我要离职了，不能继续带你了，我只是希望你能坚持你的本心，做个好警察。”老何拍了拍小王的肩膀，“我相信你可以的。”</p>
-<p>“好好加油吧，而我，”老何伸了一个懒腰，恰好阳光滑过，“可以开始享受退休生活了。”</p>
-<p>风轻轻吹过，罗兰碑前的百合花瓣被吹了起来，不知道飘向了哪里。</p>
-<blockquote>
-<p>之前微博上看到了一句话，忘了原话，大体意思是：世人说那些在不幸遭遇中幸存下来的人们是幸运的，可是如果那些逝去的人才是幸运的呢？<br>有对的部分，也有不对的部分，那么我的观点是：<br>世界并不会因此改变，同样的不幸依旧，坚守本心，砥砺前行。</p>
-</blockquote>
-<p>附：<br>香罗兰：困境中保持贞节<br>香水百合：死亡，一种傲然开放，凌驾于世俗之上的花</p>
-
+<h3 id="2-噩梦"><a href="#2-噩梦" class="headerlink" title="2. 噩梦"></a>2. 噩梦</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/10/27/Novel-7/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -390,82 +392,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(parameters) -&gt; expression</span><br><span class="line">或</span><br><span class="line">(parameters) -&gt; &#123; statements; &#125;</span><br></pre></td></tr></table></figure>
 
 <p>特征：</p>
-<ul>
-<li>可选类型声明：不需要声明参数类型，编译器可以统一识别参数值</li>
-<li>可选的参数圆括号：一个参数无需定义圆括号，但多个参数需要定义圆括号</li>
-<li>可选的大括号：如果主体只包含一个语句，就不需要使用大括号</li>
-<li>可选的返回关键字：如果主体只有一个表达式返回值则编译器会自动返回值，大括号需要指定明表达式返回了一个数值</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public class Java8Tester &#123;</span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        Java8Tester tester = new Java8Tester();</span><br><span class="line"></span><br><span class="line">        // 类型声明</span><br><span class="line">        MathOperation addition = (int a, int b) -&gt; a + b;</span><br><span class="line"></span><br><span class="line">        // 不用类型声明</span><br><span class="line">        MathOperation subtraction = (a, b) -&gt; a - b;</span><br><span class="line"></span><br><span class="line">        // 大括号中的返回语句</span><br><span class="line">        MathOperation multiplication = (int a, int b) -&gt; &#123; return a * b; &#125;;</span><br><span class="line"></span><br><span class="line">        // 没有大括号及返回语句</span><br><span class="line">        MathOperation division = (int a, int b) -&gt; a / b;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;10 + 5 = &quot; + tester.operate(10, 5, addition));</span><br><span class="line">        System.out.println(&quot;10 - 5 = &quot; + tester.operate(10, 5, subtraction));</span><br><span class="line">        System.out.println(&quot;10 x 5 = &quot; + tester.operate(10, 5, multiplication));</span><br><span class="line">        System.out.println(&quot;10 / 5 = &quot; + tester.operate(10, 5, division));</span><br><span class="line"></span><br><span class="line">        // 不用括号</span><br><span class="line">        GreetingService greetService1 = message -&gt; System.out.println(&quot;Hello &quot; + message);</span><br><span class="line"></span><br><span class="line">        // 用括号</span><br><span class="line">        GreetingService greetService2 = (message) -&gt; System.out.println(&quot;Hello &quot; + message);</span><br><span class="line"></span><br><span class="line">        greetService1.sayMessage(&quot;Runoob&quot;);</span><br><span class="line">        greetService2.sayMessage(&quot;Google&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    interface MathOperation &#123;</span><br><span class="line">        int operation(int a, int b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    interface GreetingService &#123;</span><br><span class="line">        void sayMessage(String message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int operate(int a, int b, MathOperation mathOperation) &#123;</span><br><span class="line">        return mathOperation.operation(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>lambda 表达式中访问外层的局部变量，这个局部变量可以不显式声明为 final，但是不能在后面代码修改（即隐式具有 final 含义）。但是如果外层变量是 static 声明的话，可以在 lambda 表达式内部引用，并且在后面的代码中修改。</p>
-<blockquote>
-<p>static变量是恒定指向内存的一个位置的，哪怕修改变量的值也是同一个位置，final 不可修改，也可以算是指向了内存中的一个位置（从创建那时候开始算的话）。变量只是引用，普通变量修改值的话会指向另一块内存位置，而 lambda 应该规定的是，只要一块不变的内存地址</p>
-</blockquote>
-<p>lambda 和 匿名内部类的比较：</p>
-<p>匿名内部类的格式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new 父类或接口() &#123;​</span><br><span class="line">    重写的方法;​ </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在匿名内部类中很多是内容是冗余的。lambda 提取匿名内部类中最核心的内容（方法参数，方法体，返回值）。</p>
-<p>Lambda 表达式的使用条件:</p>
-<ol>
-<li>必须有接口（不能是抽象类），接口中有且仅有一个需要被重写的抽象方法。</li>
-<li>必须支持上下文推导，要能够推导出来 Lambda 表达式表示的是哪个接口中的内容。<br>可以使用接口当做参数，然后传递 Lambda 表达式(常用)，也可以将 Lambda 表达式赋值给一个接口类型的变量。</li>
-</ol>
-<h3 id="2-方法引用"><a href="#2-方法引用" class="headerlink" title="2. 方法引用"></a>2. 方法引用</h3><p>语法：</p>
-<ul>
-<li>构造器引用：<code>Class::new</code></li>
-<li>静态方法引用：<code>Class::static_method</code></li>
-<li>特定类的任意对象的方法引用：<code>Class::method</code></li>
-<li>特定对象的方法引用：<code>instance::method</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Java8Tester &#123;</span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        List names = new ArrayList();</span><br><span class="line">        names.add(&quot;Google&quot;);</span><br><span class="line">        names.add(&quot;Runoob&quot;);</span><br><span class="line">        names.add(&quot;Taobao&quot;);</span><br><span class="line">        names.add(&quot;Baidu&quot;);</span><br><span class="line">        names.add(&quot;Sina&quot;);</span><br><span class="line">        names.forEach(System.out::println);</span><br><span class="line">		// 对每一个 names 中的值，依次传递给 System.out 类下面的 println 这个方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-函数式接口"><a href="#3-函数式接口" class="headerlink" title="3. 函数式接口"></a>3. 函数式接口</h3><p>函数式接口(Functional Interface)就是一个有且仅有一个抽象方法，但是可以有多个非抽象方法的接口。</p>
-<p>函数式接口可以被隐式转换为 lambda 表达式。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">// Predicate &lt;T&gt; 接口是一个函数式接口，它接受一个输入参数 T，返回一个布尔值结果。</span><br><span class="line">// 该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）。</span><br><span class="line">// 该接口用于测试对象是 true 或 false。</span><br><span class="line"></span><br><span class="line">public class Java8Tester &#123;</span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        List&lt;Integer&gt; list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);</span><br><span class="line"></span><br><span class="line">        // Predicate&lt;Integer&gt; predicate = n -&gt; true</span><br><span class="line">        // n 是一个参数传递到 Predicate 接口的 test 方法</span><br><span class="line">        // n 如果存在则 test 方法返回 true</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;输出所有数据:&quot;);</span><br><span class="line"></span><br><span class="line">        // 传递参数 n</span><br><span class="line">        eval(list, n -&gt; true);</span><br><span class="line"></span><br><span class="line">        // Predicate&lt;Integer&gt; predicate1 = n -&gt; n%2 == 0</span><br><span class="line">        // n 是一个参数传递到 Predicate 接口的 test 方法</span><br><span class="line">        // 如果 n%2 为 0 test 方法返回 true</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;输出所有偶数:&quot;);</span><br><span class="line">        eval(list, n -&gt; n % 2 == 0);</span><br><span class="line"></span><br><span class="line">        // Predicate&lt;Integer&gt; predicate2 = n -&gt; n &gt; 3</span><br><span class="line">        // n 是一个参数传递到 Predicate 接口的 test 方法</span><br><span class="line">        // 如果 n 大于 3 test 方法返回 true</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;输出大于 3 的所有数字:&quot;);</span><br><span class="line">        eval(list, n -&gt; n &gt; 3);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void eval(List&lt;Integer&gt; list, Predicate&lt;Integer&gt; predicate) &#123;</span><br><span class="line">        for (Integer n : list) &#123;</span><br><span class="line"></span><br><span class="line">            if (predicate.test(n)) &#123;</span><br><span class="line">                System.out.println(n + &quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 换成流计算的话</span><br><span class="line">private static void eval(List&lt;Integer&gt; list, Predicate&lt;Integer&gt; predicate) &#123;</span><br><span class="line">    list.stream().filter(predicate).forEach(System.out::println);</span><br><span class="line">&#125;</span><br><span class="line">// 直接填写过滤条件的话</span><br><span class="line">list.stream().filter(n -&gt; n &gt; 3).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-接口的默认方法"><a href="#4-接口的默认方法" class="headerlink" title="4. 接口的默认方法"></a>4. 接口的默认方法</h3><p>接口可以有实现方法，并且不需要实现类来实现其方法。在方法名前面加 default 关键字即可实现默认方法。一个接口可以用多个默认方法。</p>
-<p>目的：为了解决接口的修改与现有的实现不兼容的问题。之前需要修改接口的时候，需要修改全部实现该接口的类。</p>
-<p>如果一个实现类实现了多个接口，并且多个接口中有相同的默认方法，可以在实现类中覆写掉这个默认方法，或者在实现类中通过 super 来指定接口的默认方法。</p>
-<p>接口还可以声明（并且可以提供实现）静态方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface Vehicle &#123;</span><br><span class="line">	default void print()&#123;</span><br><span class="line">		System.out.println(&quot;我是一辆车!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	// 静态方法</span><br><span class="line">	static void blowHorn()&#123;</span><br><span class="line">		System.out.println(&quot;按喇叭!!!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-Stream"><a href="#5-Stream" class="headerlink" title="5. Stream"></a>5. Stream</h3><p>流计算：<br>stream of elements<br>&#x3D;&gt; 聚合操作：filter、map、reduce、find、match、sorted、collect etc</p>
-<p>生成流：</p>
-<ul>
-<li>stream()：为集合创建串行流</li>
-<li>parallelStream()：为集合创建并行流</li>
-</ul>
-<p>如果是 Random 的话，通过 <code>random.ints()</code> 来生成流</p>
-<p>Collectors：<br>Collectors 类实现了很多归约操作，例如将流转换成集合和聚合元素。<br>Collectors 可用于返回列表或字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt;strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">List&lt;String&gt; filtered = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line"> </span><br><span class="line">System.out.println(&quot;筛选列表: &quot; + filtered);</span><br><span class="line">String mergedString = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.joining(&quot;, &quot;));</span><br><span class="line">System.out.println(&quot;合并字符串: &quot; + mergedString);</span><br></pre></td></tr></table></figure>
-
-<p>统计：<br>一些产生统计结果的收集器也非常有用。它们主要用于int、double、long等基本类型上，它们可以用来产生类似如下的统计结果。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);</span><br><span class="line"> </span><br><span class="line">IntSummaryStatistics stats = numbers.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line"> </span><br><span class="line">System.out.println(&quot;列表中最大的数 : &quot; + stats.getMax());</span><br><span class="line">System.out.println(&quot;列表中最小的数 : &quot; + stats.getMin());</span><br><span class="line">System.out.println(&quot;所有数之和 : &quot; + stats.getSum());</span><br><span class="line">System.out.println(&quot;平均数 : &quot; + stats.getAverage());</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-Optional-类"><a href="#6-Optional-类" class="headerlink" title="6. Optional 类"></a>6. Optional 类</h3><p>目的：为了解决空指针问题</p>
-<p>demo：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Optional;</span><br><span class="line"> </span><br><span class="line">public class Java8Tester &#123;</span><br><span class="line">	public static void main(String args[])&#123;</span><br><span class="line">		Java8Tester java8Tester = new Java8Tester();</span><br><span class="line">		Integer value1 = null;</span><br><span class="line">		Integer value2 = new Integer(10);</span><br><span class="line"></span><br><span class="line">		// Optional.ofNullable - 允许传递为 null 参数</span><br><span class="line">		Optional&lt;Integer&gt; a = Optional.ofNullable(value1);</span><br><span class="line"></span><br><span class="line">		// Optional.of - 如果传递的参数是 null，抛出异常 NullPointerException</span><br><span class="line">		Optional&lt;Integer&gt; b = Optional.of(value2);</span><br><span class="line">		System.out.println(java8Tester.sum(a,b));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Integer sum(Optional&lt;Integer&gt; a, Optional&lt;Integer&gt; b)&#123;</span><br><span class="line"></span><br><span class="line">		// Optional.isPresent - 判断值是否存在</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;第一个参数值存在: &quot; + a.isPresent());</span><br><span class="line">		System.out.println(&quot;第二个参数值存在: &quot; + b.isPresent());</span><br><span class="line">		</span><br><span class="line">		// Optional.orElse - 如果值存在，返回它，否则返回默认值</span><br><span class="line">		Integer value1 = a.orElse(new Integer(0));</span><br><span class="line">		</span><br><span class="line">		//Optional.get - 获取值，值需要存在</span><br><span class="line">		Integer value2 = b.get();</span><br><span class="line">		return value1 + value2;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-Nashorn-JavaScript-引擎"><a href="#7-Nashorn-JavaScript-引擎" class="headerlink" title="7. Nashorn, JavaScript 引擎"></a>7. Nashorn, JavaScript 引擎</h3><h3 id="8-新的日期时间-API"><a href="#8-新的日期时间-API" class="headerlink" title="8. 新的日期时间 API"></a>8. 新的日期时间 API</h3><p>旧的日期 API 有诸多问题：</p>
-<ol>
-<li>非线程安全： java.util.Date 是非线程安全的，所有的日期类都是可变的</li>
-<li>设计差：java.util 和 java.sql 的包中都有日期类</li>
-<li>时区处理麻烦：没有时区支持，因此引入了 java.util.Calendar 和 java.util.TimeZone 类，但他们同样存在上述所有的问题</li>
-</ol>
-<p>新的日期 API：java.time</p>
-<ol>
-<li>本地化日期时间 API<br>LocalDate&#x2F;LocalTime 和 LocalDateTime 类可以在处理时区不是必须的情况</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">import java.time.LocalDate;</span><br><span class="line">import java.time.LocalTime;</span><br><span class="line">import java.time.LocalDateTime;</span><br><span class="line">import java.time.Month;</span><br><span class="line"> </span><br><span class="line">public class Java8Tester &#123;</span><br><span class="line">	public static void main(String args[])&#123;</span><br><span class="line">		Java8Tester java8tester = new Java8Tester();</span><br><span class="line">		java8tester.testLocalDateTime();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void testLocalDateTime()&#123;</span><br><span class="line"></span><br><span class="line">		// 获取当前的日期时间</span><br><span class="line">		LocalDateTime currentTime = LocalDateTime.now();</span><br><span class="line">		System.out.println(&quot;当前时间: &quot; + currentTime);</span><br><span class="line">		</span><br><span class="line">		LocalDate date1 = currentTime.toLocalDate();</span><br><span class="line">		System.out.println(&quot;date1: &quot; + date1);</span><br><span class="line">		</span><br><span class="line">		Month month = currentTime.getMonth();</span><br><span class="line">		int day = currentTime.getDayOfMonth();</span><br><span class="line">		int seconds = currentTime.getSecond();</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;月: &quot; + month +&quot;, 日: &quot; + day +&quot;, 秒: &quot; + seconds);</span><br><span class="line">		</span><br><span class="line">		LocalDateTime date2 = currentTime.withDayOfMonth(10).withYear(2012);</span><br><span class="line">		System.out.println(&quot;date2: &quot; + date2);</span><br><span class="line">		</span><br><span class="line">		// 12 december 2014</span><br><span class="line">		LocalDate date3 = LocalDate.of(2014, Month.DECEMBER, 12);</span><br><span class="line">		System.out.println(&quot;date3: &quot; + date3);</span><br><span class="line">		</span><br><span class="line">		// 22 小时 15 分钟</span><br><span class="line">		LocalTime date4 = LocalTime.of(22, 15);</span><br><span class="line">		System.out.println(&quot;date4: &quot; + date4);</span><br><span class="line">		</span><br><span class="line">		// 解析字符串</span><br><span class="line">		LocalTime date5 = LocalTime.parse(&quot;20:15:30&quot;);</span><br><span class="line">		System.out.println(&quot;date5: &quot; + date5);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>使用时区的日期时间 API</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import java.time.ZonedDateTime;</span><br><span class="line">import java.time.ZoneId;</span><br><span class="line"> </span><br><span class="line">public class Java8Tester &#123;</span><br><span class="line">	public static void main(String args[])&#123;</span><br><span class="line">		Java8Tester java8tester = new Java8Tester();</span><br><span class="line">		java8tester.testZonedDateTime();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void testZonedDateTime()&#123;</span><br><span class="line"></span><br><span class="line">		// 获取当前时间日期</span><br><span class="line">		ZonedDateTime date1 = ZonedDateTime.parse(&quot;2015-12-03T10:15:30+05:30[Asia/Shanghai]&quot;);</span><br><span class="line">		System.out.println(&quot;date1: &quot; + date1);</span><br><span class="line">		</span><br><span class="line">		ZoneId id = ZoneId.of(&quot;Europe/Paris&quot;);</span><br><span class="line">		System.out.println(&quot;ZoneId: &quot; + id);</span><br><span class="line">		</span><br><span class="line">		ZoneId currentZone = ZoneId.systemDefault();</span><br><span class="line">		System.out.println(&quot;当期时区: &quot; + currentZone);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="9-Base64"><a href="#9-Base64" class="headerlink" title="9. Base64"></a>9. Base64</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/23/Java-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -615,467 +549,15 @@
 <blockquote>
 <p>protected：处理的是继承的概念。子类 extends 父类，如果父类希望某个特定成员，把对它的访问权限赋予派生类而不是所有类，即可以使用 protected。</p>
 </blockquote>
-<h3 id="2-8个基本类型"><a href="#2-8个基本类型" class="headerlink" title="2. 8个基本类型"></a>2. 8个基本类型</h3><table>
-<thead>
-<tr>
-<th align="center">基本类型</th>
-<th align="center">大小</th>
-<th align="center">包装器类型</th>
-<th align="center">默认值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">boolean</td>
-<td align="center">-</td>
-<td align="center">Boolean</td>
-<td align="center">false</td>
-</tr>
-<tr>
-<td align="center">char</td>
-<td align="center">16位</td>
-<td align="center">Character</td>
-<td align="center">null</td>
-</tr>
-<tr>
-<td align="center">byte</td>
-<td align="center">8位</td>
-<td align="center">Byte</td>
-<td align="center">(byte)0</td>
-</tr>
-<tr>
-<td align="center">short</td>
-<td align="center">16位</td>
-<td align="center">Short</td>
-<td align="center">(short)0</td>
-</tr>
-<tr>
-<td align="center">int</td>
-<td align="center">32位</td>
-<td align="center">Integer</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">long</td>
-<td align="center">64位</td>
-<td align="center">Long</td>
-<td align="center">0L</td>
-</tr>
-<tr>
-<td align="center">float</td>
-<td align="center">32位</td>
-<td align="center">Float</td>
-<td align="center">0.0f</td>
-</tr>
-<tr>
-<td align="center">double</td>
-<td align="center">64位</td>
-<td align="center">Double</td>
-<td align="center">0.0d</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>默认值只是当变量作为类的成员使用时，才会给默认值，以确保成员变量得到初始化，防止程序错误。并不适用于局部变量！</p>
-</blockquote>
-<p>int 的整数范围：-2147483648 ~ 2147483647</p>
-<p>高精度数字的类：BigInteger 和 BigDecimal</p>
-<p>float 创建变量的时候，后面必须要加一个 f</p>
-<h3 id="3-static-关键字"><a href="#3-static-关键字" class="headerlink" title="3. static 关键字"></a>3. static 关键字</h3><p>由 <code>static</code> 声明的变量或方法只有一份存储空间。关于变量，不管创建多少个对象，这些对象都共享同一个 i；关于方法，可以直接调用不用创建对象。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class StaticTest &#123;</span><br><span class="line">    static int i = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">StaticTest st1 = new stStaticTest();</span><br><span class="line">st1.i;</span><br><span class="line"></span><br><span class="line">StaticTest.i; // 也可以直接访问</span><br><span class="line"></span><br><span class="line">A a＝ new A()</span><br><span class="line">A b ＝new A()</span><br><span class="line">如果A里面有static int x</span><br><span class="line">a.x和b.x是同一个x</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>即使没有显式使用 static 关键字，一个类的构造器实际上也是静态方法。</p>
-</blockquote>
-<blockquote>
-<p>初始化的顺序是先静态对象（如果它们尚未因前面的对象创建过程而被初始化），其次是非静态对象。</p>
-</blockquote>
-<blockquote>
-<p>一个类的初始化顺序：</p>
-<ol start="0">
-<li>将分配给对象的存储空间初始化成二进制的零</li>
-<li>基类中的 static 静态代码块</li>
-<li>子类中的 static 静态代码块 </li>
-<li>基类中的属性值和普通代码块，按书写顺序初始化（这些变量和方法肯定不是 static）</li>
-<li>基类中的构造器执行</li>
-<li>子类中的属性值和普通代码块，按书写顺序初始化（这些变量和方法肯定不是 static）</li>
-<li>子类中的构造器执行</li>
-</ol>
-</blockquote>
-<h3 id="4-final-关键字"><a href="#4-final-关键字" class="headerlink" title="4. final 关键字"></a>4. final 关键字</h3><p>如果一个类被声明为 final，意味着它不能再派生出新的子类，不能作为父类被继承。因此一个类不能既被声明为 abstract，又被声明为 final。</p>
-<p>将变量或方法声明为 final，可以保证它们在使用中不被改变。被声明为 final 的变量必须在声明时给定初值，而在以后的引用中只能读取，不可修改。被声明为final 的方法也同样只能使用，不能重载。 </p>
-<h3 id="5"><a href="#5" class="headerlink" title="5. ++"></a>5. ++</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">++i 先执行运算，再生成值</span><br><span class="line">i++ 先生成值，再执行运算</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-和-equals"><a href="#6-和-equals" class="headerlink" title="6. &#x3D;&#x3D; 和 equals"></a>6. &#x3D;&#x3D; 和 equals</h3><p><code>equals</code>：不同对象判断内容是否相等用 <code>equals</code><br><code>==</code>：比较的是对象的引用；基本类型使用 <code>==</code> 来判等</p>
-<h3 id="7-while-和-do…while"><a href="#7-while-和-do…while" class="headerlink" title="7. while 和 do…while"></a>7. while 和 do…while</h3><p><code>do...while</code> 中的语句最少会执行一次，哪怕 while 中的判断是 false </p>
-<blockquote>
-<p>for( ; ; ) 和 while(true) 是一样的，都表示无穷循环。</p>
-</blockquote>
-<h3 id="8-foreach"><a href="#8-foreach" class="headerlink" title="8. foreach"></a>8. foreach</h3><p>这里的 foreach 只是 for 循环的变形。Java8 之后可以使用 foreach + lambda 表达式来循环遍历。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(type i : x) // x 比如是一个数组或容器</span><br><span class="line"></span><br><span class="line">for(char c : &quot;a test string&quot;.toCharArray()) // String 类通过 toCharArray() 方法来返回一个 char 数组</span><br></pre></td></tr></table></figure>
-
-<p>Java8 特性：foreach + lambda 表达式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">items.foreach((k, v) -&gt; &#123;</span><br><span class="line">    System.out.println(&quot;key: &quot; + k + &quot;, value: &quot; + v)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="9-break-和-continue"><a href="#9-break-和-continue" class="headerlink" title="9. break 和 continue"></a>9. break 和 continue</h3><p>break：用于强行退出循环，不执行循环中剩余的语句</p>
-<p>continue：用于停止执行当前的迭代，然后退回循环起始处，开始下一次迭代</p>
-<blockquote>
-<p>break 和 continue 针对的都是当前迭代层。如果有内外两层迭代，break写在内层，只是退出内层迭代，外层迭代继续。</p>
-</blockquote>
-<h3 id="10-标签"><a href="#10-标签" class="headerlink" title="10. 标签"></a>10. 标签</h3><p>标签是后面跟有冒号的标识符，类似：<code>lable1:</code>，一般和 break、continue 一同使用，表示中断当前循环，跳到标签所在的位置。</p>
-<h3 id="11-垃圾回收"><a href="#11-垃圾回收" class="headerlink" title="11. 垃圾回收"></a>11. 垃圾回收</h3><p>Java 垃圾回收器只知道释放那些由 new 分配内存的对象。如果一个对象并非使用 new 来获得一块内存的话，就需要在类中定义一个名为 finalize() 的方法。</p>
-<p>关于回收的几个点：</p>
-<ol>
-<li>对象不一定会被回收</li>
-<li>垃圾回收不是析构函数</li>
-<li>垃圾回收只与内存有关</li>
-<li>如果 JVM 还没面临内存耗尽的情况，那它就不会浪费时间去执行垃圾回收来恢复内存。</li>
-</ol>
-<p>几种垃圾回收技术：</p>
-<ol>
-<li><p>引用计数：引用连接至对象，计数器加1；引用离开作用域或被设置为 null 时，计数器减1。当计数为0时回收。缺点：如果对象之间存在循环引用，可能会出现”对象应该被回收，但引用计数不为0“</p>
-</li>
-<li><p>停止-复制：先暂停程序运行，把所有存活的对象从当前堆复制到另一个堆，没有被复制的对象都是垃圾。缺点：所有引用需要修正；需要2倍的空间；如果有较少或甚至没有垃圾，就很浪费。</p>
-</li>
-<li><p>标记-清扫：遍历所有引用，标记存活对象，当过程结束后开始回收。</p>
-</li>
-</ol>
-<h3 id="12-可变参数列表"><a href="#12-可变参数列表" class="headerlink" title="12. 可变参数列表"></a>12. 可变参数列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static void printArray(Object[] args)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="13-基类（继承）"><a href="#13-基类（继承）" class="headerlink" title="13. 基类（继承）"></a>13. 基类（继承）</h3><p>如果 A 作为基类，<code>B extends A</code>，那么当 new 一个 B 类的对象时，会隐式地自动先执行 A 类的无参构造函数，即构造过程是从基类开始向外扩散的。</p>
-<blockquote>
-<p>如果要调用 A 的有参构造函数，就必须显式地使用 super 来调用，并且传参。</p>
-</blockquote>
-<h3 id="14-代理"><a href="#14-代理" class="headerlink" title="14. 代理"></a>14. 代理</h3><p>子类 extends 基类，那么基类的所有方法都会暴露给子类。使用代理可以有选择地将基类的方法暴露给用户来使用。</p>
-<blockquote>
-<p>其实相当于之前是通过 extends 的方式来继承基类，现在是在一个类下面创建基类的对象的方式来实现功能。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class A &#123;</span><br><span class="line">    void func1(int i)&#123;&#125;</span><br><span class="line">    void func2(int i)&#123;&#125;</span><br><span class="line">    void func3(int i)&#123;&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class B extends A &#123;</span><br><span class="line">    // 此时 A 中所有的方法都会暴露给 B</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用代理</span><br><span class="line">public class C &#123;</span><br><span class="line">    private A a = new A();</span><br><span class="line">    // 代理方法</span><br><span class="line">    // 在这里可以有选择地提供基类中的方法</span><br><span class="line">    public void func1(int i)&#123;</span><br><span class="line">        a.func1(i);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="15-向上转型与向下转型"><a href="#15-向上转型与向下转型" class="headerlink" title="15. 向上转型与向下转型"></a>15. 向上转型与向下转型</h3><h4 id="15-1-向上转型"><a href="#15-1-向上转型" class="headerlink" title="15.1 向上转型"></a>15.1 向上转型</h4><p>向上转型指的是从一个转专用类型向较通用类型转换，比如子类向上转型为基类，由于基类不会有大于子类的方法数量，所以是安全的。</p>
-<h4 id="15-2-向下转型"><a href="#15-2-向下转型" class="headerlink" title="15.2 向下转型"></a>15.2 向下转型</h4><p>向下转型则不安全，需要在转型时在前面用小括号写出具体转型的类型。</p>
-<h3 id="16-多态"><a href="#16-多态" class="headerlink" title="16. 多态"></a>16. 多态</h3><blockquote>
-<p>OOP(面向对象编程)三大特征：</p>
-<ol>
-<li>抽象：把一类事物的属性或行为提出来，形成一个模型（类）</li>
-<li>继承：为了提高代码复用性，将共同的属性或方法提取出来作为基类，子类继承基类，获得基类所有属性和行为，并可以根据自身需求来拓展各自的功能。</li>
-<li>多态：即同一消息可以根据发送对象的不同而采用多种不同的行为方式。</li>
-</ol>
-<p>另外还有 封装（把数据和对数据的操作组合起来，对外隐藏实现细节，对外只能用提供的功能来实现需求）。</p>
-</blockquote>
-<p>以下是还算较为简单的多态的实现，更麻烦的实现是在 Shapes 定义参数不同方法名相同的 draw 方法，然后调用的时候分别把 circle、triangle 对象传进去，通过传递对象的不同来调用各自的 draw 方法。但是这种方法的思想依旧是前期绑定，即在运行前就已经知道了对象的类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// 基类</span><br><span class="line">class Shape &#123;</span><br><span class="line">    public void draw()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 子类</span><br><span class="line">class Cirle extends Shape &#123;</span><br><span class="line">    @Override 避免了方法重载的麻烦，但是也可以不加</span><br><span class="line">    public void draw()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Triangle extends Shape &#123;</span><br><span class="line">    public void draw()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实现类</span><br><span class="line">class Shapes &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Cirle circle = new Circle();</span><br><span class="line">        Triangle triangle = new Triangle();</span><br><span class="line">        circle.draw();</span><br><span class="line">        triangle.draw();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>多态的思想是通过后期绑定（亦或动态绑定或运行时绑定），是在向上转型的基础上来实现的：因为 Cirle 和 Triangle 继承自 Shape，那么可以在创建对象的时候写成 <code>Shape circle = new Circle();</code>，创建一个 Circle 对象，把引用赋值给 Shape。在调用 <code>circle.draw();</code> 时默认会调用基类中的 draw() 方法，但是如果子类中覆写了这个方法，那么就会调用在 Circle 类中覆写的 draw() 方法，从而实现了多态。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// 基类</span><br><span class="line">class Shape &#123;</span><br><span class="line">    public void draw()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 子类</span><br><span class="line">class Cirle extends Shape &#123;</span><br><span class="line">    public void draw()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Triangle extends Shape &#123;</span><br><span class="line">    public void draw()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实现类</span><br><span class="line">class Shapes &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Shape circle = new Cirle();</span><br><span class="line">        Shape triangle = new Triangle();</span><br><span class="line">        circle.draw();</span><br><span class="line">        triangle.draw();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>多态的两个注意事项：</p>
-<ol>
-<li><p>无法覆盖私有方法</p>
-</li>
-<li><p>变量和静态方法不具有多态性</p>
-</li>
-</ol>
-<h3 id="17-构造器"><a href="#17-构造器" class="headerlink" title="17. 构造器"></a>17. 构造器</h3><p>准则：用尽可能简单的方法使对象进入正常状态；避免调用其他方法。</p>
-<p>在构造器内唯一能够安全调用方法是基类中的 final 方法（也适用于 private 方法，它们自动属于 final 方法），这些方法不能被覆盖。</p>
-<h3 id="18-抽象类和抽象方法"><a href="#18-抽象类和抽象方法" class="headerlink" title="18. 抽象类和抽象方法"></a>18. 抽象类和抽象方法</h3><p>建立抽象类的唯一目的是：不同的子类可以用不同的方式表示此接口（方法），抽象类就是把共同的部分提取了出来。像之前写的 Shape 就是一个抽象基类，或者抽象类。</p>
-<p>如果一个类包含一个或多个抽象方法，该类就必须被限定为 abstract。同时，子类继承抽象类时，必须为基类中所有的抽象方法提供方法定义，否则，子类也必须被限定为 abstract。</p>
-<p>基类中的抽象方法只定义方法，不具体实现。但是那些非抽象方法可以写实现体。（抽象类中的那些抽象方法类似于接口部分）</p>
-<h3 id="19-接口"><a href="#19-接口" class="headerlink" title="19. 接口"></a>19. 接口</h3><p>接口使抽象这一概念更进一步：全是抽象方法，只定义方法，都不实现。</p>
-<p>接口中的方法都是 public。</p>
-<p>一个类只能继承一个基类，但是可以实现多个接口。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class X extends A implements B, C &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>扩展接口：接口 extends 接口1, 接口2 … (只有接口继承是可以写多个的，除此之外，extends 只能后面跟一个类)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">interface A &#123;</span><br><span class="line">    void func1();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 此时 B 就相当于有2个方法了</span><br><span class="line">interface B extends A &#123;</span><br><span class="line">    void func2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C implements B &#123;</span><br><span class="line">    public void func1()&#123;&#125;;</span><br><span class="line">    public void func2()&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>对于接口而言，如果使用了 extends，那么子类一定也是一个接口；如果使用了 implements，那么子类就是一个普通的类，并且必须实现接口中的所有方法。</p>
-</blockquote>
-<p>接口中的任何变量都是 final 以及 static 的。</p>
-<h3 id="20-内部类"><a href="#20-内部类" class="headerlink" title="20. 内部类"></a>20. 内部类</h3><p>使用内部类的原因：每个内部类都能独立地继承自一个（接口的）实现，所以无论外围类是否已经继承了某个（接口的）实现，对于内部类都没有影响。（比如想在一个类中以某种方式实现两个接口，可以使用单一类或者使用内部类，可以使用单一类的原因是因为可以继承多个接口，但是如果是抽象类或者具体类，即只能继承一个，那么就只能使用内部类来实现多重继承）</p>
-<p>可以把一个类的定义放在另一个类的定义的内部（可以是类的内部，也可以是在某一个方法的内部），即为内部类。</p>
-<p>内部类的好处之一是内部类拥有对其外部类的所有元素（成员变量及方法）的访问权。</p>
-<p>在内部类里生成对外部类的引用：在外部类的名字后面加 <code>.this</code></p>
-<p>在外部类引用的基础上创建某个内部类的对象：在外部类的名字后面加 <code>.new</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Outer outer = new Outer();</span><br><span class="line">Outer.Inner ini = outer.new Inner();</span><br><span class="line"></span><br><span class="line">不过感觉最好是在外部类中添加一个返回内部类对象的方法</span><br><span class="line">public class Outer &#123;</span><br><span class="line">    public class Inner &#123;</span><br><span class="line">        public Outer getOuter() &#123;</span><br><span class="line">            return Outer.this; // .this 得到外部类的引用</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public Inner inner() &#123; return new Inner(); &#125;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Outer outer = new Outer();</span><br><span class="line">        Outer.Inner inner = outer.inner();</span><br><span class="line">        // Outer.Inner inner = outer.new Inner(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>匿名内部类：（还不是很理解……）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class A &#123;</span><br><span class="line">    public Contents contents() &#123;</span><br><span class="line">        return new Contents() &#123;</span><br><span class="line">            private int i = 1;</span><br><span class="line">            public int value() &#123; return i; &#125;</span><br><span class="line">        &#125;; // 这里的分号必要要有</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        A a = new A();</span><br><span class="line">        Contents contents = a.contents();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>一个匿名类的组成部分：</p>
-<ol>
-<li>new 操作符</li>
-<li>new 之后可以写接口、抽象类、普通类名称。</li>
-<li>()：这个括号表示构造函数的参数列表。由于Runnable是一个接口，没有构造函数，所以这里填一个空的括号表示没有参数。</li>
-<li>{…}：大括号中间的代码表示这个类内部的一些结构。在这里可以定义变量名称、方法。跟普通的类一样。</li>
-</ol>
-<p>嵌套类：将内部类声明为 static，此时内部类对象和其外部类对象之间就没有了联系。（普通的内部类对象隐式地保存了一个引用，指向创建它的外围类对象，但是使用了 static 之后，就没有了这个引用）</p>
-<p>使用嵌套类意味着：</p>
-<ol>
-<li>要创建嵌套类的对象，并不需要其外围类的对象（直接 new 一个就行）</li>
-<li>不能从嵌套类的对象中访问非静态的外围类对象</li>
-</ol>
-<p>嵌套类可以作为接口的一部分。因为接口中的任何类默认都是 <code>public static</code></p>
-<h3 id="21-容器类"><a href="#21-容器类" class="headerlink" title="21. 容器类"></a>21. 容器类</h3><p>容器类类库的用途是：保存对象。</p>
-<p>分为两类：</p>
-<ol>
-<li><p>Collection：一个独立元素的序列</p>
-<ul>
-<li>Collection 是 List 和 Set 两个接口的基接口，List 和 Set 也是接口</li>
-<li>List 在 Collection 之上增加了 ”有序“ 的概念，即必须按照插入的顺序保存元素<ul>
-<li>ArrayList、LinkedList 是实现 List 接口的类。相同点：有序；不同点：ArrayList 是采用数组存放元素（索引查找快但是插入和删除慢），LinkedList 采用的则是链表（索引查找慢但是插入和删除快）</li>
-</ul>
-</li>
-<li>Set 在 Collection 之上增加了 ”唯一“ 的概念，不能有重复元素<ul>
-<li>HashSet、TreeSet 是实现 Set 接口的类。相同点：元素不能重复。不同点：HashSet 是无序的，而 TreeSet 是有序的，但是这个有序和 List 不一样，List 是按照插入顺序，而 TreeSet 是按照元素自定义顺序进行排序（可自定义排序的比较器）。因此 HashSet 允许放入 null，且效率较高，TreeSet相反。</li>
-<li>LinkedHashSet 是另一个实现类，可以保证按照插入顺序来保存元素</li>
-<li>SortedSet 接口保证元素处于排序状态</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Map：一组”键值对“对象</p>
-<ul>
-<li>当 get() 方法返回 null 值时，即可以表示 Map 中没有该键，也可以表示该键所对应的值为 null。因此，在 Map 中不能由 get() 方法来判断 Map 中是否存在某个键，而应该用 containsKey() 方法来判断</li>
-<li>实现 Map 的类有：HashMap、HashTable、TreeMap<ul>
-<li>HashMap 允许有空键（null）与空值（null），在缺省情况下是非同步的，效率高于 HashTable，更推荐使用，在多线程环境下使用时，可以转换为同步</li>
-<li>HashTable 缺省是线程同步的；不允许关键字或值为null；不推荐使用</li>
-<li>TreeMap 能把其保存的记录根据key排序（类似TreeSet），默认是按照key的默认排序，但也可指定排序的比较器；不允许有空键（null）但可以有空值（null）。</li>
-<li>TreeMap 和 HashMap 比较：<ul>
-<li>TreeMap 适合于：元素顺序很重要；增加、快速创建的情况；HashMap 适合于：元素顺序不是很重要；查询</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p><img src="https://images0.cnblogs.com/i/617995/201404/161353012916056.png" alt="简单的容器分类"></p>
-<blockquote>
-<p>点线框表示接口，实现框表示具体的类，带有空心箭头的点线表示一个特定的类实现了一个接口，实心箭头表示某个类可以生成箭头所指向类的对象。eg：任意的 Collection 可以生成 Iterator，而 List 即可以生成 Iterator 也可以生成 ListIterator。</p>
-</blockquote>
-<p><img src="https://images0.cnblogs.com/i/617995/201404/161352345105405.png" alt="完整的容器分类"></p>
-<h3 id="22-List"><a href="#22-List" class="headerlink" title="22. List"></a>22. List</h3><p>subList(fromIndex, toIndex)：获取一个片段，fromIndex &lt;&#x3D; index &lt; toIndex。需要注意的是 subList 获取的是原列表的引用，如果原列表发生改变（比如插入新的元素或者删除一个元素等等），那么在运行的时候 subList 就会报错。</p>
-<h4 id="22-1-迭代器"><a href="#22-1-迭代器" class="headerlink" title="22.1 迭代器"></a>22.1 迭代器</h4><ol>
-<li>Iterator<ul>
-<li>使用 iterator() 要求容器返回一个 Iterator。Iterator 将准备好返回序列的第一个元素</li>
-<li>使用 next() 返回当前元素，并指向序列的下一个元素</li>
-<li>使用 hasNext() 检查序列中是否还有元素</li>
-<li>使用 remove() 将迭代器当前返回的元素删除，所以在使用 remove() 之前必须调用 next()</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>数组不是 Iterable，需要手动转换</p>
-</blockquote>
-<ol start="2">
-<li>ListIterator：是 Iterator 的子类，只能用于对各种 List 类的访问。ListIterator 支持双向移动</li>
-</ol>
-<h4 id="22-2-LinkedList"><a href="#22-2-LinkedList" class="headerlink" title="22.2 LinkedList"></a>22.2 LinkedList</h4><p>在插入和删除操作上，LinkedList 比 ArrayList 更高效。</p>
-<p>LinkedList 具有实现 Stack 的所有功能的方法，所以可以直接把 LinkedList 当栈使用。</p>
-<p>addFirst() &lt; - &gt; push()<br>getFirst() &lt; - &gt; peek()<br>removeFirst() &lt; - &gt; pop()</p>
-<p>LinkedList 实现了 Queue 接口，所以 LinkedList 可以作为 Queue 的一种实现类 -&gt; 将 LinkedList 向上转型为 Queue 来使用。</p>
-<p>在 Queue 的基础上，还有一个 PriorityQueue，用户可以自定义 Comparator 来定义优先级，下一个弹出的会是具有最高优先级的元素。</p>
-<h3 id="23-Set"><a href="#23-Set" class="headerlink" title="23. Set"></a>23. Set</h3><p>查找是 Set 最重要的操作 &#x3D;&gt; 通常会使用 HashSet，其对快速查找进行了优化</p>
-<p>HashSet 和 LinkedHashSet 使用了散列函数来存储元素，LinkedHashSet 额外使用了链表来维护元素的插入顺序，TreeSet 使用了红黑树结构来存储元素</p>
-<h3 id="24-异常处理"><a href="#24-异常处理" class="headerlink" title="24. 异常处理"></a>24. 异常处理</h3><p>try 后面可以跟好几个 catch 字句，每个 catch 字句只能接一个参数。只有匹配的 catch 语句才会执行（这点和 switch 不一样，switch 语句需要在每一个 case 后面跟一个 break，以避免执行后续的 case 字句）。</p>
-<p>在 finally 字句中调用 return，即使抛出了异常，也不会产生任何输出。</p>
-<p>Java的异常(包括 Exception 和 Error)分为可查的异常（checked exceptions）和不可查的异常（unchecked exceptions）。</p>
-<ul>
-<li>可查异常（编译器要求必须处置的异常）：正确的程序在运行中，很容易出现的、情理可容的异常状况。可查异常虽然是异常状况，但在一定程度上它的发生是可以预计的，而且一旦发生这种异常状况，就必须采取某种方式进行处理。<blockquote>
-<p>除了RuntimeException及其子类以外，其他的Exception类及其子类都属于可查异常。这种异常的特点是Java编译器会检查它，也就是说，当程序中可能出现这类异常，要么用try-catch语句捕获它，要么用throws子句声明抛出它，否则编译不会通过。</p>
-</blockquote>
-</li>
-<li>不可查异常(编译器不要求强制处置的异常):包括运行时异常（RuntimeException与其子类）和错误（Error）。</li>
-</ul>
-<h3 id="25-字符串"><a href="#25-字符串" class="headerlink" title="25. 字符串"></a>25. 字符串</h3><p>推荐使用 StringBuilder</p>
-<p>格式化输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(&quot;Row1: [&quot; + x + &quot; &quot; + y + &quot;]&quot;);</span><br><span class="line">System.out.format(&quot;Row1: [%d %f]\n&quot;, x, y);</span><br><span class="line">System.out.printf(&quot;Row1: [%d %f]\n&quot;, x, y);</span><br></pre></td></tr></table></figure>
-
-<p>String 格式化：String.format(…)</p>
-<p>格式化说明符：%[argument_index][flags][width][.precision]conversion</p>
-<ul>
-<li>flags：默认情况下数据是右对齐，使用 ‘-‘ 来使数据左对齐</li>
-<li>width：设置一个域的最小长度，过短时自动添加空格</li>
-<li>.precision：指定最大尺寸。如果应用在 String 时，表示打印 String 时输出字符的最大数量。如果应用在浮点数时，表示小数部分要显示出来的位数（默认是6位小数），如果小数位数过多则舍入，太少则补零。但是不能应用于整数，会报错。</li>
-</ul>
-<h3 id="26-正则表达式"><a href="#26-正则表达式" class="headerlink" title="26. 正则表达式"></a>26. 正则表达式</h3><table>
-<thead>
-<tr>
-<th align="center">code 需要多加一个斜线来转译</th>
-<th align="center">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>\\d</code></td>
-<td align="center">表示一位数字 [0-9]</td>
-</tr>
-<tr>
-<td align="center"><code>\\D</code></td>
-<td align="center">表示一位非数字 [^0-9]</td>
-</tr>
-<tr>
-<td align="center"><code>\\\\</code></td>
-<td align="center">插入一个普通的反斜线，但是换行和制表符之类的东西只需要单反斜线即可：<code>\n\t</code></td>
-</tr>
-<tr>
-<td align="center"><code>\\+</code></td>
-<td align="center">表示一个加号</td>
-</tr>
-<tr>
-<td align="center"><code>\\w</code></td>
-<td align="center">表示一个单词字符 [a-zA-Z0-9]</td>
-</tr>
-<tr>
-<td align="center"><code>\\W</code></td>
-<td align="center">表示非单词字符</td>
-</tr>
-<tr>
-<td align="center"><code>\\s</code></td>
-<td align="center">空白符（空格、tab、换行、换页和回车）</td>
-</tr>
-<tr>
-<td align="center"><code>\\S</code></td>
-<td align="center">非空白符</td>
-</tr>
-</tbody></table>
-<p>量词：</p>
-<table>
-<thead>
-<tr>
-<th align="center">code</th>
-<th align="center">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">X?</td>
-<td align="center">零个或一个X</td>
-</tr>
-<tr>
-<td align="center">X*</td>
-<td align="center">零个或多个X</td>
-</tr>
-<tr>
-<td align="center">X+</td>
-<td align="center">一个或多个X</td>
-</tr>
-<tr>
-<td align="center">X{n}</td>
-<td align="center">n个X</td>
-</tr>
-<tr>
-<td align="center">X{n,}</td>
-<td align="center">最少n个X</td>
-</tr>
-<tr>
-<td align="center">X{n,m}</td>
-<td align="center">n &lt;&#x3D; X的个数 &lt;&#x3D; m</td>
-</tr>
-</tbody></table>
-<h3 id="27-类型信息"><a href="#27-类型信息" class="headerlink" title="27. 类型信息"></a>27. 类型信息</h3><p>RTTI(Run-Time Type Identification): 运行时类型识别</p>
-<h3 id="28-泛型"><a href="#28-泛型" class="headerlink" title="28. 泛型"></a>28. 泛型</h3><p>利用泛型概念，构建“元组”，来返回一组任意类型的对象，避免了使用类来返回信息，增加了复用性</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 泛型指代可以用任意的大写字母，不仅仅是 T</span><br><span class="line">class TwoTuple&lt;A, B&gt;&#123;</span><br><span class="line">    public final A first;</span><br><span class="line">    public final B second;</span><br><span class="line">    public TwoTuple(A a, B b) &#123; first = a; second = b; &#125;</span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        return &quot;(&quot; + first + &quot;,&quot; + second + &quot;)&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ThreeTuple&lt;A, B, C&gt; extends TwoTuple&lt;A, B&gt;&#123;</span><br><span class="line">    public final C third;</span><br><span class="line">    public ThreeTuple(A a, B b, C c)&#123;</span><br><span class="line">        super(a, b);</span><br><span class="line">        third = c;</span><br><span class="line">    &#125;</span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        return &quot;(&quot; + first + &quot;,&quot; + second + &quot;,&quot; + third + &quot;)&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>泛型与可变参数列表：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 第一个 &lt;T&gt; 很重要，相当于声明了当前这个方法是泛型方法</span><br><span class="line">// 只有声明了&lt;T&gt;的方法才是泛型方法，泛型类中的使用了泛型的成员方法并不是泛型方法</span><br><span class="line">public static &lt;T&gt; List&lt;T&gt; makeList(T ... args) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用泛型来构建复杂模型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">interface Generator&lt;T&gt; &#123; T next(); &#125;</span><br><span class="line">class Generators &#123;</span><br><span class="line">    public static &lt;T&gt; Collection&lt;T&gt; fill(Collection&lt;T&gt; coll, Generator&lt;T&gt; gen, int n)&#123;</span><br><span class="line">        for(int i = 0; i &lt; n; i++)&#123;</span><br><span class="line">            coll.add(gen.next());</span><br><span class="line">        &#125;</span><br><span class="line">        return coll;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Product&#123;</span><br><span class="line">    private final int id;</span><br><span class="line">    private String description;</span><br><span class="line">    private double price;</span><br><span class="line">    public Product(int IDnumber, String desc, double price)&#123;</span><br><span class="line">        this.id = IDnumber;</span><br><span class="line">        this.description = desc;</span><br><span class="line">        this.price = price;</span><br><span class="line">//        System.out.println(toString());</span><br><span class="line">    &#125;</span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        return id + &quot;: &quot; + description + &quot;, price: ￥&quot; + price;</span><br><span class="line">    &#125;</span><br><span class="line">    public void priceChange(double change)&#123;</span><br><span class="line">        price = change;</span><br><span class="line">    &#125;</span><br><span class="line">    public static Generator&lt;Product&gt; generator = new Generator&lt;Product&gt;() &#123;</span><br><span class="line">        private Random rand = new Random(47);</span><br><span class="line">        @Override</span><br><span class="line">        public Product next() &#123;</span><br><span class="line">            return new Product(rand.nextInt(1000), &quot;Test&quot;,</span><br><span class="line">                    Math.round(rand.nextDouble() * 1000.0) + 0.99);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Shelf extends ArrayList&lt;Product&gt; &#123;</span><br><span class="line">    public Shelf(int nProducts)&#123;</span><br><span class="line">        Generators.fill(this, Product.generator, nProducts);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Aisle extends ArrayList&lt;Shelf&gt; &#123;</span><br><span class="line">    public Aisle(int nShelves, int nProducts)&#123;</span><br><span class="line">        for(int i = 0; i &lt; nShelves; i++)&#123;</span><br><span class="line">            add(new Shelf(nProducts));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class CheckoutStand &#123;&#125;</span><br><span class="line">class Office &#123;&#125;</span><br><span class="line"></span><br><span class="line">public class Store extends ArrayList&lt;Aisle&gt; &#123;</span><br><span class="line">    private ArrayList&lt;CheckoutStand&gt; checkouts = new ArrayList&lt;CheckoutStand&gt;();</span><br><span class="line">    private Office office = new Office();</span><br><span class="line">    public Store(int nAisles, int nShelves, int nProducts)&#123;</span><br><span class="line">        for(int i = 0; i &lt; nAisles; i++)&#123;</span><br><span class="line">            add(new Aisle(nShelves,nProducts));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        StringBuilder result = new StringBuilder();</span><br><span class="line">        for(Aisle a : this)&#123;</span><br><span class="line">            for(Shelf s : a)&#123;</span><br><span class="line">                for(Product p : s)&#123;</span><br><span class="line">                    result.append(p);</span><br><span class="line">                    result.append(&quot;\n&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return result.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(new Store(3, 5, 2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在泛型代码内部，无法获得任何有关泛型参数类型的信息。</p>
-<p>由于擦除（在方法或类内部移除相关实际类型的信息）的存在，<code>ArrayList&lt;Integer&gt;</code> 和 <code>ArrayList&lt;String&gt;</code> 是相同的类（ getClass() 之后是判等返回 true）。</p>
-<p>一个类不能实现同一个泛型接口的两种变体，由于擦除的原因，这两个变体会成为相同的接口（一个泛型接口，仅实现一次即可）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface Payable&lt;T&gt; &#123;&#125;</span><br><span class="line"></span><br><span class="line">class Employee implements Payable&lt;Employee&gt; &#123;&#125;</span><br><span class="line">class Hourly extends Employee implements Payable&lt;Hourly&gt; &#123;&#125;</span><br><span class="line">// Hourly 无法编译，因为擦除会将 Payable&lt;Employee&gt; 和 Payable&lt;Hourly&gt; 简化为相同的类 Payable</span><br><span class="line">// class Hourly implements Payable&lt;Hourly&gt; &#123;&#125; 这样是可以编译的，但是相当于重复两次地实现相同的接口</span><br><span class="line">// 同理可推，方法重载也会因为擦除的原因，导致产生相同的类型签名，从而无法编译，但是可以把方法名 f 改成 f1, f2</span><br><span class="line">public class useList&lt;T, W&gt; &#123;</span><br><span class="line">    void f(List&lt;T&gt; t) &#123;&#125;</span><br><span class="line">    void f(List&lt;W&gt; w) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>至 15.11</p>
-<h3 id="29-数组"><a href="#29-数组" class="headerlink" title="29. 数组"></a>29. 数组</h3><p>数组初始化：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int[][] a = &#123; &#123; 1, 2, 3 &#125;, &#123; 4, 5, 6 &#125; &#125;</span><br><span class="line">int[][] a = new int[1][2] // 数组中构成矩阵的每个向量都可以具有任意的长度</span><br></pre></td></tr></table></figure>
-
-<p>打印一维数组：<code>Arrays.toString(a)</code>; 打印多维数组：<code>Arrays.deepToString(a)</code></p>
-<p>Arrays 类的6个基本方法：</p>
-<ul>
-<li>equals()：用于比较两个数组是否相等（deepEquals() 用于比较多维数组）</li>
-<li>fill()：用同一个值来填充数组，可以指定起始下标和结束下标</li>
-<li>sort()：用于对数组排序</li>
-<li>binarySearch()：用于在已经排序的数组中查找元素</li>
-<li>toSring()</li>
-<li>hashCode()：产生数组的散列码</li>
-</ul>
-<p>另外 asList() 接受任意的序列和数组作为参数，并将其转换为 List 容器</p>
-<p>复制数组：System.arraycopy() 比 for 循环复制要快很多，但是必须保证两个数组具有相同的确切类型。</p>
-<h3 id="30-散列"><a href="#30-散列" class="headerlink" title="30. 散列"></a>30. 散列</h3><p>使用散列的数据结构：HashSet、HashMap、LinkedHashSet、LinkedHashMap</p>
-<p>使用散列的目的：想要使用一个对象来查找另一个对象</p>
-<h3 id="31-ref-类"><a href="#31-ref-类" class="headerlink" title="31. ref 类"></a>31. ref 类</h3><p>java.lang.ref 类库包含了一组类，这些类为垃圾回收提供了更大的灵活性。</p>
-<p>有三个继承自抽象类 Reference 的类：</p>
-<ul>
-<li>SoftReference：用以实现内存敏感的高速缓存</li>
-<li>WeakReference：是为实现“规范映射”而设计的，不妨碍垃圾回收期回收映射的键或值<ul>
-<li>WeakHashMap：被用来保存 WeakReference。每个值只保存一份实例以节省存储空间。当程序需要那个”值“的时候，便在映射中查询现有的对象，然后使用它（而不是重新再创建）。WeakHashMap 允许垃圾回收期自动清理键和值。</li>
-</ul>
-</li>
-<li>PhantomReference：用以调度回收前的清理工作，比Java终止机制更灵活</li>
-</ul>
-<h3 id="32-I-O"><a href="#32-I-O" class="headerlink" title="32. I&#x2F;O"></a>32. I&#x2F;O</h3><h3 id="33-对象序列化"><a href="#33-对象序列化" class="headerlink" title="33. 对象序列化"></a>33. 对象序列化</h3><p>Java 的对象序列化将那些实现了 Serializable 接口的对象转换成一个字节序列，并能够在以后将这个字节序列完全恢复为原来的对象，从而实现轻量级持久性（持久性意味着一个对象的生存周期并不取决于程序是否正在执行，可以生存于程序的调用之间）。</p>
-<h3 id="34-枚举"><a href="#34-枚举" class="headerlink" title="34. 枚举"></a>34. 枚举</h3><p>除了不能继承 enum 之外，基本上可以把 enum 看成一个常规的类——可以向里面添加方法，甚至 enum 可以有 main() 方法</p>
-<p>可以为每一个 enum 的实例编写方法，从而为每一个实例赋予不同的行为。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public enum ConstantSpecificMethod &#123;</span><br><span class="line">    DATE_TIME &#123;</span><br><span class="line">        String getInfo()&#123;</span><br><span class="line">            return DateFormat.getDateInstance().format(new Date());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    CLASSPATH &#123;</span><br><span class="line">        String getInfo()&#123;</span><br><span class="line">            return System.getenv(&quot;CLASSPATH&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="35-注解"><a href="#35-注解" class="headerlink" title="35. 注解"></a>35. 注解</h3><p>注解的使用方式几乎和修饰符的使用一模一样。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Testable&#123;</span><br><span class="line">    public void execute()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    @Test void testExecute() &#123; execute(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注解的定义像是接口的定义，也会被编译成 class 文件。定义注解时，会需要一些元注解，如 <code>@Target</code>（用来定义注解将应用于什么，比如是一个方法或者一个域） 和 <code>@Retention</code>（用来定义该注解在哪一个级别可用，在源代码中(SOURCE)、类文件中(CLASS)或者运行时(RUNTIME)）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Target(ElementType.METHOD)</span><br><span class="line">public @interface Test &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="center">元注解</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">@Target</td>
-<td align="center">表示该注解可以用于什么地方。可能的ElementType参数包括：<br> CONSTRUCTOR：构造器的声明 <br> FIELD：域声明（包括 enum 实例）<br> LOCAL_VARIABLE：局部变量 <br> METHOD：方法 <br> PACKAGE：包 <br> PARAMETER：方法参数 <br> TYPE：类、接口（包括注解类型）或 enum 声明</td>
-</tr>
-<tr>
-<td align="center">@Retention</td>
-<td align="center">表示需要在什么级别保存该注解信息。可选的RetentionPolicy参数包括：<br> SOURCE：注解将被编译器丢弃 <br> CLASS：注解在 class 文件中可用，但会被 VM 丢弃 <br> RUNTIME：VM 将在运行期也保留注释，因此可以通过反射机制读取注解的信息</td>
-</tr>
-<tr>
-<td align="center">@Documented</td>
-<td align="center">将此注解包含在 Javadoc 中</td>
-</tr>
-<tr>
-<td align="center">@Inherited</td>
-<td align="center">允许子类继承父类中的注解</td>
-</tr>
-</tbody></table>
-<h3 id="36-并发"><a href="#36-并发" class="headerlink" title="36. 并发"></a>36. 并发</h3><p><code>implements Runnable</code> 必须具有 run() 方法，但是并不相当于具有了线程的能力，只是写了一个任务，需要把这个任务显式地附着到线程上。</p>
-<p>Runnable 是执行工作的独立任务，但是并不返回任何值。如果希望任务在完成时能够返回一个值，可以换成实现 Callable 接口（需要指明类型参数，这个类型是从 call() 方法中返回的值的类型），必须具有 call() 方法，并且使用 ExecutorService.submit() 方法调用它（会自动得到 call() 方法的返回值）。</p>
-<p>后台程序：必须要在线程调用（执行 thread.start() 方法）之前，调用 <code>thread.setDaemon(true)</code> 方法，才能将线程设置为后台程序</p>
-<p>线程之间等待：在 A 线程下传入 B 线程，在调用 A.run() 方法时，调用 B.join()，其作用是让 A 线程等到 B 线程结束之后再执行（即当 B.isAlive() 返回为假的时候 A 线程才会执行），也可以在 B.join() 加上一个参数，如果 B 线程在目标时间内还没结束的话，join() 也会返回</p>
-<p>在 Java 多线程程序中，所有线程都不允许抛出未捕获的 <code>checked exception</code>（比如 <code>sleep()</code> 时的 <code>InterruptedException</code>），也就是说各个线程需要自己把自己的 <code>checked exception</code> 处理掉。这一点是通过 <code>java.lang.Runnable.run()</code> 方法声明(因为此方法声明上没有 <code>throw exception</code> 部分)进行了约束。但是线程依然有可能抛出 <code>unchecked exception</code>（如运行时异常），当此类异常跑抛出时，线程就会终结，而对于主线程和其他线程完全不受影响，且完全感知不到某个线程抛出的异常(也是说完全无法 <code>catch</code> 到这个异常)。JVM 的这种设计源自于这样一种理念：”线程是独立执行的代码片断，线程的问题应该由线程自己来解决，而不要委托到外部。”基于这样的设计理念，在 Java 中，线程方法的异常（无论是 <code>checked</code> 还是 <code>unchecked exception</code>），都应该在线程代码边界之内（ <code>run()</code> 方法内）进行 <code>try catch</code> 并处理掉。换句话说，我们不能捕获从线程中逃逸的异常。</p>
-<p>如果需要捕获线程的 <code>unchecked exception</code> 时，可以通过修改 <code>Executor</code> 产生线程的方式来解决这个问题。<code>Thread.UncaughtExceptionHandler</code> 接口允许在每一个 Thread 对象上添加一个异常处理器。<code>Thread.UncaughtExceptionHandler.uncaughtException()</code> 方法会在线程因未捕获的异常而面临死亡时被调用。</p>
-<p>原子操作：是不能被线程调度机制中断的操作。可以利用这一点来编写无锁的代码，这些代码不需要被同步，但是也可能不安全。</p>
-<p>临界区（同步控制块）：有时只是希望多个线程同时访问方法内部的部分代码而不是防止访问整个方法。通过这种方式分离出来的代码段称为临界区。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 在进入这段代码前，必须得到 syncObject 对象的锁</span><br><span class="line">// 如果其他线程已经得到这个锁，那么就得等到锁被释放以后，才能进入临界区</span><br><span class="line">synchronized(syncObject)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>线程四个状态：</p>
-<ul>
-<li>新建(new)：线程被创建后，只会短暂处于这种状态。之后调度器将把这个线程转变为可运行状态或阻塞状态</li>
-<li>就绪(runable)：在这个状态下，只要调度器把时间片分给线程，线程就可以运行。即，在任意时刻，线程可以运行也可以不运行，去看调度器是否分配了时间片</li>
-<li>阻塞(blocked)：当线程处于阻塞状态时，调度器会忽略线程，直到线程重新进入了就绪状态，才可能执行<ul>
-<li>进入阻塞状态的原因<ul>
-<li>通过调用 sleep(milliseconds) 使任务进入休眠状态</li>
-<li>通过调用 wait() 将线程挂起，直到线程得到了 notify() 或者 notifyAll() 消息，线程才会进入就绪状态</li>
-<li>任务在等待某个输入&#x2F;输出完成</li>
-<li>任务视图在某个对象上调用其同步控制方法，但是对象锁不可用，因为另一个任务已经获取了这个锁</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>死亡(dead)：此时线程不再是可调度的</li>
-</ul>
-
+<h3 id="2-8个基本类型"><a href="#2-8个基本类型" class="headerlink" title="2. 8个基本类型"></a>2. 8个基本类型</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/06/Java-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1187,63 +669,14 @@
 <blockquote>
 <p>通过 <code>explain select ... </code> 来查看语句解析，可以简单理解为，在每一次 <code>order by</code> 之后，会执行一次 <code>sum</code> 的 <code>reduce</code> 过程，也就导致结果计算的是 1 - n 月的累计值</p>
 </blockquote>
-<h3 id="2-rows-between"><a href="#2-rows-between" class="headerlink" title="2. rows between"></a>2. rows between</h3><p>以 <code>sum</code> 为例</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 按照 year 分组，按照 month 排序，计算前3行和后1行的总和</span><br><span class="line">sum(val) over(partition by year order by month rows between 3 preceding and 1 following)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>preceding：往前</li>
-<li>following：往后</li>
-<li>current row：当前行</li>
-<li>unbounded：起点<ul>
-<li>unbounded preceding：表示从前面的起点</li>
-<li>unbounded following：表示到后面的终点</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 以下两种方式是等效的</span><br><span class="line">sum(val) over(partition by year)</span><br><span class="line">sum(val) over(partition by year rows between unbounded preceding and unbounded following)</span><br><span class="line"></span><br><span class="line"># 以下两种方式是等效的</span><br><span class="line">sum(val) over(partition by year order by month)</span><br><span class="line">sum(val) over(partition by year order by month rows between unbounded preceding and current row)</span><br><span class="line"></span><br><span class="line"># 以下两种方式不等效</span><br><span class="line">sum(val) over(partition by year rows between unbounded preceding and current row)</span><br><span class="line">sum(val) over(partition by year order by month rows between unbounded preceding and current row)</span><br><span class="line"># current row 应该是和 order by 同时出现，要不然会导致数据错位</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-ntile"><a href="#3-ntile" class="headerlink" title="3. ntile"></a>3. ntile</h3><p>切片：用于将分组数据按照顺序切分成n片，返回当前切片值；不支持 rows between；如果切片不均匀，默认增加第一个切片的分布（比如有6条数据，分4组，数量依次为2 2 1 1）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 统计一个月内，val 最多的前 1/n </span><br><span class="line">ntile(n) over(partition by month order by val desc) as rn</span><br><span class="line">rn = 1 就是最终想要的结果，前提是数据可以被均匀分片</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-row-number、rank、dense-rank"><a href="#4-row-number、rank、dense-rank" class="headerlink" title="4. row_number、rank、dense_rank"></a>4. row_number、rank、dense_rank</h3><ul>
-<li>row_number：行号</li>
-<li>rank：排名——结果中可能有空位 eg：1 2 2 4</li>
-<li>dense_rank：排名——结果中无空位 eg：1 2 2 3</li>
-</ul>
-<h3 id="5-cume-dist"><a href="#5-cume-dist" class="headerlink" title="5. cume_dist"></a>5. cume_dist</h3><p>计算公式：(小于等于当前值的行数 &#x2F; 分组内的总行数)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 统计小于等于当前薪水的人占部门内总人数的比例</span><br><span class="line">cume_dist() over(partition by dept order by salary)</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-percent-rank"><a href="#6-percent-rank" class="headerlink" title="6. percent_rank"></a>6. percent_rank</h3><p>计算公式：(分组内当前行的rank值 - 1 &#x2F; 分组内总行数 - 1)</p>
-<h3 id="7-lag-col-n-DEFAULT"><a href="#7-lag-col-n-DEFAULT" class="headerlink" title="7. lag(col, n, DEFAULT)"></a>7. lag(col, n, DEFAULT)</h3><p>统计窗口内往上第 n 行值</p>
-<p>三个参数分别是：列名；往上第 n 行（可选，默认是1）；当往上第 n 行为 NULL 的时候，取默认值，如不指定，则为 NULL</p>
-<h3 id="8-lead-col-n-DEFAULT"><a href="#8-lead-col-n-DEFAULT" class="headerlink" title="8. lead(col, n, DEFAULT)"></a>8. lead(col, n, DEFAULT)</h3><p>统计窗口内往下第 n 行值</p>
-<p>三个参数分别是：列名；往下第 n 行（可选，默认是1）；当往下第 n 行为 NULL 的时候，取默认值，如不指定，则为 NULL</p>
-<h3 id="9-first-value-col"><a href="#9-first-value-col" class="headerlink" title="9. first_value(col)"></a>9. first_value(col)</h3><p>取分组内排序后，取第一个的 col </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">first_value(col) over(partition by ... order by ...)</span><br></pre></td></tr></table></figure>
-
-<h3 id="10-last-value-col"><a href="#10-last-value-col" class="headerlink" title="10. last_value(col)"></a>10. last_value(col)</h3><p>取分组内排序后，截止到当前行，最后一个的 col &#x3D;&gt; 相当于分组排序后，取当前这一行的 col</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">last_value(col) over(partition by ... order by ...)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如果不指定 order by，则默认按照记录在文件中的偏移量进行排序，会出现错误的结果</p>
-</blockquote>
-<blockquote>
-<p>如果要取分组内排序后最后一个 col，可以换成下面的形式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">first_value(col) over(partition by ... order by ... desc)</span><br></pre></td></tr></table></figure></blockquote>
-<h3 id="11-grouping-sets"><a href="#11-grouping-sets" class="headerlink" title="11. grouping sets"></a>11. grouping sets</h3><p>在一个 <code>group by</code> 查询中，根据不同的维度组合进行聚合，等价于将不同维度的 <code>group by</code> 结果集进行 <code>union all</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">grouping sets(year, month, (year, month))</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于</span><br><span class="line"></span><br><span class="line">select year, &#x27;null&#x27; as month, count(1)a, 1 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">union all</span><br><span class="line">select &#x27;null&#x27; as year, month, count(1)a, 2 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by month</span><br><span class="line">union all</span><br><span class="line">select year, month, count(1)a, 3 as grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>grouping sets (col1, col2 …) 使用前必须要先写 group by (col1, col2 …)， grouping sets 表示在 group by 括号内出现的字段组合的情况，所以 grouping sets 出现的字段肯定是在 group by 中出现过的</p>
-</blockquote>
-<blockquote>
-<p>grouping__id 表示结果属于哪一个分组集合，只能和 grouping sets 组合着用，单独使用报错。有两个下划线！！！</p>
-</blockquote>
-<h3 id="12-cube"><a href="#12-cube" class="headerlink" title="12. cube"></a>12. cube</h3><p>根据 group by 的维度的所有组合进行聚合。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">with cube</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于以下四种情况 union all</span><br><span class="line">1. 相当于直接 count(1)a</span><br><span class="line">2. 按照 year 来分组</span><br><span class="line">3. 按照 month 来分组</span><br><span class="line">4. 按照 year&amp;month 来分组</span><br></pre></td></tr></table></figure>
-
-<h3 id="13-rollup"><a href="#13-rollup" class="headerlink" title="13. rollup"></a>13. rollup</h3><p>是 cube 的子集，以最左侧的维度为主，从该维度进行层级聚合。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">select year, month, count(1)a, grouping__id </span><br><span class="line">from ...</span><br><span class="line">group by year, month</span><br><span class="line">with rollup</span><br><span class="line">order by grouping__id</span><br><span class="line"></span><br><span class="line">等价于先进行 with cube操作，即以下四种情况 union all</span><br><span class="line">1. 相当于直接 count(1)a</span><br><span class="line">2. 按照 year 来分组</span><br><span class="line">3. 按照 month 来分组</span><br><span class="line">4. 按照 year&amp;month 来分组</span><br><span class="line"></span><br><span class="line">然后 year 是最左侧的维度，则按照 year 来进行层级聚合，过滤掉 year 为 NULL 的记录（但是第1中情况对所有数据进行count(1)的这一条数据会依旧保存）</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/30/Hive-4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1354,77 +787,14 @@
           <h2 id="Scala-特殊符号含义"><a href="#Scala-特殊符号含义" class="headerlink" title="Scala 特殊符号含义"></a>Scala 特殊符号含义</h2><p><a href="https://www.cnblogs.com/boothsun/p/8267250.html">参考地址</a></p>
 <h3 id="1"><a href="#1" class="headerlink" title="1. :::"></a>1. :::</h3><p>:::（三个冒号）只用于连接两个 List 类型的集合</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val a = List(1, 2)  </span><br><span class="line">val b = List(3, 4)  </span><br><span class="line">val c = a ::: b </span><br></pre></td></tr></table></figure>
-
-<h3 id="2"><a href="#2" class="headerlink" title="2. ::"></a>2. ::</h3><p>::（两个冒号）表示普通元素与 List 的连接操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val a = 1  </span><br><span class="line">val b = List(3, 4)  </span><br><span class="line">val c = 1 :: b</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>:: 是右侧对象的方法，即它是对象 b 的方法，而 :: 左侧的运算数是 :: 方法的参数，所以 1::b 的含义是 b.::(1)</p>
-</blockquote>
-<h3 id="3"><a href="#3" class="headerlink" title="3. &#x3D;&gt;"></a>3. &#x3D;&gt;</h3><p>根据其不同数学含义，有不同的意义</p>
-<h4 id="3-1-值"><a href="#3-1-值" class="headerlink" title="3.1 值"></a>3.1 值</h4><p>匿名函数 or lamba 表达式，定义格式：(参数列表) &#x3D;&gt; 函数体</p>
-<p><code>(x: Int) =&gt; x + 1</code></p>
-<h4 id="3-2-类型"><a href="#3-2-类型" class="headerlink" title="3.2 类型"></a>3.2 类型</h4><p>syntactic sugar 语法糖: 把需要的参数、类型、函数最简化，由编译器来解析（去糖化）</p>
-<blockquote>
-<p>the type Int &#x3D;&gt; String, is equivalent to the type Function1[Int,String] i.e. a function that takes an argument of type Int and returns a String.</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val a: Int =&gt; String = myint =&gt; &quot;my int : &quot; + myint.toString;</span><br><span class="line"></span><br><span class="line">val b: (Int, Int) =&gt; String = (my1, my2) =&gt; &quot;my int : &quot; + my1.toString;</span><br><span class="line"></span><br><span class="line">var c = (x: Int, y:Int) =&gt; &quot;my int : &quot; + x + y</span><br><span class="line"></span><br><span class="line">def d(x: Int): String = &#123;</span><br><span class="line">&quot;my:&quot; + x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>以上四个方式的最终调用方式均为：a&#x2F;b&#x2F;c&#x2F;d(参数)<br>其中 a b c 相当于在变量上赋予了一个函数体，而 d 本身就是一个函数<br>b 有两个参数，调用是必须有两个 Int 类型的参数</p>
-</blockquote>
-<h3 id="4-和-："><a href="#4-和-：" class="headerlink" title="4. :+ 和 +："></a>4. :+ 和 +：</h3><p>:+ 方法：用于在尾部追加元素<br>+: 方法：用于在头部追加元素</p>
-<blockquote>
-<p>冒号永远靠近集合类型</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; List(1,2,3)</span><br><span class="line">res1: List[Int] = List(1, 2, 3)</span><br><span class="line"></span><br><span class="line">scala&gt; res1:+2</span><br><span class="line">res2: List[Int] = List(1, 2, 3, 2)</span><br><span class="line"></span><br><span class="line">scala&gt; 3+:res1</span><br><span class="line">res4: List[Int] = List(3, 1, 2, 3)</span><br></pre></td></tr></table></figure>
-
-<h3 id="5"><a href="#5" class="headerlink" title="5. ++"></a>5. ++</h3><p>用于连接两个 Seq，eg：列表、集合、字符串、Map etc</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val a = List(1,2,3)</span><br><span class="line">a: List[Int] = List(1, 2, 3)</span><br><span class="line"></span><br><span class="line">scala&gt; a++List(4,5,6)</span><br><span class="line">res7: List[Int] = List(1, 2, 3, 4, 5, 6)</span><br></pre></td></tr></table></figure>
-
-<h3 id="6"><a href="#6" class="headerlink" title="6. &lt;-"></a>6. &lt;-</h3><p>用于集合遍历</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr = Array(1,2,3,4)</span><br><span class="line">for (i &lt;- arr) &#123;</span><br><span class="line">  println(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
-
-<h3 id="7"><a href="#7" class="headerlink" title="7. -&gt;"></a>7. -&gt;</h3><p>用于返回一个二元元组</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var a = List(1,2,3)</span><br><span class="line">a: List[Int] = List(1, 2, 3)</span><br><span class="line"></span><br><span class="line">scala&gt; var b = List(4,5,6)</span><br><span class="line">b: List[Int] = List(4, 5, 6)</span><br><span class="line"></span><br><span class="line">scala&gt; val c = a -&gt; b</span><br><span class="line">c: (List[Int], List[Int]) = (List(1, 2, 3),List(4, 5, 6))</span><br></pre></td></tr></table></figure>
-
-<h3 id="8"><a href="#8" class="headerlink" title="8. ++&#x3D;"></a>8. ++&#x3D;</h3><p>用于字符串拼接，+&#x3D; 为可变数组添加元素，可以用来加数值也可以用来拼接字符串，取决于等式左边是什么类型，但是 ++&#x3D; 只能拼接字符串</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var s:String = &quot;a&quot;</span><br><span class="line">s: String = a</span><br><span class="line">scala&gt; s += &quot;b&quot;</span><br><span class="line">scala&gt; println(s)</span><br><span class="line">ab</span><br><span class="line">scala&gt; s ++= &quot;c&quot;</span><br><span class="line">scala&gt; println(s)</span><br><span class="line">abc</span><br></pre></td></tr></table></figure>
-
-<h3 id="9"><a href="#9" class="headerlink" title="9. _"></a>9. _</h3><h4 id="9-1-通配符"><a href="#9-1-通配符" class="headerlink" title="9.1 通配符"></a>9.1 通配符</h4><ol>
-<li>_ 可以起到类似于 * 作用的通配符：</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.SparkContext._ // 引入所有 jar 包</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>模式匹配</li>
-</ol>
-<p>表示完全不清楚的值的通配符</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">object MatchTest extends App &#123;</span><br><span class="line">  def matchTest(x: Int): String = x match &#123;</span><br><span class="line">    case 1 =&gt; &quot;one&quot;</span><br><span class="line">    case 2 =&gt; &quot;two&quot;</span><br><span class="line">    case _ =&gt; &quot;many&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  println(matchTest(3))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="9-2-指代集合中的每一个元素"><a href="#9-2-指代集合中的每一个元素" class="headerlink" title="9.2 指代集合中的每一个元素"></a>9.2 指代集合中的每一个元素</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">遍历集合筛选列表中大于某个值的元素</span><br><span class="line">val lst = List(1,2,3,4,5)</span><br><span class="line">val lstFilter = lst.filter(_ &gt; 3)</span><br></pre></td></tr></table></figure>
-
-<p>当做参数的占位符时，编译器有可能会没有足够的信息推断缺少的参数类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val f = _ + _</span><br></pre></td></tr></table></figure>
-
-<p>这时，可以使用冒号来指定类型</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val f = (_: Int) + (_: Int)</span><br></pre></td></tr></table></figure>
-
-<h4 id="9-3-获取元组中指定下标的元素值"><a href="#9-3-获取元组中指定下标的元素值" class="headerlink" title="9.3 获取元组中指定下标的元素值"></a>9.3 获取元组中指定下标的元素值</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val ss = (1,&quot;22&quot;,&quot;333&quot;)</span><br><span class="line">println(ss._1)</span><br></pre></td></tr></table></figure>
-
-<h4 id="9-4-使用模式匹配可以用来获取元组的组员"><a href="#9-4-使用模式匹配可以用来获取元组的组员" class="headerlink" title="9.4 使用模式匹配可以用来获取元组的组员"></a>9.4 使用模式匹配可以用来获取元组的组员</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val m = Map(1 -&gt; 2,2 -&gt; 4)</span><br><span class="line">for ((k,_) &lt;- m) println(k) </span><br><span class="line">//如果不需要所有部件， 则在不需要的部件使用 _ ；本例只取key,因此在value处用 _</span><br></pre></td></tr></table></figure>
-
-<h4 id="9-5-代表某一类型的默认值"><a href="#9-5-代表某一类型的默认值" class="headerlink" title="9.5 代表某一类型的默认值"></a>9.5 代表某一类型的默认值</h4><blockquote>
-<p>加不加空格都可以<br>对于Int类型来说，它是0<br>对于Double来说，它是0.0<br>对于引用类型来说，它是null</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var s: Int = _ </span><br><span class="line">def main(args: Array[String]): Unit = &#123;</span><br><span class="line">    println(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="9-6-作为一个整体，告诉编译器你希望将某个参数当做数序列处理"><a href="#9-6-作为一个整体，告诉编译器你希望将某个参数当做数序列处理" class="headerlink" title="9.6 :_* 作为一个整体，告诉编译器你希望将某个参数当做数序列处理"></a>9.6 :_* 作为一个整体，告诉编译器你希望将某个参数当做数序列处理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def main(args: Array[String]): Unit = &#123;</span><br><span class="line">    val s = sum(1 to 5 :_*)      //把1 to 5当作一个序列处理</span><br><span class="line">    println(s)</span><br><span class="line">&#125;</span><br><span class="line">def sum(args: Int*) : Int = &#123;</span><br><span class="line">    var result = 0 ;</span><br><span class="line">    for(s2 &lt;- args) &#123;</span><br><span class="line">      result += s2 ;</span><br><span class="line">    &#125;</span><br><span class="line">    result ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="10"><a href="#10" class="headerlink" title="10. +&#x3D;"></a>10. +&#x3D;</h3><p>为可变数组添加元素</p>
-<h3 id="11"><a href="#11" class="headerlink" title="11. -&#x3D;"></a>11. -&#x3D;</h3><p>从可变数组中移除相应的值</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var map = Map(1 -&gt; 1,2 -&gt; 2,3 -&gt;3 )</span><br><span class="line">map -= 1</span><br><span class="line">结果：scala.collection.immutable.Map[Int,Int] = Map(2 -&gt; 2, 3 -&gt; 3)</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/01/Scala-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1530,10 +900,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -1560,7 +930,7 @@
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -1576,6 +946,9 @@
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -1634,6 +1007,10 @@
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

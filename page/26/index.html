@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -245,84 +273,14 @@
 <p>武则天登基为帝，是为则天神圣皇帝，寰宇震惊。  </p>
 <p>南天门，凌霄殿内。  </p>
 <p>“成何体统？！”玉帝一声怒喝，右手落在祥龙玉座之上，大殿之内，恍若雷霆。  </p>
-<p>“玉帝息怒。玉帝息怒。”</p>
-<p>“武则天登基之事，颠倒阴阳，祸乱乾坤，不可不罚。四海龙王听令，三年之内，不得向人间降雨！！以此天罚，警示众生！”</p>
-<p>水晶宫外。</p>
-<p>“少爷大事不好了！”一个童仆急匆匆地从宫中跑出。</p>
-<p>“怎么了，小顺子？”</p>
-<p>“今天天庭朝会你居然没去。那个武则天，明明是个女的，居然当了皇帝。玉帝一生气，就下令四海龙王三年不得向人间降雨。”</p>
-<p>天河龙王似乎没听见，看着河里游来游去的鱼儿，“然后呢？”</p>
-<p>“雷公电母都没事干了！天河龙王只剩个名头。可惜我刚给少爷你求个司职……”说着，小顺子竟有了要哭出来的感觉。</p>
-<p>天河龙王轻笑，抚摸着小顺子的头，“既然朝会已散，去准备一下，随我下界。”</p>
-<p>大唐边境，渭城内。</p>
-<p>“这遍地饿殍，叹天地不仁啊……”天河龙王感叹道。</p>
-<p>“少爷，这人还有救。”“全力救治！”“是！”</p>
-<p>看这土地的裂痕，此地恐怕干旱三月有余……天河龙王面露忧色。</p>
-<p>“这位公子，劳烦借一步说话。”一名骑马的官兵打断了天河龙王的思考。</p>
-<p>“公子，下官乃陇右道下属驿丞奉则天神圣皇帝令，传令各道黎民。公子可知此处百姓情况？”</p>
-<p>“此地旱情惨重，十室九空，有何令可传？”</p>
-<p>“公子有所不知，奉天子旨意，赳赳大周共赴国难。特传令迁旱处百姓往水源之地，沿路水粮均由朝廷资助。”</p>
-<p>洛阳城内。</p>
-<p>“人真不少啊，都是从干旱地区迁过来的啊……”</p>
-<p>“如此看来，这天灾定能安然而过，我也就放心了。”</p>
-<p>“有那么容易吗？玉帝可是说了三年不给下雨，再怎么挨着河川，也……”</p>
-<p>“无关河川不竭。小顺子，你看那边，”天河龙王指着街角的那棵树，“你可觉得它葱郁欲滴？既无雨水滋润，必有人日日浇灌。天佑灾祸以人力救之，如此不屈的精神才是度此绝境的唯一法门。”</p>
-<p>“公子此言差矣。”</p>
-<p>天河龙王回头一看，竟是一位算命先生。</p>
-<p>“今武贼称帝，颠倒阴阳，故而天降此灾，非人力可挽。公子既从来处来，可知此祸缘起，不可信口胡言。”</p>
-<p>“哪来的糟老头！我家少爷身份尊贵，岂容尔等说三道四！”</p>
-<p>“你这童儿好生无礼！老夫好意提醒……”</p>
-<p>“老不修！你……”</p>
-<p>“雨顺，休得无礼，”天河龙王打断了童仆的话，“凡间奇人异士迭出，今日能遇上先生乃是有缘。先生说此旱乃天祸，愿闻其详。”</p>
-<p>“乾坤阴阳自有定数，牝鸡司晨惹怒上苍，此乃天道不受，怒及凡尘。”老头手抚胡须，如是说。</p>
-<p>“你我各执其理，我却愿和先生打个赌，若尽力为之，当可解此九州困境。若如先生所言，天道不容，则纵使人力穷尽，亦不会有半滴甘露降下，对不对？”</p>
-<p>老头眉头一挑，似乎预感到什么。</p>
-<p>“昔日我得仙人求雨符三张，若能降下雨来，则乃先生之言偏颇。第一道符——风·起。”霎时一股狂风吹起。<br>“公子不可意气用事，此乃逆天而行……”</p>
-<p>“先生谬矣，若是逆天，又怎可降下雨来？第二道符——云·涌！”顿时空中乌云密布。面对童仆的阻止，天河龙王只是丢下两个字：退下。</p>
-<p>“第三道符——雨·降！”话音刚落，空中开始飘起小雨，继而雨势变大，倾盆而下。</p>
-<p>“天河龙王你……”老头无论怎么猜也猜不到他竟敢违背天条。</p>
-<p>“你既知我身份，当知泽被凡尘乃我分内之事，无人可阻。”天河龙王转身离去，发现近乎全城人都在街上，听着众人口中激动的言语，长笑两声：“哈哈哈！痛快，痛快！！”</p>
-<p>雨落之时，上阳宫外，武瞾跪拜天地，张开双臂，仿佛拥天抱地，“天佑我大周，天佑我大周啊……”</p>
-<p>数日暴雨降后，凡间三月旱情不再。</p>
-<p>夜。上阳宫内。</p>
-<p>“武曌，武曌武则天，你可听见？”</p>
-<p>“谁？谁人唤我？”武曌睁开双眼，发现自己竟睡在一片草丛之中，“此乃何处？”</p>
-<p>“此处乃东岳泰山，你当日祭祀天地登基之处。可还记得？”</p>
-<p>“泰山？我本在上阳宫，缘何在此？你是何人？”武曌视线所及之处，除峰顶云烟，竟毫无一人。</p>
-<p>“我乃天河龙王，有话问你，故托梦唤你至此。”</p>
-<p>“可是行云布雨之龙？我且问你，为何令我人间大旱，雨草不生？”</p>
-<p>“天地不仁，以万物为刍狗。你若问我缘由，我便如你所愿。此番天降大旱，乃是源自你一介妇人妄自称帝，颠倒阴阳，惹怒玉帝。凡间因你而遭此劫难，你又有何话可说？”话语间，云间深处恍有龙形显现。<br>“若真如此，事已至此，我亦将竭力补救！如我曾发之大誓愿，如我之名，如日之暖，如月之明，高悬于空，泽被四海苍生！”</p>
-<p>“好个日月凌空，泽被苍生的誓愿……”一条青龙显现，继而化为人形。“你若能守得此誓，殚精竭虑治理天下，便不枉我担此重罪，救九州于大旱。天行健，君子以自强不息。牢记此言，不可妄自菲薄，有一日懈怠。”一声大喝，仿佛青龙长啸，云烟缭绕，人形隐去。</p>
-<p>“陛下，陛下？”</p>
-<p>“我这是在哪儿？”</p>
-<p>“陛下，您做梦了？这是上阳宫啊。”</p>
-<p>原来是南柯一梦啊……武曌揉揉脑袋，“我睡了多久？”</p>
-<p>“约莫半个时辰。”</p>
-<p>“可有奏表呈上？”</p>
-<p>“礼部呈上河南道八百里加急，言称天现异象。”</p>
-<p>“呈上来。”</p>
-<p>南天门，凌霄殿内。</p>
-<p>“擅自在人间行云布雨之龙，无视天规，恣意妄为。天河龙王，你可知罪？”</p>
-<p>“行云布雨乃我族天职，我不认罪。”</p>
-<p>“妄言天道，你可知天道为何物？牝鸡司晨颠倒阴阳，此例一开天下大乱，故而有此灾劫。你不服管束，自作主张，又欲有何辩解？”</p>
-<p>“前日我与童仆下日，曾见凡间惨状，自玉帝下令，天庭不过半日，下界三月无雨，十室九空，生机将断……</p>
-<p>天之道，损有余而补不足。凡人羸弱不堪大旱，求玉帝收回成命。为四海风调雨顺，我甘愿受罚。”</p>
-<p>龙王降雨犯天规<br>当受人间千秋罪<br>若欲重登凌霄殿<br>须得金豆开花时  </p>
-<p>公元2013年，某月某日某地。</p>
-<p>“咦？居然有这种事？那龙王后来呢？”</p>
-<p>“后来金豆开花了，龙王就放出来了。”</p>
-<p>“金豆开花是什么？好看吗？”</p>
-<p>“小曌不是很聪明吗？你猜呀。”</p>
-<p>“姑姑跟人家说嘛！”小曌嘟起小嘴。</p>
-<p>“提示：不是花，是吃的哟。”</p>
-<p>“这些凡人真是的！天上一天地上一年，少爷受千年之苦，他们说的如此轻松！”</p>
-<p>“哈哈，我都不生气，小顺子你生什么气。我入尘千年，如今看到这满眼繁华，已觉心中甚慰，并无半丝怨念。”</p>
-<p>“可是……”</p>
-<p>“别什么可是不可是的了，今天可是少爷我脱困的日子，忘了不成？”</p>
-<p>“怎么会忘！今天是金豆开花之日！”谈及此，雨顺开心地笑了。</p>
-<p>一颗爆米花入口，人间恍有青龙，长啸三声，直上九霄。</p>
-<p>二月二，龙抬头。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2013/08/17/Novel-5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -428,49 +386,14 @@
 <p>宁缺身上的衣服已由白色变成红黑色，先前的伤口还在向外渗着血。然而他似乎已经感受不到任何疼痛了。</p>
 <p>他用手拭去嘴角的血水，看着面前这个强大的敌人，右手握紧朴刀，想要出击却发现自己竟迈步过身前一尺之地。</p>
 <p>“这是？”</p>
-<p>“樊笼。虽不及神殿里那位的厉害，但要困住书院最弱的天下行走，想来也不是什么难事。”</p>
-<p>樊笼。他在心里念了一遍。继而大笑，笑得很大声，以至整个山崖都在回荡着他的笑声。</p>
-<p>这是一种痴迷于战斗的狂热，也是一种遇强则强的放肆。</p>
-<p>“不知十三先生为何而笑？”</p>
-<p>“笑我这个书院最弱的天下行走也会被施以天下最强的御敌之术。”</p>
-<p>或许这一种狂热与放肆对普通人有效，但这一次，毫无效果。</p>
-<p>耳边传来对方的大笑。“世人皆称十三先生为书院最弱，然而十三先生两个月连破三境，其速度仅次于昔日神座、当今夫子，就算是书院最弱，我二十三年蝉又如何敢轻敌？”</p>
-<p>“传闻你一朝入关便是二十三年不问世事，出关之时便是一片蝉鸣，恍若天乐奏响，不知传闻可是真的？”</p>
-<p>“都是后辈们无聊时的言语罢了。”</p>
-<p>“或许吧。不过我比较关心你出关之后的事，比如，”宁缺用手指了指二十三年蝉的身体，“你入魔一事。”</p>
-<p>二十三年蝉低头看了一眼正冒着白气的伤口。此时伤口正以缓慢而稳定的速度自我愈合。“十三先生好眼力。”他从怀中掏出一块肉塞入口中，细细咀嚼着。“修行界流传着十三先生打架时必定会闲聊，从心理上先胜一筹，今日所见，果然如此。”</p>
-<p>“不过只是为了恢复一下而已。”宁缺倒也实诚，趁着这个时机放松了一下手腕。</p>
-<p>“那我也满足一下你的好奇心。当年出关之后看到人事变迁，长生的愿望开始膨胀，越来越强烈。我以佛宗首座的身份阅读了三卷天书，试着找到一种可以维持肉身不坏的方法。幸运的是，我找到了。不幸的是，那个方法的前提是必须入魔。控制不住对长生的渴望，于是我入魔了。”</p>
-<p>宁缺想不到他入魔的原因竟如此简单，又被他如此平淡地说出来。</p>
-<p>“魔宗中有一秘法，名曰‘饕餮’，修行此法需要生食活人肉，将活人的生气转化为己用。后来我改进了一下，吃死人肉就行了。”说完，二十三年蝉从怀中又掏出一块肉塞入口中。此事他身上的伤口已愈合大半。</p>
-<p>“怪不得。”</p>
-<p>“说来你的‘浩然剑’也颇有长进，加上元十三箭，就连我的魔宗护体也要惧上三分，不过你终究不是轲疯子。况且我先入佛再入魔，如今已近乎圣体，而你想要逾境杀我，岂不是要逆天？”</p>
-<p>逆天？一个陌生而熟悉的字眼进入宁缺的耳中。他缓缓地闭上眼中。</p>
-<p>“看来你也知道这不可能了。那我就来结束你的噩梦吧。”说完，二十三年蝉一个箭步冲向宁缺。速度之快，竟挟着一股山风。</p>
-<p>然而他想错了，宁缺之所以闭眼，并不是想要放弃，而是想到了一件有趣的事。</p>
-<p>昔日踏上书院二层楼时，宁缺曾与夫子在咫尺峰上彻夜长谈。</p>
-<p>“我曾去渭城看过，知道你以前的警力，想你踏入书院的路也绝非常人所能做到的。”夫子躺在槐树下，品着酒。</p>
-<p>“如果有人经历过我的经历，那么他一定会很想改变。我不过只是更加渴望而已。”</p>
-<p>夫子看了他一眼，有些心喜，也有些担忧。“你以后便是书院的天下行走，便要接受天下所有修行之人的挑战。不过你如今如此低的境界，想要改变，岂不是要登天，不，比逆天还难？”夫子笑着品了一口酒，他对自己的用词很满意。</p>
-<p>宁缺看着夫子，一字一字地说道：“那我便要逆天。”</p>
-<p>夫子听到这句话，看着自己的弟子，笑了，“既在天中，何以逆天？”</p>
-<p>宁缺沉默了，因为他不知道如何回答。如今经过和二十三年蝉的对话，他似乎知道了答案。</p>
-<p>他慢慢向后退了一步，举起手中的朴刀，挥了下去。</p>
-<p>既然在天道之中便无法逆天，那我就站在天道之外！</p>
-<p>找到属于自己的答案之后，宁缺的脑中所有的招式便只剩下挥刀。简单地挥刀。</p>
-<p>有时候，因为简单，所以强大。</p>
-<p>上一刻，朴刀挥。</p>
-<p>这一刻，樊笼破。</p>
-<p>下一刻，剑气至。</p>
-<p>二十三年蝉还在好奇宁缺是如何挣脱樊笼的束缚的，突然间发现一股浩然气突破他的魔宗护体，紧接着一股滚热的液体从口中喷出。</p>
-<p>“想不到你竟又破镜了。”</p>
-<p>“那还要感谢你的帮助。”破镜后的宁缺突然感觉眼前的世界竟变得不一样了。甚至连二十三年蝉是伤口处外渗的魔宗元气也感受得到。</p>
-<p>“看来书院自你小师叔之后又出了一个奇迹。”再度被浩然气所重伤，二十三年蝉已无法再迅速用“饕餮”来恢复了。</p>
-<p>“我就当是赞美了。多谢。”话音落，朴刀挥，一股更加刚烈、醇厚的浩然气突破二十三年蝉的魔宗护体，将其生生斩成两半。</p>
-<p>一场恶战终于结束。</p>
-<p>宁缺拖着疲惫的身躯朝来时的路走去，突然感觉有些不妥，反手在空中比划几下，确认碑上的字已改，才放心地走下山崖。</p>
-<p>从此世间，回头崖逝，无头崖立。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2013/01/31/Novel-6/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -576,10 +499,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -606,7 +529,7 @@
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -622,6 +545,9 @@
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -680,6 +606,10 @@
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

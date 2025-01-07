@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -247,49 +275,14 @@
           <h3 id="1-单元测试"><a href="#1-单元测试" class="headerlink" title="1.单元测试"></a>1.单元测试</h3><h4 id="1-1-在pom-xml中添加以下依赖即可"><a href="#1-1-在pom-xml中添加以下依赖即可" class="headerlink" title="1.1 在pom.xml中添加以下依赖即可"></a>1.1 在pom.xml中添加以下依赖即可</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">	&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <h4 id="1-2-开发测试类"><a href="#1-2-开发测试类" class="headerlink" title="1.2 开发测试类"></a>1.2 开发测试类</h4><p>以最简单的helloworld为例，在测试类的类头部需要添加：@RunWith(SpringRunner.class)和@SpringBootTest注解，在测试方法的顶端添加@Test即可，最后在方法上点击右键run就可以运行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest</span><br><span class="line">public class ApplicationTests &#123;</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	public void hello() &#123;</span><br><span class="line">		System.out.println(&quot;hello world&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>引入了MockMvc支持了对Controller层的测试，简单示例如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class HelloControlerTests &#123;</span><br><span class="line"></span><br><span class="line">    private MockMvc mvc;</span><br><span class="line"></span><br><span class="line">    //初始化执行</span><br><span class="line">    @Before</span><br><span class="line">    public void setUp() throws Exception &#123;</span><br><span class="line">        mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //验证controller是否正常响应并打印返回结果</span><br><span class="line">    @Test</span><br><span class="line">    public void getHello() throws Exception &#123;</span><br><span class="line">        mvc.perform(MockMvcRequestBuilders.get(&quot;/hello&quot;).accept(MediaType.APPLICATION_JSON))</span><br><span class="line">                .andExpect(MockMvcResultMatchers.status().isOk())</span><br><span class="line">                .andDo(MockMvcResultHandlers.print())</span><br><span class="line">                .andReturn();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //验证controller是否正常响应并判断返回结果是否正确</span><br><span class="line">    @Test</span><br><span class="line">    public void testHello() throws Exception &#123;</span><br><span class="line">        mvc.perform(MockMvcRequestBuilders.get(&quot;/hello&quot;).accept(MediaType.APPLICATION_JSON))</span><br><span class="line">                .andExpect(status().isOk())</span><br><span class="line">                .andExpect(content().string(equalTo(&quot;Hello World&quot;)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="2-打包"><a href="#2-打包" class="headerlink" title="2.打包"></a>2.打包</h3><p>一种是打包成jar包直接运行，一种是打包成war包放到tomcat服务器下</p>
-<h4 id="2-1-打成jar包"><a href="#2-1-打成jar包" class="headerlink" title="2.1 打成jar包"></a>2.1 打成jar包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd 项目跟目录（和pom.xml同级）</span><br><span class="line">mvn clean package  </span><br></pre></td></tr></table></figure>
-<p><strong>需要在linux下运行，同时需要安装好maven</strong><br>或者执行下面的命令<br>排除测试代码后进行打包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package  -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
-
-<p>打包完成后的jar包会生成到target目录下，命名一般是 项目名+版本号.jar</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">启动jar包命令</span><br><span class="line">java -jar  target/spring-boot-scheduler-1.0.0.jar</span><br></pre></td></tr></table></figure>
-
-<p>这种方式，只要控制台关闭，服务就不能访问了。<br>下面我们使用在后台运行的方式来启动:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar target/spring-boot-scheduler-1.0.0.jar &amp;</span><br></pre></td></tr></table></figure>
-
-
-<p>也可以在启动的时候选择读取不同的配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar app.jar --spring.profiles.active=dev</span><br></pre></td></tr></table></figure>
-
-<p>也可以在启动的时候设置jvm参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xms10m -Xmx80m -jar app.jar &amp;</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="2-2-打成war包"><a href="#2-2-打成war包" class="headerlink" title="2.2 打成war包"></a>2.2 打成war包</h4><p>可以通过导出war包，也可以使用命令完成<br>①修改pom.xml文件，将</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure>
-<p>改为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;packaging&gt;war&lt;/packaging&gt;</span><br></pre></td></tr></table></figure>
-
-<p>②在打包时排除tomcat</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;</span><br><span class="line">	&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在这里将scope属性设置为provided，这样在最终形成的WAR中不会包含这个JAR包，因为Tomcat或Jetty等服务器在运行时将会提供相关的API类<br>③注册启动类<br>创建ServletInitializer.java，继承SpringBootServletInitializer ，覆盖configure()，把启动类Application注册进去。外部web应用服务器构建Web Application Context的时候，会把启动类添加进去。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class ServletInitializer extends SpringBootServletInitializer &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) &#123;</span><br><span class="line">        return application.sources(Application.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>最后执行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package  -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
-
-<p>会在target目录下生成：项目名+版本号.war文件，拷贝到tomcat服务器中启动即可</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/SpringBoot-5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -401,15 +394,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class SchedulerTask &#123;</span><br><span class="line"></span><br><span class="line">    private int count=0;</span><br><span class="line"></span><br><span class="line">    @Scheduled(cron=&quot;*/6 * * * * ?&quot;)</span><br><span class="line">    private void process()&#123;</span><br><span class="line">        System.out.println(&quot;this is scheduler task runing  &quot;+(count++));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>②</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class Scheduler2Task &#123;</span><br><span class="line"></span><br><span class="line">    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;HH:mm:ss&quot;);</span><br><span class="line"></span><br><span class="line">    @Scheduled(fixedRate = 6000)</span><br><span class="line">    public void reportCurrentTime() &#123;</span><br><span class="line">        System.out.println(&quot;现在时间：&quot; + dateFormat.format(new Date()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">this is scheduler task runing  0</span><br><span class="line">现在时间：09:44:17</span><br><span class="line">this is scheduler task runing  1</span><br><span class="line">现在时间：09:44:23</span><br><span class="line">this is scheduler task runing  2</span><br><span class="line">现在时间：09:44:29</span><br><span class="line">this is scheduler task runing  3</span><br><span class="line">现在时间：09:44:35</span><br></pre></td></tr></table></figure>
-
-
-<p>参数说明：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled 参数可以接受两种定时的设置，一种是我们常用的cron=&quot;*/6 * * * * ?&quot;,一种是 fixedRate = 6000，两种都表示每隔六秒打印一下内容。</span><br><span class="line">fixedRate 说明</span><br><span class="line">@Scheduled(fixedRate = 6000) ：上一次开始执行时间点之后6秒再执行</span><br><span class="line">@Scheduled(fixedDelay = 6000) ：上一次执行完毕时间点之后6秒再执行</span><br><span class="line">@Scheduled(initialDelay=1000, fixedRate=6000) ：第一次延迟1秒后执行，之后按fixedRate的规则每6秒执行一次</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/SpringBoot-4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -520,13 +512,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mxxct_name=猫熊小才天</span><br><span class="line">mxxct_pass=12345</span><br></pre></td></tr></table></figure>
 
 <p><strong>需要和Application放在同级</strong></p>
-<p><img src="https://i.imgur.com/F0wXZOQ.png"></p>
-<p><img src="https://i.imgur.com/qnH76kz.png"></p>
-<p>application.properties文件默认编码是ISO-8859-1，所以要添加配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.tomcat.uri-encoding=UTF-8</span><br><span class="line">spring.http.encoding.charset=UTF-8</span><br><span class="line">spring.http.encoding.enabled=true</span><br><span class="line">spring.http.encoding.force=true</span><br><span class="line">spring.messages.encoding=UTF-8</span><br></pre></td></tr></table></figure>
-
-<p>如果还不行的话，在File -&gt; Settings -&gt; Editor -&gt; File Encodings中将Properties Files (*.properties)下的Default encoding for properties files设置为UTF-8，将Transparent native-to-ascii conversion前的勾选上。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/SpringBoot-3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -638,19 +631,14 @@
 
 
 <p>在src&#x2F;main&#x2F;java中重新编写一个controller</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class HelloWorldController &#123;</span><br><span class="line">    @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">    public String index() &#123;</span><br><span class="line">        return &quot;Hello World&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@RestController的意思就是controller里面的方法都以json格式输出，不用再写什么jackjson配置的了<br>启动程序，访问<a href="http://localhost:8080/hello%E5%8D%B3%E5%8F%AF">http://localhost:8080/hello即可</a></p>
-<p>编辑tomcat启动配置  </p>
-<ol>
-<li>On ‘Update’ action 选择 Update classes and resources<br>1.1 （调试模式 jsp java文件可以立即生效）<br>1.2 （运行模式 jsp立即生效 java需要重新加载）</li>
-<li>On frame deactivation 选择 Do nothing</li>
-</ol>
-<p>热部署：就是容器状态在运行的情况下重新部署整个项目，在这种情况下一般整个内存会清空，重新加载，简单来说就是Tomcat或者其他的web服务器会帮我们重新加载项目，这种方式可能会造成session丢失等情况</p>
-<p>热加载：就是容器状态在运行的情况下重新加载改变编译后的类，在这种情况下内存不会清空，session不会丢失，但容易造成内存溢出，或者找不到方法。因为内存无法转变成对像，一般改变类的结构和模型就会有异常，在已经有的变量和方法中改变是不会出问题的</p>
-<p>在pom.xml文件中添加以下配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;</span><br><span class="line">        &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">                &lt;fork&gt;true&lt;/fork&gt;</span><br><span class="line">            &lt;/configuration&gt;</span><br><span class="line">        &lt;/plugin&gt;</span><br><span class="line">   &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/SpringBoot-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -765,16 +753,15 @@
 <li>通过自动配置，解决配置复杂问题</li>
 <li>通过内嵌web容器，由应用启动tomcat，而不是用tomcat启动应用</li>
 </ol>
-<h5 id="Spring-boot-和-Spring-Cloud的比较"><a href="#Spring-boot-和-Spring-Cloud的比较" class="headerlink" title="Spring boot 和 Spring Cloud的比较"></a>Spring boot 和 Spring Cloud的比较</h5><ol>
-<li>Spring boot专注于快速、方便集成的单个个体，Spring Cloud是关注全局的服务治理框架  </li>
-<li>Spring boot可以离开Spring Cloud独立使用开发项目，但是Spring Cloud离不开Spring boot，属于依赖的关系。</li>
-</ol>
-<h5 id="Spring-boot的优点"><a href="#Spring-boot的优点" class="headerlink" title="Spring boot的优点"></a>Spring boot的优点</h5><ol>
-<li>Spring 组件很多，需要一个个去配置，还有版本兼容问题，影响开发速度  </li>
-<li>Spring boot提供了一个方案，可以先不关心如何配置，快速启动开发，进行业务逻辑编写，各种需要的技术，加入starter就配置好了，直接使用。  </li>
-<li>Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式</li>
-</ol>
-
+<h5 id="Spring-boot-和-Spring-Cloud的比较"><a href="#Spring-boot-和-Spring-Cloud的比较" class="headerlink" title="Spring boot 和 Spring Cloud的比较"></a>Spring boot 和 Spring Cloud的比较</h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/SpringBoot-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -880,10 +867,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -910,7 +897,7 @@
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -926,6 +913,9 @@
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -984,6 +974,10 @@
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

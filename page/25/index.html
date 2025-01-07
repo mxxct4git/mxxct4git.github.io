@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -245,120 +273,14 @@
 <p>列出hdfs文件系统根目录下的目录和文件</p>
 <pre><code>hadoop fs -ls -R /
 </code></pre>
-<p>列出hdfs文件系统所有的目录和文件</p>
-<h3 id="2-put"><a href="#2-put" class="headerlink" title="2.put"></a>2.put</h3><pre><code>hadoop fs -put &lt; local file &gt; &lt; hdfs file &gt;
-</code></pre>
-<p>hdfs file的父目录一定要存在，否则命令不会执行</p>
-<pre><code>hadoop fs -put  &lt; local file or dir &gt;...&lt; hdfs dir &gt;
-</code></pre>
-<p>hdfs dir 一定要存在，否则命令不会执行</p>
-<pre><code>hadoop fs -put - &lt; hdsf  file&gt;
-</code></pre>
-<p>从键盘读取输入到hdfs file中，按Ctrl+D结束输入，hdfs file不能存在，否则命令不会执行</p>
-<h4 id="2-1-moveFromLocal"><a href="#2-1-moveFromLocal" class="headerlink" title="2.1.moveFromLocal"></a>2.1.moveFromLocal</h4><pre><code>hadoop fs -moveFromLocal  &lt; local src &gt; ... &lt; hdfs dst &gt;
-</code></pre>
-<p>与put相类似，命令执行后源文件 local src 被删除，也可以从从键盘读取输入到hdfs file中</p>
-<h4 id="2-2-copyFromLocal"><a href="#2-2-copyFromLocal" class="headerlink" title="2.2.copyFromLocal"></a>2.2.copyFromLocal</h4><pre><code>hadoop fs -copyFromLocal  &lt; local src &gt; ... &lt; hdfs dst &gt;
-</code></pre>
-<p>与put相类似，也可以从从键盘读取输入到hdfs file中</p>
-<p>###3.get</p>
-<pre><code>hadoop fs -get &lt; hdfs file &gt; &lt; local file or dir&gt;
-</code></pre>
-<p>local file不能和 hdfs file名字不能相同，否则会提示文件已存在，没有重名的文件会复制到本地</p>
-<pre><code>hadoop fs -get &lt; hdfs file or dir &gt; ... &lt; local  dir &gt;
-</code></pre>
-<p>拷贝多个文件或目录到本地时，本地要为文件夹路径  </p>
-<p>注意：如果用户不是root， local 路径要为用户文件夹下的路径，否则会出现权限问题，</p>
-<h4 id="3-1-moveToLocal"><a href="#3-1-moveToLocal" class="headerlink" title="3.1.moveToLocal"></a>3.1.moveToLocal</h4><p>当前版本中还未实现此命令</p>
-<h4 id="3-2-copyToLocal"><a href="#3-2-copyToLocal" class="headerlink" title="3.2.copyToLocal"></a>3.2.copyToLocal</h4><pre><code>hadoop fs -copyToLocal &lt; local src &gt; ... &lt; hdfs dst &gt;
-</code></pre>
-<p>与get相类似</p>
-<h3 id="4-rm"><a href="#4-rm" class="headerlink" title="4.rm"></a>4.rm</h3><pre><code>hadoop fs -rm &lt; hdfs file &gt; ...
-hadoop fs -rm -r &lt; hdfs dir&gt;...
-</code></pre>
-<p>每次可以删除多个文件或目录</p>
-<h3 id="5-mkdir"><a href="#5-mkdir" class="headerlink" title="5.mkdir"></a>5.mkdir</h3><pre><code>hadoop fs -mkdir &lt; hdfs path&gt;
-</code></pre>
-<p>只能一级一级的建目录，父目录不存在的话使用这个命令会报错</p>
-<pre><code>hadoop fs -mkdir -p &lt; hdfs path&gt; 
-</code></pre>
-<p>所创建的目录如果父目录不存在就创建该父目录</p>
-<h3 id="6-getmerge"><a href="#6-getmerge" class="headerlink" title="6.getmerge"></a>6.getmerge</h3><pre><code>hadoop fs -getmerge &lt; hdfs dir &gt;  &lt; local file &gt;
-</code></pre>
-<p>将hdfs指定目录下所有文件排序后合并到local指定的文件中，文件不存在时会自动创建，文件存在时会覆盖里面的内容</p>
-<pre><code>hadoop fs -getmerge -nl  &lt; hdfs dir &gt;  &lt; local file &gt;
-</code></pre>
-<p>加上nl后，合并到local file中的hdfs文件之间会空出一行</p>
-<h3 id="7-cp"><a href="#7-cp" class="headerlink" title="7.cp"></a>7.cp</h3><pre><code>hadoop fs -cp  &lt; hdfs file &gt;  &lt; hdfs file &gt;
-</code></pre>
-<p>目标文件不能存在，否则命令不能执行，相当于给文件重命名并保存，源文件还存在</p>
-<pre><code>hadoop fs -cp &lt; hdfs file or dir &gt;... &lt; hdfs dir &gt;
-</code></pre>
-<p>目标文件夹要存在，否则命令不能执行</p>
-<h3 id="8-mv"><a href="#8-mv" class="headerlink" title="8.mv"></a>8.mv</h3><pre><code>hadoop fs -mv &lt; hdfs file &gt;  &lt; hdfs file &gt;
-</code></pre>
-<p>目标文件不能存在，否则命令不能执行，相当于给文件重命名并保存，源文件不存在</p>
-<pre><code>hadoop fs -mv  &lt; hdfs file or dir &gt;...  &lt; hdfs dir &gt;
-</code></pre>
-<p>源路径有多个时，目标路径必须为目录，且必须存在。  </p>
-<p>注意：跨文件系统的移动（local到hdfs或者反过来）都是不允许的</p>
-<h3 id="9-count"><a href="#9-count" class="headerlink" title="9.count"></a>9.count</h3><pre><code>hadoop fs -count &lt; hdfs path &gt;
-</code></pre>
-<p>统计hdfs对应路径下的目录个数，文件个数，文件总计大小  </p>
-<p>显示为目录个数，文件个数，文件总计大小，输入路径</p>
-<h3 id="10-du"><a href="#10-du" class="headerlink" title="10.du"></a>10.du</h3><pre><code>hadoop fs -du &lt; hdsf path&gt; 
-</code></pre>
-<p>显示hdfs对应路径下每个文件夹和文件的大小</p>
-<pre><code>hadoop fs -du -s &lt; hdsf path&gt; 
-</code></pre>
-<p>显示hdfs对应路径下所有文件和的大小</p>
-<pre><code>hadoop fs -du - h &lt; hdsf path&gt; 
-</code></pre>
-<p>显示hdfs对应路径下每个文件夹和文件的大小,文件的大小用方便阅读的形式表示，例如用64M代替67108864</p>
-<h3 id="11-text"><a href="#11-text" class="headerlink" title="11.text"></a>11.text</h3><pre><code>hadoop fs -text &lt; hdsf file&gt;
-</code></pre>
-<p>将文本文件或某些格式的非文本文件通过文本格式输出</p>
-<h3 id="12-setrep"><a href="#12-setrep" class="headerlink" title="12.setrep"></a>12.setrep</h3><pre><code>hadoop fs -setrep -R 3 &lt; hdfs path &gt;
-</code></pre>
-<p>改变一个文件在hdfs中的副本个数，上述命令中数字3为所设置的副本个数，-R选项可以对一个人目录下的所有目录+文件递归执行改变副本个数的操作</p>
-<h3 id="13-stat"><a href="#13-stat" class="headerlink" title="13.stat"></a>13.stat</h3><pre><code>hdoop fs -stat [format] &lt; hdfs path &gt;
-</code></pre>
-<p>返回对应路径的状态信息   </p>
-<p>[format]可选参数有：%b（文件大小），%o（Block大小），%n（文件名），%r（副本个数），%y（最后一次修改日期和时间）  </p>
-<p>可以这样书写hadoop fs -stat %b%o%n &lt; hdfs path &gt;，不过不建议，这样每个字符输出的结果不是太容易分清楚</p>
-<h3 id="14-tail"><a href="#14-tail" class="headerlink" title="14.tail"></a>14.tail</h3><pre><code>hadoop fs -tail &lt; hdfs file &gt;
-</code></pre>
-<p>在标准输出中显示文件末尾的1KB数据</p>
-<h3 id="15-archive"><a href="#15-archive" class="headerlink" title="15.archive"></a>15.archive</h3><pre><code>hadoop archive -archiveName name.har -p &lt; hdfs parent dir &gt; &lt; src &gt;* &lt; hdfs dst &gt;
-</code></pre>
-<p>命令中参数</p>
-<p>name：压缩文件名，自己任意取；</p>
-<p>&lt; hdfs parent dir &gt; ：压缩文件所在的父目录；</p>
-<p>&lt; src &gt;：要压缩的文件名；</p>
-<p>&lt; hdfs dst &gt;：压缩文件存放路径</p>
-<p>示例：<code>hadoop archive -archiveName hadoop.har -p /user 1.txt 2.txt /des</code>  </p>
-<p>示例中将hdfs中&#x2F;user目录下的文件1.txt，2.txt压缩成一个名叫hadoop.har的文件存放在hdfs中&#x2F;des目录下，如果1.txt，2.txt不写就是将&#x2F;user目录下所有的目录和文件压缩成一个名叫hadoop.har的文件存放在hdfs中&#x2F;des目录下</p>
-<p>显示har的内容可以用如下命令：</p>
-<pre><code>hadoop fs -ls /des/hadoop.har
-</code></pre>
-<p>显示har压缩的是那些文件可以用如下命令</p>
-<pre><code>hadoop fs -ls -R har:///des/hadoop.har
-</code></pre>
-<p>注意：har文件不能进行二次压缩。如果想给.har加文件，只能找到原来的文件，重新创建一个。har文件中原来文件的数据并没有变化，har文件真正的作用是减少NameNode和DataNode过多的空间浪费。</p>
-<h3 id="16-balancer"><a href="#16-balancer" class="headerlink" title="16.balancer"></a>16.balancer</h3><pre><code>hdfs balancer
-</code></pre>
-<p>如果管理员发现某些DataNode保存数据过多，某些DataNode保存数据相对较少，可以使用上述命令手动启动内部的均衡过程</p>
-<h3 id="17-dfsadmin"><a href="#17-dfsadmin" class="headerlink" title="17.dfsadmin"></a>17.dfsadmin</h3><pre><code>hdfs dfsadmin -help
-</code></pre>
-<p>管理员可以通过dfsadmin管理HDFS，用法可以通过上述命令查看</p>
-<pre><code>hdfs dfsadmin -report
-</code></pre>
-<p>显示文件系统的基本数据</p>
-<pre><code>hdfs dfsadmin -safemode &lt; enter | leave | get | wait &gt;
-</code></pre>
-<p>enter：进入安全模式；<br>leave：离开安全模式；<br>get：获知是否开启安全模式；<br>wait：等待离开安全模式</p>
-<h3 id="18-distcp"><a href="#18-distcp" class="headerlink" title="18.distcp"></a>18.distcp</h3><p>用来在两个HDFS之间拷贝数据</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/04/30/Hadoop-4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -464,19 +386,14 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
 <p>每一个过程，每一个细节，都是这个世界上最美好的东西。</p>
 <p>无需言说的默契，随时依靠的臂膀，默默注视的目光，不曾离去的身影，共赴未来的信心，心系彼此的牵挂，随时随地的想念，患难与共的执着。</p>
 <p>两个人，意味着你不再是一个人，意味着你的生命开始有了另一个人的影子，意味着你从现在开始所做的每一个决定所下的每一个决心，都不再仅仅是你一个人的事。</p>
-<p>是的，这样会很麻烦。你需要考虑什么时候出去，去哪个地方，你需要为另一个人考虑很多，你需要把两个人的时间全部考虑进来，并且做出一个较好的选择。在这些选择中不会有最好的。</p>
-<p>是的，这样会很麻烦。你需要在照顾你的同时去照顾另一个人，就像是另一个自己，让自己牵肠挂肚。你不能敷衍。你宁可敷衍自己也不能敷衍另一个人。你要去记住一些事情，这些事情也许是另一个人的生日，你们的纪念日，你们两个的秘密，另一个人的秘密，诸如此类。</p>
-<p>是的，这样会很麻烦。你需要在学习上帮助另一个人，你需要在工作上帮助另一个人，你需要在很多时候去为另一个人寻找一些捷径。</p>
-<p>你本不需要这样做。你可以一个人去上课，一个人去吃饭，一个人去上自习，一个人回宿舍，一个人去生活，背着一个人的包，听着一个人的歌，走着一个人的路，过着一个人的生活。这样的生活简单，不需你额外的操心。</p>
-<p>但是我们都不曾拒绝另一个人的出现。</p>
-<p>我们会幼稚，但是会为了那个人而变得成熟；我们会胆怯，但是会为了那个人而变得勇敢；我们会脆弱，但是会为了那个人而变得坚强；我们会退缩，但是会为了那个人而变得进取。</p>
-<p>我们会丢掉给自己的时间，我们会妥协自己的安排，我们会改变自己的一些习惯，甚至可能会改变自己最初的目标，但是我们会收获另一个人的陪伴，会看见另一个自己，会发现自己的改变。</p>
-<p>之前写过一篇短文，题目是《鱼儿》。很短，大体是说一个女生因为放不下前男友而无法接受男生对她的好。两个人在一起，每一个人的行为都会给对方留下很深的印象，这些印象会一直保留着，哪怕是最后分开了，那些特定的行为习惯也会在潜意识中不断浮现。</p>
-<p>两个人在一起，需要做的不是强求去做什么，而是随性地表达自己，不刻意就好。你的一言一行一定会给那个人留下深刻的印象，这个印象是你们共同的回忆。</p>
-<p>牵着你的手，耳边流动的是你动人的声音，风起了，为你围上围巾，为你披上外套，做你的守护者，那条洒满阳光的路，从这头走到那头，用了彼此最美好的年华。</p>
-<p>一个人走进另一个人的世界是多么美好的一件事啊。</p>
-<p>哪怕想想也是美好的。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/11/20/Novel-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -581,49 +498,14 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
 <p>“你好。”</p>
 <p>“……”</p>
 <p>“那个，他们都组完队了，就剩下咱俩了……”</p>
-<p>“……”</p>
-<p>“我叫桐人，你呢？”</p>
-<p>“……</p>
-<p>他的每一句得到的都是对方无言的回复。</p>
-<p>算了，组队要紧。他发组队申请发了过去。五秒钟后，收到了对方同意的回复。</p>
-<p>第一次见面算是……圆满结束？</p>
-<h5 id="【二】"><a href="#【二】" class="headerlink" title="【二】"></a>【二】</h5><p>这是一个游戏，一个被人篡改的游戏，一个被人设下了陷阱的游戏。</p>
-<p>原先只是当做大脑潜行运行的4D技术游戏，结果进来之后发现整个游戏被开发者私自篡改了：如果不能闯过世界之塔就无法安全离开，游戏中的死亡亦会带来现实中的身体的死亡。</p>
-<p>并不是所有人都适合游戏，也不是所有人都适合战斗。愤怒，紧张，焦虑，猜疑，诸多负面情绪使游戏一开始就有不少玩家死亡，真正的死亡。</p>
-<p>相反地，有一部分人开始组建起来，结合众人之力，一起攻塔，情报共享，资源共享。这样的组织在这个广袤的游戏世界里有很多，最厉害的一个是圣龙骑士团，而她是这个组织的副团长，他则是一个独行侠。这是后话。</p>
-<p>正如世界之初，有清澄便会有混沌，有光明便会有黑暗，有为了拯救玩家而奋斗的组织自然也会有只为自己趁机烧杀抢夺的组织：微笑棺材。于是就会出现维持正义与秩序的组织，例如护卫队。</p>
-<h5 id="【三】"><a href="#【三】" class="headerlink" title="【三】"></a>【三】</h5><p>他与她的第一次组队，两人表现出极高的默契度。</p>
-<p>他作为该游戏的内测玩家，在这次正式版中知道了比普通玩家更多的情报，拥有更强的预判能力，被称为“封弊者”；而她拥有一个剑士所必需的敏捷与速度。这两点让他们配合的游刃有余，更为重要的是他们相信彼此。如果说这个世界上还有什么值得追求，那就是友情，可以放心把背后交给彼此的友情。</p>
-<p>说起这次组队，其实是仅仅是为了攻塔而临时组起来的。所以在任务完成之后，他们登上更高的一层之后，组队结束。他又恢复了原先的独行侠身份，而她则继续提升自己。</p>
-<p>亚丝娜。真是个不错的名字。你的成长很快，如果以后有组织向你发出申请，好好把握机会吧。</p>
-<h5 id="【四】"><a href="#【四】" class="headerlink" title="【四】"></a>【四】</h5><p>先前的内测让他更加熟悉这个世界，虽然有些许的改动，但在基础阶段还是足以应付，所以他的等级算是所有玩家里最高的。只是别的玩家等级不够，无法窥视等级，加上他不说，所以不会有人知道他的实力。</p>
-<p>他其实很享受这个游戏，帮帮弱者，做做任务，不加任何组织，偶尔想念一个人。</p>
-<h5 id="【五】"><a href="#【五】" class="headerlink" title="【五】"></a>【五】</h5><p>再见面，是在一次动员大会上。她作为圣龙骑士团的副团长，号召玩家一起攻打新一层的最终Boss。他与她意见不合，吵了嘴，会议不欢而散。</p>
-<p>他和她每次在开会的时候都会这样，所以大家都已经习以为常了。解决矛盾是他和她的事，参不参加攻塔之战是大家的选择。</p>
-<p>“干嘛每次都要和我反着来？”</p>
-<p>“因为你的战策会伤害到无辜的人。”</p>
-<p>“那些NPC就算消失，过一段时间也会自我补充，如果是我们的士兵消失，怎么弥补我们的损失？”</p>
-<p>“就因为这样所以损伤无辜吗……”</p>
-<p>事实上每次吵架都非常的没意义，因为不管怎样，他都会听她的，毕竟她才是副团长。</p>
-<h5 id="【六】"><a href="#【六】" class="headerlink" title="【六】"></a>【六】</h5><p>他之前加过一个组织，大家的等级很低，认识他们是因为路过出手相救。至于为什么会答应他们的请求，他说在那个组织里感受到了家的温暖。</p>
-<p>一群小人物为了自己的目标，一直在努力着，生活很艰难，但总是充满欢乐，他相信他们会见到梦想中的阳光。</p>
-<p>可是游戏像命运一样令人难以捉摸。在一次探险中误入陷阱，传送水晶失效，全员覆灭。他看着同伴一个个被屠杀，就在他的面前，尸体渐渐晶体化，最终消失，不留痕迹，除了心底的伤痛。</p>
-<p>就在那一次之后他发誓再也不会加入任何组织。因为他不想再看到自己的同伴在自己的面前消失。</p>
-<p>不过事与愿违，为了她，他和团长约战，如果他赢了就可以带走她，如果他输了就必须加入圣龙骑士团。</p>
-<p>结果是，他进了圣龙骑士团。</p>
-<h5 id="【七】"><a href="#【七】" class="headerlink" title="【七】"></a>【七】</h5><p>其实并不只是他很享受游戏。</p>
-<p>人类是一种坚强而又软弱的动物，有的人懂得迎难而上，有的人知道知难而退。很多人知道凭借自己的能力是无法攻塔成功的，亦不会登出成功，所以他们选择生活，平静的生活，一个个家庭，一个个村庄，享受着现代生活中早已消失不见的悠闲。</p>
-<p>在某层某个村落旁，他买下了一座房子，和她一直在那儿，享受两个月的蜜月。</p>
-<p>在不断的攻塔战争中，他和她一直延续着第一次的默契配合，于是她提出了一直组队的要求，在威逼利诱之下他答应了。日久生情吧，两人在一次次的战斗中产生了彼此的依赖感，在他加入圣龙骑士团的时候他们结婚了，并申请了两个月的假期。远离前线，享受生活。</p>
-<h5 id="【八】"><a href="#【八】" class="headerlink" title="【八】"></a>【八】</h5><p>之后的情节就真的是情节了。双刀流，击败最终的Boss，却发现这只是开发者的一个意识投影，仅仅是为了观察人类的大脑。</p>
-<p>不过这对他无所谓，因为有她在就好。很快他和她都会在真实世界里醒来，他和她很快就会见面。</p>
-<p>当他在病房里见到她时，她已经坐起来了，窗外的月光流进了室内，洒在窗台上的那盆郁金香上，还有她的身上，像极了一身银白色婚纱。</p>
-<p>“初次见面，我叫亚丝娜。”</p>
-<p>这次换来的是他的无言答复。</p>
-<p>他只是紧紧抱着她。</p>
-<p>回来，真好。</p>
-<p>你在，就好。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/10/06/Novel-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -729,26 +611,14 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
 <p>他回头望了一下那些已经距他不足二百米的银白色幽灵––帝国最骁勇的战士，以其不同于普通士兵的银白色铠甲、长矛而著称。幽灵们此时正努力地向上爬着，不足二百米的距离，在近乎垂直的剑山之上则近乎天距。不过他们已经很快了，比起逃亡多年身上早已伤痕累累的弘毅。  </p>
 <p>剑山之上是剑阁，或者说是曾经的剑阁。因为这里已经成了一片真正的冢地。四周散乱着一些或立着或倒着的残缺碑位，那是曾经的剑阁里最强大的代表。可惜剑阁破裂，早就没有人再来清扫。如今这些碑位在风雨中饱受侵蚀，就像旁边的破石屋，仿佛下一刻就会倒下。在最中央放着的是剑圣柳白的碑，或许是因为那碑是昔日剑圣的，无人敢动，于是那玉碑依旧保存着自己的完整，甚至在今夜的月光映衬下更显高大，但毕竟剑阁不在，在这破败环境之中，自然也会显得破败。  </p>
 <p>真是嘲讽啊。弘毅看着剑阁的废墟，仿佛看见了那日三师叔反叛剑阁，那日帝国士兵第一次闯进剑阁，那日剑阁被一把火烧个半死，只剩下现在的废墟。弘毅突然大笑起来，全然不顾每一次大笑使肌肉拉伸所带来的疼痛，也全然不顾临近的危险。当年我们如此保护帝国，如今却被帝国追杀，真是嘲讽啊。  </p>
-<p>弘毅抚过师父的墓碑，流下眼泪。墓碑是师兄弟偷偷回来立的，可惜他们没能活着下山。帝国想到了一切的可能，整个剑山布置了大量的兵力，其中还有一些曾经的剑阁弟子。如果不是念及旧情，弘毅可能还没上山就已经死了。  </p>
-<p>弘毅想起当日师父对自己说过的话：剑阁弟子，为帝国生，为帝国死。只要还有一口气，便要保帝国无恙。弘毅还清楚地记得师父说这话的时候的自豪，身为剑阁之首，怎能不自豪？只是那时的豪情从三年前便开始不复存在了。  </p>
-<p>三年前，帝国送走了最后一位明君也迎来了第一位暴君，在小人的怂恿下这位暴君下令将剑阁抹杀：顺者昌逆者亡。剑阁曾为帝国保驾护航数百年，再大的困难也没有让他们皱一下眉，但这次不一样。弘毅的二师叔于朝野上被上万名御林军围攻，通晓杀敌之术的二师叔却不懂如何向自己人拔剑，何况罪魁祸首也不是他们这些服从命令效忠帝国的士兵，而是高高在上的君王，只是君王不在场，如何拔剑？  </p>
-<p>半个月后三师叔归顺帝国，或者说是归顺于那位暴君，同时还有一大半剑阁弟子。师父带着还有跟着自己的弟子开始逃亡生活。一路上有不少弟子死了，有的人战死了，有的人因饥饿而死，有的人因生病而死，但不管怎样，比起那些屈服的弟子，他们是真正的剑阁弟子。半年后，剑阁依旧存在于世，只是再也不是曾经的剑阁了。两年前师父为保众弟子牺牲了，那天以后，剑阁便再无辉煌可言。  </p>
-<p>“师父，”弘毅对着师父的碑鞠了三躬，“我带着师兄弟们回来了。”弘毅身后是一块新的墓碑，上面用剑刻着这几年逃亡路上位剑阁荣誉牺牲的弟子的姓名。“我想他们有资格在这剑山之上拥有一块属于自己的地方，至于我，我终究只是您当年所收养的那个孤儿，不算是真正的剑阁弟子。得您厚爱是我莫大的荣幸，您的恩情弘毅来世再报。”  </p>
-<p>弘毅向山下望去，还有不足一百米的距离了。那些白色盔甲在夜里更显清冷，像逝去的人的面孔，毫无表情，毫无感情。  </p>
-<p>时间不多了。弘毅想起师父的嘱托，转身向剑圣柳白的墓碑走去，深深鞠了一躬，道了一声道歉，接着一剑劈下，用上好玉石制成的墓碑顿时裂开。一个用玉石做的剑盒落在地上，剑盒里装的自然是剑。  </p>
-<p>这把剑很普通，外表普通，剑柄普通，花纹也普通。但这把剑却散发出一种强大的剑意，仿佛有水从天上来，波涛汹涌，又仿佛有山自远方来，不可抗拒。这些剑意是剑圣柳白用了三十三年积累下的，是足以在一瞬间将一座山雕成一把剑的力量。昔日铸剑成功之后，柳白命人将剑山的母玉打造成剑盒封进自己的墓碑里，只有历代掌门才能知晓的秘密。如今这把剑已和这座山融为一体，剑便是山，山便是剑，剑意便是山意。  </p>
-<p>这把剑有个普通的名字，叫山剑。  </p>
-<p>这座山有个普通的名字，叫剑山。  </p>
-<p>不过他们都是剑圣柳白所创，如何普通？  </p>
-<p>弘毅看着手中的剑，感受着那磅礴的剑意，想着这几年剑阁的变化、亲人的离去，这些不幸全因一个人的决定，而那个人在东方，在那最大的宫殿之内。于是弘毅剑指东方，山剑便是剑山，剑意便是山意，一股未曾有过的磅礴之势向东方掠去，仿佛有一座山于天地间行走。  </p>
-<p>“君不见黄河之水天上来，奔流到海不复回。”百年前剑圣柳白于黄河前悟剑，创立了一个新的剑派––大河剑。摒弃传统剑法的繁多招式和无尽套路，大河剑只有一种形式，只是在那一剑中既有水的轻柔，又有水的刚强。一剑便是一种气势，一种排山倒海无可比拟的气势。如今剑意带着山意向东方掠去，有山的厚重，也有水的灵动。“醉翁之意不在酒，在乎山水之间也。”有山有水，便是天下，天下既来，如何抗拒？  </p>
-<p>两年逃亡路，两千里旅途。不过顷刻剑意便到了。然后那宫殿便崩塌了，将那位暴君深埋其下。那被压毁的地基的形状，正是剑山地基的形状。  </p>
-<p>起初弘毅并不认为自己有能力挥出这一剑，因为这是剑圣柳白的剑，里面的剑意是最强势的力量，而且此时已伤痕累累的似乎也承受不起那一剑带来的伤害。越是强大的剑，伤人的同时也一定会伤己。所以几乎同时，弘毅便倒下了。  </p>
-<p>但是他不后悔，甚至为此付出性命也不后悔。所以当那白色铠甲和白色长矛出现在他最后的视野里时，他留给人间的是一个微笑，一个心满意足的微笑。  </p>
-<p>因为他叫柳弘毅。  </p>
-<p>因为他是剑阁弟子。  </p>
-<p>因为师父曾说过：士不可以不弘毅。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/03/16/Novel-4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -853,44 +723,14 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
 <p>“2025.7.7.Brain-Pons?Expeiment?Underway?32nd?day。裁决组已全票通过Dr.C的意见。这意味着‘脑桥’实验就这么结束了，五年的前后工作就这样废了，那些实验品就这样白白浪费了。我不要这样，我必须做点什么……”<br>“2025.7.8.由于裁决组的决定，‘脑桥’实验被正式搁置。董事会已下令禁止再向实验室运送罪犯（实验品）。另外董事会决定销毁实验室，大家都已经开始收拾东西准备撤离了。我的时间不多了。”  </p>
 <p>“2025.7.10.Brain-Pons?Expeiment?Ceased?2nd?day。我封闭了实验室，将那些想要撤离的人都关在冷冻区。他们的喊叫声还回响在我的耳边，但我不能放他们走，不能放弃‘脑桥’实验。绝对不能！”  </p>
 <p>“2025.7.11.Brain-Pons?Expeiment?Ceased?3rd?day。人们已经被彻底冰封住。我解冻了其中五人。我用刀将他们的肚子割开了。为了确保他们的大脑的活跃度，我不知道用什么方法比这个更有效果。我只有四分钟的时间。我把他们放入类子宫培养器中。保存下他们的意识，希望有用……另外今天发生了一件怪事。冷冻区的人数凭空少了两个。他们的身体就从冷冻舱内凭空消失了！舱内外没有任何破坏的痕迹。我莫名地感觉好孤单。”  </p>
-<p>“2025.7.12.Brain-Pons?Expeiment?Restarted?1st?day。我决定亲自实验。我躺进培养器中，给自己注入200ml药物，希望能连接上他们其中一位。事实证明我是正确的，电脑数据显示我和Dr.C的脑电波已达40%同步率。祝明天好运。另外冷冻舱内的人数又减少了两人，监控视频里没有任何有用的信息。我怀疑我的意识被‘入侵’了，希望只是我的猜测。”  </p>
-<p>“2025.7.13.Brain-Pons?Expeiment?Restarted?2nd?day。同步率达到80%。我好累。”  </p>
-<p>“2025.7.14.Brain-Pons?Expeiment?Restarted?3rd?day。同步率无法突破85%。我试着加入药物但毫无起色，我不明白。我在想方法。另外对于我的猜测，我不得不说，我可能是正确的。我曾经试着连接那50位实验品的其中一位，我只进去不到一分钟，头疼了一下，我以为没有成功，或许那次其中一位的意识进入到我的潜意识，蛰伏着……”  </p>
-<p>“2025.7.17.Brain-Pons?Expeiment?Restarted?6th?day。我想我知道了，人体对实验用药物排斥力的强度远超我的预想。我想这种药物最多不能使用3次。我需要找到一种更加强大的药物。不知道为什么，我感觉我对周围的事物越来越陌生，甚至是我之前的同事，我都快记不清他们的脸了，我感觉自己有时候就像一个灵魂，独自一人工作在实验室，难道这是我的报应？”  </p>
-<p>“2025.7.20.Brain-Pons?Expeiment?Restarted?9th?day。新药物研制失败了。我想我只能赌一次，明天我会加大药物量。2000ml，我想应该足够了。另外，我开始出现幻视幻听，我的意识已经开始变得不稳定了。我想这是因为连接上Dr.C的意识的原因，我们的意识已经开始在我的大脑中共存，我看见了希望，我知道我一定会成功。”  </p>
-<p>“2025.7.21.Brain-Pons?Expeiment?Restarted?10th?day。<br>……<br>系统自动记录失败。”  </p>
-<p>“远程操作：切入实验室监控。权限：最高级。”  </p>
-<p>“AI智能：操作批准。正在切换……切换失败。Dr.W接入。”  </p>
-<p>“‘脑桥’实验成功！我已经和Dr.C的意识共享，我可以看见他的记忆碎片，但不稳定，我需要时间好好拼接。<br>啊！这是……我？Dr.W？怎么会这样？莫非他成功？<br>不要！我不要被你控制！”  </p>
-<p>监控的另一边。  </p>
-<p>“虚拟‘脑桥’实验第一阶段成功。接下来怎么做，Dr.C？”  </p>
-<p>“切断Dr.W的意识连接，清楚记忆，进入第二阶段。”Dr.C有些惊异于耳机中传来的董事长的命令，不过相比于此，他更惊异于他和Dr.W的意识竟可以同步到如此地步。  </p>
-<p>不愧是你啊。Dr.C望向浸泡在培养器中的Dr.W的遗体，笑了。  </p>
-<h5 id="【二】"><a href="#【二】" class="headerlink" title="【二】"></a>【二】</h5><p>大脑是一个个体。  </p>
-<p>作为一个个体，每一个大脑有着自己专属的意识。这些意识共同决定一个人的性格——乐观、悲观、激愤、安静、沉稳……这些意识不受外界干扰，孤傲地存在。  </p>
-<p>大脑又不仅仅是一个个体。  </p>
-<p>每一个大脑有着相似的结构，这些结构让大脑可以在一定程度上进行无形的交流——意识上的交流。同时一定几率下的大脑电磁场的重合度也会使大脑之间进行信息共享。  </p>
-<p>Brain-Pons?Expeiment，脑桥实验，通过药物、电激等方式，引导不同大脑产生相同磁场，从而使实验者的意识共享，完成信息交流。当然，前提是大脑之间必须具备极高的同步率。  </p>
-<p>如果实验成功，那么这项技术便可以推广到军事，无论是防御还是进攻，都将提升到一个前人无法企及的高度！  </p>
-<p>——《Brain-Pons?Expeiment?Proposal》  </p>
-<p>By Dr.W&amp;Dr.C  </p>
-<h5 id="【三】"><a href="#【三】" class="headerlink" title="【三】"></a>【三】</h5><p>“2025.7.3.Brain-Pons?Expeiment?Underway?28th?day。前50位实验品已彻底死亡。裁决组已向董事会申请新一批罪犯，将会于明天送到。Dr.C提出建议，他希望我和他进入实验室做一次实验。我不知道，我……上次私自实验注入药物，我体内已经产生抗体，不能被发现……”  </p>
-<p>“2025.7.7.Brain-Pons?Expeiment?Underway?29th?day。新实验品已经冷冻保存。我同意了Dr.C的意见，我会在明天和他进入实验室亲自进行实验。我怀疑人体的抗药性已经非常强大了，我要增大加入量，才不会被他们发现。最近，他们，同事、裁决组、董事会，他们似乎都在关注我，或者说，都非常关注这次实验，远超以往，我感觉有些不大对劲，希望是我多虑了。哦，对了，最近头疼病又犯了。”  </p>
-<p>“2025.7.9.Brain-Pons?Expeiment?Underway?31st?day。昨天实验时我偷偷给自己注入了两倍的量，我不知道自己为什么要这样做，但似乎我以前这样做过？实验效果很好，数据表明我和Dr.C的脑电波同步率已达45%，裁决组表示推迟使用新一批实验品的计划，明天我会和Dr.C再次进行实验。”<br>“2025.7.10.Brain-Pons?Expeiment?Underway?32nd?day。同步率达到80%。我可以看到Dr.C的记忆碎片，我需要时间进行拼接，我好累，头好疼。”  </p>
-<p>“2025.7.13.Brain-Pons?Expeiment?Underway?35th?day。实验失败。我们能做到的只有这一点。最近几天的思考让我有了新的发现……啊！！！”<br>监控的另一边。  </p>
-<p>“Dr.W的意识稳定度下降至85%，75%，70%，60%……是否切断连接，Dr.C？”  </p>
-<p>“切断连接，清楚记忆。将这段视频发到我的办公室。先不要通知裁决组和董事会。”Dr.C回到自己的办公室，察看着视频。就在刚才看视频的时候，他发现了Dr.W的某个手势，他和Dr.W共同工作数十年，两人彼此非常熟悉，自然熟悉属于两个人之间的“暗语”。这个手势由两部分组成，分别代表“见我”“救我”。  </p>
-<p>他无奈地苦笑了。不愧是Dr.W，竟然发现了。  </p>
-<p>“这可不大好办啊。”</p>
-<h5 id="【四】"><a href="#【四】" class="headerlink" title="【四】"></a>【四】</h5><p>大脑，真的是非常神奇。  </p>
-<p>作为一个人的最高级的处理器，每天都要处理大量信息——家庭纠纷、事业交易、人生浮沉……并尽最大可能做出最适当的选择。开发度不超过8%，却能指导人类去发现、认识新世界，不得不说，它是无可替代的“统领”。  </p>
-<p>作为一个统领，它需要不断地补充兵力，如今Dr.W的统领已经快撑不住了，但它既然决定了Dr.W的不服输的性格，那它就必然也是这样的。所以它在选了一个特定的部位，偷偷地补充兵力。  </p>
-<p>真的很不容易。这些细胞在大脑的指挥下慢慢地、坚强地成长，不顾同伴的不断衰亡，或者说它们早已忽略了这个问题。它们将外界的刺激当成养料，疯狂地成长着，可惜的是，脑细胞死亡的速度真的是太快了。药物只能延缓脑死亡的时间但这并不代表是停止，哪怕是无限期延缓，也终有一天会死亡。  </p>
-<p>所以那些细胞最后只是形成了一个很小很小的细胞团，不过这已经足够了。统领也表示出它的奖赏——它们将负责处理自脑死亡之后发生的所有事情。  </p>
-<p>就在Dr.C第一次下令清楚记忆时，就在药物开始不断冲击大脑时，统领以及它的部下都失去了记忆。不过它们没有。它们活了下来，并记录下发生的一切，然后一个细胞开始产生神经冲动，接着两个、三个、四个……直到那个细胞团整个都在产生神经冲动，激活Dr.W的潜意识。  </p>
-<p>于是Dr.W开始头疼。处理的信息越多，记忆碎片浮现的越多，他的头就越疼，也越来越频繁。直到某一天某一刻，在与Dr.C的意识连接时，他发现了那些缺少的记忆碎片，然后它们为他拼接起来，也为他想出了一个计划……  </p>
-<p>除了疯狂，Dr.W想不出别的词来形容了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2014/02/01/Novel-3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -996,10 +836,10 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -1026,7 +866,7 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -1042,6 +882,9 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -1100,6 +943,10 @@ hadoop fs -rm -r &lt; hdfs dir&gt;...
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

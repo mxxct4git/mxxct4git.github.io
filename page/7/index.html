@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxxct4git.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="君子不器">
@@ -102,6 +102,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -131,11 +132,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -256,31 +284,14 @@
 
 <p>如果是本地索引，则在rowkey前加入startrowkey索引</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// For local indexes, we must prepend the row key with the start region key</span><br><span class="line">if (prependRegionStartKey) &#123;</span><br><span class="line">    if (regionStartKey.length == 0) &#123;</span><br><span class="line">        // 如果startRK为null，则其实使用的endRK</span><br><span class="line">        output.write(new byte[prefixKeyLength]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        output.write(regionStartKey);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>判断是否有加盐，如果有，则增加一个标志位，后面再更改这个标志位</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (isIndexSalted) &#123;</span><br><span class="line">    output.write(0); // will be set at end to index salt byte</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果在索引视图id不为null，会在索引rowkey中加入视图id</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (viewIndexId != null) &#123;</span><br><span class="line">    output.write(viewIndexId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>dataRowKeySchema是数据表的信息，忽略在视图变量的中常量值，并标记出原表pk的rowkey的offset 和 length，方便后面定位数据表rowkey插入。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">for (int i = dataPosOffset; i &lt; dataRowKeySchema.getFieldCount(); i++) &#123;</span><br><span class="line">    Boolean hasValue=dataRowKeySchema.next(ptr, i, maxRowKeyOffset);</span><br><span class="line">    // Ignore view constants from the data table, as these</span><br><span class="line">    // don&#x27;t need to appear in the index (as they&#x27;re the</span><br><span class="line">    // same for all rows in this index)</span><br><span class="line">    if (!viewConstantColumnBitSet.get(i)) &#123;</span><br><span class="line">        int pos = rowKeyMetaData.getIndexPkPosition(i-dataPosOffset);</span><br><span class="line">        if (Boolean.TRUE.equals(hasValue)) &#123;</span><br><span class="line">            dataRowKeyLocator[0][pos] = ptr.getOffset();</span><br><span class="line">            dataRowKeyLocator[1][pos] = ptr.getLength();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            dataRowKeyLocator[0][pos] = 0;</span><br><span class="line">            dataRowKeyLocator[1][pos] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>考虑索引的数据的顺序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">// 获取表达式索引，表达式索引默认值都为1，未开启的时候isNullAble为true</span><br><span class="line"></span><br><span class="line">Iterator&lt;Expression&gt; expressionIterator = indexedExpressions.iterator();</span><br><span class="line"></span><br><span class="line">//  nIndexedColumns 的构成是索引列+主键 如果是组合索引，则循环多个索引列</span><br><span class="line">for (int i = 0; i &lt; nIndexedColumns; i++) &#123;</span><br><span class="line">    PDataType dataColumnType;</span><br><span class="line">    boolean isNullable;</span><br><span class="line">    SortOrder dataSortOrder;</span><br><span class="line"></span><br><span class="line">// dataPkPosition为-1则表示为表达式索引，否则为属性索引</span><br><span class="line">    if (dataPkPosition[i] == EXPRESSION_NOT_PRESENT) &#123;</span><br><span class="line">       Expression expression = expressionIterator.next();</span><br><span class="line">       dataColumnType = expression.getDataType();</span><br><span class="line">       dataSortOrder = expression.getSortOrder();</span><br><span class="line">        isNullable = expression.isNullable();</span><br><span class="line">       expression.evaluate(new ValueGetterTuple(valueGetter, ts), ptr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//  主键pk 走这个分支</span><br><span class="line">    else &#123;</span><br><span class="line">        Field field = dataRowKeySchema.getField(dataPkPosition[i]);</span><br><span class="line">        dataColumnType = field.getDataType();</span><br><span class="line">        ptr.set(rowKeyPtr.get(), dataRowKeyLocator[0][i], dataRowKeyLocator[1][i]);</span><br><span class="line">        dataSortOrder = field.getSortOrder();</span><br><span class="line">        isNullable = field.isNullable();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// 考虑列值的顺序，考虑字节的比较，考虑索引列的顺序</span><br><span class="line"></span><br><span class="line">// 判断查询是否desc，默认为asc。</span><br><span class="line">    boolean isDataColumnInverted = dataSortOrder != SortOrder.ASC;</span><br><span class="line"></span><br><span class="line">// 获取索引列的的数据类型，详情看后面getIndexColumnDataType函数</span><br><span class="line">    PDataType indexColumnType = IndexUtil.getIndexColumnDataType(isNullable, dataColumnType);</span><br><span class="line"></span><br><span class="line">//根据数据列返回不同的datatype，判断该列是否可比较。不可比较的列有decimal，varchar，boolean，Binary</span><br><span class="line">    boolean isBytesComparable = dataColumnType.isBytesComparableWith(indexColumnType);</span><br><span class="line"></span><br><span class="line">// 获取列是否是逆序的</span><br><span class="line">    boolean isIndexColumnDesc = descIndexColumnBitSet.get(i);</span><br><span class="line">    if (isBytesComparable &amp;&amp; isDataColumnInverted == isIndexColumnDesc) &#123;</span><br><span class="line">        output.write(ptr.get(), ptr.getOffset(), ptr.getLength());</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        if (!isBytesComparable)  &#123;</span><br><span class="line"></span><br><span class="line">// 让不可比较的类型具有可比性</span><br><span class="line">            indexColumnType.coerceBytes(ptr, dataColumnType, dataSortOrder, SortOrder.getDefault());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">// 按位取异或值，二进制数比较肯定是字典序，从最高位开始比较，直到遇到第一个不一样的位，这个位上哪个数等于1哪个数就较大。 </span><br><span class="line">        if (isDataColumnInverted != isIndexColumnDesc) &#123;</span><br><span class="line">            writeInverted(ptr.get(), ptr.getOffset(), ptr.getLength(), output);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            output.write(ptr.get(), ptr.getOffset(), ptr.getLength());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// 判断数据是不是一个固定长度的字段，如果不是根据数据的正序逆序添加一个标志位</span><br><span class="line">    if (!indexColumnType.isFixedWidth()) &#123;</span><br><span class="line">        output.writeByte(SchemaUtil.getSeparatorByte(rowKeyOrderOptimizable, ptr.getLength() == 0, isIndexColumnDesc ? SortOrder.DESC : SortOrder.ASC));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>填充开始的加盐部分的字节位，规则是根据数据做hash，然后再对nIndexSaltBuckets取余</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (isIndexSalted) &#123;</span><br><span class="line">    // Set salt byte</span><br><span class="line">    byte saltByte = SaltingUtil.getSaltingByte(indexRowKey, SaltingUtil.NUM_SALTING_BYTES, length-SaltingUtil.NUM_SALTING_BYTES, nIndexSaltBuckets);</span><br><span class="line">    indexRowKey[0] = saltByte;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>返回所有的生成的rowkey</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return indexRowKey.length == length ? indexRowKey : Arrays.copyOf(indexRowKey, length);</span><br></pre></td></tr></table></figure>
-
-<p>根据数据列返回不同的datatype，判断该列是否可比较。不可比较的列有decimal，varchar，boolean，Binary等</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// Since we cannot have nullable fixed length in a row key</span><br><span class="line">// we need to translate to variable length. The verification that we have a valid index</span><br><span class="line">// row key was already done, so here we just need to convert from one built-in type to</span><br><span class="line">// another.</span><br><span class="line">public static PDataType getIndexColumnDataType(boolean isNullable, PDataType dataType) &#123;</span><br><span class="line">    if (dataType == null || !isNullable || !dataType.isFixedWidth()) &#123;</span><br><span class="line">        return dataType;</span><br><span class="line">    &#125;</span><br><span class="line">    // for fixed length numeric types and boolean</span><br><span class="line">    if (dataType.isCastableTo(PDecimal.INSTANCE)) &#123;</span><br><span class="line">        return PDecimal.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    // for CHAR</span><br><span class="line">    if (dataType.isCoercibleTo(PVarchar.INSTANCE)) &#123;</span><br><span class="line">        return PVarchar.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (PBinary.INSTANCE.equals(dataType)) &#123;</span><br><span class="line">        return PVarbinary.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    throw new IllegalArgumentException(&quot;Unsupported non nullable type &quot; + dataType);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>让数据有可比性</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">protected static int toBytes(BigDecimal v, byte[] result, final int offset, int length) &#123;</span><br><span class="line">    // From scale to exponent byte (if BigDecimal is positive): (-(scale+(scale % 2 == 0 : 0 : 1)) / 2 + 65) | 0x80</span><br><span class="line">    // If scale % 2 is 1 (i.e. it&#x27;s odd), then multiple last base-100 digit by 10</span><br><span class="line">    // For example: new BigDecimal(BigInteger.valueOf(1), -4);</span><br><span class="line">    // (byte)((-(-4+0) / 2 + 65) | 0x80) = -61</span><br><span class="line">    // From scale to exponent byte (if BigDecimal is negative): ~(-(scale+1)/2 + 65 + 128) &amp; 0x7F</span><br><span class="line">    // For example: new BigDecimal(BigInteger.valueOf(1), 2);</span><br><span class="line">    // ~(-2/2 + 65 + 128) &amp; 0x7F = 63</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/27/Phoenix-3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -395,94 +406,14 @@
 <li>Redis的速度非常快（因为使用非阻塞式IO，且大部分命令的算法时间复杂度都是O(1))</li>
 <li>使用高耗时的Redis命令是很危险的，会占用唯一的一个线程的大量处理时间，导致所有的请求都被拖慢。（例如时间复杂度为O(N)的KEYS命令，严格禁止在生产环境中使用）</li>
 </ul>
-<h3 id="2-数据结构"><a href="#2-数据结构" class="headerlink" title="2. 数据结构"></a>2. 数据结构</h3><h4 id="2-1-Key-Value"><a href="#2-1-Key-Value" class="headerlink" title="2.1 Key-Value"></a>2.1 Key-Value</h4><p>任何二进制序列都可以作为Redis的Key使用（例如普通的字符串或一张JPEG图片）。</p>
-<ul>
-<li>不要使用过长的Key。例如使用一个1024字节的key就不是一个好主意，不仅会消耗更多的内存，还会导致查找的效率降低</li>
-<li>Key短到缺失了可读性也是不好的，例如”u1000flw”比起”user:1000:followers”来说，节省了寥寥的存储空间，却引发了可读性和可维护性上的麻烦</li>
-<li>最好使用统一的规范来设计Key，比如”object-type:id:attr”，以这一规范设计出的Key可能是”user:1000”或”comment:1234:reply-to”</li>
-<li>Redis允许的最大Key长度是512MB（对Value的长度限制也是512MB）</li>
-</ul>
-<h4 id="2-2-String"><a href="#2-2-String" class="headerlink" title="2.2 String"></a>2.2 String</h4><p>Redis的基础数据类型只有 String。</p>
-<p>与 String 相关的常用命令：</p>
-<ul>
-<li>SET ：为一个key设置value，可以设置过期时间，-1为永久有效，时间复杂度O(1)</li>
-<li>GET ：获取某个key对应的value，时间复杂度O(1)</li>
-<li>GETSET ：为一个key设置value，并返回该key的原value，时间复杂度O(1)</li>
-<li>MSET ：为多个key设置value，时间复杂度O(N) -&gt; 参数为 <code>Map&lt;byte[], byte[]&gt;</code> <ul>
-<li>底层实现的时候还是for循环一个个set进去，mset和set的效率差别在是否需要销毁连接，通过pipeline的方式可以一次性发送过去多条指令，但是通过连接池实现时连接会一直存在，此时的效率差距就不是很大了</li>
-<li>由于底层是for循环，那么根据数据的key，计算出槽位，按照槽位来分组，通过 ParallelStream 来并行处理相同槽位的数据，可以提高上下行效率</li>
-</ul>
-</li>
-<li>MSETNX ：同MSET，如果指定的key中有任意一个已存在，则不进行任何操作，时间复杂度O(N)</li>
-<li>MGET ：获取多个key对应的value，时间复杂度O(N)</li>
-</ul>
-<p>虽然Redis的基本数据类型只有String，但Redis可以把String作为整型或浮点型数字来使用，主要体现在INCR、DECR类的命令上：</p>
-<ul>
-<li>INCR ：将key对应的value值自增1，并返回自增后的值。只对可以转换为整型的String数据起作用。时间复杂度O(1)</li>
-<li>INCRBY ：将key对应的value值自增指定的整型数值，并返回自增后的值。只对可以转换为整型的String数据起作用。时间复杂度O(1)</li>
-<li>DECR&#x2F;DECRBY ：同INCR&#x2F;INCRBY，自增改为自减。</li>
-</ul>
-<p>INCR&#x2F;DECR系列命令要求操作的value类型为String，并可以转换为64位带符号的整型数字，否则会返回错误。也就是说，进行INCR&#x2F;DECR系列命令的value，必须在[-2^63 ~ 2^63 - 1]范围内。</p>
-<h4 id="2-3-其他存储形式"><a href="#2-3-其他存储形式" class="headerlink" title="2.3 其他存储形式"></a>2.3 其他存储形式</h4><h3 id="3-数据持久化"><a href="#3-数据持久化" class="headerlink" title="3. 数据持久化"></a>3. 数据持久化</h3><h4 id="3-1-RDB"><a href="#3-1-RDB" class="headerlink" title="3.1 RDB"></a>3.1 RDB</h4><p>采用RDB持久方式，Redis会定期保存数据快照至一个rbd文件中，并在启动时自动加载rdb文件，恢复之前保存的数据。</p>
-<p>可以在配置文件中配置多个Redis进行快照保存的时机</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">save [seconds] [changes]</span><br><span class="line">意为在[seconds]秒内如果发生了[changes]次数据修改，则进行一次RDB快照保存</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>RDB的优点：<ul>
-<li>对性能影响最小。如前文所述，Redis在保存RDB快照时会fork出子进程进行，几乎不影响Redis处理客户端请求的效率。</li>
-<li>每次快照会生成一个完整的数据快照文件，所以可以辅以其他手段保存多个时间点的快照（例如把每天0点的快照备份至其他存储媒介中），作为非常可靠的灾难恢复手段。</li>
-<li>使用RDB文件进行数据恢复比使用AOF要快很多。</li>
-</ul>
-</li>
-<li>RDB的缺点：<ul>
-<li>快照是定期生成的，所以在Redis crash时或多或少会丢失一部分数据。</li>
-<li>如果数据集非常大且CPU不够强（比如单核CPU），Redis在fork子进程时可能会消耗相对较长的时间（长至1秒），影响这期间的客户端请求。</li>
-</ul>
-</li>
-</ul>
-<h4 id="3-2-AOF"><a href="#3-2-AOF" class="headerlink" title="3.2 AOF"></a>3.2 AOF</h4><p>采用AOF持久方式时，Redis会把每一个写请求都记录在一个日志文件里。在Redis重启时，会把AOF文件中记录的所有写操作顺序执行一遍，确保数据恢复到最新。</p>
-<p>缺点：恢复速度慢，因为恢复的时候需要遍历日记文件；对一个key不断进行操作，记录多次，有冗余，针对这一点可以对日志冗余的部分进行合并重写</p>
-<h3 id="4-内存管理"><a href="#4-内存管理" class="headerlink" title="4. 内存管理"></a>4. 内存管理</h3><p>提前预估设置最大内存使用大小，避免无限制占用内存。</p>
-<p>在内存占用达到了maxmemory后，再向Redis写入数据时，Redis会：</p>
-<ul>
-<li>根据配置的数据淘汰策略尝试淘汰数据，释放空间</li>
-<li>如果没有数据可以淘汰，或者没有配置数据淘汰策略，那么Redis会对所有写请求返回错误，但读请求仍然可以正常执行</li>
-</ul>
-<p>在为Redis设置maxmemory时，需要注意：</p>
-<ul>
-<li>如果采用了Redis的主从同步，主节点向从节点同步数据时，会占用掉一部分内存空间，如果maxmemory过于接近主机的可用内存，导致数据同步时内存不足。所以设置的maxmemory不要过于接近主机可用的内存，留出一部分预留用作主从同步。</li>
-</ul>
-<h3 id="5-数据淘汰机制"><a href="#5-数据淘汰机制" class="headerlink" title="5. 数据淘汰机制"></a>5. 数据淘汰机制</h3><p>Redis 提供5种数据淘汰策略：</p>
-<ul>
-<li>volatile-lru：使用LRU算法进行数据淘汰（淘汰上次使用时间最早的，且使用次数最少的key），只淘汰设定了有效期的key</li>
-<li>allkeys-lru：使用LRU算法进行数据淘汰，所有的key都可以被淘汰</li>
-<li>volatile-random：随机淘汰数据，只淘汰设定了有效期的key</li>
-<li>allkeys-random：随机淘汰数据，所有的key都可以被淘汰</li>
-<li>volatile-ttl：淘汰剩余有效期最短的key</li>
-</ul>
-<h3 id="6-PipeLining"><a href="#6-PipeLining" class="headerlink" title="6. PipeLining"></a>6. PipeLining</h3><p>比起多次传输数据不如一次性传输多个数据 &#x3D;&gt; mset 一次性传输一个map的key-value的效率要高于多次set传输key-value的效率 &#x3D;&gt; 前提是set返回的结果并不是迫切需要的</p>
-<h3 id="7-性能调优"><a href="#7-性能调优" class="headerlink" title="7. 性能调优"></a>7. 性能调优</h3><p>尽管Redis是一个非常快速的内存数据存储媒介，也并不代表Redis不会产生性能问题。前文中提到过，Redis采用单线程模型，所有的命令都是由一个线程串行执行的，所以当某个命令执行耗时较长时，会拖慢其后的所有命令，这使得Redis对每个任务的执行效率更加敏感。</p>
-<p>针对Redis的性能优化，主要从下面几个层面入手：</p>
-<ul>
-<li>最初的也是最重要的，确保没有让Redis执行耗时长的命令</li>
-<li>使用pipelining将连续执行的命令组合执行</li>
-<li>操作系统的Transparent huge pages功能必须关闭：<br><code>echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</code></li>
-<li>如果在虚拟机中运行Redis，可能天然就有虚拟机环境带来的固有延迟。可以通过.&#x2F;redis-cli –intrinsic-latency 100命令查看固有延迟。同时如果对Redis的性能有较高要求的话，应尽可能在物理机上直接部署Redis。</li>
-<li>检查数据持久化策略</li>
-<li>考虑引入读写分离机制</li>
-</ul>
-<h3 id="8-长耗时命令"><a href="#8-长耗时命令" class="headerlink" title="8. 长耗时命令"></a>8. 长耗时命令</h3><p>避免使用 O(N) 的指令。</p>
-<h3 id="9-为什么只有16384个槽"><a href="#9-为什么只有16384个槽" class="headerlink" title="9. 为什么只有16384个槽"></a>9. 为什么只有16384个槽</h3><p><a href="https://www.cnblogs.com/rjzheng/p/11430592.html">参考</a></p>
-<p>客户端请求的key，根据 <code>HASH_SLOT=CRC16(key) mod 16384</code> 计算出需要映射到哪一个分片上，然后 redis 会到相应的节点进行操作。</p>
-<p>CRC16 算法产生的hash值有16bit，该算法可以产生2^16-&#x3D;65536个值。换句话说，值是分布在0~65535之间。那作者在做mod运算的时候，为什么不mod65536，而选择mod16384？</p>
-<p><a href="https://github.com/antirez/redis/issues/2576">作者回答</a></p>
-<blockquote>
-<p>The reason is:<br>Normal heartbeat packets carry the full configuration of a node, that can be replaced in an idempotent way with the old in order to update an old config. This means they contain the slots configuration for a node, in raw form, that uses 2k of space with16k slots, but would use a prohibitive 8k of space using 65k slots.<br>At the same time it is unlikely that Redis Cluster would scale to more than 1000 mater nodes because of other design tradeoffs.<br>So 16k was in the right range to ensure enough slots per master with a max of 1000 maters, but a small enough number to propagate the slot configuration as a raw bitmap easily. Note that in small clusters the bitmap would be hard to compress because when N is small the bitmap would have slots&#x2F;N bits set that is a large percentage of bits set.</p>
-</blockquote>
-<p>当两个节点meet之后，会定期进行通信，交换数据信息。这个数据信息包括节点id、ip、端口号以及本节点负责的槽位信息等等。在消息头里最占空间的是 <code>myslots[CLUSTER_SLOTS/8]</code>，大小为 <code>16384÷8÷1024=2kb</code>，myslots 是一个char数组，每一位代表一个槽，该位为1表示这个槽属于这个节点。</p>
-<p>数据消息体里会携带一定数量的其他节点信息用于交换 &#x3D;&gt; 节点数量越多，消息体内容越大。</p>
-<p>∴ 如果槽位过多，那么消息体占的内容越大，65536个槽对应8k，浪费带宽；同时也不会有太多的节点，16384足够用</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/18/Redis-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -587,16 +518,14 @@
           <h2 id="Mac-搭建-Redis-集群"><a href="#Mac-搭建-Redis-集群" class="headerlink" title="Mac 搭建 Redis 集群"></a>Mac 搭建 Redis 集群</h2><p><a href="https://www.jianshu.com/p/e5b046b8dcbf">参考文档</a></p>
 <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>安装docker<br>brew cask install docker</p>
 <p>在设置里选择 Docker Engine，添加国内下载镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://hub-mirror.c.163.com/&quot;,</span><br><span class="line">    &quot;https://reg-mirror.qiniu.com&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;experimental&quot;: false,</span><br><span class="line">  &quot;debug&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-cluster</span><br><span class="line">git clone https://github.com/carwestsam/redis-cluster-in-docker-osx.git</span><br></pre></td></tr></table></figure>
-<p>自动下载redis集群项目到目录下，该项目会自动添加到docker文件中</p>
-<p><code>cd redis-cluster-in-docker-osx</code><br>修改每一个端口文件下redis.conf文件，注释掉密码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># requirepass &quot;myredis&quot;</span><br><span class="line"># masterauth &quot;myredis&quot;</span><br></pre></td></tr></table></figure>
-<p>修改start.sh文件，去掉 –password myredis 避免密码验证</p>
-<p><code>bash start.sh</code> 启动项目会自动下载需要的文件</p>
-<p><code>redis-cli -c -p 7000</code> 进入到redis命令行</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/24/Redis-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -711,77 +640,14 @@
           <h2 id="线程一些问题"><a href="#线程一些问题" class="headerlink" title="线程一些问题"></a>线程一些问题</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>单线程和多线程 表象化的一种理解：线程就是程序执行的路径，单线程就是只有一条路径，多线程就是多条路径</p>
 <p>进程：一个程序装载到内存里，分配好资源如网络等等。是分配资源的最基本单位</p>
 <p>线程：程序开始运行，将一条条指令放到cpu里执行。是调度执行的最基本单位</p>
-<p>CPU：ALU（算术逻辑单元，负责计算） + Registers（寄存器，存储数据） + PC（计数器，记录执行到哪一条指令，记录指令地址）</p>
-<p>一个核在同一时刻只能运行一个线程。<br>但是目前也存在线程撕裂者，即超线程：由于ALU速度大于Registers，所以如果一个ALU搭配一套Registers+PC即是一个线程，如果一个ALU搭配两套Registers+PC就是超线程，省略了线程上下文切换的时间。</p>
-<p>线程切换（上下文切换）：运行T1线程时，会把T1的数据放入寄存器中计算，如果时间到了需要切换时，会把T1的数据地址等等放入到缓存中，把T2的数据放入到寄存器中</p>
-<p>线程数并不是越大越好，因为CPU要保证所有的线程都有执行的机会，会浪费很多时间在线程切换上。</p>
-<p>哪怕是单核CPU设置多线程也有意义。多线程是为了提高CPU利用效率，一个程序并不是全部时刻都在占用CPU。</p>
-<h3 id="2-线程的可见性"><a href="#2-线程的可见性" class="headerlink" title="2. 线程的可见性"></a>2. 线程的可见性</h3><p>一个线程对共享变量值的修改，能够及时的被其他线程看到。</p>
-<p>JVM中关于各种变量（线程共享变量）的访问规则</p>
-<ol>
-<li>所有的变量都存储在主内存中。</li>
-<li>每个线程都有自己独立的工作内存，里面保存该线程使用到的变量的副本（主内存中该变量的一份拷贝）。</li>
-<li>线程对共享变量的所有操作都必须在自己的工作内存中进行，不能直接从主内存中读写。</li>
-<li>不同线程之间无法直接访问其他线程工作内存中的变量，线程间变量的传递需要通过主内存来完成。</li>
-</ol>
-<p>原理：<br>线程1对共享变量的修改要想被线程2及时看到</p>
-<ol>
-<li>把工作内存1中更新过的共享变量刷新到主内存中</li>
-<li>将主内存中最新的共享变量的值更新到工作内存2中</li>
-</ol>
-<p>实现方式：</p>
-<ol>
-<li>synchronized</li>
-<li>volatile</li>
-</ol>
-<p><img src="https://images.weserv.nl/?url=https://img-blog.csdn.net/20180402191722152?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZnUxMjMxMjNmdQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="pic1"></p>
-<h4 id="2-1-synchronized-实现可见性以及原子性"><a href="#2-1-synchronized-实现可见性以及原子性" class="headerlink" title="2.1 synchronized 实现可见性以及原子性"></a>2.1 synchronized 实现可见性以及原子性</h4><p>JMM关于synchronized的两条规定：</p>
-<ol>
-<li>线程解锁前（退出synchronized代码块之前），必须把共享变量的最新值刷新到主内存中，也就是说线程退出synchronized代码块值后，主内存中保存的共享变量的值已经是最新的了</li>
-<li>线程加锁时（进入synchronized代码块之后），将清空工作内存中共享变量的值，从而使用共享变量时需要从主内存中重新读取最新的值（注意：加锁与解锁需要是同一把锁）</li>
-</ol>
-<p>两者结合：线程解锁前对共享变量的修改在下次加锁时对其他线程可见</p>
-<p>根据以上推出线程执行互斥代码的过程：<br>1.获得互斥锁（进入synchronized代码块）<br>2.清空工作内存<br>3.从主内存拷贝变量的最新副本到工作内存<br>4.执行代码<br>5.将更改后的共享变量的值刷新到主内存<br>6.释放互斥锁（退出synchronized代码块）</p>
-<h4 id="2-2-volatile-实现可见性"><a href="#2-2-volatile-实现可见性" class="headerlink" title="2.2 volatile 实现可见性"></a>2.2 volatile 实现可见性</h4><p>volatile 特性：</p>
-<ol>
-<li>能够保证volatile变量的可见性</li>
-<li>不能保证volatile变量复合操作的原子性</li>
-</ol>
-<p>如何实现内存的可见性？</p>
-<ol>
-<li>对volatile变量执行写操作时，会在写操作后加入一条store屏障指令 &#x3D;&gt; <strong>写后存(store)</strong></li>
-<li>对volatile变量执行读操作时，会在读操作前加入一条load屏障指令 &#x3D;&gt; <strong>读前读(load)</strong></li>
-</ol>
-<p>通俗的讲：volatile变量在每次被线程访问时，都强迫从主内存中重读该变量的值，而当该变量发生变化时，又会强迫线程将最新的值刷新到主内存。这样任何时刻，不同的线程总能看到该变量的最新值。</p>
-<p>为什么不能保证volatile变量复合操作的原子性？<br>通俗的讲，volatile不能加锁，对number++;的操作会被多个线程交叉执行，导致出现不同的结果</p>
-<h4 id="2-4-synchronized-和-volatile-区别"><a href="#2-4-synchronized-和-volatile-区别" class="headerlink" title="2.4 synchronized 和 volatile 区别"></a>2.4 synchronized 和 volatile 区别</h4><ol>
-<li>volatile 不需要加锁，更轻量级</li>
-<li>volatile 只保证可见性，不保证原子性</li>
-</ol>
-<h3 id="3-线程的-as-if-serial"><a href="#3-线程的-as-if-serial" class="headerlink" title="3. 线程的 as-if-serial"></a>3. 线程的 as-if-serial</h3><p>这个主要针对的是单线程。多线程肯定不能保证顺序。</p>
-<p>单线程 as-if-serial 语义 – 单线程两条语句，并不一定按顺序执行。但是重排序必须保证最后执行结果的一致性。</p>
-<p>原因：有的指令执行不占用cpu，但是耗时长；有的指令占用cpu，耗时短。</p>
-<h4 id="3-1-指令重排序与内存屏障"><a href="#3-1-指令重排序与内存屏障" class="headerlink" title="3.1 指令重排序与内存屏障"></a>3.1 指令重排序与内存屏障</h4><p>代码书写的顺序与实际执行的顺序不同，原因是编译器或处理器为了提高程序性能而做的优化。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">编译器重排</span><br><span class="line">// 优化前</span><br><span class="line">int x = 1;</span><br><span class="line">int y = 2;</span><br><span class="line">int a1 = x * 1;</span><br><span class="line">int b1 = y * 1;</span><br><span class="line">int a2 = x * 2;</span><br><span class="line">int b2 = y * 2;</span><br><span class="line"></span><br><span class="line">// 优化后</span><br><span class="line">int x = 1;</span><br><span class="line">int y = 2;</span><br><span class="line">int a1 = x * 1;</span><br><span class="line">int a2 = x * 2;</span><br><span class="line">int b1 = y * 1;</span><br><span class="line">int b2 = y * 2;</span><br><span class="line">CPU只读一次的x和y值。不需反复读取寄存器来交替x和y值。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">处理器重排</span><br><span class="line">// 初始化</span><br><span class="line">int a = 0;</span><br><span class="line">int b = 0;</span><br><span class="line">int x = 0;</span><br><span class="line">int y = 0;</span><br><span class="line"></span><br><span class="line">// 处理器A执行</span><br><span class="line">a = 1;</span><br><span class="line">x = b;</span><br><span class="line">// 处理器B执行</span><br><span class="line">b = 2;</span><br><span class="line">y = a;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://images.weserv.nl/?url=https://upload-images.jianshu.io/upload_images/9930763-bec61c919d66e2db.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/663/format/webp" alt="pic2"></p>
-<p>变量全部存储在主内存。a&#x3D;1 这个操作在A处理器本地缓存中处理，此时a变量最新的值没有刷新到主内存中，此时B处理器从主内存中读a的值就会返回0。同理y也可能被赋值为0。</p>
-<p>针对这种情况，处理器提供四种内存屏障 – LoadLoadBarrier、StoreStoreBarrier、LoadStoreBarrier、StoreLoadBarrier。Load是读，Store是写。屏障前的指令必须全部执行完，才能执行屏障后的指令。</p>
-<h3 id="4-对象的创建过程"><a href="#4-对象的创建过程" class="headerlink" title="4. 对象的创建过程"></a>4. 对象的创建过程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class T&#123;</span><br><span class="line">    int m = 8;</span><br><span class="line">&#125;</span><br><span class="line">T t = new T();</span><br></pre></td></tr></table></figure>
-<p>对应的汇编码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0 new #2 &lt;T&gt;</span><br><span class="line">3 dup</span><br><span class="line">4 invokespecial #3 &lt;T.&lt;init&gt;&gt;</span><br><span class="line">7 astore_1</span><br><span class="line">8 return</span><br></pre></td></tr></table></figure>
-<p><code>0 new #2 &lt;T&gt;</code> 负责在内存中申请一块内存，此时成员变量都是默认值，即m&#x3D;0<br><code>4 invokespecial #3 &lt;T.&lt;inti&gt;&gt;</code> 执行初始化，此时m&#x3D;8<br><code>7 astore_1</code> 建立t和T的关联关系</p>
-<h3 id="4-DCL-单例模式需要加-volatile-吗"><a href="#4-DCL-单例模式需要加-volatile-吗" class="headerlink" title="4. DCL 单例模式需要加 volatile 吗"></a>4. DCL 单例模式需要加 volatile 吗</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class LHan &#123;</span><br><span class="line">    private static volatile LHan instance; // 必须要加 volatile</span><br><span class="line">    private LHan()&#123;&#125;</span><br><span class="line">    public static LHan getInstance()&#123;</span><br><span class="line">        if(instance == null)&#123; // 这一层判断是为了提高效率。锁竞争很耗费时间和效率，避免多个线程每一次getInstance都要进入到同步代码块</span><br><span class="line">            synchronized(this)&#123;</span><br><span class="line">                if(instance == null)&#123;</span><br><span class="line">                    instance = new LHan();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-1-对象的创建过程"><a href="#4-1-对象的创建过程" class="headerlink" title="4.1 对象的创建过程"></a>4.1 对象的创建过程</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class T&#123;</span><br><span class="line">    int m = 8;</span><br><span class="line">&#125;</span><br><span class="line">T t = new T();</span><br></pre></td></tr></table></figure>
-<p>对应的汇编码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0 new #2 &lt;T&gt;</span><br><span class="line">3 dup</span><br><span class="line">4 invokespecial #3 &lt;T.&lt;init&gt;&gt;</span><br><span class="line">7 astore_1</span><br><span class="line">8 return</span><br></pre></td></tr></table></figure>
-<p><code>0 new #2 &lt;T&gt;</code> 负责在内存中申请一块内存，此时成员变量都是默认值，即m&#x3D;0<br><code>4 invokespecial #3 &lt;T.&lt;inti&gt;&gt;</code> 执行初始化，此时m&#x3D;8<br><code>7 astore_1</code> 建立t和T的关联关系</p>
-<h4 id="4-2-必须要加-volatile-的原因"><a href="#4-2-必须要加-volatile-的原因" class="headerlink" title="4.2 必须要加 volatile 的原因"></a>4.2 必须要加 volatile 的原因</h4><p>A -&gt; getInstance -&gt; new 一个对象，在创建过程中，如果指令发生重排，即先执行了 <code>0 new #2 &lt;T&gt;</code>，然后 <code>7 astore_1</code> 和 <code>4 invokespecial #3 &lt;T.&lt;inti&gt;&gt;</code> 发生重排，此时 instance 不为null，但是变量均为默认值</p>
-<p>B -&gt; getInstance -&gt; 不为null，直接返回，获取到的变量值为默认值，会发生错误</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/28/Thread-5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -889,26 +755,14 @@
       
           <h2 id="java-util-function-包"><a href="#java-util-function-包" class="headerlink" title="java.util.function 包"></a>java.util.function 包</h2><h3 id="1-Function"><a href="#1-Function" class="headerlink" title="1. Function"></a>1. Function</h3><p>接收一个参数，并返回一个结果</p>
 <h3 id="2-BiFunction"><a href="#2-BiFunction" class="headerlink" title="2. BiFunction"></a>2. BiFunction</h3><p>接收两个参数，并返回一个结果</p>
-<h3 id="3-BinaryOperator"><a href="#3-BinaryOperator" class="headerlink" title="3. BinaryOperator"></a>3. BinaryOperator</h3><p>二元操作符，根据两个参数来返回一个计算结果。继承 BiFunction，具体写法上会更加简单，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BinaryOperator&lt;Integer&gt; func = (n1, n2) -&gt; n1 + n2;</span><br><span class="line">func.apply(1, 2);</span><br></pre></td></tr></table></figure>
-
-<p>apply 就相当于是一个传参的过程，具体返回结果需要看 func 具体实现过程。</p>
-<p>默认函数里实现了 minBy &#x2F; maxBy 两种，可以自己实现 Comparator 然后传到方法中。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public static &lt;T&gt; BinaryOperator&lt;T&gt; maxBy(Comparator&lt;? super T&gt; comparator) &#123;</span><br><span class="line">        Objects.requireNonNull(comparator);</span><br><span class="line">        return (a, b) -&gt; comparator.compare(a, b) &gt;= 0 ? a : b;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-Predicate"><a href="#4-Predicate" class="headerlink" title="4. Predicate"></a>4. Predicate</h3><p>对某种类型的数据进行判断，从而得到一个boolean值结果</p>
-<h4 id="4-1-test"><a href="#4-1-test" class="headerlink" title="4.1 test"></a>4.1 test</h4><p>Predicate 接口中包含一个抽象方法: boolean test(T t) </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import java.util.function.Predicate;</span><br><span class="line"></span><br><span class="line">public class Demo01Predicate &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        method(s -&gt; s.length() &gt; 5);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void method(Predicate&lt;String&gt; predicate) &#123;</span><br><span class="line">        boolean veryLong = predicate.test(&quot;HelloWorld&quot;);</span><br><span class="line">        System.out.println(&quot;字符串很长吗:&quot; + veryLong); // 字符串很长吗:true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>条件判断的标准是传入的Lambda表达式逻辑</p>
-<h4 id="4-2-and-与"><a href="#4-2-and-与" class="headerlink" title="4.2 and 与"></a>4.2 and 与</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">源码：</span><br><span class="line">default Predicate&lt;T&gt; and(Predicate&lt;? super T&gt; other) &#123;</span><br><span class="line">    Objects.requireNonNull(other);</span><br><span class="line">    return (t) -&gt; test(t) &amp;&amp; other.test(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import java.util.function.Predicate;</span><br><span class="line"></span><br><span class="line">public class DemoPredicateAnd &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        boolean isValid = method(</span><br><span class="line">                // String.contains()方法，仅当此字符串包含指定的字符值序列时返回true。</span><br><span class="line">                s -&gt; s.contains(&quot;H&quot;),</span><br><span class="line">                s -&gt; s.contains(&quot;W&quot;)</span><br><span class="line">        );</span><br><span class="line">        System.out.println(&quot;字符串符合要求吗:&quot; + isValid); // 字符串符合要求吗:false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static boolean method(Predicate&lt;String&gt; one, Predicate&lt;String&gt; two) &#123;</span><br><span class="line">        boolean isValid = one.and(two).test(&quot;Hello world&quot;);</span><br><span class="line">        return isValid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-3-or-或"><a href="#4-3-or-或" class="headerlink" title="4.3 or 或"></a>4.3 or 或</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">源码：</span><br><span class="line">default Predicate&lt;T&gt; or(Predicate&lt;? super T&gt; other) &#123;</span><br><span class="line">    Objects.requireNonNull(other);</span><br><span class="line">    return (t) -&gt; test(t) || other.test(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-4-negate-取反"><a href="#4-4-negate-取反" class="headerlink" title="4.4 negate 取反"></a>4.4 negate 取反</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">default Predicate&lt;T&gt; negate() &#123;</span><br><span class="line">    return (t) -&gt; !test(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/21/Function-1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1014,10 +868,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/mxxt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mxxt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <a href="mailto:386965035@qq.com" title="邮箱 → mailto:386965035@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
       </span>
   </div>
 
@@ -1044,7 +898,7 @@
   &copy; 2018 – 
   <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mxxct</span>
     <span class="post-meta-divider">|</span>
@@ -1060,6 +914,9 @@
 </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
@@ -1118,6 +975,10 @@
   </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
